@@ -1,0 +1,1 @@
+// main component for the generic timeline visualisation

@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* color palette from <https://github.com/vuejs/theme> */
+
+/* define additional component styles here  */
+
+/* search box styling across all pages */
+.ais-SearchBox-input {
+  @apply border-black border-2 rounded-xl pl-2;
+}
+
+.tab-standard {
+  @apply bg-black text-white mr-2 rounded px-4 py-2;
+}
+
+.tab-panel-standard {
+  @apply bg-gray-400 rounded p-4 mt-4;
+}
+
+
+.navigation-link{
+  @apply px-4 py-1 bg-primary-900 text-white rounded-2xl hover:cursor-pointer hover:bg-primary-100 hover:text-white;
+}
+

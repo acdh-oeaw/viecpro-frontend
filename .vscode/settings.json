@@ -1,0 +1,18 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
+  "[vue]": {
+    "editor.defaultFormatter": "vue.volar"
+  },
+  "eslint.enable": true,
+  "eslint.validate": ["javascript", "typescript", "vue"],
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "[json]": {
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace",
+    "gitlens.codeLens.scopes": ["document"]
+  }
+}
