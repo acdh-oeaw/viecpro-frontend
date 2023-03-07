@@ -29,7 +29,10 @@ searching / filtering the relation tables within the genericEntityDetailView.
               class="absolute bg-white rounded-2xl px-4 py-2 shadow-2xl shadow-black -translate-x-9 translate-y-2"
             >
               <!-- TODO: make variable names concrete -->
-              <template v-for="(values, key) in collections">
+              <template
+                v-for="(values, key) in collections"
+                :key="key + '_listboxoption'"
+              >
                 <ListboxOption
                   :value="key.toLowerCase()"
                   class="hover:bg-green-100 hover:cursor-pointer"
@@ -207,7 +210,7 @@ const collections = {
 //     hitsPerPage.value += 1;
 // }
 // functions defined
-function updateCollection(collection) {
+function updateCollection(collection: string) {
   console.log(collection);
 
   switch (collection) {
@@ -222,7 +225,7 @@ function updateCollection(collection) {
   }
 }
 
-function redirectToEntity(ent_type, ent_id, ent_model) {
+function redirectToEntity(ent_type: string, ent_id: string, ent_model: string) {
   const route = `/${ent_type}/${ent_model}/detail/${ent_id}`;
   router.push(route);
 }
@@ -264,7 +267,7 @@ const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
     nodes: [
       {
         host: "localhost",
-        port: "8109",
+        port: 8109,
         protocol: "http",
       },
     ],

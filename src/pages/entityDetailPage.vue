@@ -56,6 +56,7 @@ components - if we want to show detail views of relations at all.) */
       ></entityVisualisationSection>
     </div>
 
+    <!-- TODO: add proper :key attribs for all v-for loops here -->
     <div class="mx-40 bg-blue-200 min-h-screen pt-4" id="tables-section">
       <TabGroup>
         <TabList>
