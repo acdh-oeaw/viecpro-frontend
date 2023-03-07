@@ -61,7 +61,10 @@ components - if we want to show detail views of relations at all.) */
         <TabList>
           <Tab class="tab-standard">JSON</Tab>
           <Tab class="tab-standard">RelationsData</Tab>
-          <Tab v-for="(rels, model) in relations" class="tab-standard"
+          <Tab
+            v-for="(rels, model) in relations"
+            class="tab-standard"
+            :key="model + '_tablist'"
             >{{ model + " - Relations" }}
           </Tab>
         </TabList>
@@ -77,19 +80,23 @@ components - if we want to show detail views of relations at all.) */
             </div>
           </TabPanel>
           <TabPanel class="tab-panel-standard">
-            <div v-for="(values, model) in relations">
+            <div
+              v-for="(values, model) in relations"
+              :key="model + '_relation'"
+            >
               <h3 class="text-xl">{{ model + "-Relations" }}</h3>
               <ul>
-                <li v-for="val in values">{{ val }}</li>
+                <li v-for="val in values" :key="val + '_val'">{{ val }}</li>
               </ul>
             </div>
           </TabPanel>
           <TabPanel
             v-for="(rels, model) in relations"
             class="tab-panel-standard"
+            :key="model + '_rel2'"
           >
             <div class="flex-col">
-              <p v-for="rel in rels">{{ rel }}</p>
+              <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p>
             </div>
           </TabPanel>
         </TabPanels>
@@ -144,8 +151,8 @@ onBeforeMount(() => {
   }/${converted_model.value.toLowerCase()}/${props.ent_id}/?format=json`;
   // old working url: `http://127.0.0.1:8000/entity/${props.ent_id}/?format=json`
 
-  console.log(url);
-  let temp_rels: Object = {};
+  //TODO: refactor / remove this and add proper types
+  let temp_rels: object = {};
   fetch(url, {
     method: "GET",
     mode: "cors",
@@ -173,7 +180,6 @@ onBeforeMount(() => {
       json_data.relations.forEach((el) => {
         // transform relations array into object with key: related_entity, values: array of relations
         if (Object.keys(temp_rels).includes(el.related_entity.type)) {
-          console.log("key included", el.related_entity.type);
           temp_rels[el.related_entity.type].push(el);
         } else {
           temp_rels[el.related_entity.type] = [el];
