@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   content: ["./index.html", "./src/**/*.{vue, js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -60,5 +60,7 @@ module.exports = {
   },
   plugins: [],
 };
+
+module.exports = config
 
 // TODO: resolve module not found error above

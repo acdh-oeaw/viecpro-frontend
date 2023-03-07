@@ -136,12 +136,7 @@ searching / filtering the relation tables within the genericEntityDetailView.
           </template>
         </ais-hits>
       </div>
-      <div>
-        <!-- <entitiesResults v-if="selectedCollection === 'entities'"></entitiesResults>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  <entitiesFilters v-if="selectedCollection === 'entities'"></entitiesFilters>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  <relationsResults v-if="selectedCollection === 'relations'"></relationsResults>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  <relationsFilters v-if="selectedCollection === 'relations'"></relationsFilters> -->
-      </div>
+      <div></div>
     </div>
   </ais-instant-search>
 </template>
@@ -238,9 +233,9 @@ function showClient() {
 const additionalSearchParameters = {
   query_by: "ent_a, relation_type",
 };
+let params: string;
 
 watch(selectedCollection, () => {
-  let params;
   switch (selectedCollection.value) {
     case "entities":
       params = "name";
