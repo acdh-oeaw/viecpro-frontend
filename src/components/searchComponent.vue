@@ -33,8 +33,6 @@ import Typesense from "typesense";
 const selectedCollection: Ref<string> = ref("personinstitution");
 const placeholder: Ref<string> = ref("type to search");
 const hitsPerPage: Ref<number> = ref(20);
-const show_ais = ref(false);
-const myCollection = ref("personinstitution");
 // const model_type: Ref<String> = ref("")
 
 // TODO: move collections to a seperate directory with settings / options or request them dynamically from typesense server
@@ -73,7 +71,6 @@ const collections = {
 function updateCollection(collection: string) {
   console.log(collection);
 
-  show_ais.value = false;
   switch (collection) {
     case "entities":
       selectedCollection.value = collection;
@@ -129,8 +126,6 @@ watch(selectedCollection, () => {
   typesenseInstantSearchAdapter.configuration.additionalSearchParameters.highlight_full_fields =
     params;
   placeholder.value = `search in ${selectedCollection.value}`;
-  myCollection.value = selectedCollection.value;
-  show_ais.value = true;
 }); // guess I need to make this reactive to change in sync with collection // think even computed would do
 
 const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
@@ -159,10 +154,12 @@ const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
 });
 
 const searchClient = typesenseInstantSearchAdapter.searchClient;
-show_ais.value = true;
 </script>
 <template>
-  <ais-instant-search :search-client="searchClient" :index-name="myCollection">
+  <ais-instant-search
+    :search-client="searchClient"
+    :index-name="selectedCollection"
+  >
     <div
       class="bg-yellow-100 min-h-20 w-screen flex py-10 place-content-between px-60"
     >
@@ -208,12 +205,12 @@ show_ais.value = true;
           </Listbox>
         </div>
         <div class="flex bg-green-200">
-          <button @click="updateCollection('entities')">Entities</button>
+          <!-- <button @click="updateCollection('entities')">Entities</button>
           <button @click="updateCollection('personinstitution')">PI</button>
 
-          <button @click="updateCollection('relations')">Relations</button> -->
-          <button @click="showClient()">ShowClient</button>
-          <button @click="increaseHits()">AddResults</button>
+          <button @click="updateCollection('relations')">Relations</button> 
+          <button @click="showClient()">ShowClient</button> -->
+          <!-- <button @click="increaseHits()">AddResults</button> -->
           <label for="set-hits-per-page" class="mr-4">Results per page: </label>
           <input
             type="text"
@@ -231,11 +228,7 @@ show_ais.value = true;
         </ais-search-box>
       </div>
     </div>
-    <div
-      v-if="show_ais"
-      class="bg-blue-100 w-screen flex"
-      id="result-and-filter-section"
-    >
+    <div class="bg-blue-100 w-screen flex" id="result-and-filter-section">
       <div
         class="bg-gray-400 w-100 h-auto min-h-100 px-20 py-10"
         id="filter-section"
@@ -249,11 +242,7 @@ show_ais.value = true;
         </div>
       </div>
 
-      <div
-        v-if="show_ais"
-        id="result-section"
-        class="mx-auto px-60 py-10 bg-red-600"
-      >
+      <div id="result-section" class="mx-auto px-60 py-10 bg-red-600">
         <ais-configure :hits-per-page.camel="hitsPerPage" />
 
         <ais-hits>
