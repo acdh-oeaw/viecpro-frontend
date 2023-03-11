@@ -4,6 +4,90 @@ deals with entities and relations display (i.e. you can view a single relation
 instance as the base entity. This needs to be split into two different generic
 components - if we want to show detail views of relations at all.) */
 
+<script setup lang="ts">
+// utitily imports
+import { assertLiteral, stringLiteral } from "@babel/types";
+import { ref, onBeforeMount, reactive } from "vue";
+import type { Ref } from "vue";
+
+// component imports
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import entityVisualisationSection from "@/components/entity-components/entityVisualisationSection.vue";
+import genericEntityMeta from "../components/entity-components/entity-meta/genericEntityMeta.vue";
+import { Switch } from "@headlessui/vue";
+
+const entityType: Ref<string> = ref("");
+const data: Ref<object> = ref({});
+const functions: Ref<Array<string>> = ref([]);
+const relations: Ref<object> = ref({});
+const converted_model: Ref<string> = ref("");
+const showInformation: Ref<boolean> = ref(false);
+//const model_type: Ref<String> = ref("")
+
+const props = defineProps({
+  ent_type: String,
+  ent_id: String,
+  ent_model: String,
+  model_type: String,
+});
+
+// TODO: make this a composable
+// TODO: delegetae the responsibility for processing the received data to the views that use the composable
+// TODO: write reusable processing functions for formatting the fetched data
+onBeforeMount(() => {
+  const etype = props.ent_type == "entities" ? "person" : "relation";
+
+  // work around for the current editor only implementation of splitting Persons into viecpro specific types. maps those types back to "person"
+  // will be removed later
+  if (["Vorfin", "Single", "Dublette"].includes(props.ent_model as string)) {
+    converted_model.value = "person";
+  } else {
+    converted_model.value = props.ent_model as string;
+  }
+
+  const url = `http://127.0.0.1:8000/apis/api/${
+    props.ent_type
+  }/${converted_model.value.toLowerCase()}/${props.ent_id}/?format=json`;
+  // old working url: `http://127.0.0.1:8000/entity/${props.ent_id}/?format=json`
+
+  //TODO: refactor / remove this and add proper types
+  let temp_rels: object = {};
+  fetch(url, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Token 290ff193f1d8520b14d86614bd62b731edf683b0",
+      accept: "*/*",
+    },
+  })
+    .then((d) => d.json())
+    .then((json_data) => {
+      data.value = json_data;
+      let test: Set<string> | Array<string> = new Set(
+        json_data.relations.map((el) => {
+          if (el.related_entity.type == "Institution") {
+            return el.relation_type.label;
+          } else {
+            return "placeholder dummy";
+          }
+        })
+      );
+      test = Array.from(test).filter((el) => el != "placeholder dummy");
+
+      functions.value = test;
+      json_data.relations.forEach((el) => {
+        // transform relations array into object with key: related_entity, values: array of relations
+        if (Object.keys(temp_rels).includes(el.related_entity.type)) {
+          temp_rels[el.related_entity.type].push(el);
+        } else {
+          temp_rels[el.related_entity.type] = [el];
+        }
+      });
+      relations.value = temp_rels;
+    });
+});
+</script>
 <template>
   <div id="main-container flex">
     <!-- TODO: make this a composable also -->
@@ -105,91 +189,6 @@ components - if we want to show detail views of relations at all.) */
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-// utitily imports
-import { assertLiteral, stringLiteral } from "@babel/types";
-import { ref, onBeforeMount, reactive } from "vue";
-import type { Ref } from "vue";
-
-// component imports
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
-import entityVisualisationSection from "@/components/entity-components/entityVisualisationSection.vue";
-import genericEntityMeta from "../components/entity-components/entity-meta/genericEntityMeta.vue";
-import { Switch } from "@headlessui/vue";
-
-const entityType: Ref<string> = ref("");
-const data: Ref<object> = ref({});
-const functions: Ref<Array<string>> = ref([]);
-const relations: Ref<object> = ref({});
-const converted_model: Ref<string> = ref("");
-const showInformation: Ref<boolean> = ref(false);
-//const model_type: Ref<String> = ref("")
-
-const props = defineProps({
-  ent_type: String,
-  ent_id: String,
-  ent_model: String,
-  model_type: String,
-});
-
-// TODO: make this a composable
-// TODO: delegetae the responsibility for processing the received data to the views that use the composable
-// TODO: write reusable processing functions for formatting the fetched data
-onBeforeMount(() => {
-  const etype = props.ent_type == "entities" ? "person" : "relation";
-
-  // work around for the current editor only implementation of splitting Persons into viecpro specific types. maps those types back to "person"
-  // will be removed later
-  if (["Vorfin", "Single", "Dublette"].includes(props.ent_model as string)) {
-    converted_model.value = "person";
-  } else {
-    converted_model.value = props.ent_model as string;
-  }
-
-  const url = `http://127.0.0.1:8000/apis/api/${
-    props.ent_type
-  }/${converted_model.value.toLowerCase()}/${props.ent_id}/?format=json`;
-  // old working url: `http://127.0.0.1:8000/entity/${props.ent_id}/?format=json`
-
-  //TODO: refactor / remove this and add proper types
-  let temp_rels: object = {};
-  fetch(url, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Token 290ff193f1d8520b14d86614bd62b731edf683b0",
-      accept: "*/*",
-    },
-  })
-    .then((d) => d.json())
-    .then((json_data) => {
-      data.value = json_data;
-      let test: Set<string> | Array<string> = new Set(
-        json_data.relations.map((el) => {
-          if (el.related_entity.type == "Institution") {
-            return el.relation_type.label;
-          } else {
-            return "placeholder dummy";
-          }
-        })
-      );
-      test = Array.from(test).filter((el) => el != "placeholder dummy");
-
-      functions.value = test;
-      json_data.relations.forEach((el) => {
-        // transform relations array into object with key: related_entity, values: array of relations
-        if (Object.keys(temp_rels).includes(el.related_entity.type)) {
-          temp_rels[el.related_entity.type].push(el);
-        } else {
-          temp_rels[el.related_entity.type] = [el];
-        }
-      });
-      relations.value = temp_rels;
-    });
-});
-</script>
 
 <style scoped>
 /* This was just a test to try the scoped apply */

@@ -11,6 +11,6 @@
   style="text-align: left; min-width: 300px"
 /> -->
 </template>
-<script setup></script>
+<script setup lang="ts"></script>
 
 <style scoped></style>
