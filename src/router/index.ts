@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import landingPage from "../pages/landingPage.vue";
 import databaseSearchPage from "../pages/databaseSearchPage.vue";
 import entityDetailPage from "@/pages/entityDetailPage.vue";
+import deduplicationPage from "@/pages/deduplicationPage.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,6 +25,11 @@ const router = createRouter({
       component: entityDetailPage,
       props: true,
     },
+    {
+      path:"/deduplication",
+      name: "deduplication",
+      component: deduplicationPage
+    }
   ],
 });
 

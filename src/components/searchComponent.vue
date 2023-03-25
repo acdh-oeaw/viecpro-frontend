@@ -69,7 +69,7 @@ const collections = {
 // }
 // functions defined
 function updateCollection(collection: string) {
-  console.log(collection);
+  console.log("COl is now: ", collection);
 
   switch (collection) {
     case "entities":
@@ -80,6 +80,10 @@ function updateCollection(collection: string) {
       break;
 
     case "personinstitution":
+      selectedCollection.value = collection;
+      break;
+
+    case "PersonPlace":
       selectedCollection.value = collection;
       break;
     default:
@@ -116,6 +120,10 @@ watch(selectedCollection, () => {
     case "personinstitution":
       params = "source.name, target.name";
       console.log("changed to personinstitution params");
+      break;
+
+    case "PersonPlace":
+      params = "source.name, target.name";
       break;
     default:
       console.log("in searchParam switch, could not find right case for: ");
@@ -274,7 +282,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                     @click="redirectToEntity('entities', item.id, item.model)"
                   ></ais-highlight>
                   <ais-highlight
-                    v-if="selectedCollection == 'personinstitution'"
+                    v-if="selectedCollection == 'personinstitution' || selectedCollection == 'PersonPlace'"
                     :hit="item"
                     attribute="source.name"
                     class="entity_tag hover:cursor-pointer hover:underline"
@@ -294,7 +302,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                     class="entity_tag"
                   ></ais-highlight>
                   <ais-highlight
-                    v-if="selectedCollection == 'personinstitution'"
+                    v-if="selectedCollection == 'personinstitution' || selectedCollection == 'PersonPlace'"
                     :hit="item"
                     attribute="target.name"
                     class="entity_tag hover:cursor-pointer hover:underline"

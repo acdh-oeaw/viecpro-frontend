@@ -1,0 +1,74 @@
+h1{
+    color: white;
+background-color: black;
+}
+
+
+.name-label-label{
+    background-color: lightgrey;
+}
+
+.group_list_item_:hover {
+    background-color:lightblue !important;
+}
+
+
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.note_icon_button{
+    background-color: inherit;
+}
+
+.has_note_flag {
+    background-color: lightblue;
+}
+
+.my_checkbox{
+    background-color: lightpink;
+}
+
+.checkbox_is_true{
+    background-color:lightblue;
+}
+
+body{
+    height:auto !important;
+}
+
+#content{
+    padding-bottom: 200px;
+}
+
+.group_action_button{
+    display:none;
+}
+
+.span_group_actions{
+    transition: 2s;
+}
+
+#singles_header{
+    display:none;
+}
+
+.span_relation_type{
+    background-color: lightpink;
+
+}
+
+.span_related_institution{
+    background-color: lightgrey;
+
+}
+
+.span_rel_dates{
+    background-color: lightpink;
+
+}
+
