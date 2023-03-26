@@ -6,7 +6,6 @@ components - if we want to show detail views of relations at all.) */
 
 <script setup lang="ts">
 // utitily imports
-import { assertLiteral, stringLiteral } from "@babel/types";
 import { ref, onBeforeMount, reactive } from "vue";
 import type { Ref } from "vue";
 

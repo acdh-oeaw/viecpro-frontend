@@ -32,9 +32,7 @@ import { RouterLink, RouterView } from "vue-router";
 import pageNavigation from "./components/pageNavigation.vue";
 import footerBar from "./components/footerBar.vue";
 import navLink from "./components/navLink.vue";
-import type { navlinkProp } from "./types";
-
-
+import type { navlinkProp } from "./types/prop_types";
 
 const navLinks: navlinkProp[] = [
   { name: "Home", route: "/" },

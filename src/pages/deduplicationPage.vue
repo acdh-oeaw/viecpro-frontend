@@ -11,115 +11,141 @@ import {
 } from "vue";
 
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import GenericList from "../components/deduplication-components/GenericList.vue";
+import type { genderOptions } from "../types/apis_types";
+import type {
+  groupListItem,
+  singleListItem,
+  requestMap,
+  itemIDArray,
+  ItemType,
+  Group,
+} from "../types/deduplication_types";
+import type { Ref } from "vue";
 
-const apiMap = {
-  fetchGroupSuggestions: "",
-  fetchGroupByID: {
-    url: "{% url 'dubletten_tool:group_api' action='fetchGroupByID' %}",
+const apiMap: requestMap = {
+  fetchGroupSuggestions: {
+    // TODO: refactor url into endpoint, and list of params (like [action, id] to be parsed into endpoint / action / id)
+    // TODO: in the fetch Method wrapper, construct the url from base-url / endpoint / kwarg-array.
+    url: "",
     method: "GET",
-    callback: displayGroup,
+    callback: console.log,
   },
-  removeMemberFromGroup: "",
-  updateGroupName: "",
-  fetchSingle: "",
-  fetchSingles: "",
+  fetchGroupByID: {
+    url: "http//:127.0.0.1:8000/dubletten/vue_test/fetchAllGroups",
+    method: "GET",
+    callback: console.log,
+  },
+  removeMemberFromGroup: {
+    url: "",
+    method: "GET",
+    callback: console.log,
+  },
+  updateGroupName: {
+    url: "",
+    method: "GET",
+    callback: console.log,
+  },
+  fetchSingle: {
+    url: "",
+    method: "GET",
+    callback: console.log,
+  },
+  fetchSingles: {
+    url: "",
+    method: "GET",
+    callback: console.log,
+    //callback: console.log,
+  },
   fetchGroups: {
-    url: "{% url 'dubletten_tool:group_api' action='fetchGroups' %}",
+    url: "http://localhost:8000/dubletten/group_api/fetchGroups/",
     method: "GET",
     callback: updateGroupsList,
   },
-  fetchAllNotes: "",
+  fetchAllNotes: {
+    url: "",
+    method: "GET",
+    callback: console.log,
+  },
 };
 
-const Singles = ref([]);
-let allGroups = [];
-const Groups = ref([]);
-const selectedGender = ref("Male");
+const Singles: Ref<Array<singleListItem>> = ref([]);
+let allGroups: Array<groupListItem> = [];
+const Groups: Ref<Array<groupListItem>> = ref([]);
+const selectedGender: Ref<genderOptions> = ref("Male");
 
+// TODO: make two nested ref-objects for Selections and boolean SHOW flags.
 // singles are selected from the singles tab
-const selectedSingles = ref([]);
+const selectedSingles: Ref<itemIDArray> = ref([]);
 
 // groups are selected from the groups tab
-const selectedGroups = ref([]);
+const selectedGroups: Ref<groupListItem[]> = ref([]);
 
 // members are either singles or persons in groups, that are selected in displayed groups and singles.
-const selectedMembers = ref([]);
-const groupDisplay = ref([]);
+const selectedMembers: Ref<itemIDArray> = ref([]);
+const groupDisplay: Ref<Array<Group>> = ref([]);
 
 // handle this at the end. because this involves restructuring the page layout to use a flex layout, instead of bootstrap-grid
-const showBrowser = ref(true);
-const showNavbar = ref(true);
-const showRelations = ref(true);
+const showBrowser: Ref<boolean> = ref(true);
+const showNavbar: Ref<boolean> = ref(true);
+const showRelations: Ref<boolean> = ref(true);
 
 // this are the refs for the search-inputs
 const groupNameSearch = ref("group name");
-
-function displayGroup(response) {
-  console.log("display group called with", response);
-  comp_temp = h(compile(response.html), { toggleEntity: toggleEntity });
-
-  console.log(comp_temp, typeof comp_temp);
-  console.log(this);
-  //$("#selected-groups").append(response.html)
-  el = $("#selected-groups")[0];
-  console.log(el);
-  render(comp_temp, el);
-}
 
 function innerTest(data) {
   console.log(data);
 }
 
 function filterGroups() {
-  terms = groupNameSearch.value.split(" ");
+  let terms: Array<string> = groupNameSearch.value.split(" ");
   console.log("terms", terms);
   Groups.value = allGroups.filter((item) => {
-    res = terms.every((term) => item.name.includes(term));
+    let res: boolean = terms.every((term) => item.name.includes(term));
     return res;
   });
 }
 
-function fetchFromAPI(tag, data = { test: "no data send" }) {
-  $.ajax({
-    url: apiMap[tag]["url"],
-    type: apiMap[tag]["method"],
-    dataType: "json",
-    data: data,
-    beforeSend: function (request) {
-      let csrftoken = getCookie("csrftoken");
-      request.setRequestHeader("X-CSRFToken", csrftoken);
-    },
-    success: function (response) {
-      //console.log("data arrived as", data);
+// make this a composable
+// TODO: replace any here later with pre-defined data object interfaces to be send with POST request
+function fetchFromAPI(
+  tag: keyof requestMap,
+  data: { [key: string]: any } = { test: "no data send placeholder" }
+) {
+  // set method in apiMap
 
-      callback = apiMap[tag]["callback"];
-      callback(response);
+  fetch(apiMap[tag]["url"], {
+    method: "POST",
+    //credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
     },
-  });
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((json) => apiMap[tag]["callback"](json));
 }
 
 function updateGroupsList(data) {
   console.log("updateGroupsList data received: ", data);
-  groups = data.groups;
+  let groups = data.groups;
   Groups.value = groups;
   allGroups = groups;
 }
 
-function selectionResponse(vue_ref, id) {
+function selectionResponse(vue_ref: Ref, id: number) {
   console.log("reached selectionResponse");
   switch (vue_ref) {
     case selectedGroups:
       console.log("cae selected Groups matched");
       fetchFromAPI("fetchGroupByID", (data = { id: id }));
       break;
-
-    case "default":
+    default:
       alert("reached default in selectionResponse");
-      break;
   }
 }
 
-function updateSelection(vue_ref, id) {
+function updateSelection(vue_ref: Ref, id: number) {
   /**
    * Helper function that adds or removes an items id from the respective ref that holds
    * all selected items of this type. Type distinction is handled prior to calling this function in
@@ -127,7 +153,7 @@ function updateSelection(vue_ref, id) {
    */
 
   if (vue_ref.value.includes(id)) {
-    idx = vue_ref.value.indexOf(id);
+    let idx: number = vue_ref.value.indexOf(id);
     vue_ref.value.splice(idx, 1);
   } else {
     vue_ref.value.push(id);
@@ -135,7 +161,7 @@ function updateSelection(vue_ref, id) {
   }
 }
 
-function toggleEntity(type, id) {
+function toggleEntity(type: ItemType, id: number): void {
   /**
                 Generic callback when an item representing an entity (Single, Group, Group-Member) is clicked:
         
@@ -144,15 +170,15 @@ function toggleEntity(type, id) {
   console.log("reached togllge entity: ", type, id);
 
   switch (type) {
-    case "SINGLE":
+    case "single":
       updateSelection(selectedSingles, id);
       break;
 
-    case "GROUP":
+    case "group":
       updateSelection(selectedGroups, id);
       break;
 
-    case "MEMBER":
+    case "member":
       updateSelection(selectedMembers, id);
       break;
 
@@ -190,8 +216,9 @@ function pollCeleryTaskStatus() {}
 
 function removeGroupMember() {}
 
-function log(id) {
+function log(id: number) {
   //console.log(this, event, event.target);
+  // TODO: fix deprecated event.target implementation
   event.target.style =
     "background-color:" +
     (selectedGroups.value.includes(id) ? "blue" : "grey") +
@@ -208,36 +235,39 @@ function unlog(id) {
 </script>
 <template>
   <div class="w-vw bg-red-400 flex-col">
-    <div class="w-vw" id="dedup-header">test1</div>
+    <div class="w-vw" id="dedup-header">Results & Hedaer</div>
     <div class="w-vw bg-blue-200 flex justify-between" id="dedup-body">
       <div class="w-vw flex-col" id="dedup-browser-section">
         <h1>Browser Header</h1>
-        <div> <TabGroup>
-        <TabList>
-          <Tab class="tab-standard">Groups</Tab>
-          <Tab class="tab-standard">Singles</Tab>
-          <Tab class="tab-standard">Marked</Tab>
-
-        </TabList>
-        <TabPanels>
-          <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
-          <TabPanel class="tab-panel-standard">
-          <div class="bg-red-300">A</div>
-     
-       
-          </TabPanel>
-          <TabPanel class="tab-panel-standard">
-            <div class="bg-yellow-300">B</div>
-
-          </TabPanel>
-          <TabPanel class="tab-panel-standard">
-            <div class="bg-green-300">C</div>
-
-          </TabPanel>
-        </TabPanels>
-      </TabGroup></div>
+        <div>
+          <TabGroup>
+            <TabList>
+              <Tab class="tab-standard">Groups</Tab>
+              <Tab class="tab-standard">Singles</Tab>
+              <Tab class="tab-standard">Marked</Tab>
+            </TabList>
+            <TabPanels>
+              <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
+              <TabPanel class="tab-panel-standard">
+                <div class="bg-red-300">A</div>
+              </TabPanel>
+              <TabPanel class="tab-panel-standard">
+                <div class="bg-yellow-300">B</div>
+              </TabPanel>
+              <TabPanel class="tab-panel-standard">
+                <div class="bg-green-300">C</div>
+              </TabPanel>
+            </TabPanels>
+          </TabGroup>
+        </div>
       </div>
       <div class="w-vw">Selection</div>
+      <button
+        class="border rounded-xl h-4 p-3 my-auto"
+        @click="fetchFromAPI('fetchGroups')"
+      >
+        CallAPI
+      </button>
       <div class="w-vw">Info</div>
     </div>
   </div>
@@ -412,9 +442,16 @@ function unlog(id) {
                 style="overflow-y: scroll; height: 80vh"
                 id="group_list_container"
               >
-                <ul>
+                <GenericList
+                v-if="allGroups"
+                  class="bg-blue-200"
+                  :item_type="'group'"
+                  :data="Groups"
+                ></GenericList>
+                <!-- <ul>
                   <template v-for="group in Groups" :key="group.id">
-                    <li>
+                    <GroupListItem :item="group"></GroupListItem> -->
+                <!-- <li>
                       <span
                         @click="toggleEntity('GROUP', group.id)"
                         @mouseover="
@@ -431,9 +468,9 @@ function unlog(id) {
                       >
                         {{ group.name }}, ( {{ group.id }} )</span
                       >
-                    </li>
-                  </template>
-                </ul>
+                    </li> -->
+                <!-- </template>
+                </ul> -->
               </div>
             </div>
             <div class="tab-pane fade" id="singles_section" role="tabpanel">
@@ -534,13 +571,14 @@ function unlog(id) {
         <button class="button" @click="fetchFromAPI('fetchGroups')">
           TestAPI
         </button>
-        <ul>
+        <!-- <ul>
           <template v-for="group in selectedGroups" :key="group">
             <li>
-              <span @click="toggleEntity('GROUP', group)"> {{ group }}</span>
+              <span @click="toggleEntity('group', group)"> {{ group }}</span>
             </li>
           </template>
-        </ul>
+        </ul> -->
+
         <div id="selected-groups"></div>
       </div>
       <!-- display suggestions, metainfo, details, etc in here -->

@@ -1,0 +1,41 @@
+<script setup lang="ts">
+// Write this as a generic wrapper for lis.
+
+import GroupListItem from "./GroupListItem.vue";
+import SingleListItem from "./SingleListItem.vue";
+import MemberListitem from "./MemberListItem.vue";
+
+import type { PropType } from "vue";
+import type {
+  ItemType,
+  deduplicationItem,
+} from "../../types/deduplication_types";
+
+console.log("generic list component body parsed");
+const props = defineProps<{
+  item_type: ItemType;
+  data: Array<deduplicationItem>;
+}>();
+
+const itemMap = {
+  group: GroupListItem,
+  single: SingleListItem,
+  member: MemberListitem,
+};
+
+const selectedComponent = itemMap[props.item_type];
+</script>
+
+<template>
+  <div>
+    <ul>
+      <component
+        :is="selectedComponent"
+        v-for="item in props.data"
+        :item="item"
+        :key="item.id"
+      ></component>
+    </ul>
+  </div>
+</template>
+<style scoped></style>
