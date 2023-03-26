@@ -11,6 +11,7 @@ import type {
   deduplicationItem,
 } from "../../types/deduplication_types";
 import SelectedSingleItem from "./selectedSingleItem.vue";
+import VorfinListItem from "./VorfinListItem.vue";
 
 console.log("generic list component body parsed");
 const props = defineProps<{
@@ -22,6 +23,7 @@ const itemMap = {
   group: GroupListItem,
   single: SingleListItem,
   member: MemberListitem,
+  vorfin: VorfinListItem,
   selectedGroup: SelectedGroupItem,
   selectedSingle: SelectedSingleItem,
 };

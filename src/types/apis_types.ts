@@ -11,7 +11,7 @@ export type VocabsType =
   | "relation_type"
   | "text_type"; // TODO: make this types, not strings
 
-export type genderOptions = "Male" | "Female" | "Other" | "None";
+export type genderOptions = "Male" | "Female" | "Other" | "None" | "All";
 
 export interface Label {
   label: string;

@@ -17,12 +17,19 @@ export interface vorfinItem {
 export interface singleListItem {
   id: number;
   name: string;
+  first_name: string;
 }
-
 
 export interface memberListItem {
   id: number;
   name: string;
+  first_name: string;
+}
+
+export interface vorfinListItem {
+  id: number;
+  name: string;
+  first_name: string;
 }
 
 export interface groupListItem {
@@ -30,9 +37,9 @@ export interface groupListItem {
   name: string;
   vorfin: vorfinItem;
 }
-export type deduplicationItem = groupListItem | singleListItem | memberItem
+export type deduplicationItem = groupListItem | singleListItem | memberItem;
 
-export type ItemType = "single" | "member" | "group" | "selectedGroup";
+export type ItemType = "single" | "member" | "group" | "selectedGroup" | "vorfin";
 export interface deduplicationRequestSettings {
   url: string;
   method: "POST" | "PUT" | "UPDATE" | "DELETE" | "GET";
@@ -49,6 +56,5 @@ export interface Group {
 export type itemIDArray = number[];
 export interface Single {}
 
-
 // api response types
-// TODO: add types for json response objects here. 
+// TODO: add types for json response objects here.

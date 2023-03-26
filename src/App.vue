@@ -37,8 +37,8 @@ import type { navlinkProp } from "./types/prop_types";
 const navLinks: navlinkProp[] = [
   { name: "Home", route: "/" },
   { name: "Database", route: "/search" },
-  { name: "About", route: "/about" },
   { name: "Deduplication", route: "/deduplication" },
+  { name: "About", route: "/about" },
 ];
 </script>
 

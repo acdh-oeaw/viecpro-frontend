@@ -16,12 +16,15 @@ import type { genderOptions } from "../types/apis_types";
 import type {
   groupListItem,
   singleListItem,
+  memberListItem,
+  vorfinListItem,
   requestMap,
   itemIDArray,
   ItemType,
   Group,
 } from "../types/deduplication_types";
 import type { Ref } from "vue";
+import VorfinListItem from "@/components/deduplication-components/VorfinListItem.vue";
 
 const selectedTab: Ref<string> = ref("group");
 const tabList = ["group", "single", "member", "vorfin", "notes"];
@@ -79,7 +82,10 @@ const apiMap: requestMap = {
 const Singles: Ref<Array<singleListItem>> = ref([]);
 let allGroups: Array<groupListItem> = [];
 const Groups: Ref<Array<groupListItem>> = ref([]);
-const selectedGender: Ref<genderOptions> = ref("male");
+const Members: Ref<Array<memberListItem>> = ref([]);
+const Vorfins: Ref<Array<vorfinListItem>> = ref([]);
+
+const selectedGender: Ref<genderOptions> = ref("Male");
 
 // TODO: make two nested ref-objects for Selections and boolean SHOW flags.
 // singles are selected from the singles tab
@@ -89,7 +95,9 @@ const selectedSingles: Ref<itemIDArray> = ref([]);
 const selectedGroups: Ref<groupListItem[]> = ref([]);
 
 // members are either singles or persons in groups, that are selected in displayed groups and singles.
-const selectedMembers: Ref<itemIDArray> = ref([]);
+const selectedMember: Ref<number> = ref(-2);
+const selectedVorfin: Ref<number> = ref(-2);
+
 const groupDisplay: Ref<Array<Group>> = ref([]);
 
 // handle this at the end. because this involves restructuring the page layout to use a flex layout, instead of bootstrap-grid
@@ -104,7 +112,8 @@ const firstNameSearch: Ref<string> = ref("");
 provide("toggleCallback", {
   selectedGroups,
   selectedSingles,
-  selectedMembers,
+  selectedMember,
+  selectedVorfin,
   toggleEntity,
 });
 
@@ -131,6 +140,14 @@ function searchResponseCallback(data) {
     case "single":
       console.log("single branch in switch reached");
       Singles.value = data.results;
+      break;
+
+    case "member":
+      Members.value = data.results;
+      break;
+
+    case "vorfin":
+      Vorfins.value = data.results;
       break;
 
     default:
@@ -172,10 +189,11 @@ function fetchFromAPI(
     body: JSON.stringify(data),
   })
     .then((response) => response.json())
-    .then((json) => apiMap[tag]["callback"](json));
+    .then((json) => {console.log("received: ", json); return apiMap[tag]["callback"](json);})
 }
 
 function updateGroupsList(data) {
+  // TODO: remove, this is not used any longer
   console.log("updateGroupsList data received: ", data);
   let groups = data.groups;
   Groups.value = groups;
@@ -232,7 +250,15 @@ function toggleEntity(type: ItemType, id: number): void {
       break;
 
     case "member":
-      updateSelection(selectedMembers, id);
+      selectedMember.value == id
+        ? (selectedMember.value = -2)
+        : (selectedMember.value = id);
+      break;
+
+    case "vorfin":
+      selectedVorfin.value == id
+        ? (selectedVorfin.value = -2)
+        : (selectedVorfin.value = id);
       break;
 
     default:
@@ -244,12 +270,17 @@ watch(selectedGroups.value, () => {
   console.log("selected Groups", selectedGroups.value);
 });
 
+watch(selectedMember, () => {
+  console.log("selected Member", selectedMember.value);
+});
+
 watch(selectedSingles.value, () => {
   console.log("selected Singles", selectedSingles.value);
 });
 
 watch(selectedGender, () => {
   console.log("selected Gender: ", selectedGender.value);
+  performSearch();
 });
 
 watch(selectedTab, () => {
@@ -325,8 +356,10 @@ function removeGroupMember() {}
                       />
                     </div>
                     <div
-                      v-if="selectedTab === 'single'"
-                      class="flex justify-between my-2"
+                      v-if="
+                        ['single', 'member', 'vorfin'].includes(selectedTab)
+                      "
+                      class="my-2"
                     >
                       <label class="mr-4" for="main-search-field-first-name"
                         >First-name:
@@ -391,6 +424,18 @@ function removeGroupMember() {}
                           Other
                         </label>
                       </RadioGroupOption>
+                      <RadioGroupOption v-slot="{ checked }" value="All">
+                        <input
+                          class="clickable"
+                          type="radio"
+                          name="genderCheckGroup"
+                          id="gender-option-all"
+                        />
+                        <label class="mr-2 clickable" for="gender-option-all">
+                          All
+                        </label>
+                      </RadioGroupOption>
+                  
                     </div>
                   </div>
                 </RadioGroup>
@@ -413,7 +458,21 @@ function removeGroupMember() {}
                 ></GenericList>
               </TabPanel>
               <TabPanel class="tab-panel-standard">
-                <div class="bg-green-300">C</div>
+                <GenericList
+                  class="bg-blue-200"
+                  :item_type="'member'"
+                  :data="Members"
+                ></GenericList>
+              </TabPanel>
+              <TabPanel class="tab-panel-standard">
+                <GenericList
+                  class="bg-blue-200"
+                  :item_type="'vorfin'"
+                  :data="Vorfins"
+                ></GenericList>
+              </TabPanel>
+              <TabPanel class="tab-panel-standard">
+                <div class="bg-green-300">E</div>
               </TabPanel>
             </TabPanels>
           </TabGroup>

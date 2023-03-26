@@ -6,7 +6,7 @@ const props = defineProps<{
   item: singleListItem;
 }>();
 
-const { selectedGroups, selectedSingles, selectedMemebers, toggleEntity } =
+const { selectedGroups, selectedSingles, selectedMember, toggleEntity } =
   inject("toggleCallback");
 
 function ListItemClickHandler(id: number): void {
@@ -15,7 +15,9 @@ function ListItemClickHandler(id: number): void {
 }
 
 const isSelected = computed(() => {
-  return selectedSingles ? selectedSingles.value.includes(props.item.id) : false;
+  return selectedSingles
+    ? selectedSingles.value.includes(props.item.id)
+    : false;
 });
 
 // todo: make on click function a generic composable, because it is mostly the same for singles and groups
@@ -29,7 +31,7 @@ const isSelected = computed(() => {
       'bg-blue-500': isSelected,
     }"
   >
-    {{ props.item.name ? props.item.name : "no name" }} - {{ props.item.id }}
+    {{ props.item.name ? props.item.name : "no name" }}, {{ props.item.first_name }} ({{ props.item.id }})
   </li>
 </template>
 <style scoped></style>

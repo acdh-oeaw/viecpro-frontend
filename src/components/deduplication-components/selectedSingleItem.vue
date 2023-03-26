@@ -6,7 +6,7 @@ const props = defineProps<{
   item: singleListItem | number;
 }>();
 
-const { selectedGroups, selectedSingles, selectedMemebers, toggleEntity } =
+const { selectedGroups, selectedSingles, selectedMember, toggleEntity } =
   inject("toggleCallback");
 
 function ListItemClickHandler(id: number): void {
