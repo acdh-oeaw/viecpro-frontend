@@ -26,10 +26,10 @@ const router = createRouter({
       props: true,
     },
     {
-      path:"/deduplication",
+      path: "/deduplication",
       name: "Deduplication",
       component: deduplicationPage,
-    }
+    },
   ],
 });
 

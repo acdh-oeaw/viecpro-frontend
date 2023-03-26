@@ -23,7 +23,7 @@ const isSelected = computed(() => {
 
 <template>
   <li
-    class="bg-red-200"
+    class="bg-red-200 clickable"
     @click="ListItemClickHandler(props.item.id)"
     :class="{
       'bg-blue-500': isSelected,

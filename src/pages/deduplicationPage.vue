@@ -36,6 +36,11 @@ const apiMap: requestMap = {
     method: "POST",
     callback: console.log,
   },
+  searchItems: {
+    url: "http://localhost:8000/dubletten/group_api/searchItems/",
+    method: "POST",
+    callback: searchResponseCallback,
+  },
   removeMemberFromGroup: {
     url: "",
     method: "GET",
@@ -72,7 +77,7 @@ const apiMap: requestMap = {
 const Singles: Ref<Array<singleListItem>> = ref([]);
 let allGroups: Array<groupListItem> = [];
 const Groups: Ref<Array<groupListItem>> = ref([]);
-const selectedGender: Ref<genderOptions> = ref("Male");
+const selectedGender: Ref<genderOptions> = ref("male");
 
 // TODO: make two nested ref-objects for Selections and boolean SHOW flags.
 // singles are selected from the singles tab
@@ -111,6 +116,32 @@ function filterGroups() {
     let res: boolean = terms.every((term) => item.name.includes(term));
     return res;
   });
+}
+
+function searchResponseCallback(data) {
+  switch (data.type) {
+    case "group":
+      Groups.value = data.results;
+      console.log("updated Groups data");
+      break;
+
+    default:
+      alert("no case matched in serach response callback");
+  }
+}
+function performSearch() {
+  console.log("perfrom search called");
+  let data = {
+    item_type: "group",
+    terms: groupNameSearch.value.split(" "),
+    gender: selectedGender.value,
+    status: "Not implemented yet",
+    vorfin: "placeholder for now",
+  };
+
+  console.log("data = ", data);
+
+  fetchFromAPI("searchItems", data);
 }
 
 // make this a composable
@@ -250,52 +281,64 @@ function removeGroupMember() {}
               <Tab class="tab-standard">Notes</Tab>
             </TabList>
             <TabPanels>
-              <div id="search-items-section">
-                  <RadioGroup v-model="selectedGender">
-                    <div class="flex" id="gender-selection-inline">
+              <div id="search-items-section flex-col">
+                <input
+                  type="text"
+                  id="main-search-field"
+                  v-model="groupNameSearch"
+                  @keyup.enter="performSearch"
+                />
+                <button
+                  class="px-4 py-2 mx-4 rounded-xl bg-blue-300 hover:bg-blue-600"
+                  for="main-serach-field"
+                  @click="performSearch"
+                >
+                  Search
+                </button>
 
-                    <RadioGroupLabel class="mr-4 ">Gender: </RadioGroupLabel>
+                <RadioGroup v-model="selectedGender">
+                  <div class="flex" id="gender-selection-inline">
+                    <RadioGroupLabel class="mr-4">Gender: </RadioGroupLabel>
                     <div class="flex">
-                    <RadioGroupOption v-slot="{ checked }" value="Male">
-                      <input
-                        class=""
-                        type="radio"
-                        name="genderCheckGroup"
-                        id="gender-option-male"
-                        value="Male"
-                      />
-                      <label class="mr-2" for="gender-option-male">
-                        Male
-                      </label>
-                    </RadioGroupOption>
-                    <RadioGroupOption v-slot="{ checked }" value="Female">
-                      <input
-                        class=""
-                        type="radio"
-                        name="genderCheckGroup"
-                        id="gender-option-female"
-                        value="Female"
-                      />
-                      <label class="mr-2" for="gender-option-female">
-                        Female
-                      </label>
-                    </RadioGroupOption>
-                    <RadioGroupOption v-slot="{ checked }" value="Other">
-                      <input
-                        class=""
-                        type="radio"
-                        name="genderCheckGroup"
-                        id="gender-option-other"
-                        value="Male"
-                      />
-                      <label class="mr-2" for="gender-option-other">
-                        Other
-                      </label>
-                    </RadioGroupOption>
+                      <RadioGroupOption v-slot="{ checked }" value="Male">
+                        <input
+                          class="clickable"
+                          type="radio"
+                          name="genderCheckGroup"
+                          id="gender-option-male"
+                        />
+                        <label class="mr-2 clickable" for="gender-option-male">
+                          Male
+                        </label>
+                      </RadioGroupOption>
+                      <RadioGroupOption v-slot="{ checked }" value="Female">
+                        <input
+                          class="clickable"
+                          type="radio"
+                          name="genderCheckGroup"
+                          id="gender-option-female"
+                        />
+                        <label
+                          class="mr-2 clickable"
+                          for="gender-option-female"
+                        >
+                          Female
+                        </label>
+                      </RadioGroupOption>
+                      <RadioGroupOption v-slot="{ checked }" value="Other">
+                        <input
+                          class="clickable"
+                          type="radio"
+                          name="genderCheckGroup"
+                          id="gender-option-other"
+                        />
+                        <label class="mr-2 clickable" for="gender-option-other">
+                          Other
+                        </label>
+                      </RadioGroupOption>
+                    </div>
                   </div>
-                </div>
-
-                  </RadioGroup>
+                </RadioGroup>
               </div>
               <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
               <TabPanel class="tab-panel-standard">
@@ -324,7 +367,7 @@ function removeGroupMember() {}
       <div class="flex-col">
         <button
           class="border rounded-xl bg-gray-200 p-2 m-4"
-          @click="fetchFromAPI('fetchGroups')"
+          @click="fetchFromAPI('fetchGroups', { test: 'empty data attrib' })"
         >
           CallAPI
         </button>

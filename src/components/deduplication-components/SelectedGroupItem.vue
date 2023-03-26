@@ -18,7 +18,7 @@ function ListItemClickHandler(id: number): void {
 
 <template>
   <li
- 
+    class="clickable"
     @click="ListItemClickHandler(props.item.id ? props.item.id : props.item)"
   >
     {{ props.item.name ? props.item.name : "no name" }} -

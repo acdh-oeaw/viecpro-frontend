@@ -23,3 +23,7 @@
   @apply px-4 py-1 bg-primary-900 text-white rounded-2xl hover:cursor-pointer hover:bg-primary-100 hover:text-white;
 }
 
+
+.clickable {
+  @apply hover:cursor-pointer;
+}
