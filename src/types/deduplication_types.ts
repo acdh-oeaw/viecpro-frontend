@@ -32,7 +32,7 @@ export interface groupListItem {
 }
 export type deduplicationItem = groupListItem | singleListItem | memberItem
 
-export type ItemType = "single" | "member" | "group";
+export type ItemType = "single" | "member" | "group" | "selectedGroup";
 export interface deduplicationRequestSettings {
   url: string;
   method: "POST" | "PUT" | "UPDATE" | "DELETE" | "GET";

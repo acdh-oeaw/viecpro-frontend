@@ -4,7 +4,7 @@
 import GroupListItem from "./GroupListItem.vue";
 import SingleListItem from "./SingleListItem.vue";
 import MemberListitem from "./MemberListItem.vue";
-
+import SelectedGroupItem from "./SelectedGroupItem.vue";
 import type { PropType } from "vue";
 import type {
   ItemType,
@@ -21,6 +21,7 @@ const itemMap = {
   group: GroupListItem,
   single: SingleListItem,
   member: MemberListitem,
+  selectedGroup: SelectedGroupItem,
 };
 
 const selectedComponent = itemMap[props.item_type];

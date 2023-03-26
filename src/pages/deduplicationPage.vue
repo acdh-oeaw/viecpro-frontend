@@ -8,6 +8,7 @@ import {
   h,
   compile,
   render,
+  provide,
 } from "vue";
 
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
@@ -32,8 +33,8 @@ const apiMap: requestMap = {
     callback: console.log,
   },
   fetchGroupByID: {
-    url: "http//:127.0.0.1:8000/dubletten/vue_test/fetchAllGroups",
-    method: "GET",
+    url: "http://localhost:8000/dubletten/group_api/fetchGroupByID/",
+    method: "POST",
     callback: console.log,
   },
   removeMemberFromGroup: {
@@ -93,6 +94,13 @@ const showRelations: Ref<boolean> = ref(true);
 // this are the refs for the search-inputs
 const groupNameSearch = ref("group name");
 
+provide("toggleCallback", {
+  selectedGroups,
+  selectedSingles,
+  selectedMembers,
+  toggleEntity,
+});
+
 function innerTest(data) {
   console.log(data);
 }
@@ -111,9 +119,9 @@ function filterGroups() {
 function fetchFromAPI(
   tag: keyof requestMap,
   data: { [key: string]: any } = { test: "no data send placeholder" }
-) {
+): void {
   // set method in apiMap
-
+  console.log("fetch from api called with: ", tag, data);
   fetch(apiMap[tag]["url"], {
     method: "POST",
     //credentials: "include",
@@ -138,7 +146,7 @@ function selectionResponse(vue_ref: Ref, id: number) {
   switch (vue_ref) {
     case selectedGroups:
       console.log("cae selected Groups matched");
-      fetchFromAPI("fetchGroupByID", (data = { id: id }));
+      fetchFromAPI("fetchGroupByID", { id: id });
       break;
     default:
       alert("reached default in selectionResponse");
@@ -167,7 +175,7 @@ function toggleEntity(type: ItemType, id: number): void {
         
                 Calls the generic updateSelection function for that item and adds or removes it from the respective ref.
                 */
-  console.log("reached togllge entity: ", type, id);
+  console.log("reached toggle entity: ", type, id);
 
   switch (type) {
     case "single":
@@ -187,6 +195,9 @@ function toggleEntity(type: ItemType, id: number): void {
   }
 }
 
+watch(selectedGroups.value, () => {
+  console.log("selected Groups", selectedGroups.value);
+});
 function toggleStatusButton() {
   // implement again
 }
@@ -244,15 +255,28 @@ function unlog(id) {
             <TabList>
               <Tab class="tab-standard">Groups</Tab>
               <Tab class="tab-standard">Singles</Tab>
-              <Tab class="tab-standard">Marked</Tab>
+              <Tab class="tab-standard">Dubletten</Tab>
+              <Tab class="tab-standard">Vorfins</Tab>
+
+              <Tab class="tab-standard">Notes</Tab>
             </TabList>
             <TabPanels>
               <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
               <TabPanel class="tab-panel-standard">
-                <div class="bg-red-300">A</div>
+                <div class="bg-red-300">
+                  <GenericList
+                    class="bg-blue-200"
+                    :item_type="'group'"
+                    :data="Groups"
+                  ></GenericList>
+                </div>
               </TabPanel>
               <TabPanel class="tab-panel-standard">
-                <div class="bg-yellow-300">B</div>
+                <GenericList
+                  class="bg-blue-200"
+                  :item_type="'single'"
+                  :data="Singles"
+                ></GenericList>
               </TabPanel>
               <TabPanel class="tab-panel-standard">
                 <div class="bg-green-300">C</div>
@@ -268,6 +292,7 @@ function unlog(id) {
       >
         CallAPI
       </button>
+      <GenericList :item_type="'selectedGroup'" :data="selectedGroups"></GenericList>
       <div class="w-vw">Info</div>
     </div>
   </div>
@@ -442,12 +467,6 @@ function unlog(id) {
                 style="overflow-y: scroll; height: 80vh"
                 id="group_list_container"
               >
-                <GenericList
-                v-if="allGroups"
-                  class="bg-blue-200"
-                  :item_type="'group'"
-                  :data="Groups"
-                ></GenericList>
                 <!-- <ul>
                   <template v-for="group in Groups" :key="group.id">
                     <GroupListItem :item="group"></GroupListItem> -->

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { groupListItem } from "../../types/deduplication_types";
-import { ref, inject, computed } from "vue";
+import { ref, inject } from "vue";
 import type { Ref } from "vue";
 const props = defineProps<{
-  item: groupListItem;
+  item: groupListItem | number;
 }>();
 
 const { selectedGroups, selectedSingles, selectedMemebers, toggleEntity } =
@@ -13,27 +13,19 @@ function ListItemClickHandler(id: number): void {
   console.log("caleld LIstItemClickHandler, calling toggelEnttity from there");
   toggleEntity("group", id);
 }
-
-const isSelected = computed(() => {
-  if (selectedGroups) {
-    return selectedGroups.value.includes(props.item.id);
-  } else {
-    return false;
-  }
-});
-
 // todo: make on click function a generic composable, because it is mostly the same for singles and groups
 </script>
 
 <template>
   <li
-    class="bg-red-200"
-    @click="ListItemClickHandler(props.item.id)"
-    :class="{
-      'bg-blue-500': isSelected,
-    }"
+ 
+    @click="ListItemClickHandler(props.item.id ? props.item.id : props.item)"
   >
-    {{ props.item.name ? props.item.name : "no name" }} - {{ props.item.id }}
+    {{ props.item.name ? props.item.name : "no name" }} -
+    {{ props.item.id ? props.item.id : props.item }}
   </li>
 </template>
 <style scoped></style>
+
+// :class="{selectedGroups.value.includes(props.item.id ? props.item.id :
+props.item) : 'bg-blue-200'}"
