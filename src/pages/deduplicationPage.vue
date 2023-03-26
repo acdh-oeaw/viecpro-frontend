@@ -23,6 +23,8 @@ import type {
 } from "../types/deduplication_types";
 import type { Ref } from "vue";
 
+const selectedTab: Ref<string> = ref("group");
+const tabList = ["group", "single", "member", "vorfin", "notes"];
 const apiMap: requestMap = {
   fetchGroupSuggestions: {
     // TODO: refactor url into endpoint, and list of params (like [action, id] to be parsed into endpoint / action / id)
@@ -96,7 +98,8 @@ const showNavbar: Ref<boolean> = ref(true);
 const showRelations: Ref<boolean> = ref(true);
 
 // this are the refs for the search-inputs
-const groupNameSearch = ref("group name");
+const nameSearch: Ref<string> = ref("");
+const firstNameSearch: Ref<string> = ref("");
 
 provide("toggleCallback", {
   selectedGroups,
@@ -110,7 +113,7 @@ function innerTest(data) {
 }
 
 function filterGroups() {
-  let terms: Array<string> = groupNameSearch.value.split(" ");
+  let terms: Array<string> = nameSearch.value.split(" ");
   console.log("terms", terms);
   Groups.value = allGroups.filter((item) => {
     let res: boolean = terms.every((term) => item.name.includes(term));
@@ -125,6 +128,11 @@ function searchResponseCallback(data) {
       console.log("updated Groups data");
       break;
 
+    case "single":
+      console.log("single branch in switch reached");
+      Singles.value = data.results;
+      break;
+
     default:
       alert("no case matched in serach response callback");
   }
@@ -132,8 +140,11 @@ function searchResponseCallback(data) {
 function performSearch() {
   console.log("perfrom search called");
   let data = {
-    item_type: "group",
-    terms: groupNameSearch.value.split(" "),
+    item_type: selectedTab.value,
+    terms: {
+      name: nameSearch.value.split(" "),
+      first_name: firstNameSearch.value.split(" "),
+    },
     gender: selectedGender.value,
     status: "Not implemented yet",
     vorfin: "placeholder for now",
@@ -177,6 +188,10 @@ function selectionResponse(vue_ref: Ref, id: number) {
     case selectedGroups:
       console.log("cae selected Groups matched");
       fetchFromAPI("fetchGroupByID", { id: id });
+      break;
+
+    case selectedSingles:
+      console.log("reached singles in selection response");
       break;
     default:
       alert("reached default in selectionResponse");
@@ -229,8 +244,16 @@ watch(selectedGroups.value, () => {
   console.log("selected Groups", selectedGroups.value);
 });
 
+watch(selectedSingles.value, () => {
+  console.log("selected Singles", selectedSingles.value);
+});
+
 watch(selectedGender, () => {
   console.log("selected Gender: ", selectedGender.value);
+});
+
+watch(selectedTab, () => {
+  console.log("selected Tab: ", selectedTab.value);
 });
 function toggleStatusButton() {
   // implement again
@@ -271,7 +294,13 @@ function removeGroupMember() {}
       <div class="min-w-screen flex-col" id="dedup-browser-section">
         <h1>Browser Header</h1>
         <div>
-          <TabGroup>
+          <TabGroup
+            @change="
+              (idx) => {
+                selectedTab = tabList[idx];
+              }
+            "
+          >
             <TabList>
               <Tab class="tab-standard">Groups</Tab>
               <Tab class="tab-standard">Singles</Tab>
@@ -281,20 +310,46 @@ function removeGroupMember() {}
               <Tab class="tab-standard">Notes</Tab>
             </TabList>
             <TabPanels>
-              <div id="search-items-section flex-col">
-                <input
-                  type="text"
-                  id="main-search-field"
-                  v-model="groupNameSearch"
-                  @keyup.enter="performSearch"
-                />
-                <button
-                  class="px-4 py-2 mx-4 rounded-xl bg-blue-300 hover:bg-blue-600"
-                  for="main-serach-field"
-                  @click="performSearch"
-                >
-                  Search
-                </button>
+              <div class="flex-col pt-8 pb-4" id="search-items-section">
+                <div class="flex" id="name-search-container">
+                  <div class="flex-col">
+                    <div class="flex justify-between">
+                      <label class="pr-14" for="main-search-field"
+                        >Name:
+                      </label>
+                      <input
+                        type="text"
+                        id="main-search-field"
+                        v-model="nameSearch"
+                        @keyup.enter="performSearch"
+                      />
+                    </div>
+                    <div
+                      v-if="selectedTab === 'single'"
+                      class="flex justify-between my-2"
+                    >
+                      <label class="mr-4" for="main-search-field-first-name"
+                        >First-name:
+                      </label>
+
+                      <input
+                        type="text"
+                        id="main-search-first-name"
+                        v-model="firstNameSearch"
+                        @keyup.enter="performSearch"
+                      />
+                    </div>
+                  </div>
+                  <div class="p-auto m-auto">
+                    <button
+                      class="px-4 py-2 rounded-xl bg-blue-300 hover:bg-blue-600"
+                      for="main-serach-field"
+                      @click="performSearch"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
 
                 <RadioGroup v-model="selectedGender">
                   <div class="flex" id="gender-selection-inline">
@@ -376,7 +431,7 @@ function removeGroupMember() {}
           :item_type="'selectedGroup'"
           :data="selectedGroups"
         ></GenericList>
-        <h1 v-if="selectedSingles.length">Groups:</h1>
+        <h1 v-if="selectedSingles.length">Singles:</h1>
         <GenericList
           :item_type="'selectedSingle'"
           :data="selectedSingles"

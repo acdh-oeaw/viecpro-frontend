@@ -10,6 +10,7 @@ import type {
   ItemType,
   deduplicationItem,
 } from "../../types/deduplication_types";
+import SelectedSingleItem from "./selectedSingleItem.vue";
 
 console.log("generic list component body parsed");
 const props = defineProps<{
@@ -22,6 +23,7 @@ const itemMap = {
   single: SingleListItem,
   member: MemberListitem,
   selectedGroup: SelectedGroupItem,
+  selectedSingle: SelectedSingleItem,
 };
 
 const selectedComponent = itemMap[props.item_type];
