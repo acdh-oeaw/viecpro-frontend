@@ -27,8 +27,8 @@ const router = createRouter({
     },
     {
       path:"/deduplication",
-      name: "deduplication",
-      component: deduplicationPage
+      name: "Deduplication",
+      component: deduplicationPage,
     }
   ],
 });

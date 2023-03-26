@@ -15,11 +15,7 @@ function ListItemClickHandler(id: number): void {
 }
 
 const isSelected = computed(() => {
-  if (selectedGroups) {
-    return selectedGroups.value.includes(props.item.id);
-  } else {
-    return false;
-  }
+  return selectedGroups ? selectedGroups.value.includes(props.item.id) : false;
 });
 
 // todo: make on click function a generic composable, because it is mostly the same for singles and groups

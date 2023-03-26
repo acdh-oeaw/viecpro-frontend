@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import {
-  ref,
-  reactive,
-  watchEffect,
-  watch,
-  createApp,
-  h,
-  compile,
-  render,
-  provide,
-} from "vue";
+import { ref, reactive, watchEffect, watch, provide } from "vue";
 
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import {
+  TabGroup,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  RadioGroup,
+  RadioGroupLabel,
+  RadioGroupOption,
+} from "@headlessui/vue";
 import GenericList from "../components/deduplication-components/GenericList.vue";
 import type { genderOptions } from "../types/apis_types";
 import type {
@@ -198,6 +197,10 @@ function toggleEntity(type: ItemType, id: number): void {
 watch(selectedGroups.value, () => {
   console.log("selected Groups", selectedGroups.value);
 });
+
+watch(selectedGender, () => {
+  console.log("selected Gender: ", selectedGender.value);
+});
 function toggleStatusButton() {
   // implement again
 }
@@ -226,29 +229,15 @@ function clearSuggestions() {}
 function pollCeleryTaskStatus() {}
 
 function removeGroupMember() {}
-
-function log(id: number) {
-  //console.log(this, event, event.target);
-  // TODO: fix deprecated event.target implementation
-  event.target.style =
-    "background-color:" +
-    (selectedGroups.value.includes(id) ? "blue" : "grey") +
-    ";";
-}
-
-function unlog(id) {
-  //console.log("unlog called", id)
-  event.target.style =
-    "background-color: " +
-    (selectedGroups.value.includes(id) ? "lightblue" : "inherit") +
-    ";";
-}
 </script>
 <template>
-  <div class="w-vw bg-red-400 flex-col">
-    <div class="w-vw" id="dedup-header">Results & Hedaer</div>
-    <div class="w-vw bg-blue-200 flex justify-between" id="dedup-body">
-      <div class="w-vw flex-col" id="dedup-browser-section">
+  <div class="min-w-screen bg-red-400 flex-col">
+    <div class="w-screen" id="dedup-header">Results & Hedaer</div>
+    <div
+      class="w-screen min-h-screen bg-blue-200 flex justify-between"
+      id="dedup-body"
+    >
+      <div class="min-w-screen flex-col" id="dedup-browser-section">
         <h1>Browser Header</h1>
         <div>
           <TabGroup>
@@ -261,6 +250,53 @@ function unlog(id) {
               <Tab class="tab-standard">Notes</Tab>
             </TabList>
             <TabPanels>
+              <div id="search-items-section">
+                  <RadioGroup v-model="selectedGender">
+                    <div class="flex" id="gender-selection-inline">
+
+                    <RadioGroupLabel class="mr-4 ">Gender: </RadioGroupLabel>
+                    <div class="flex">
+                    <RadioGroupOption v-slot="{ checked }" value="Male">
+                      <input
+                        class=""
+                        type="radio"
+                        name="genderCheckGroup"
+                        id="gender-option-male"
+                        value="Male"
+                      />
+                      <label class="mr-2" for="gender-option-male">
+                        Male
+                      </label>
+                    </RadioGroupOption>
+                    <RadioGroupOption v-slot="{ checked }" value="Female">
+                      <input
+                        class=""
+                        type="radio"
+                        name="genderCheckGroup"
+                        id="gender-option-female"
+                        value="Female"
+                      />
+                      <label class="mr-2" for="gender-option-female">
+                        Female
+                      </label>
+                    </RadioGroupOption>
+                    <RadioGroupOption v-slot="{ checked }" value="Other">
+                      <input
+                        class=""
+                        type="radio"
+                        name="genderCheckGroup"
+                        id="gender-option-other"
+                        value="Male"
+                      />
+                      <label class="mr-2" for="gender-option-other">
+                        Other
+                      </label>
+                    </RadioGroupOption>
+                  </div>
+                </div>
+
+                  </RadioGroup>
+              </div>
               <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
               <TabPanel class="tab-panel-standard">
                 <div class="bg-red-300">
@@ -285,323 +321,26 @@ function unlog(id) {
           </TabGroup>
         </div>
       </div>
-      <div class="w-vw">Selection</div>
-      <button
-        class="border rounded-xl h-4 p-3 my-auto"
-        @click="fetchFromAPI('fetchGroups')"
-      >
-        CallAPI
-      </button>
-      <GenericList :item_type="'selectedGroup'" :data="selectedGroups"></GenericList>
-      <div class="w-vw">Info</div>
-    </div>
-  </div>
-  <div class="container-fluid w-100 d-flex flex-column" id="tool_page_vue_app">
-    <!-- display results of merge and remerge here -->
-    <div class="text-center" id="result-section">Results</div>
-    <!-- this should display column layout -->
-    <div class="d-flex flex-row justify-content-between" id="editor-container">
-      <!-- display browser here -->
-      <!-- v-if="showBrowser" removed for first display -->
-      <div id="browser-section">
-        <div class="" id="browser-header">
-          <!-- use headass ui tabs here -->
-          <div id="manu_navigation">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <a
-                  class="nav-link active"
-                  id="groups-tab"
-                  data-toggle="tab"
-                  href="#groups_section"
-                  role="tab"
-                  >Groups</a
-                >
-              </li>
-              <li class="nav-item" role="presentation">
-                <a
-                  class="nav-link"
-                  id="singles-tab"
-                  data-toggle="tab"
-                  href="#singles_section"
-                  role="tab"
-                  >Singles</a
-                >
-              </li>
-              <li class="nav-item" role="presentation">
-                <a
-                  class="nav-link"
-                  id="marked-tab"
-                  data-toggle="tab"
-                  href="#marked_section"
-                  @click="fetchFromAPI('fetchAllNotes')"
-                  role="tab"
-                  >Marked</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div id="browser-body">
-          <div class="tab-content" id="myTabContent">
-            <div
-              class="tab-pane fade show active"
-              id="groups_section"
-              role="tabpanel"
-            >
-              <label>Gender:</label>
-              <span
-                class="d-flex justify-content-start align-items-center mb-3"
-              >
-                <div class="form-check form-check-inline mx-1">
-                  <!-- use headless ui checkbox here -->
-                  <input
-                    v-model="selectedGender"
-                    checked
-                    class="form-check-input"
-                    type="radio"
-                    name="genderCheckGroup"
-                    id="genderCheckboxGROUPMale"
-                    value="Male"
-                  />
-                  <label
-                    class="form-check-label mr-2"
-                    for="genderCheckboxGROUPMale"
-                  >
-                    Male
-                  </label>
-                </div>
-                <div class="form-check form-check-inline mx-1">
-                  <input
-                    v-model="selectedGender"
-                    class="form-check-input"
-                    type="radio"
-                    name="genderCheckGroup"
-                    id="genderCheckboxGROUPFemale"
-                    value="Female"
-                  />
-                  <label
-                    class="form-check-label mr-2"
-                    for="genderCheckboxGROUPFemale"
-                  >
-                    Female
-                  </label>
-                </div>
-                <div class="form-check form-check-inline mx-1">
-                  <input
-                    v-model="selectedGender"
-                    class="form-check-input"
-                    type="radio"
-                    name="genderCheckGroup"
-                    id="genderCheckboxGROUPOther"
-                    value="Other"
-                  />
-                  <label
-                    class="form-check-label mr-2"
-                    for="genderCheckboxGROUPOther"
-                  >
-                    Other/None
-                  </label>
-                </div>
-              </span>
-              <span
-                class="d-flex justify-content-start align-items-center mb-3"
-              >
-                <label class="m-0 mr-4 p-1 my-2"
-                  >Status: {{ selectedGender }}</label
-                >
-                <!-- 
-                {% for b in Buttons %} {% if forloop.first %}
-                <label
-                  class="border border-dark rounded-left m-0 my-2 p-1 my_checkbox"
-                  value="undefined"
-                  onclick="toggleStatusButton('{{b.id}}')"
-                  id="status_button_filter_{{b.id}}"
-                  style="background-color: inherit"
-                  ><small>{{ b.short }}</small></label
-                >
-                {% elif forloop.last %}
-                <label
-                  class="border border-dark rounded-right m-0 my-2 p-1 my_checkbox"
-                  value="undefined"
-                  onclick="toggleStatusButton('{{b.id}}')"
-                  id="status_button_filter_{{b.id}}"
-                  style="background-color: inherit"
-                  ><small>{{ b.short }}</small></label
-                >
-
-                {% else %}
-                <label
-                  class="border border-dark m-0 my-2 p-1 my_checkbox"
-                  value="undefined"
-                  onclick="toggleStatusButton('{{b.id}}')"
-                  id="status_button_filter_{{b.id}}"
-                  style="background-color: inherit"
-                  ><small>{{ b.short }}</small></label
-                >
-
-                {% endif %} {% endfor %} -->
-              </span>
-
-              <span class="d-flex justify-content-center align-items-center">
-                <input
-                  class="form-control mr-4 rounded-right"
-                  type="search"
-                  placeholder="Search for Groups"
-                  v-model="groupNameSearch"
-                  @keyup.enter="filterGroups()"
-                  id="search-groups"
-                />
-              </span>
-              <span
-                class="d-flex px-1 my-2 justify-content-start align-content-center"
-                id="group_label_span"
-                ><label class="mr-2">Count:</label
-                ><label id="group_count_container">{{
-                  Groups.length
-                }}</label></span
-              >
-
-              <div
-                class="container-fluid mt-5"
-                style="overflow-y: scroll; height: 80vh"
-                id="group_list_container"
-              >
-                <!-- <ul>
-                  <template v-for="group in Groups" :key="group.id">
-                    <GroupListItem :item="group"></GroupListItem> -->
-                <!-- <li>
-                      <span
-                        @click="toggleEntity('GROUP', group.id)"
-                        @mouseover="
-                          () => {
-                            log(group.id);
-                          }
-                        "
-                        @mouseleave="unlog(group.id)"
-                        :style="{
-                          'background-color': selectedGroups.includes(group.id)
-                            ? 'lightblue'
-                            : 'inherit',
-                        }"
-                      >
-                        {{ group.name }}, ( {{ group.id }} )</span
-                      >
-                    </li> -->
-                <!-- </template>
-                </ul> -->
-              </div>
-            </div>
-            <div class="tab-pane fade" id="singles_section" role="tabpanel">
-              <label>Gender:</label>
-              <span
-                class="d-flex justify-content-start align-items-center mb-3"
-              >
-                <div class="form-check form-check-inline mx-1">
-                  <input
-                    checked
-                    class="form-check-input"
-                    type="radio"
-                    name="genderCheckSingle"
-                    id="genderCheckboxSINGLEMale"
-                    value="Male"
-                  />
-                  <label
-                    class="form-check-label mr-2"
-                    for="genderCheckboxSINGLEMale"
-                  >
-                    Male
-                  </label>
-                </div>
-                <div class="form-check form-check-inline mx-1">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="genderCheckSingle"
-                    id="genderCheckboxSINGLEFemale"
-                    value="Female"
-                  />
-                  <label
-                    class="form-check-label mr-2"
-                    for="genderCheckboxSINGLEFemale"
-                  >
-                    Female
-                  </label>
-                </div>
-                <div class="form-check form-check-inline mx-1">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="genderCheckSingle"
-                    id="genderCheckboxSINGLEOther"
-                    value="Other"
-                  />
-                  <label
-                    class="form-check-label mr-2"
-                    for="genderCheckboxSINGLEOther"
-                  >
-                    Other/None
-                  </label>
-                </div>
-              </span>
-              <span
-                class="d-flex px-1 my-2 justify-content-start align-content-center"
-                ><input
-                  aria-label="Search"
-                  class="form-control mr-4 rounded-right"
-                  id="input_search"
-                  placeholder="Name"
-                  type="search" />
-                <input
-                  aria-label="Search"
-                  class="form-control mr-4 rounded-right"
-                  id="filter_first_name"
-                  placeholder="First Name"
-                  type="search"
-              /></span>
-              <span
-                class="d-flex px-1 my-2 justify-content-start align-content-center"
-                ><label class="mr-2">Count:</label
-                ><label id="filtered_count">0</label></span
-              >
-              <div
-                class="container-fluid pt-2"
-                style="overflow-y: scroll; height: 80vh"
-              >
-                <ul class="list-group mt-3" id="singles_container">
-                  <!-- <ul class="list-group" id="all_singles_list">
-                        {% for s in singles %}
-                        <li class="list-group-item single-list-item list-group-item-sm d-flex justify-content-between align-items-center" id="single_list_item_{{s.id}}">
-                            {{s.person.name}}, {{s.person.first_name}}
-                        </li>
-                    </ul>
-                        {% endfor %} -->
-                </ul>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="marked_section" role="tabpanel">
-              Not implemented yet
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- display selected entities here -->
-      <div id="selected-section">
-        <button class="button" @click="fetchFromAPI('fetchGroups')">
-          TestAPI
+      <div class="flex-col">
+        <button
+          class="border rounded-xl bg-gray-200 p-2 m-4"
+          @click="fetchFromAPI('fetchGroups')"
+        >
+          CallAPI
         </button>
-        <!-- <ul>
-          <template v-for="group in selectedGroups" :key="group">
-            <li>
-              <span @click="toggleEntity('group', group)"> {{ group }}</span>
-            </li>
-          </template>
-        </ul> -->
-
-        <div id="selected-groups"></div>
+        <h1 v-if="selectedGroups.length">Groups:</h1>
+        <GenericList
+          :item_type="'selectedGroup'"
+          :data="selectedGroups"
+        ></GenericList>
+        <h1 v-if="selectedSingles.length">Groups:</h1>
+        <GenericList
+          :item_type="'selectedSingle'"
+          :data="selectedSingles"
+        ></GenericList>
       </div>
-      <!-- display suggestions, metainfo, details, etc in here -->
-      <div id="info-section">Info</div>
+
+      <div class="">Info</div>
     </div>
   </div>
 </template>
