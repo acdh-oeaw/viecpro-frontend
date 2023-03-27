@@ -1,29 +1,88 @@
 <script setup lang="ts">
 import type { groupListItem } from "../../types/deduplication_types";
-import { ref, inject } from "vue";
+import { ref, inject, onMounted, onBeforeMount, watch, reactive } from "vue";
 import type { Ref } from "vue";
+import { isTemplateElement } from "@babel/types";
+
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 const props = defineProps<{
   item: groupListItem | number;
 }>();
 
-const { selectedGroups, selectedSingles, selectedMember, toggleEntity } =
-  inject("toggleCallback");
+const {
+  selectedGroups,
+  selectedSingles,
+  selectedMember,
+  toggleEntity,
+  fetchFromAPI,
+} = inject("toggleCallback");
 
 function ListItemClickHandler(id: number): void {
   console.log("caleld LIstItemClickHandler, calling toggelEnttity from there");
   toggleEntity("group", id);
 }
 // todo: make on click function a generic composable, because it is mostly the same for singles and groups
+
+const data = ref({});
+const group = ref({});
+const members = ref([]);
+function LoadData() {
+  console.log("load data called");
+  fetch("http://localhost:8000/dubletten/group_api/fetchGroupByID/", {
+    method: "POST",
+    //credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: props.item }),
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log("received: ", json);
+      // D.value = json;
+      data.value = json.data;
+      group.value = json.data.group;
+      members.value = json.data.members;
+    });
+}
+
+
+function toggleGroup(id: number): void {
+  console.log("caleld LIstItemClickHandler, calling toggelEnttity from there");
+  toggleEntity("group", id);
+}
+
+onBeforeMount(() => {
+  console.log("in on before mount");
+  console.log(props, props.item);
+  LoadData();
+});
 </script>
 
 <template>
-  <li
-    class="clickable"
-    @click="ListItemClickHandler(props.item.id ? props.item.id : props.item)"
-  >
-    {{ props.item.name ? props.item.name : "no name" }} -
-    {{ props.item.id ? props.item.id : props.item }}
-  </li>
+  <div v-if="data.group">
+    <Disclosure>
+      <div class="flex"> 
+      <DisclosureButton class="py-2">
+        <h1 class="rounded-xl bg-gray-200 px-3 py-2">
+          {{ group.name }} ({{ group.id }})
+        </h1>
+     
+      </DisclosureButton>
+      <button @click="toggleGroup(props.item)" class="bg-red-200 rounded-xl p-3 ml-4">X</button>
+
+      </div>
+      <DisclosurePanel class="text-gray-500">
+        <ul class="ml-6">
+          <li v-for="m in members">
+            {{ m.fullname }} ({{ m.id }})
+          </li>
+        </ul>
+      </DisclosurePanel>
+    </Disclosure>
+  </div>
+
+  <!-- {{D ? D.group.name : "loading"}} ({{ D ? D.group.id : "loading" }}) -->
 </template>
 <style scoped></style>
 

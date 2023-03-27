@@ -24,7 +24,6 @@ import type {
   Group,
 } from "../types/deduplication_types";
 import type { Ref } from "vue";
-import VorfinListItem from "@/components/deduplication-components/VorfinListItem.vue";
 
 const selectedTab: Ref<string> = ref("group");
 const tabList = ["group", "single", "member", "vorfin", "notes"];
@@ -108,6 +107,10 @@ const showRelations: Ref<boolean> = ref(true);
 // this are the refs for the search-inputs
 const nameSearch: Ref<string> = ref("");
 const firstNameSearch: Ref<string> = ref("");
+const selectedItems = ref({
+  "groups": {},
+  "singles": {},
+});
 
 provide("toggleCallback", {
   selectedGroups,
@@ -115,6 +118,7 @@ provide("toggleCallback", {
   selectedMember,
   selectedVorfin,
   toggleEntity,
+  fetchFromAPI,
 });
 
 function innerTest(data) {
@@ -156,6 +160,8 @@ function searchResponseCallback(data) {
 }
 function performSearch() {
   console.log("perfrom search called");
+  // this is the entry point for all request that return lists of data.
+  // prepares data to be send in POST body with request from current ref-states.
   let data = {
     item_type: selectedTab.value,
     terms: {
@@ -169,6 +175,7 @@ function performSearch() {
 
   console.log("data = ", data);
 
+  // call to fetch function
   fetchFromAPI("searchItems", data);
 }
 
@@ -204,8 +211,8 @@ function selectionResponse(vue_ref: Ref, id: number) {
   console.log("reached selectionResponse");
   switch (vue_ref) {
     case selectedGroups:
-      console.log("cae selected Groups matched");
-      fetchFromAPI("fetchGroupByID", { id: id });
+      console.log("casee selected Groups matched");
+      //fetchFromAPI("fetchGroupByID", { id: id });
       break;
 
     case selectedSingles:
@@ -226,6 +233,7 @@ function updateSelection(vue_ref: Ref, id: number) {
   if (vue_ref.value.includes(id)) {
     let idx: number = vue_ref.value.indexOf(id);
     vue_ref.value.splice(idx, 1);
+    
   } else {
     vue_ref.value.push(id);
     selectionResponse(vue_ref, id);
@@ -316,13 +324,13 @@ function pollCeleryTaskStatus() {}
 function removeGroupMember() {}
 </script>
 <template>
-  <div class="min-w-screen bg-red-400 flex-col">
-    <div class="w-screen" id="dedup-header">Results & Hedaer</div>
+  <div class="m-0 p-0 bg-red-400 flex-col">
+    <div class="m-0 p-0" id="dedup-header">Results & Hedaer</div>
     <div
-      class="w-screen min-h-screen bg-blue-200 flex justify-between"
+      class="min-h-screen bg-blue-200 flex justify-between"
       id="dedup-body"
     >
-      <div class="min-w-screen flex-col" id="dedup-browser-section">
+      <div class="flex-col" id="dedup-browser-section">
         <h1>Browser Header</h1>
         <div>
           <TabGroup
@@ -479,18 +487,19 @@ function removeGroupMember() {}
         </div>
       </div>
       <div class="flex-col">
-        <button
+        <!-- <button
           class="border rounded-xl bg-gray-200 p-2 m-4"
           @click="fetchFromAPI('fetchGroups', { test: 'empty data attrib' })"
         >
           CallAPI
-        </button>
+        </button> -->
         <h1 v-if="selectedGroups.length">Groups:</h1>
         <GenericList
           :item_type="'selectedGroup'"
           :data="selectedGroups"
         ></GenericList>
         <h1 v-if="selectedSingles.length">Singles:</h1>
+        <!-- TODO: refactor: this is just one item, so no need to wrap it in a list -->
         <GenericList
           :item_type="'selectedSingle'"
           :data="selectedSingles"

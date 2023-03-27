@@ -3,12 +3,13 @@ import type { memberListItem } from "../../types/deduplication_types";
 import { ref, inject, computed } from "vue";
 
 const props = defineProps<{
-  item: memberListItem; // TODO: this needs another type, that includes all fields
+  item: memberListItem;
 }>();
 
 
 /**
- * This is for displayinga dublette (member of a group) in its group-context!
+ * This is for displaying a selected dublette (a  member) on itself, not in the context of a group.
+ * 
  * 
  */
 

@@ -3,7 +3,7 @@
 
 import GroupListItem from "./GroupListItem.vue";
 import SingleListItem from "./SingleListItem.vue";
-import MemberListitem from "./MemberListItem.vue";
+import MemberListitem from "./SelectedMemberDisplay.vue";
 import SelectedGroupItem from "./SelectedGroupItem.vue";
 import type { PropType } from "vue";
 import type {
@@ -38,7 +38,7 @@ const selectedComponent = itemMap[props.item_type];
         :is="selectedComponent"
         v-for="item in props.data"
         :item="item"
-        :key="item.id"
+        :key="item.id ? item.id : item"
       ></component>
     </ul>
   </div>
