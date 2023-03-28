@@ -4,6 +4,8 @@ import { ref, inject, onMounted, onBeforeMount, watch, reactive } from "vue";
 import type { Ref } from "vue";
 import { isTemplateElement } from "@babel/types";
 
+import MemberGroupDisplayItem from "./MemberGroupDisplayItem.vue";
+
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 const props = defineProps<{
   item: groupListItem | number;
@@ -47,10 +49,6 @@ function LoadData() {
 }
 
 
-function toggleGroup(id: number): void {
-  console.log("caleld LIstItemClickHandler, calling toggelEnttity from there");
-  toggleEntity("group", id);
-}
 
 onBeforeMount(() => {
   console.log("in on before mount");
@@ -69,15 +67,11 @@ onBeforeMount(() => {
         </h1>
      
       </DisclosureButton>
-      <button @click="toggleGroup(props.item)" class="bg-red-200 rounded-xl p-3 ml-4">X</button>
+      <button @click="toggleEntity('group', props.item)" class="bg-red-200 rounded-xl p-3 ml-4">X</button>
 
       </div>
       <DisclosurePanel class="text-gray-500">
-        <ul class="ml-6">
-          <li v-for="m in members">
-            {{ m.fullname }} ({{ m.id }})
-          </li>
-        </ul>
+      <MemberGroupDisplayItem v-for="m in members" :key="m.id" :member="m"></MemberGroupDisplayItem>
       </DisclosurePanel>
     </Disclosure>
   </div>

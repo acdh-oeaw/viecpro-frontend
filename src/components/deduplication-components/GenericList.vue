@@ -3,7 +3,7 @@
 
 import GroupListItem from "./GroupListItem.vue";
 import SingleListItem from "./SingleListItem.vue";
-import MemberListitem from "./SelectedMemberDisplay.vue";
+import MemberListItem from "./MemberListItem.vue";
 import SelectedGroupItem from "./SelectedGroupItem.vue";
 import type { PropType } from "vue";
 import type {
@@ -22,7 +22,7 @@ const props = defineProps<{
 const itemMap = {
   group: GroupListItem,
   single: SingleListItem,
-  member: MemberListitem,
+  member: MemberListItem,
   vorfin: VorfinListItem,
   selectedGroup: SelectedGroupItem,
   selectedSingle: SelectedSingleItem,

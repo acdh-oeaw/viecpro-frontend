@@ -6,10 +6,10 @@ const props = defineProps<{
   item: memberListItem; // TODO: this needs another type, that includes all fields
 }>();
 
-
+const { selectedMember, toggleEntity } = inject("toggleCallback");
 /**
  * This is for displayinga dublette (member of a group) in its group-context!
- * 
+ *
  */
 
 const isSelected = computed(() => {
@@ -22,10 +22,10 @@ const isSelected = computed(() => {
 <template>
   <li
     class="bg-red-200 clickable"
+    @click="toggleEntity('member', props.item.id)"
     :class="{
       'bg-blue-500': isSelected,
     }"
-  >
-  </li>
+  >{{ item.name }}, {{ item.first_name }} ({{ item.id }})</li>
 </template>
 <style scoped></style>

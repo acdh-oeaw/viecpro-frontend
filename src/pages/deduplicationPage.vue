@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, watchEffect, watch, provide } from "vue";
+import { ref, reactive, watchEffect, watch, provide, inject } from "vue";
 
 import {
   TabGroup,
@@ -10,6 +10,13 @@ import {
   RadioGroup,
   RadioGroupLabel,
   RadioGroupOption,
+  TransitionRoot,
+  TransitionChild,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  DialogDescription,
+  DialogOverlay,
 } from "@headlessui/vue";
 import GenericList from "../components/deduplication-components/GenericList.vue";
 import type { genderOptions } from "../types/apis_types";
@@ -108,8 +115,8 @@ const showRelations: Ref<boolean> = ref(true);
 const nameSearch: Ref<string> = ref("");
 const firstNameSearch: Ref<string> = ref("");
 const selectedItems = ref({
-  "groups": {},
-  "singles": {},
+  groups: {},
+  singles: {},
 });
 
 provide("toggleCallback", {
@@ -133,6 +140,8 @@ function filterGroups() {
     return res;
   });
 }
+
+const { isBlurred, toggleBlurred, dialogResponse } = inject("bgBlurred");
 
 function searchResponseCallback(data) {
   switch (data.type) {
@@ -196,7 +205,10 @@ function fetchFromAPI(
     body: JSON.stringify(data),
   })
     .then((response) => response.json())
-    .then((json) => {console.log("received: ", json); return apiMap[tag]["callback"](json);})
+    .then((json) => {
+      console.log("received: ", json);
+      return apiMap[tag]["callback"](json);
+    });
 }
 
 function updateGroupsList(data) {
@@ -233,7 +245,6 @@ function updateSelection(vue_ref: Ref, id: number) {
   if (vue_ref.value.includes(id)) {
     let idx: number = vue_ref.value.indexOf(id);
     vue_ref.value.splice(idx, 1);
-    
   } else {
     vue_ref.value.push(id);
     selectionResponse(vue_ref, id);
@@ -274,6 +285,13 @@ function toggleEntity(type: ItemType, id: number): void {
   }
 }
 
+const bgBlur = ref(false);
+function toggleBlur() {
+  console.log("toggle blur", bgBlur.value);
+
+  bgBlur.value = !bgBlur.value;
+  isOpen.value = bgBlur.value;
+}
 watch(selectedGroups.value, () => {
   console.log("selected Groups", selectedGroups.value);
 });
@@ -294,6 +312,10 @@ watch(selectedGender, () => {
 watch(selectedTab, () => {
   console.log("selected Tab: ", selectedTab.value);
 });
+
+watch(Members, () => {
+  console.log("Members: ", Members.value.length);
+});
 function toggleStatusButton() {
   // implement again
 }
@@ -311,6 +333,12 @@ function togglePersonNames() {
   //TODO: check with update of PersonProxy models to implement name fetching again
 }
 
+const isOpen = ref(true);
+
+function setIsOpen(value) {
+  isOpen.value = value;
+  bgBlur.value != isOpen.value;
+}
 function closeTable() {}
 
 function mergeGroups() {}
@@ -322,14 +350,21 @@ function clearSuggestions() {}
 function pollCeleryTaskStatus() {}
 
 function removeGroupMember() {}
+
+function confirmAction() {
+  toggleBlurred("delete", null);
+  console.log(dialogResponse.value);
+}
+
+toggleBlurred.callback = myCallback;
+function myCallback(res) {
+  console.log("my callback reached", res);
+}
 </script>
 <template>
-  <div class="m-0 p-0 bg-red-400 flex-col">
+  <div class="m-0 p-0 bg-red-400 flex-col" :class="{ 'blur-[2px]': bgBlur }">
     <div class="m-0 p-0" id="dedup-header">Results & Hedaer</div>
-    <div
-      class="min-h-screen bg-blue-200 flex justify-between"
-      id="dedup-body"
-    >
+    <div class="min-h-screen bg-blue-200 flex justify-between" id="dedup-body">
       <div class="flex-col" id="dedup-browser-section">
         <h1>Browser Header</h1>
         <div>
@@ -443,7 +478,6 @@ function removeGroupMember() {}
                           All
                         </label>
                       </RadioGroupOption>
-                  
                     </div>
                   </div>
                 </RadioGroup>
@@ -487,6 +521,16 @@ function removeGroupMember() {}
         </div>
       </div>
       <div class="flex-col">
+        <div class="flex-col">
+          <button
+            class="block bg-gray-500 px-4 py-2 rounded text-white"
+            @click="toggleBlur"
+          >
+            Blur
+          </button>
+          <button class="btn-dummy" @click="confirmAction">Fullblur</button>
+        </div>
+
         <!-- <button
           class="border rounded-xl bg-gray-200 p-2 m-4"
           @click="fetchFromAPI('fetchGroups', { test: 'empty data attrib' })"
