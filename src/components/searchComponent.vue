@@ -46,21 +46,24 @@ const collections = {
   ],
   Relations: [
     // { option: "ALL", value: "relations" },
-    { option: "PersonPerson", value: "PersonPerson" },
-    { option: "PersonPlace", value: "PersonPlace" },
-    { option: "PersonEvent", value: "PersonEvent" },
-    { option: "PersonWork", value: "PersonWork" },
-    { option: "personinstitution", value: "personinstitution" },
-    { option: "InstitutionInstitution", value: "InstitutionInstitution" },
-    { option: "InstitutionPlace", value: "InstitutionPlace" },
-    { option: "InstitutionWork", value: "InstitutionWork" },
-    { option: "InstitutionEvent", value: "InstitutionEvent" },
-    { option: "PlacePlace", value: "PlacePlace" },
-    { option: "PlaceWork", value: "PlaceWork" },
-    { option: "PlaceEvent", value: "PlaceEvent" },
-    { option: "WorkWork", value: "WorkWork" },
-    { option: "WorkEvent", value: "WorkEvent" },
-    { option: "EventEvent", value: "EventEvent" },
+    { option: "PersonPerson", value: "viecpro_PersonPerson" },
+    { option: "PersonPlace", value: "viecpro_PersonPlace" },
+    { option: "PersonEvent", value: "viecpro_PersonEvent" },
+    { option: "PersonWork", value: "viecpro_PersonWork" },
+    { option: "PersonInstitution", value: "viecpro_PersonInstitution" },
+    {
+      option: "InstitutionInstitution",
+      value: "viecpro_InstitutionInstitution",
+    },
+    { option: "InstitutionPlace", value: "viecpro_InstitutionPlace" },
+    { option: "InstitutionWork", value: "viecpro_InstitutionWork" },
+    { option: "InstitutionEvent", value: "viecpro_InstitutionEvent" },
+    { option: "PlacePlace", value: "viecpro_PlacePlace" },
+    { option: "PlaceWork", value: "viecpro_PlaceWork" },
+    { option: "PlaceEvent", value: "viecpro_PlaceEvent" },
+    { option: "WorkWork", value: "viecpro_WorkWork" },
+    { option: "WorkEvent", value: "viecpro_WorkEvent" },
+    { option: "EventEvent", value: "viecpro_EventEvent" },
   ],
 };
 
@@ -117,12 +120,12 @@ watch(selectedCollection, () => {
       params = "ent_a, relation_type";
       console.log("changed to relation params");
       break;
-    case "personinstitution":
+    case "viecpro_PersonInstitution":
       params = "source.name, target.name";
       console.log("changed to personinstitution params");
       break;
 
-    case "PersonPlace":
+    case "viecpro_PersonPlace":
       params = "source.name, target.name";
       break;
     default:
@@ -138,12 +141,16 @@ watch(selectedCollection, () => {
 
 const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
   server: {
-    apiKey: "xyz", // Be sure to use an API key that only allows searches, in production
+    //apiKey: "xyz", // Be sure to use an API key that only allows searches, in production
+    apiKey: import.meta.env.VITE_TYPESENSE_API_KEY,
     nodes: [
       {
-        host: "localhost",
-        port: 8109,
-        protocol: "http",
+        host: import.meta.env.VITE_TYPESENSE_HOST,
+        port: import.meta.env.VITE_TYPESENSE_PORT,
+        protocol: import.meta.env.VITE_TYPESENSE_PROTOCOL,
+        // host: "localhost",
+        // port: 8109,
+        // protocol: "http",
       },
     ],
   },
@@ -282,7 +289,10 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                     @click="redirectToEntity('entities', item.id, item.model)"
                   ></ais-highlight>
                   <ais-highlight
-                    v-if="selectedCollection == 'personinstitution' || selectedCollection == 'PersonPlace'"
+                    v-if="
+                      selectedCollection == 'viecpro_PersonInstitution' ||
+                      selectedCollection == 'viecpro_PersonPlace'
+                    "
                     :hit="item"
                     attribute="source.name"
                     class="entity_tag hover:cursor-pointer hover:underline"
@@ -302,7 +312,10 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                     class="entity_tag"
                   ></ais-highlight>
                   <ais-highlight
-                    v-if="selectedCollection == 'personinstitution' || selectedCollection == 'PersonPlace'"
+                    v-if="
+                      selectedCollection == 'personinstitution' ||
+                      selectedCollection == 'PersonPlace'
+                    "
                     :hit="item"
                     attribute="target.name"
                     class="entity_tag hover:cursor-pointer hover:underline"

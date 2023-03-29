@@ -56,7 +56,7 @@ onBeforeMount(() => {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Token 290ff193f1d8520b14d86614bd62b731edf683b0",
+      Authorization: import.meta.env.VITE_APIS_API_AUTHORIZATION,
       accept: "*/*",
     },
   })

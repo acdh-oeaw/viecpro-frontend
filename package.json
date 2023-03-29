@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
-    "preview": "vite preview",
+    "preview": "vite preview --port 3000",
     "test:unit": "vitest --environment jsdom --root src/",
     "test:e2e": "playwright test",
     "build-only": "vite build",

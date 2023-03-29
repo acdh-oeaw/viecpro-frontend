@@ -92,6 +92,7 @@ const navLinks: navlinkProp[] = [
 ];
 
 provide("bgBlurred", { isBlurred, toggleBlurred, dialogResponse });
+
 </script>
 
 <style scoped>
