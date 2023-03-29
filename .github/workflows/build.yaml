@@ -26,7 +26,7 @@ jobs:
       #environment: production
       image_tagged: viecpro-frontend-devops
       registry_root: ghcr.io/acdh-oeaw/
-      default_port: "3000" 
+      default_port: "5000" 
       #APP_NAME: nomansland
 # This together with the branch name is also used as the namespace to deploy to
       APP_ROOT: "/"
