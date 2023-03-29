@@ -1,6 +1,6 @@
 # directories
 NOTES/*
-.secrets.js
+.env
 # Logs
 logs
 *.log
