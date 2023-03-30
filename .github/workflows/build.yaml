@@ -28,11 +28,11 @@ jobs:
       registry_root: ghcr.io/acdh-oeaw/
       default_port: "3000" 
       #APP_NAME: nomansland
-# This together with the branch name is also used as the namespace to deploy to
+      # This together with the branch name is also used as the namespace to deploy to
       APP_ROOT: "/"
       #SERVICE_ID: "18582"
       #PUBLIC_URL: https://nomansland.acdh-dev.oeaw.ac.at
-      POSTGRES_ENABLED: 'false'
+      POSTGRES_ENABLED: false
     steps:
       - run: "/bin/true"      
   build_and_push_to_registry:
@@ -109,6 +109,6 @@ jobs:
         APP_ROOT: ${{ needs.setup_workflow_env.outputs.APP_ROOT }}
         SERVICE_ID: "21622" 
         PUBLIC_URL: "https://viecpro.oeaw.ac.at/" # GP not public in development
-        POSTGRES_ENABLED: ${{ needs.setup_workflow_env.outputs.POSTGRES_ENABLED == 'false'}}
+        POSTGRES_ENABLED: ${{ needs.setup_workflow_env.outputs.POSTGRES_ENABLED == 'true'}}
         environment: "viecpro frontend development" 
         default_port: "${{ needs.setup_workflow_env.outputs.default_port}}"
