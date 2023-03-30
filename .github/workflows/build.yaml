@@ -87,6 +87,14 @@ jobs:
           push: true
           secret-files: |
             "secrets_env=./secrets.env"
+
+          build-args: |
+            VITE_APIS_API_BASE_URL=""
+            VITE_APIS_API_AUTHORIZATION={{secrets.VITE_APIS_API_AUTHORIZATION}}
+            VITE_TYPESENSE_API_KEY={{secrets.VITE_TYPESENSE_API_KEY}}
+            VITE_TYPESENSE_PORT="443"
+            VITE_TYPESENSE_PROTOCOL="https"
+            VITE_TYPESENSE_HOST="typesense.acdh-dev.oeaw.ac.at"
          
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -95,13 +103,6 @@ jobs:
       needs: [setup_workflow_env, build_and_push_to_registry]
       uses: acdh-oeaw/gl-autodevops-minimal-port/.github/workflows/deploy-cluster-2.yml@main
       secrets: inherit
-      build-args: |
-        VITE_APIS_API_BASE_URL=""
-        VITE_APIS_API_AUTHORIZATION={{secrets.VITE_APIS_API_AUTHORIZATION}}
-        VITE_TYPESENSE_API_KEY={{secrets.VITE_TYPESENSE_API_KEY}}
-        VITE_TYPESENSE_PORT="443"
-        VITE_TYPESENSE_PROTOCOL="https"
-        VITE_TYPESENSE_HOST="typesense.acdh-dev.oeaw.ac.at"
       with:
         DOCKER_TAG: ${{ needs.setup_workflow_env.outputs.registry_root }}${{ needs.setup_workflow_env.outputs.image_tagged }}/${{ github.ref_name }}
         APP_NAME: "viecpro-frontend-development"
