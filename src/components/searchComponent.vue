@@ -36,6 +36,7 @@ const hitsPerPage: Ref<number> = ref(20);
 // const model_type: Ref<String> = ref("")
 
 // TODO: move collections to a seperate directory with settings / options or request them dynamically from typesense server
+// TODO: only use the option field and prefix the selected collection automatically. 
 const collections = {
   Entities: [
     // { option: "ALL", value: "entities" },
@@ -210,7 +211,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                 <ListboxOption
                   v-for="val in values"
                   :key="val.value"
-                  :value="val.value"
+                  :value="val"
                   class="hover:bg-green-100 hover:cursor-pointer pl-4"
                 >
                   {{ val.option }}

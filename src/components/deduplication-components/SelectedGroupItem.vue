@@ -30,7 +30,7 @@ const group = ref({});
 const members = ref([]);
 function LoadData() {
   console.log("load data called");
-  fetch("http://localhost:8000/dubletten/group_api/fetchGroupByID/", {
+  fetch(import.meta.env.VITE_APIS_API_URL+"dubletten/group_api/fetchGroupByID/", {
     method: "POST",
     //credentials: "include",
     headers: {

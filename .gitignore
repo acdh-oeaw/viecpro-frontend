@@ -1,6 +1,7 @@
 # directories
 NOTES/*
 .env
+
 # Logs
 logs
 *.log
