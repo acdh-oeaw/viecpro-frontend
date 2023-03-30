@@ -32,7 +32,7 @@ jobs:
       APP_ROOT: "/"
       #SERVICE_ID: "18582"
       #PUBLIC_URL: https://nomansland.acdh-dev.oeaw.ac.at
-      POSTGRES_ENABLED: "false"
+      POSTGRES_ENABLED: 'false'
     steps:
       - run: "/bin/true"      
   build_and_push_to_registry:
@@ -105,7 +105,7 @@ jobs:
       secrets: inherit
       with:
         DOCKER_TAG: ${{ needs.setup_workflow_env.outputs.registry_root }}${{ needs.setup_workflow_env.outputs.image_tagged }}/${{ github.ref_name }}
-        APP_NAME: "viecpro-frontend-development"
+        APP_NAME: "viecpro-frontend-dev"
         APP_ROOT: ${{ needs.setup_workflow_env.outputs.APP_ROOT }}
         SERVICE_ID: "21622" 
         PUBLIC_URL: "https://viecpro.oeaw.ac.at/" # GP not public in development
