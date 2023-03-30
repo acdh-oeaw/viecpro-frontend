@@ -95,19 +95,19 @@ jobs:
       needs: [setup_workflow_env, build_and_push_to_registry]
       uses: acdh-oeaw/gl-autodevops-minimal-port/.github/workflows/deploy-cluster-2.yml@main
       secrets: inherit
+      build-args: |
+        VITE_APIS_API_BASE_URL=""
+        VITE_APIS_API_AUTHORIZATION={{secrets.VITE_APIS_API_AUTHORIZATION}}
+        VITE_TYPESENSE_API_KEY={{secrets.VITE_TYPESENSE_API_KEY}}
+        VITE_TYPESENSE_PORT="443"
+        VITE_TYPESENSE_PROTOCOL="https"
+        VITE_TYPESENSE_HOST="typesense.acdh-dev.oeaw.ac.at"
       with:
         DOCKER_TAG: ${{ needs.setup_workflow_env.outputs.registry_root }}${{ needs.setup_workflow_env.outputs.image_tagged }}/${{ github.ref_name }}
         APP_NAME: "viecpro-frontend-development"
         APP_ROOT: ${{ needs.setup_workflow_env.outputs.APP_ROOT }}
         SERVICE_ID: "21622" 
         PUBLIC_URL: "https://viecpro.oeaw.ac.at/" # GP not public in development
-        build-args: |
-          VITE_APIS_API_BASE_URL=""
-          VITE_APIS_API_AUTHORIZATION={{secrets.VITE_APIS_API_AUTHORIZATION}}
-          VITE_TYPESENSE_API_KEY={{secrets.VITE_TYPESENSE_API_KEY}}
-          VITE_TYPESENSE_PORT="443"
-          VITE_TYPESENSE_PROTOCOL="https"
-          VITE_TYPESENSE_HOST="typesense.acdh-dev.oeaw.ac.at"
         POSTGRES_ENABLED: ${{ needs.setup_workflow_env.outputs.POSTGRES_ENABLED == 'false'}}
         environment: "viecpro frontend development" 
         default_port: "${{ needs.setup_workflow_env.outputs.default_port}}"
