@@ -1,5 +1,15 @@
 // main navbar. navigates to pages, not within pages.
 
+<script setup lang="ts">
+import { RouterLink } from "vue-router";
+import type { navlinkProp } from "../types/prop_types";
+import LocaleSelect from "./LocaleSelect.vue";
+
+// TODO: make links array of props and not slot content. To allow v-if for rendering links or all as hamburger menu items
+
+const props = defineProps({ navLinks: Array<navlinkProp> });
+</script>
+
 <template>
   <nav
     class="bg-primary-100 w-screen h-20 flex flex-col lg:flex-row text-white flex-nowrap"
@@ -11,7 +21,14 @@
     <div
       class="bg-primary-200 flex basis-1/3 items-center justify-center items-center"
     >
-      <slot name="mid">mid</slot>
+      <slot name="mid">
+        <LocaleSelect></LocaleSelect>
+        <!-- <ul>
+          <li v-for="locale in $i18n.availableLocales" :key="locale">
+            {{ locale }}
+          </li>
+        </ul> -->
+      </slot>
     </div>
     <div
       class="bg-primary-500 hidden lg:flex basis-1/3 space-x-4 justify-center items-center"
@@ -31,14 +48,5 @@
     </div>
   </nav>
 </template>
-
-<script setup lang="ts">
-import { RouterLink } from "vue-router";
-import type { navlinkProp } from "../types/prop_types"; 
-
-// TODO: make links array of props and not slot content. To allow v-if for rendering links or all as hamburger menu items
-
-const props = defineProps({ navLinks: Array<navlinkProp> });
-</script>
 
 <style scoped></style>

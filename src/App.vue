@@ -66,6 +66,9 @@ import confirmDeletion from "./components/dialogs/confirmDeletion.vue";
 const isBlurred = ref(false);
 const dialogResponse = ref("");
 
+
+
+
 function toggleBlurred(value, selection, callback) {
   console.log(value, selection, callback)
   console.log("this", this)

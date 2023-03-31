@@ -2,7 +2,9 @@
 make responsive
 <template>
   <div class="text-white container min-h-screen">
-    <h1 class="bg-black text-white static text-9xl">This is an about page</h1>
+    <h1 class="bg-black text-white static text-9xl">{{ $t("title") }}</h1>
+    <p></p>
+
   </div>
 </template>
 
