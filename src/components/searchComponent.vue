@@ -7,10 +7,14 @@ searching / filtering the relation tables within the genericEntityDetailView.
 <script setup lang="ts">
 // TODO: implement all types!
 // import components
+// these components should be handled by the lookup...
 import entitiesResults from "./search-components/results/entitiesResults.vue";
 import relationsResults from "./search-components/results/relationsResults.vue";
 import entitiesFilters from "./search-components/filters/entitiesFilters.vue";
 
+import {collectionsLookup} from "@/lookups.js";
+
+console.log(collectionsLookup)
 import relationsFilters from "./search-components/filters/relationsFilters.vue";
 import {
   Listbox,
