@@ -22,20 +22,58 @@ const entityComponentLookup = {
   },
 };
 
+const Relation = {
+  components: {
+    filter: null,
+  },
+  headers: [
+    "source.name",
+    "source_kind",
+    "relation_type",
+    "target.name",
+    "target_kind",
+    "start",
+    "end",
+  ],
+  searchParams: "source.name, target.name, relation_type",
+}
+
 const collectionsLookup = {
   Person: {
     components: {
       filter: null,
-      results: null,
     },
-    searchParams: "",
+    headers: [
+      "source.name",
+      "source_kind",
+      "relation_type",
+      "target.name",
+      "target_kind",
+      "start",
+      "end",
+    ],
+    searchParams: "source.name, target.name, relation_type",
   },
   Institution: {},
   Place: {},
   Work: {},
   Event: {},
-  PersonPerson: {},
-  PersonInstitution: {},
+  PersonPerson: Relation,
+  PersonInstitution: {
+    components: {
+      filter: null,
+    },
+    headers: [
+      "source.name",
+      "source_kind",
+      "relation_type",
+      "target.name",
+      "target_kind",
+      "start",
+      "end",
+    ],
+    searchParams: "source.name, target.name, relation_type",
+  },
   PersonPlace: {},
   PersonEvent: {},
   PersonWork: {},

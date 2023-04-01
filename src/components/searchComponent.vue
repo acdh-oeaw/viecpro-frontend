@@ -11,10 +11,10 @@ searching / filtering the relation tables within the genericEntityDetailView.
 import entitiesResults from "./search-components/results/entitiesResults.vue";
 import relationsResults from "./search-components/results/relationsResults.vue";
 import entitiesFilters from "./search-components/filters/entitiesFilters.vue";
+import genericResultsTable from "./search-components/results/genericResultsTable.vue";
 
-import {collectionsLookup} from "@/lookups.js";
+import { collectionsLookup } from "@/lookups.js";
 
-console.log(collectionsLookup)
 import relationsFilters from "./search-components/filters/relationsFilters.vue";
 import {
   Listbox,
@@ -23,24 +23,30 @@ import {
   ListboxOption,
 } from "@headlessui/vue";
 // import utils, functions, etc.
-import { ref, reactive, computed, watch } from "vue";
+import { ref, reactive, computed, watch, onBeforeMount } from "vue";
 import relationsFiltersVue from "./search-components/filters/relationsFilters.vue";
 import router from "../router";
 import type { Ref } from "vue";
 
 // import instant-search-stuff
-
 import TypesenseInstantSearchAdapter from "typesense-instantsearch-adapter";
 import Typesense from "typesense";
 
+const headers = ref([]);
+console.log(collectionsLookup);
+
 // reactive vars
-const selectedCollection: Ref<string> = ref("personinstitution");
+const selectedCollection: Ref<string> = ref("");
 const placeholder: Ref<string> = ref("type to search");
 const hitsPerPage: Ref<number> = ref(20);
 // const model_type: Ref<String> = ref("")
 
+onBeforeMount(() => {
+  selectedCollection.value = "PersonInstitution";
+});
+
 // TODO: move collections to a seperate directory with settings / options or request them dynamically from typesense server
-// TODO: only use the option field and prefix the selected collection automatically. 
+// TODO: only use the option field and prefix the selected collection automatically.
 const collections = {
   Entities: [
     // { option: "ALL", value: "entities" },
@@ -125,16 +131,36 @@ watch(selectedCollection, () => {
       params = "ent_a, relation_type";
       console.log("changed to relation params");
       break;
-    case "viecpro_PersonInstitution":
-      params = "source.name, target.name";
-      console.log("changed to personinstitution params");
+    case "PersonInstitution":
+      // params = "source.name";
+      // console.log("changed to personinstitution params");
+      // headers.value = [
+      //   "source.name",
+      //   "source_kind",
+      //   "relation_type",
+      //   "target.name",
+      //   "target_kind",
+      //   "start",
+      //   "end",
+      // ];
+
+      params = collectionsLookup[selectedCollection.value].searchParams;
+      headers.value = collectionsLookup[selectedCollection.value].headers;
+
       break;
 
-    case "viecpro_PersonPlace":
+    case "PersonPerson":
+      params = collectionsLookup[selectedCollection.value].searchParams;
+      headers.value = collectionsLookup[selectedCollection.value].headers;
+      break;
+    case "PersonPlace":
       params = "source.name, target.name";
       break;
     default:
-      console.log("in searchParam switch, could not find right case for: ");
+      console.log(
+        "in searchParam switch, could not find right case for: ",
+        selectedCollection.value
+      );
   }
 
   console.log("params is now: ", params);
@@ -150,12 +176,12 @@ const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
     apiKey: import.meta.env.VITE_TYPESENSE_API_KEY,
     nodes: [
       {
-        host: import.meta.env.VITE_TYPESENSE_HOST,
-        port: import.meta.env.VITE_TYPESENSE_PORT,
-        protocol: import.meta.env.VITE_TYPESENSE_PROTOCOL,
-        // host: "localhost",
-        // port: 8109,
-        // protocol: "http",
+        // host: import.meta.env.VITE_TYPESENSE_HOST,
+        // port: import.meta.env.VITE_TYPESENSE_PORT,
+        // protocol: import.meta.env.VITE_TYPESENSE_PROTOCOL,
+        host: "localhost",
+        port: 8109,
+        protocol: "http",
       },
     ],
   },
@@ -173,12 +199,13 @@ const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
   //   },
 });
 
+console.log("host", import.meta.env.VITE_TYPESENSE_HOST);
 const searchClient = typesenseInstantSearchAdapter.searchClient;
 </script>
 <template>
   <ais-instant-search
     :search-client="searchClient"
-    :index-name="selectedCollection"
+    :index-name="'viecpro_' + selectedCollection"
   >
     <div
       class="bg-yellow-100 min-h-20 w-screen flex py-10 place-content-between px-60"
@@ -198,7 +225,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
             <ListboxButton>{{ selectedCollection }}</ListboxButton>
 
             <ListboxOptions
-              class="absolute bg-white rounded-2xl px-4 py-2 shadow-2xl shadow-black -translate-x-9 translate-y-2"
+              class="absolute bg-white rounded-2xl px-4 py-2 shadow-2xl shadow-black -translate-x-9 translate-y-2 text-black"
             >
               <!-- TODO: make variable names concrete -->
               <template
@@ -215,7 +242,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                 <ListboxOption
                   v-for="val in values"
                   :key="val.value"
-                  :value="val"
+                  :value="val.value.replace('viecpro_', '')"
                   class="hover:bg-green-100 hover:cursor-pointer pl-4"
                 >
                   {{ val.option }}
@@ -257,7 +284,11 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
         <div v-else-if="selectedCollection === 'relations'">
           <relationsFilters></relationsFilters>
         </div>
-        <div v-else-if="selectedCollection === 'personinstitution'">
+        <div
+          v-else-if="
+            selectedCollection.replace('viecpro_', '') === 'PersonInstitution'
+          "
+        >
           <p>PersonInstitution-Filters</p>
         </div>
       </div>
@@ -267,7 +298,11 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
 
         <ais-hits>
           <template v-slot="{ items }">
-            <table>
+            <genericResultsTable
+              :headers="headers"
+              :items="items"
+            ></genericResultsTable>
+            <!-- <table>
               <tr>
                 <th>name</th>
                 <th>reltype</th>
@@ -295,7 +330,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                   ></ais-highlight>
                   <ais-highlight
                     v-if="
-                      selectedCollection == 'viecpro_PersonInstitution' ||
+                      selectedCollection.replace('viecpro_','') == 'PersonInstitution' ||
                       selectedCollection == 'viecpro_PersonPlace'
                     "
                     :hit="item"
@@ -322,12 +357,12 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                       selectedCollection == 'PersonPlace'
                     "
                     :hit="item"
-                    attribute="target.name"
+                    attribute="target"
                     class="entity_tag hover:cursor-pointer hover:underline"
                   ></ais-highlight>
                 </td>
               </tr>
-            </table>
+            </table> -->
           </template>
         </ais-hits>
       </div>
