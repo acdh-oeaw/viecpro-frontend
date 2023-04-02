@@ -23,7 +23,7 @@ import {
   ListboxOption,
 } from "@headlessui/vue";
 // import utils, functions, etc.
-import { ref, reactive, computed, watch, onBeforeMount } from "vue";
+import { ref, reactive, computed, watch, onBeforeMount, shallowRef } from "vue";
 import relationsFiltersVue from "./search-components/filters/relationsFilters.vue";
 import router from "../router";
 import type { Ref } from "vue";
@@ -109,7 +109,9 @@ function redirectToEntity(ent_type: string, ent_id: string, ent_model: string) {
   const route = `/${ent_type}/${ent_model}/detail/${ent_id}`;
   router.push(route);
 }
-
+// using shallow Ref, to avoid overhead for making the component object all reactive...
+// TODO: or use the string name of component in is
+const filterComponent = shallowRef(null);
 function showClient() {
   console.log(typesenseInstantSearchAdapter);
 }
@@ -122,46 +124,53 @@ let params: string;
 
 watch(selectedCollection, () => {
   console.log("selectdCollection is", selectedCollection.value);
-  switch (selectedCollection.value) {
-    case "entities":
-      params = "name";
-      console.log("changed to entity params");
-      break;
-    case "relations":
-      params = "ent_a, relation_type";
-      console.log("changed to relation params");
-      break;
-    case "PersonInstitution":
-      // params = "source.name";
-      // console.log("changed to personinstitution params");
-      // headers.value = [
-      //   "source.name",
-      //   "source_kind",
-      //   "relation_type",
-      //   "target.name",
-      //   "target_kind",
-      //   "start",
-      //   "end",
-      // ];
+  
+  params = collectionsLookup[selectedCollection.value].searchParams;
+  headers.value = collectionsLookup[selectedCollection.value].headers;
+  filterComponent.value = collectionsLookup[selectedCollection.value].components.filter
+  // switch (selectedCollection.value) {
+  //   case "entities":
+  //     params = "name";
+  //     console.log("changed to entity params");
+  //     break;
+  //   case "relations":
+  //     params = "ent_a, relation_type";
+  //     console.log("changed to relation params");
+  //     break;
+  //   case "PersonInstitution":
+  //     // params = "source.name";
+  //     // console.log("changed to personinstitution params");
+  //     // headers.value = [
+  //     //   "source.name",
+  //     //   "source_kind",
+  //     //   "relation_type",
+  //     //   "target.name",
+  //     //   "target_kind",
+  //     //   "start",
+  //     //   "end",
+  //     // ];
 
-      params = collectionsLookup[selectedCollection.value].searchParams;
-      headers.value = collectionsLookup[selectedCollection.value].headers;
+  //     params = collectionsLookup[selectedCollection.value].searchParams;
+  //     headers.value = collectionsLookup[selectedCollection.value].headers;
+  //     filterComponent.value = relationsFilters;
 
-      break;
+  //     break;
 
-    case "PersonPerson":
-      params = collectionsLookup[selectedCollection.value].searchParams;
-      headers.value = collectionsLookup[selectedCollection.value].headers;
-      break;
-    case "PersonPlace":
-      params = "source.name, target.name";
-      break;
-    default:
-      console.log(
-        "in searchParam switch, could not find right case for: ",
-        selectedCollection.value
-      );
-  }
+  //   case "PersonPerson":
+  //     params = collectionsLookup[selectedCollection.value].searchParams;
+  //     headers.value = collectionsLookup[selectedCollection.value].headers;
+  //     filterComponent.value = "relationsFilters";
+
+  //     break;
+  //   case "PersonPlace":
+  //     params = "source.name, target.name";
+  //     break;
+  //   default:
+  //     console.log(
+  //       "in searchParam switch, could not find right case for: ",
+  //       selectedCollection.value
+  //     );
+  // }
 
   console.log("params is now: ", params);
   additionalSearchParameters.query_by = params;
@@ -280,7 +289,8 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
         class="bg-gray-400 w-100 h-auto min-h-100 px-20 py-10"
         id="filter-section"
       >
-        <div v-if="selectedCollection === 'entities'">Entities Filter</div>
+        <component v-if="filterComponent" :is="filterComponent"></component>
+        <!-- <div v-if="selectedCollection === 'entities'">Entities Filter</div>
         <div v-else-if="selectedCollection === 'relations'">
           <relationsFilters></relationsFilters>
         </div>
@@ -289,8 +299,8 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
             selectedCollection.replace('viecpro_', '') === 'PersonInstitution'
           "
         >
-          <p>PersonInstitution-Filters</p>
-        </div>
+          <p>PersonInstitution-Filters</p> 
+        </div>-->
       </div>
 
       <div id="result-section" class="mx-auto px-60 py-10 bg-red-600">

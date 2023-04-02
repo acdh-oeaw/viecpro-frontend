@@ -32,7 +32,7 @@ onMounted(() => {
             :hit="item"
             :attribute="header"
             class="entity_tag hover:cursor-pointer hover:underline"
-            @click="redirectToEntity('entities', item.id, item.model)"
+            @click="redirectToEntity('entities', item.object_id, item.model)"
           ></ais-highlight>
           <!--                     @click="redirectToEntity('entities', item.id, item.model)"
  -->

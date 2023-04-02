@@ -48,7 +48,6 @@ onBeforeMount(() => {
     props.ent_type
   }/${converted_model.value.toLowerCase()}/${props.ent_id}/?format=json`;
   // old working url: `http://127.0.0.1:8000/entity/${props.ent_id}/?format=json`
-
   //TODO: refactor / remove this and add proper types
   let temp_rels: object = {};
   fetch(url, {
