@@ -3,11 +3,11 @@ import { watch, onMounted } from "vue";
 import useOpenDetail from "../../../composables/useOpenDetail.ts";
 const props = defineProps(["headers", "items"]);
 const redirectToEntity = useOpenDetail();
-onMounted(() => {
-  watch(props.headers, () => {
-    console.log(props.headers.value);
-  });
-});
+// onMounted(() => {
+//   watch(props.headers, () => {
+//     console.log(props.headers.value);
+//   });
+// });
 </script>
 <template>
   <div>

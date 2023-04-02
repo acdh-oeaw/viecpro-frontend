@@ -44,11 +44,12 @@ onBeforeMount(() => {
     converted_model.value = props.ent_model as string;
   }
 
-  const url = `http://127.0.0.1:8000/apis/api/${
-    props.ent_type
-  }/${converted_model.value.toLowerCase()}/${props.ent_id}/?format=json`;
-  // old working url: `http://127.0.0.1:8000/entity/${props.ent_id}/?format=json`
-  //TODO: refactor / remove this and add proper types
+  const url =
+    import.meta.env.VITE_APIS_INSTANCE_BASE_URL +
+    `apis/api/${props.ent_type}/${converted_model.value.toLowerCase()}/${
+      props.ent_id
+    }/?format=json`;
+
   let temp_rels: object = {};
   fetch(url, {
     method: "GET",
@@ -87,7 +88,7 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <div id="main-container flex">
+  <div id="main-container flex" class="bg-white">
     <!-- TODO: make this a composable also -->
     <div class="w-screen bg-transparent flex place-content-end sticky top-20">
       <div
@@ -118,15 +119,26 @@ onBeforeMount(() => {
     </div>
     <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
-        <genericEntityMeta
+        <!-- <genericEntityMeta
           v-if="data"
           :data="data"
           :functions="functions"
           :model="converted_model"
           :model_type="ent_type"
-        ></genericEntityMeta>
+        ></genericEntityMeta> -->
+        <EntityMetaBase :data="data" :model="ent_model"
+          ><component
+            v-if="data.relations"
+            :is="ent_model + 'Meta'"
+            :data="data"
+          >
+          </component
+        ></EntityMetaBase>
       </div>
-      <div class="my-section" id="actions-section">
+      <div
+        class="my-section bg-gray-200 rounded w-40 h-40 text-white text-center"
+        id="actions-section"
+      >
         <!-- This section will contain download, how to cite entity, and visualisations redirect (to vis studio) as well as inline visualisation selection actions -->
         actions
       </div>
@@ -190,7 +202,4 @@ onBeforeMount(() => {
 
 <style scoped>
 /* This was just a test to try the scoped apply */
-.my-section {
-  @apply w-40 h-40 bg-purple-400;
-}
 </style>

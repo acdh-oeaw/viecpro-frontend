@@ -7,8 +7,8 @@
 
   <!-- <ais-refinement-list attribute="source_kind" :show-more-limit="40" style="text-align: left; min-width: 300px" />
   <h4>by Target Entity Type</h4>
-  <ais-refinement-list attribute="target_kind" :show-more-limit="40" style="text-align: left; min-width: 300px" />
-  <h4>by Relation Type</h4> -->
+  <ais-refinement-list attribute="target_kind" :show-more-limit="40" style="text-align: left; min-width: 300px" /> -->
+  <h4>by Relation Type</h4>
   <ais-refinement-list
     attribute="relation_type"
     show-more

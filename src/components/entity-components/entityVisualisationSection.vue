@@ -1,7 +1,7 @@
 
 
 <template>
-    <div class="bg-black text-white h-20"> Visualisation Section {{ props.ent_type }}</div>
+    <div class="bg-gray-200 rounded text-white h-20"> Visualisation Section {{ props.ent_type }}</div>
 </template>
 
 <script setup lang="ts">

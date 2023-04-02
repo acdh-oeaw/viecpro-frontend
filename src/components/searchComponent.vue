@@ -124,10 +124,11 @@ let params: string;
 
 watch(selectedCollection, () => {
   console.log("selectdCollection is", selectedCollection.value);
-  
-  params = collectionsLookup[selectedCollection.value].searchParams;
-  headers.value = collectionsLookup[selectedCollection.value].headers;
-  filterComponent.value = collectionsLookup[selectedCollection.value].components.filter
+
+  let col = collectionsLookup[selectedCollection.value];
+  params = col.searchParams;
+  headers.value = col.headers;
+  filterComponent.value = col.components.filter;
   // switch (selectedCollection.value) {
   //   case "entities":
   //     params = "name";
