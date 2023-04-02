@@ -47,36 +47,6 @@ onBeforeMount(() => {
 
 // TODO: move collections to a seperate directory with settings / options or request them dynamically from typesense server
 // TODO: only use the option field and prefix the selected collection automatically.
-const collections = {
-  Entities: [
-    // { option: "ALL", value: "entities" },
-    { option: "Person", value: "Person" },
-    { option: "Institution", value: "Institution" },
-    { option: "Work", value: "Work" },
-    { option: "Event", value: "Event" },
-  ],
-  Relations: [
-    // { option: "ALL", value: "relations" },
-    { option: "PersonPerson", value: "viecpro_PersonPerson" },
-    { option: "PersonPlace", value: "viecpro_PersonPlace" },
-    { option: "PersonEvent", value: "viecpro_PersonEvent" },
-    { option: "PersonWork", value: "viecpro_PersonWork" },
-    { option: "PersonInstitution", value: "viecpro_PersonInstitution" },
-    {
-      option: "InstitutionInstitution",
-      value: "viecpro_InstitutionInstitution",
-    },
-    { option: "InstitutionPlace", value: "viecpro_InstitutionPlace" },
-    { option: "InstitutionWork", value: "viecpro_InstitutionWork" },
-    { option: "InstitutionEvent", value: "viecpro_InstitutionEvent" },
-    { option: "PlacePlace", value: "viecpro_PlacePlace" },
-    { option: "PlaceWork", value: "viecpro_PlaceWork" },
-    { option: "PlaceEvent", value: "viecpro_PlaceEvent" },
-    { option: "WorkWork", value: "viecpro_WorkWork" },
-    { option: "WorkEvent", value: "viecpro_WorkEvent" },
-    { option: "EventEvent", value: "viecpro_EventEvent" },
-  ],
-};
 
 // function increaseHits(){
 //     hitsPerPage.value += 1;
@@ -126,6 +96,7 @@ watch(selectedCollection, () => {
   console.log("selectdCollection is", selectedCollection.value);
 
   let col = collectionsLookup[selectedCollection.value];
+  console.log("this", col)
   params = col.searchParams;
   headers.value = col.headers;
   filterComponent.value = col.components.filter;
@@ -237,27 +208,13 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
             <ListboxOptions
               class="absolute bg-white rounded-2xl px-4 py-2 shadow-2xl shadow-black -translate-x-9 translate-y-2 text-black"
             >
-              <!-- TODO: make variable names concrete -->
-              <template
-                v-for="(values, key) in collections"
-                :key="key + '_listboxoption'"
-              >
-                <ListboxOption
-                  :value="key.toLowerCase()"
-                  class="hover:bg-green-100 hover:cursor-pointer"
-                >
-                  {{ key }}</ListboxOption
-                >
+            
+                <ListboxOption v-for="key in Object.keys(collectionsLookup)" :value="key" class="hover:bg-green-100 hover:cursor-pointer">
+                  {{ key }}
+                  
+                  </ListboxOption>
 
-                <ListboxOption
-                  v-for="val in values"
-                  :key="val.value"
-                  :value="val.value.replace('viecpro_', '')"
-                  class="hover:bg-green-100 hover:cursor-pointer pl-4"
-                >
-                  {{ val.option }}
-                </ListboxOption>
-              </template>
+
             </ListboxOptions>
           </Listbox>
         </div>
