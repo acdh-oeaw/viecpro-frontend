@@ -96,7 +96,7 @@ watch(selectedCollection, () => {
   console.log("selectdCollection is", selectedCollection.value);
 
   let col = collectionsLookup[selectedCollection.value];
-  console.log("this", col)
+  console.log("this", col);
   params = col.searchParams;
   headers.value = col.headers;
   filterComponent.value = col.components.filter;
@@ -188,9 +188,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
     :search-client="searchClient"
     :index-name="'viecpro_' + selectedCollection"
   >
-    <div
-      class="bg-yellow-100 min-h-20 w-screen flex py-10 place-content-between px-60"
-    >
+    <div class="bg-yellow-100 min-h-20 flex py-10 place-content-between px-60">
       <div id="buttons-div" class="flex-col bg-blue-200">
         <div class="flex my-4 place-items-center">
           <label for="select-collection-listbox" class="mr-4"
@@ -208,13 +206,13 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
             <ListboxOptions
               class="absolute bg-white rounded-2xl px-4 py-2 shadow-2xl shadow-black -translate-x-9 translate-y-2 text-black"
             >
-            
-                <ListboxOption v-for="key in Object.keys(collectionsLookup)" :value="key" class="hover:bg-green-100 hover:cursor-pointer">
-                  {{ key }}
-                  
-                  </ListboxOption>
-
-
+              <ListboxOption
+                v-for="key in Object.keys(collectionsLookup)"
+                :value="key"
+                class="hover:bg-green-100 hover:cursor-pointer"
+              >
+                {{ key }}
+              </ListboxOption>
             </ListboxOptions>
           </Listbox>
         </div>
@@ -242,7 +240,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
         </ais-search-box>
       </div>
     </div>
-    <div class="bg-blue-100 w-screen flex" id="result-and-filter-section">
+    <div class="bg-blue-100 w-full flex" id="result-and-filter-section">
       <div
         class="bg-gray-400 w-100 h-auto min-h-100 px-20 py-10"
         id="filter-section"

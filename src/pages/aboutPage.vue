@@ -4,13 +4,13 @@
 import genericDialog from "@/components/dialogs/genericDialog.vue";
 import { useCustomConfirmation } from "@/composables/useCustomConfirmation";
 
-const myCallback = (data:any) => {
+const myCallback = (data: any) => {
   console.log("data in useCustomConfirmation", data);
 };
 
 const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
 
-function myComputation(data:any) {
+function myComputation(data: any) {
   console.log("starting process");
 
   if (data) {
@@ -24,13 +24,10 @@ function myComputation(data:any) {
 </script>
 
 <template>
-  <div class="text-white container min-h-screen">
-    <h1 class="bg-black text-white static text-9xl">{{ $t("title") }}</h1>
-    <p></p>
+  <div class="flex min-h-screen justify-between">
+    <div class="bg-red-100" id="about_navigation">navigation</div>
+    <div class="bg-blue-100" id="about_content">content</div>
   </div>
-  <button @click="openDialog(myCallback)">Show Modal</button>
-  <button @click="openDialog(myComputation)">Run Computation</button>
-
   <genericDialog
     :confirm="confirm"
     :is-revealed="isRevealed"

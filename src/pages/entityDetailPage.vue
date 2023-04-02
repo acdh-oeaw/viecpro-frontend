@@ -8,7 +8,7 @@ components - if we want to show detail views of relations at all.) */
 // utitily imports
 import { ref, onBeforeMount, reactive } from "vue";
 import type { Ref } from "vue";
-
+import genericTable from "@/components/genericTable.vue";
 // component imports
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 import entityVisualisationSection from "@/components/entity-components/entityVisualisationSection.vue";
@@ -119,13 +119,6 @@ onBeforeMount(() => {
     </div>
     <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
-        <!-- <genericEntityMeta
-          v-if="data"
-          :data="data"
-          :functions="functions"
-          :model="converted_model"
-          :model_type="ent_type"
-        ></genericEntityMeta> -->
         <EntityMetaBase :data="data" :model="ent_model"
           ><component
             v-if="data.relations"
@@ -191,7 +184,11 @@ onBeforeMount(() => {
             :key="model + '_rel2'"
           >
             <div class="flex-col">
-              <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p>
+              <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
+              <genericTable
+                :headers="['id', 'relation_type', 'related_entity']"
+                :data="rels"
+              ></genericTable>
             </div>
           </TabPanel>
         </TabPanels>

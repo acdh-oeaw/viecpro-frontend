@@ -1,1 +1,6 @@
-{ "title": "The Vienna-Court: A Prosopographical Portal.", "name": "English Name."}
+{ 
+ "words": {
+    "unknwon": "unknown",
+    "title": "The Viennese-Court. A Prosopographical Portal."}
+    
+ }

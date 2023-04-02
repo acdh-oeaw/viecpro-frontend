@@ -1,5 +1,5 @@
 <template>
-  <body class="w-screen min-h-screen">
+  <body class="flex-col w-full min-h-screen">
     <header :class="{ 'blur-sm': isBlurred }">
       <!-- main top navbar -->
       <pageNavigation :nav-links="navLinks">
@@ -26,7 +26,7 @@
         <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
 
         <!-- Full-screen container to center the panel -->
-        <div class="fixed inset-0 flex items-center justify-center p-4">
+        <div class="fixed inset-0 flex items-center justify-center">
           <!-- The actual dialog panel -->
           <DialogPanel class="w-full max-w-sm rounded bg-white py-4 px-10">
             <component :is="confirmDeletion"></component>

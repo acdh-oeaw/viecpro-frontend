@@ -12,7 +12,7 @@ const props = defineProps({ navLinks: Array<navlinkProp> });
 
 <template>
   <nav
-    class="bg-primary-300 w-screen h-20 flex flex-col lg:flex-row text-white flex-nowrap"
+    class="bg-primary-300 h-20  flex lg:flex-row text-white flex-nowrap"
   >
     <!--  TODO: make layout stack on small sizes and place mid at bottom-->
     <div class="grow-0 px-20 justify-start items-center">

@@ -1,6 +1,6 @@
 // The footer bar with impressum, logos, etc.
 <template>
-  <div class="static bottom-0 w-screen bg-primary-100 h-20 flex">
+  <div class="static bottom-0 w-full bg-primary-100 h-20 flex">
     <div class="bg-primary-200 flex basis-1/3 text-white">
       <slot name="left"></slot>
     </div>

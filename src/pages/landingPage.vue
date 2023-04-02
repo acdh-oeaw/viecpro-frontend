@@ -8,7 +8,7 @@ import { RouterLink } from "vue-router";
 <template>
   <div class="w-screen top-20 bg-white main-container">
     <h1 class="text-5xl" id="header-viecpro">
-      The Viennese Court - A prosopographical Portal
+      {{ $t("words.title") }}
     </h1>
     <p>
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium nulla
