@@ -13,6 +13,10 @@
   },
   "pages": {
     "landing-page": {
+      "viecpro": {
+        "header": "Der Wiener Hof: Ein prosopographisches Portal.",
+        "text": "Dummy Text Viecpro"
+      },
       "database": {
         "header": "Database",
         "text": "Dummy Text Database"
@@ -20,10 +24,6 @@
       "team": {
         "header": "Team",
         "text": "Dummy Text Team"
-      },
-      "viecpro": {
-        "header": "Der Wiener Hof: Ein prosopographisches Portal.",
-        "text": "Dummy Text Viecpro"
       }
     },
     "about-page": {

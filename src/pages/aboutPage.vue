@@ -64,8 +64,13 @@ function myComputation(data: any) {
             v-for="(value, key) in textFile.pages['about-page']"
             :key="key"
           >
-            <Tab as="div">
-              {{ $t(`pages.about-page.${key}.header`) }}
+            <Tab as="template" v-slot="{ selected }" class="focus:outline-none">
+              <div
+                class="hover:cursor-pointer hover:bg-primary-900/40 hover:text-white px-2 py-1 rounded my-2"
+                :class="{ 'bg-primary-900/70 text-white border-0': selected }"
+              >
+                {{ $t(`pages.about-page.${key}.header`) }}
+              </div>
             </Tab>
 
             <div

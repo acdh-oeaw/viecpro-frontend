@@ -2,11 +2,59 @@
 via the home navlink in the main navbar and by clicking on the viecpro logo in
 the main navbar
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
+import { onBeforeMount, ref, watch } from "vue";
+const textFile = ref({});
+
+onBeforeMount(() => {
+  fetch("../src/locales/de.json")
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      textFile.value = json;
+      console.log(textFile.value);
+      console.log(json);
+    });
+});
+
+watch(textFile, () => {
+  // for debuggin now only
+  console.log("textfiel content: ", textFile);
+});
 </script>
 
 <template>
-  <div class="w-screen top-20 bg-white main-container">
+  <div class="min-h-screen mt-20">
+    <div v-if="textFile.pages" class="flex">
+     
+      <div class="flex-grow pl-20" id="about_content" as="div">
+        <div
+          v-if="textFile.pages"
+          v-for="(value, key) in textFile.pages['landing-page']"
+          :key="key"
+          as="div"
+        >
+          <h1>{{ $t(`pages.landing-page.${key}.header`) }}</h1>
+          <p>{{ $t(`pages.landing-page.${key}.text`) }}</p>
+
+          <div
+            v-if="value.children"
+            v-for="(_, nested_key) in textFile.pages['landing-page'][key]
+              .children"
+            :key="nested_key"
+          >
+            <h2>
+              {{ $t(`pages.landing-page.${key}.children.${nested_key}.header`) }}
+            </h2>
+            <p class="">
+              {{ $t(`pages.landing-page.${key}.children.${nested_key}.text`) }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="w-screen top-20 bg-white main-container">
     <h1 class="text-5xl" id="header-viecpro">
       {{ $t("words.title") }}
     </h1>
@@ -105,7 +153,7 @@ import { RouterLink } from "vue-router";
       temporibus pariatur non eveniet, odit veniam! Eveniet facere quisquam
       omnis adipisci? Officia accusantium deleniti sunt?
     </p>
-  </div>
+  </div> -->
 </template>
 <style scoped>
 div.main-container {
@@ -130,5 +178,17 @@ h1 {
 p {
   padding-left: 4rem;
   @apply text-gray-600;
+}
+
+
+h1 {
+  @apply text-4xl text-primary-600 mb-4;
+}
+
+p {
+  @apply mb-5;
+}
+h2 {
+  @apply text-2xl text-primary-600 mb-4;
 }
 </style>
