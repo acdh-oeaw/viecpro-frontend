@@ -86,7 +86,44 @@ const navLinks: navlinkProp[] = [
     </main>
     <footer :class="{ 'blur-sm': isBlurred }">
       <!-- footer section with impressum, logos, etc. -->
-      <footerBar> </footerBar>
+      <footerBar>
+        <template v-slot:middle>
+          <div class="flex justify-between">
+            <!-- <div>
+              <img
+                v-for="logo in [
+                  './assets/logos/footer/fwf-logo-invers-transparent-var2.gif',
+                  './assets/logos/footer/OEAW_Logo_Kurzform_white.tif',
+                  './assets/logos/footer/Logo_ihb_kurzform_CMYK.svg',
+                ]"
+                :key="logo"
+                :src="logo"
+                alt="Logo des
+              FWF."
+                class="max-h-full py-10"
+              />
+            </div> -->
+            <img
+              src="./assets/logos/footer/fwf-logo-invers-transparent-var2.gif"
+              alt="Logo des
+              FWF."
+              class="box max-h-full py-10 mx-4"
+            />
+
+            <img
+              src="./assets/logos/footer/OEAW_Logo_cmyk.jpg"
+              alt="Logo der
+              ÖAW."
+              class="box max-h-full py-10 mx-4"
+            />
+
+            <img
+              src="./assets/logos/footer/Logo_ihb_kurzform_CMYK.svg"
+              alt="Logo des
+              IHB."
+              class="max-h-full py-10 mx-4"
+            /></div></template
+      ></footerBar>
     </footer>
   </body>
 </template>

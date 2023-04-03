@@ -88,10 +88,10 @@ onBeforeMount(() => {
 </script>
 <template>
   <div id="main-container flex" class="bg-white">
-    <!-- TODO: make this a composable also -->
-    <div class="w-screen bg-transparent flex place-content-end sticky top-20">
+    <!-- TODO: uncommented, because for now tooltip on hover solution is tested -->
+    <!-- <div class="w-screen bg-transparent flex place-content-end sticky top-20">
       <div
-        class="bg-red-300 flex place-content-center mr-80 py-5 w-40 sticky top-20"
+        class=" flex place-content-center mr-80 py-5 w-40 sticky top-20"
       >
         <label for="information-switch" class="mr-4 sticky top-20">{{
           showInformation ? "Infos:" : "Infos: "
@@ -115,7 +115,7 @@ onBeforeMount(() => {
           </button>
         </Switch>
       </div>
-    </div>
+    </div> -->
     <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
         <EntityMetaBase :data="data" :model="ent_model"
