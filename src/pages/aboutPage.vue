@@ -3,7 +3,9 @@
 <script setup lang="ts">
 import genericDialog from "@/components/dialogs/genericDialog.vue";
 import { useCustomConfirmation } from "@/composables/useCustomConfirmation";
-import { ref } from "vue";
+import { ref, onBeforeMount, watch, reactive } from "vue";
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+
 const myCallback = (data: any) => {
   console.log("data in useCustomConfirmation", data);
 };
@@ -16,6 +18,23 @@ const sections = ref({
   usage: {},
 });
 
+const textFile = ref({});
+
+onBeforeMount(() => {
+  fetch("../src/locales/de.json")
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      textFile.value = json;
+      console.log(textFile.value);
+      console.log(json);
+    });
+});
+
+watch(textFile, () => {
+  console.log("textfiel content: ", textFile);
+});
 function myComputation(data: any) {
   console.log("starting process");
 
@@ -32,21 +51,74 @@ function myComputation(data: any) {
 <template>
   <div class="flex min-h-screen justify-between">
     <div class="min-h-screen mt-20">
-      <div
-        class="min-w-40 flex-row py-20 border-r-2 px-10"
-        id="about_navigation"
+      <TabGroup
+        v-if="textFile.pages"
+        vertical
+        as="div"
+        class="flex"
+        :defaultIndex="0"
       >
-        <div class="indent" v-for="(value, key) in sections" :key="key">
-          {{ $t(`words.${key}`)}}
-        </div>
-      </div>
+        <TabList class="min-w-40 py-20 border-r-2 px-10" id="about_navigation">
+          <div
+            class="indent"
+            v-for="(value, key) in textFile.pages['about-page']"
+            :key="key"
+          >
+            <Tab as="div">
+              {{ $t(`pages.about-page.${key}.header`) }}
+            </Tab>
+
+            <div
+              v-if="value.children"
+              v-for="(_, nested_key) in textFile.pages['about-page'][key]
+                .children"
+              :key="nested_key"
+              class="indent"
+            >
+              {{ $t(`pages.about-page.${key}.children.${nested_key}.header`) }}
+            </div>
+          </div>
+        </TabList>
+        <TabPanels class="flex-grow pl-20" id="about_content" as="div">
+          <TabPanel
+            v-if="textFile.pages"
+            v-for="(value, key) in textFile.pages['about-page']"
+            :key="key"
+            as="div"
+          >
+            <h1>{{ $t(`pages.about-page.${key}.header`) }}</h1>
+            <p>{{ $t(`pages.about-page.${key}.text`) }}</p>
+
+            <div
+              v-if="value.children"
+              v-for="(_, nested_key) in textFile.pages['about-page'][key]
+                .children"
+              :key="nested_key"
+            >
+              <h2>
+                {{
+                  $t(`pages.about-page.${key}.children.${nested_key}.header`)
+                }}
+              </h2>
+              <p class="">
+                {{ $t(`pages.about-page.${key}.children.${nested_key}.text`) }}
+              </p>
+            </div>
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
     </div>
 
     <div class="flex-grow pl-20" id="about_content">
-    <button class="bg-primary-200 rounded px-4 py-2 text-white mt-4" @click="openDialog(myComputation)">Test Dialog</button>
-    
+      <!-- <button
+        class="bg-primary-200 rounded px-4 py-2 text-white mt-4"
+        @click="openDialog(myComputation)"
+      >
+        Test Dialog
+      </button> -->
     </div>
   </div>
+
   <genericDialog
     :confirm="confirm"
     :is-revealed="isRevealed"
@@ -57,5 +129,16 @@ function myComputation(data: any) {
 <style scoped>
 .indent {
   @apply ml-6;
+}
+
+h1 {
+  @apply text-4xl text-primary-600 mb-4;
+}
+
+p {
+  @apply mb-5;
+}
+h2 {
+  @apply text-2xl text-primary-600 mb-4;
 }
 </style>

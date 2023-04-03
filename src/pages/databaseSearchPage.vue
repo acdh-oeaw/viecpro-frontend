@@ -184,69 +184,72 @@ console.log("host", import.meta.env.VITE_TYPESENSE_HOST);
 const searchClient = typesenseInstantSearchAdapter.searchClient;
 </script>
 <template>
-  <ais-instant-search
-    :search-client="searchClient"
-    :index-name="'viecpro_' + selectedCollection"
-  >
-    <div class="min-h-20 flex py-10 place-content-between px-60">
-      <div id="buttons-div" class="flex-col">
-        <div class="flex my-4 place-items-center">
-          <label for="select-collection-listbox" class="mr-4"
-            >Selected collection:
-          </label>
+  <div class="min-h-screen">
+    <ais-instant-search
+      :search-client="searchClient"
+      :index-name="'viecpro_' + selectedCollection"
+    >
+      <div class="min-h-20 flex py-10 place-content-between px-60">
+        <div id="buttons-div" class="flex-col">
+          <div class="flex my-4 place-items-center">
+            <label for="select-collection-listbox" class="mr-4"
+              >Selected collection:
+            </label>
 
-          <!-- TODO: Accesability: focus and keyboard navigation of opened listbox needs implementation  -->
-          <Listbox
-            v-model="selectedCollection"
-            id="select-collection-listbox"
-            as="div"
-          >
-            <ListboxButton>{{ selectedCollection }}</ListboxButton>
-
-            <ListboxOptions
-              class="absolute bg-white rounded-2xl px-4 py-2 shadow-2xl shadow-black -translate-x-9 translate-y-2 text-black"
+            <!-- TODO: Accesability: focus and keyboard navigation of opened listbox needs implementation  -->
+            <Listbox
+              v-model="selectedCollection"
+              id="select-collection-listbox"
+              as="div"
             >
-              <ListboxOption
-                v-for="key in Object.keys(collectionsLookup)"
-                :value="key"
-                class="hover:bg-green-100 hover:cursor-pointer"
+              <ListboxButton>{{ selectedCollection }}</ListboxButton>
+
+              <ListboxOptions
+                class="absolute bg-white rounded-2xl px-4 py-2 shadow-2xl shadow-black -translate-x-9 translate-y-2 text-black"
               >
-                {{ key }}
-              </ListboxOption>
-            </ListboxOptions>
-          </Listbox>
-        </div>
-        <div class="flex">
-          <!-- <button @click="updateCollection('entities')">Entities</button>
+                <ListboxOption
+                  v-for="key in Object.keys(collectionsLookup)"
+                  :value="key"
+                  class="hover:bg-green-100 hover:cursor-pointer"
+                >
+                  {{ key }}
+                </ListboxOption>
+              </ListboxOptions>
+            </Listbox>
+          </div>
+          <div class="flex">
+            <!-- <button @click="updateCollection('entities')">Entities</button>
           <button @click="updateCollection('personinstitution')">PI</button>
 
           <button @click="updateCollection('relations')">Relations</button> 
           <button @click="showClient()">ShowClient</button> -->
-          <!-- <button @click="increaseHits()">AddResults</button> -->
-          <label for="set-hits-per-page" class="mr-4">Results per page: </label>
-          <input
-            type="text"
-            v-model="hitsPerPage"
-            id="set-hits-per-page"
-            class="border-2 border-black rounded-xl px-4 text-center w-20"
-          />
+            <!-- <button @click="increaseHits()">AddResults</button> -->
+            <label for="set-hits-per-page" class="mr-4"
+              >Results per page:
+            </label>
+            <input
+              type="text"
+              v-model="hitsPerPage"
+              id="set-hits-per-page"
+              class="border-2 border-black rounded-xl px-4 text-center w-20"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <ais-search-box :placeholder="placeholder">
-          <!-- <template v-slot:submit-icon>
+        <div>
+          <ais-search-box :placeholder="placeholder">
+            <!-- <template v-slot:submit-icon>
                                                                                                                                                                                                                                                                                                                                                                                                                                                               <img src="../assets/suche.png" alt="" class="search_icon" />
                                                                                                                                                                                                                                                                                                                                                                                                                                                             </template> -->
-        </ais-search-box>
+          </ais-search-box>
+        </div>
       </div>
-    </div>
-    <div class="w-full flex" id="result-and-filter-section">
-      <div
-        class="w-100 h-auto min-h-100 px-20 py-10 border-r-2"
-        id="filter-section"
-      >
-        <component v-if="filterComponent" :is="filterComponent"></component>
-        <!-- <div v-if="selectedCollection === 'entities'">Entities Filter</div>
+      <div class="w-full flex" id="result-and-filter-section">
+        <div
+          class="w-100 h-auto min-h-100 px-20 py-10 border-r-2"
+          id="filter-section"
+        >
+          <component v-if="filterComponent" :is="filterComponent"></component>
+          <!-- <div v-if="selectedCollection === 'entities'">Entities Filter</div>
         <div v-else-if="selectedCollection === 'relations'">
           <relationsFilters></relationsFilters>
         </div>
@@ -257,18 +260,18 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
         >
           <p>PersonInstitution-Filters</p> 
         </div>-->
-      </div>
+        </div>
 
-      <div id="result-section" class="mx-auto px-60 py-10">
-        <ais-configure :hits-per-page.camel="hitsPerPage" />
+        <div id="result-section" class="mx-auto px-60 py-10">
+          <ais-configure :hits-per-page.camel="hitsPerPage" />
 
-        <ais-hits>
-          <template v-slot="{ items }">
-            <genericResultsTable
-              :headers="headers"
-              :items="items"
-            ></genericResultsTable>
-            <!-- <table>
+          <ais-hits>
+            <template v-slot="{ items }">
+              <genericResultsTable
+                :headers="headers"
+                :items="items"
+              ></genericResultsTable>
+              <!-- <table>
               <tr>
                 <th>name</th>
                 <th>reltype</th>
@@ -329,12 +332,13 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                 </td>
               </tr>
             </table> -->
-          </template>
-        </ais-hits>
+            </template>
+          </ais-hits>
+        </div>
+        <div></div>
       </div>
-      <div></div>
-    </div>
-  </ais-instant-search>
+    </ais-instant-search>
+  </div>
 </template>
 
 <style scoped>

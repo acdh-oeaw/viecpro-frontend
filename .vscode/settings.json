@@ -12,6 +12,8 @@
     "editor.quickSuggestions": {
       "strings": true
     },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
     "editor.suggest.insertMode": "replace",
     "gitlens.codeLens.scopes": ["document"]
   }

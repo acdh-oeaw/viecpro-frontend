@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 const props = defineProps(["data"]);
-const functions = ref([]);
+const functions = ref("");
 
 onMounted(() => {
   let test: Set<string> | Array<string> = new Set(

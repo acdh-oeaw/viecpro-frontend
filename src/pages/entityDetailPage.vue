@@ -11,7 +11,7 @@ import type { Ref } from "vue";
 import genericTable from "@/components/genericTable.vue";
 // component imports
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
-import entityVisualisationSection from "@/components/entity-components/entityVisualisationSection.vue";
+import entityVisualisationSection from "@/components/entity-components/entity-vis/entityVisualisationSection.vue";
 import { Switch } from "@headlessui/vue";
 
 const entityType: Ref<string> = ref("");

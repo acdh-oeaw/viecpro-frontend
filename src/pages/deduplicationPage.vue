@@ -141,7 +141,7 @@ function filterGroups() {
   });
 }
 
-const { isBlurred, toggleBlurred, dialogResponse } = inject("bgBlurred");
+//const { isBlurred, toggleBlurred, dialogResponse } = inject("bgBlurred");
 
 function searchResponseCallback(data) {
   switch (data.type) {
@@ -285,13 +285,13 @@ function toggleEntity(type: ItemType, id: number): void {
   }
 }
 
-const bgBlur = ref(false);
-function toggleBlur() {
-  console.log("toggle blur", bgBlur.value);
+// const bgBlur = ref(false);
+// function toggleBlur() {
+//   console.log("toggle blur", bgBlur.value);
 
-  bgBlur.value = !bgBlur.value;
-  isOpen.value = bgBlur.value;
-}
+//   bgBlur.value = !bgBlur.value;
+//   isOpen.value = bgBlur.value;
+// }
 watch(selectedGroups.value, () => {
   console.log("selected Groups", selectedGroups.value);
 });
@@ -333,12 +333,12 @@ function togglePersonNames() {
   //TODO: check with update of PersonProxy models to implement name fetching again
 }
 
-const isOpen = ref(true);
+// const isOpen = ref(true);
 
-function setIsOpen(value) {
-  isOpen.value = value;
-  bgBlur.value != isOpen.value;
-}
+// function setIsOpen(value) {
+//   isOpen.value = value;
+//   bgBlur.value != isOpen.value;
+// }
 function closeTable() {}
 
 function mergeGroups() {}
@@ -351,18 +351,19 @@ function pollCeleryTaskStatus() {}
 
 function removeGroupMember() {}
 
-function confirmAction() {
-  toggleBlurred("delete", null);
-  console.log(dialogResponse.value);
-}
+// function confirmAction() {
+//   toggleBlurred("delete", null);
+//   console.log(dialogResponse.value);
+// }
 
-toggleBlurred.callback = myCallback;
-function myCallback(res) {
-  console.log("my callback reached", res);
-}
+// toggleBlurred.callback = myCallback;
+// function myCallback(res) {
+//   console.log("my callback reached", res);
+// }
 </script>
 <template>
-  <div class="m-0 p-0 bg-red-400 flex-col" :class="{ 'blur-[2px]': bgBlur }">
+  <div class="m-0 p-0 bg-red-400 flex-col" > 
+  <!-- :class="{ 'blur-[2px]': bgBlur }" in the element above -->
     <div class="m-0 p-0" id="dedup-header">Results & Hedaer</div>
     <div class="min-h-screen bg-blue-200 flex justify-between" id="dedup-body">
       <div class="flex-col" id="dedup-browser-section">
@@ -528,7 +529,7 @@ function myCallback(res) {
           >
             Blur
           </button>
-          <button class="btn-dummy" @click="confirmAction">Fullblur</button>
+          <!-- <button class="btn-dummy" @click="confirmAction">Fullblur</button> -->
         </div>
 
         <!-- <button
