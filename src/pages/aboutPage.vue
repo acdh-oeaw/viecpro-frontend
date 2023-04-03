@@ -5,7 +5,21 @@ import genericDialog from "@/components/dialogs/genericDialog.vue";
 import { useCustomConfirmation } from "@/composables/useCustomConfirmation";
 import { ref, onBeforeMount, watch, reactive } from "vue";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import {texts} from "/src/texts.ts";
+const textFile = ref({});
 
+onBeforeMount(() => {
+  // fetch("./src/texts.json")
+  //   .then((response) => {
+  //     return response.json();
+  //   })
+  //   .then((json) => {
+  //     textFile.value = json;
+  //     console.log(textFile.value);
+  //     console.log(json);
+  //   });
+  textFile.value = texts;
+});
 const myCallback = (data: any) => {
   console.log("data in useCustomConfirmation", data);
 };
@@ -18,19 +32,7 @@ const sections = ref({
   usage: {},
 });
 
-const textFile = ref({});
 
-onBeforeMount(() => {
-  fetch("../src/locales/de.json")
-    .then((response) => {
-      return response.json();
-    })
-    .then((json) => {
-      textFile.value = json;
-      console.log(textFile.value);
-      console.log(json);
-    });
-});
 
 watch(textFile, () => {
   console.log("textfiel content: ", textFile);

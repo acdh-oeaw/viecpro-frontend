@@ -3,18 +3,20 @@ via the home navlink in the main navbar and by clicking on the viecpro logo in
 the main navbar
 <script setup lang="ts">
 import { onBeforeMount, ref, watch } from "vue";
+import {texts} from "/src/texts.ts";
 const textFile = ref({});
 
 onBeforeMount(() => {
-  fetch("../src/locales/de.json")
-    .then((response) => {
-      return response.json();
-    })
-    .then((json) => {
-      textFile.value = json;
-      console.log(textFile.value);
-      console.log(json);
-    });
+  // fetch("./src/texts.json")
+  //   .then((response) => {
+  //     return response.json();
+  //   })
+  //   .then((json) => {
+  //     textFile.value = json;
+  //     console.log(textFile.value);
+  //     console.log(json);
+  //   });
+  textFile.value = texts;
 });
 
 watch(textFile, () => {
@@ -26,7 +28,6 @@ watch(textFile, () => {
 <template>
   <div class="min-h-screen mt-20">
     <div v-if="textFile.pages" class="flex">
-     
       <div class="flex-grow pl-20" id="about_content" as="div">
         <div
           v-if="textFile.pages"
@@ -44,7 +45,9 @@ watch(textFile, () => {
             :key="nested_key"
           >
             <h2>
-              {{ $t(`pages.landing-page.${key}.children.${nested_key}.header`) }}
+              {{
+                $t(`pages.landing-page.${key}.children.${nested_key}.header`)
+              }}
             </h2>
             <p class="">
               {{ $t(`pages.landing-page.${key}.children.${nested_key}.text`) }}
@@ -179,7 +182,6 @@ p {
   padding-left: 4rem;
   @apply text-gray-600;
 }
-
 
 h1 {
   @apply text-4xl text-primary-600 mb-4;
