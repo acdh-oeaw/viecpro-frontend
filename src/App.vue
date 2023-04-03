@@ -90,7 +90,7 @@ function toggleBlurred(value, selection, callback) {
 const navLinks: navlinkProp[] = [
   { name: "Home", route: "/" },
   { name: "Database", route: "/search" },
-  { name: "Deduplication", route: "/deduplication" },
+  // { name: "Deduplication", route: "/deduplication" }, // TODO: removed for now, as not needed yet and not completet
   { name: "About", route: "/about" },
 ];
 

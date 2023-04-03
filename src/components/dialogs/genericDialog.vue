@@ -9,40 +9,19 @@ import {
   DialogOverlay,
 } from "@headlessui/vue";
 
-// const { isRevealed, reveal, confirm, cancel } = useConfirmDialog();
 
 const props = defineProps(["confirm", "cancel", "isRevealed"]);
 
-// const openDialog = async (callback:Function) => {
-//   console.log("clicked openDialog");
-//   const { data, isCanceled } = await reveal();
-//   if (!isCanceled) {
-//     //console.log(data);
-//     callback(data);
-//   }
-// };
 
-
-// const myCallback = (data)=>{
-//   console.log("in my Callback, data is: ", data);
-// }
 </script>
 <template>
-  <!-- 
-    <teleport to="body">
-    <div v-if="isRevealed" class="modal-layout">
-      <div class="modal">
-        <h2>Confirm?</h2>
-        <button @click="confirm(true)">Yes</button>
-        <button @click="confirm(false)">No</button>
-      </div>
-    </div>
-  </teleport> -->
-  <!-- <button @click="openDialog(myCallback)">Show Modal</button> -->
+
 
   <Dialog :open="isRevealed" @close="confirm(false)" class="relative z-50">
     <div class="fixed inset-0  bg-black/50" aria-hidden="true" />
     <div class="fixed inset-0 flex items-center justify-center p-4">
+
+    <!-- TODO: make the Panel with "component :is" and create templates for use cases -->
       <DialogPanel class="w-full max-w-sm rounded bg-white py-4 px-10">
         <DialogTitle class="mb-4 text-xl">
           <h1>Are you sure you want to delete this?</h1></DialogTitle
