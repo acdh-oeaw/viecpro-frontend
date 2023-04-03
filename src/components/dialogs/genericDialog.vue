@@ -41,7 +41,7 @@ const props = defineProps(["confirm", "cancel", "isRevealed"]);
   <!-- <button @click="openDialog(myCallback)">Show Modal</button> -->
 
   <Dialog :open="isRevealed" @close="confirm(false)" class="relative z-50">
-    <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
+    <div class="fixed inset-0  bg-black/50" aria-hidden="true" />
     <div class="fixed inset-0 flex items-center justify-center p-4">
       <DialogPanel class="w-full max-w-sm rounded bg-white py-4 px-10">
         <DialogTitle class="mb-4 text-xl">

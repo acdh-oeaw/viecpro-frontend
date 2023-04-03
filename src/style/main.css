@@ -36,3 +36,8 @@
 .ais-RefinementList-count {
   @apply rounded bg-blue-200 ml-2 px-1;
 }
+
+
+.ais-Highlight-highlighted {
+  @apply bg-blue-200;
+}

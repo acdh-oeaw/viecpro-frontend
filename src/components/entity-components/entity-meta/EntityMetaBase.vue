@@ -13,9 +13,9 @@ const props = defineProps(["data", "model"]);
     </h3>
     <p class="mb-4">
       <span v-if="data.start_date"> {{ data.start_date }}</span>
-      <span class="mild_text" v-else> unbekannt </span> -
+      <span class="mild_text" v-else> {{ $t("words.unknown") }} </span> -
       <span v-if="data.end_date"> {{ data.end_date }}</span>
-      <span class="mild_text" v-else> unbekannt</span>
+      <span class="mild_text" v-else> {{ $t("words.unknown") }}</span>
       <!-- {{ data.start_date ? data.start_date : "unknown" }} - {{ data.end_date }} ({{
       data.kind ? data.kind.label : data.gender
     }}) -->

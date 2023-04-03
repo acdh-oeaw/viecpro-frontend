@@ -188,8 +188,8 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
     :search-client="searchClient"
     :index-name="'viecpro_' + selectedCollection"
   >
-    <div class="bg-yellow-100 min-h-20 flex py-10 place-content-between px-60">
-      <div id="buttons-div" class="flex-col bg-blue-200">
+    <div class=" min-h-20 flex py-10 place-content-between px-60">
+      <div id="buttons-div" class="flex-col ">
         <div class="flex my-4 place-items-center">
           <label for="select-collection-listbox" class="mr-4"
             >Selected collection:
@@ -216,7 +216,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
             </ListboxOptions>
           </Listbox>
         </div>
-        <div class="flex bg-green-200">
+        <div class="flex ">
           <!-- <button @click="updateCollection('entities')">Entities</button>
           <button @click="updateCollection('personinstitution')">PI</button>
 
@@ -240,9 +240,9 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
         </ais-search-box>
       </div>
     </div>
-    <div class="bg-blue-100 w-full flex" id="result-and-filter-section">
+    <div class=" w-full flex" id="result-and-filter-section">
       <div
-        class="bg-gray-400 w-100 h-auto min-h-100 px-20 py-10"
+        class=" w-100 h-auto min-h-100 px-20 py-10 border-r-2"
         id="filter-section"
       >
         <component v-if="filterComponent" :is="filterComponent"></component>
@@ -259,7 +259,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
         </div>-->
       </div>
 
-      <div id="result-section" class="mx-auto px-60 py-10 bg-red-600">
+      <div id="result-section" class="mx-auto px-60 py-10 ">
         <ais-configure :hits-per-page.camel="hitsPerPage" />
 
         <ais-hits>

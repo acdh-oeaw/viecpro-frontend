@@ -1,6 +1,16 @@
 { 
  "words": {
-    "unknwon": "unknown",
-    "title": "The Viennese-Court. A Prosopographical Portal."}
+    "unknown": "unknown",
+    "title": "The Viennese-Court. A Prosopographical Portal.",
+"database": "Database",
+"team": "Team",
+"usage": "Usage",
+"filter results": "Filter Results",
+"by relation type": "By Relation Type",
+"show more": "show more",
+"show less": "show less"
+}}
+
+
     
- }
+ 

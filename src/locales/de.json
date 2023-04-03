@@ -1,2 +1,11 @@
 { "words": {"title": "Der Wiener Hof: Ein prosopographisches Portal.",
-"name": "Deutscher Name."}}
+"name": "Deutscher Name.",
+"database": "Datenbank",
+"team": "Team",
+"usage": "Benutzung",
+"filter results": "Ergebnisse filtern",
+"by relation type": "Nach Relationsart",
+"show more": "mehr anzeigen",
+"show less": "weniger anzeigen",
+"unknown": "unbekannt"
+}}
