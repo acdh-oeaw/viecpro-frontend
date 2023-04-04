@@ -20,6 +20,7 @@ export default defineConfig({
     }),
   ],
   resolve: {
+    preserveSymlinks: true,
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
@@ -29,5 +30,4 @@ export default defineConfig({
   define: { "process.env": {} }, // TODO: this seems to be an issue. This works in local, but not in production?
   //build: { outDir: ".output" },
   //build: { modulePreload: { polyfill: true } },
-
 });
