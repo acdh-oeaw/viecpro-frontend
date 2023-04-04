@@ -89,7 +89,7 @@ jobs:
             "secrets_env=./secrets.env"
 
           build-args: |
-            VITE_APIS_API_BASE_URL=""
+            VITE_APIS_API_URL="https://viecpro-dev.acdh-dev.oeaw.ac.at/"
             VITE_APIS_API_AUTHORIZATION={{secrets.VITE_APIS_API_AUTHORIZATION}}
             VITE_TYPESENSE_API_KEY={{secrets.VITE_TYPESENSE_API_KEY}}
             VITE_TYPESENSE_PORT="443"

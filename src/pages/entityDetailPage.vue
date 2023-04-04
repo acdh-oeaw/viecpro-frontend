@@ -44,7 +44,7 @@ onBeforeMount(() => {
   }
 
   const url =
-    import.meta.env.VITE_APIS_INSTANCE_BASE_URL +
+    import.meta.env.VITE_APIS_API_URL +
     `apis/api/${props.ent_type}/${converted_model.value.toLowerCase()}/${
       props.ent_id
     }/?format=json`;
