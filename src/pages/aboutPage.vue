@@ -31,6 +31,10 @@ const sections = ref({
   usage: {},
 });
 
+function myComputation(data){
+  console.log(data);
+}
+
 // watch(textFile, () => {
 //   console.log("textfiel content: ", textFile);
 // });
@@ -112,12 +116,12 @@ const sections = ref({
     </div>
 
     <div class="flex-grow pl-20" id="about_content">
-      <!-- <button
+      <button
         class="bg-primary-200 rounded px-4 py-2 text-white mt-4"
         @click="openDialog(myComputation)"
       >
         Test Dialog
-      </button> -->
+      </button>
     </div>
   </div>
 

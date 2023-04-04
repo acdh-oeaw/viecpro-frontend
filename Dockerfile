@@ -51,7 +51,8 @@
 # CMD ["npm", "run", "preview"]
 
 # Use an official Node.js runtime as a parent image
-FROM node:16-alpine3.14
+FROM node:18
+# default node 16 verwenden
 
 # Set the working directory to /app
 WORKDIR /app/
@@ -65,7 +66,6 @@ RUN npm install
 
 # Copy the rest of the application files to the container
 COPY . /app
-
 # Build the application with Vite
 RUN npm run build-only
 # npm run build-only
