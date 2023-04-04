@@ -60,7 +60,8 @@ WORKDIR /app/
 COPY package*.json /app
 
 # Install dependencies
-RUN npm install
+RUN npm install 
+# RUN npm install  --ci --no-audit --no-fund
 
 # Copy the rest of the application files to the container
 COPY . /app
@@ -68,7 +69,7 @@ COPY . /app
 # Build the application with Vite
 RUN npm run build-only
 # npm run build-only
-
+ENV NODE_ENV=production
 # Expose port 3000 for the server to listen on
 EXPOSE 3000
 
