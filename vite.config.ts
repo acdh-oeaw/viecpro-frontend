@@ -7,16 +7,27 @@ import { resolve, dirname } from "node:path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [VueRouter(), vue(),  VueI18nPlugin({
-    include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
-  })],
+  plugins: [
+    VueRouter(),
+    vue(),
+    VueI18nPlugin({
+      runtimeOnly: false,
+
+      include: resolve(
+        dirname(fileURLToPath(import.meta.url)),
+        "./src/locales/**"
+      ),
+    }),
+  ],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  base: "./",
+  base: "/",
   server: { host: true, port: 3000 },
   define: { "process.env": {} },
   //build: { outDir: ".output" },
+  //build: { modulePreload: { polyfill: true } },
+
 });

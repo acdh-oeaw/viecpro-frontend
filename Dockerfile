@@ -63,10 +63,11 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application files to the container
-COPY . .
+COPY . ./
 
 # Build the application with Vite
 RUN npm run build-only
+# npm run build-only
 
 # Expose port 3000 for the server to listen on
 EXPOSE 3000

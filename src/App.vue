@@ -1,23 +1,12 @@
 <script setup lang="ts">
-import {
-  TransitionRoot,
-  TransitionChild,
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  DialogDescription,
-  DialogOverlay,
-} from "@headlessui/vue";
+
 import { RouterLink, RouterView } from "vue-router";
 import { ref, provide } from "vue";
 import pageNavigation from "./components/pageNavigation.vue";
 import footerBar from "./components/footerBar.vue";
 import navLink from "./components/navLink.vue";
 import type { navlinkProp } from "./types/prop_types";
-import confirmDeletion from "./components/dialogs/confirmDeletion.vue";
 
-const isBlurred = ref(false);
-const dialogResponse = ref("");
 
 // function toggleBlurred(value, selection, callback) {
 //   console.log(value, selection, callback)
@@ -66,7 +55,7 @@ const navLinks: navlinkProp[] = [
         </template>
       </pageNavigation>
     </header>
-    <main :class="{ 'blur-sm': isBlurred }">
+    <main >
       <!-- <Dialog
         :open="isBlurred"
         @close="toggleBlurred(false, 'aborted')"
@@ -84,8 +73,8 @@ const navLinks: navlinkProp[] = [
       <!-- router section: "pages" from src/pages are displayed in here -->
       <RouterView />
     </main>
-    <footer :class="{ 'blur-sm': isBlurred }">
-      <!-- footer section with impressum, logos, etc. -->
+    <footer>cd ..
+          <!-- footer section with impressum, logos, etc. -->
       <footerBar>
         <template v-slot:middle>
           <div class="flex justify-between">

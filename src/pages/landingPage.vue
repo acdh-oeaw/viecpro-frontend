@@ -3,7 +3,7 @@ via the home navlink in the main navbar and by clicking on the viecpro logo in
 the main navbar
 <script setup lang="ts">
 import { onBeforeMount, ref, watch } from "vue";
-import {texts} from "/src/texts.ts";
+import { texts } from "@/texts.js";
 const textFile = ref({});
 
 onBeforeMount(() => {

@@ -5,24 +5,23 @@ import genericDialog from "@/components/dialogs/genericDialog.vue";
 import { useCustomConfirmation } from "@/composables/useCustomConfirmation";
 import { ref, onBeforeMount, watch, reactive } from "vue";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
-import {texts} from "/src/texts.ts";
-const textFile = ref({});
+import { texts } from "@/texts.js";
 
-onBeforeMount(() => {
-  // fetch("./src/texts.json")
-  //   .then((response) => {
-  //     return response.json();
-  //   })
-  //   .then((json) => {
-  //     textFile.value = json;
-  //     console.log(textFile.value);
-  //     console.log(json);
-  //   });
-  textFile.value = texts;
-});
-const myCallback = (data: any) => {
-  console.log("data in useCustomConfirmation", data);
-};
+console.log("new style texts", texts);
+// const textFile = ref({});
+
+// onBeforeMount(() => {
+//   // fetch("./src/texts.json")
+//   //   .then((response) => {
+//   //     return response.json();
+//   //   })
+//   //   .then((json) => {
+//   //     textFile.value = json;
+//   //     console.log(textFile.value);
+//   //     console.log(json);
+//   //   });
+//   textFile.value = texts;
+
 
 const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
 
@@ -32,29 +31,27 @@ const sections = ref({
   usage: {},
 });
 
+// watch(textFile, () => {
+//   console.log("textfiel content: ", textFile);
+// });
+// function myComputation(data: any) {
+//   console.log("starting process");
 
+//   if (data) {
+//     console.log("running process, data was:", data);
+//   } else {
+//     console.log("aborting process, as data was:", data);
+//   }
 
-watch(textFile, () => {
-  console.log("textfiel content: ", textFile);
-});
-function myComputation(data: any) {
-  console.log("starting process");
-
-  if (data) {
-    console.log("running process, data was:", data);
-  } else {
-    console.log("aborting process, as data was:", data);
-  }
-
-  console.log("finishing process");
-}
+//   console.log("finishing process");
+// }
 </script>
 
 <template>
   <div class="flex min-h-screen justify-between">
     <div class="min-h-screen mt-20">
       <TabGroup
-        v-if="textFile.pages"
+        v-if="texts.pages"
         vertical
         as="div"
         class="flex"
@@ -63,7 +60,7 @@ function myComputation(data: any) {
         <TabList class="min-w-40 py-20 border-r-2 px-10" id="about_navigation">
           <div
             class="indent"
-            v-for="(value, key) in textFile.pages['about-page']"
+            v-for="(value, key) in texts.pages['about-page']"
             :key="key"
           >
             <Tab as="template" v-slot="{ selected }" class="focus:outline-none">
@@ -77,8 +74,7 @@ function myComputation(data: any) {
 
             <div
               v-if="value.children"
-              v-for="(_, nested_key) in textFile.pages['about-page'][key]
-                .children"
+              v-for="(_, nested_key) in texts.pages['about-page'][key].children"
               :key="nested_key"
               class="indent"
             >
@@ -88,8 +84,8 @@ function myComputation(data: any) {
         </TabList>
         <TabPanels class="flex-grow pl-20" id="about_content" as="div">
           <TabPanel
-            v-if="textFile.pages"
-            v-for="(value, key) in textFile.pages['about-page']"
+            v-if="texts.pages"
+            v-for="(value, key) in texts.pages['about-page']"
             :key="key"
             as="div"
           >
@@ -98,8 +94,7 @@ function myComputation(data: any) {
 
             <div
               v-if="value.children"
-              v-for="(_, nested_key) in textFile.pages['about-page'][key]
-                .children"
+              v-for="(_, nested_key) in texts.pages['about-page'][key].children"
               :key="nested_key"
             >
               <h2>
