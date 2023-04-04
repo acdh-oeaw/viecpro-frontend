@@ -8,11 +8,11 @@ import InstantSearch from "vue-instantsearch/vue3/es"; // Vue 3
 import messages from "@intlify/unplugin-vue-i18n/messages";
 import "./style/main.css";
 
-import PersonMeta from "src/components/entity-components/entity-meta/PersonMeta.vue";
-import InstitutionMeta from "src/components/entity-components/entity-meta/InstitutionMeta.vue";
-import PlaceMeta from "src/components/entity-components/entity-meta/PlaceMeta.vue";
-import WorkMeta from "src/components/entity-components/entity-meta/WorkMeta.vue";
-import EntityMetaBase from "src/components/entity-components/entity-meta/EntityMetaBase.vue";
+import PersonMeta from "./components/entity-components/entity-meta/PersonMeta.vue";
+import InstitutionMeta from "./components/entity-components/entity-meta/InstitutionMeta.vue";
+import PlaceMeta from "./components/entity-components/entity-meta/PlaceMeta.vue";
+import WorkMeta from "./components/entity-components/entity-meta/WorkMeta.vue";
+import EntityMetaBase from "./components/entity-components/entity-meta/EntityMetaBase.vue";
 
 const i18n = createI18n({
   legacy: false,
