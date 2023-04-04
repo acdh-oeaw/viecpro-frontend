@@ -54,16 +54,16 @@
 FROM node:16-alpine3.14
 
 # Set the working directory to /app
-WORKDIR /app
+WORKDIR /app/
 
 # Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
+COPY package*.json /app
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application files to the container
-COPY . ./
+COPY . /app
 
 # Build the application with Vite
 RUN npm run build-only
