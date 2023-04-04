@@ -29,7 +29,7 @@ jobs:
       default_port: "3000" 
       #APP_NAME: nomansland
       # This together with the branch name is also used as the namespace to deploy to
-      APP_ROOT: "/"
+      APP_ROOT: "/app"
       #SERVICE_ID: "18582"
       #PUBLIC_URL: https://nomansland.acdh-dev.oeaw.ac.at
       POSTGRES_ENABLED: false
