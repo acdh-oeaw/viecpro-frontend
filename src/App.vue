@@ -1,12 +1,10 @@
 <script setup lang="ts">
-
 import { RouterLink, RouterView } from "vue-router";
 import { ref, provide } from "vue";
 import pageNavigation from "./components/pageNavigation.vue";
 import footerBar from "./components/footerBar.vue";
 import navLink from "./components/navLink.vue";
 import type { navlinkProp } from "./types/prop_types";
-
 
 // function toggleBlurred(value, selection, callback) {
 //   console.log(value, selection, callback)
@@ -55,7 +53,7 @@ const navLinks: navlinkProp[] = [
         </template>
       </pageNavigation>
     </header>
-    <main >
+    <main>
       <!-- <Dialog
         :open="isBlurred"
         @close="toggleBlurred(false, 'aborted')"
@@ -73,8 +71,8 @@ const navLinks: navlinkProp[] = [
       <!-- router section: "pages" from src/pages are displayed in here -->
       <RouterView />
     </main>
-    <footer>cd ..
-          <!-- footer section with impressum, logos, etc. -->
+    <footer>
+      <!-- footer section with impressum, logos, etc. -->
       <footerBar>
         <template v-slot:middle>
           <div class="flex justify-between">
