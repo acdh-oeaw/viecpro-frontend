@@ -79,6 +79,7 @@ jobs:
           
         run: |
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
+          mv deployment.env .env
         #  mv deployment.env .env 
         #   echo ${{ secrets.K8S_SECRET_APIS_API_AUTHORIZATION }} >> .env
 
@@ -101,8 +102,8 @@ jobs:
             "secrets_env=./secrets.env"
 
           build-args: |
-            APIS_API_KEY={{secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION}}
-            TYPESENSE_API_KEY={{secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY}}
+            APIS_API_KEY=${{secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION}}
+            TYPESENSE_API_KEY=${{secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY}}
 
           #   VITE_APIS_API_URL="https://viecpro-dev.acdh-dev.oeaw.ac.at/"
           #   VITE_TYPESENSE_PORT="443"
