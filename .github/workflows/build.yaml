@@ -81,6 +81,7 @@ jobs:
         run: |
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
           mv deployment.env .env 
+          echo  "$SECRETS_CONTEXT"
           echo "$TYPESENSE_KEY"
           echo "$API_KEY"
           echo "$TYPESENSE_KEY" >> .env
