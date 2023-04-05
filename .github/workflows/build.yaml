@@ -86,7 +86,7 @@ jobs:
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
           mv deployment.env .env
           echo ${{ secrets.K8S_SECRET_APIS_API_AUTHORIZATION }}
-          echo ${{ secrets.K8S_SECRET_APIS_API_AUTHORIZATION }} >> .
+          echo ${{ secrets.K8S_SECRET_APIS_API_AUTHORIZATION }} >> .env
         #  mv deployment.env .env 
         #   echo ${{ secrets.K8S_SECRET_APIS_API_AUTHORIZATION }} >> .env
 
