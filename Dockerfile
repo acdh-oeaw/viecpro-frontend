@@ -67,6 +67,7 @@ RUN npm install
 # Copy the rest of the application files to the container
 COPY . /app
 
+RUN echo ${{ secrets.K8S_SECRET_TYPESENSE_API_KEY }} >> .env
 # TODO: exclude .env file here and construct it from build env args, if they start with "VITE_" and create the .env file from there
 # Build the application with Vite
 RUN npm run build-only
