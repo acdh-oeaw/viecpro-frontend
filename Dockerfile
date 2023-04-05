@@ -1,5 +1,4 @@
 # syntax=docker/dockerfile:1
-
 # # build
 # FROM node:18-slim AS build
 
@@ -52,6 +51,7 @@
 
 # Use an official Node.js runtime as a parent image
 FROM node:18
+
 # default node 16 verwenden
 
 # Set the working directory to /app
@@ -60,6 +60,8 @@ WORKDIR /app/
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json /app
 
+#RUN echo "VITE_TEST='my test'" >> ./.env
+             
 # Install dependencies
 RUN npm install 
 # RUN npm install  --ci --no-audit --no-fund
@@ -67,7 +69,6 @@ RUN npm install
 # Copy the rest of the application files to the container
 COPY . /app
 
-RUN echo ${{ secrets.K8S_SECRET_TYPESENSE_API_KEY }} >> .env
 # TODO: exclude .env file here and construct it from build env args, if they start with "VITE_" and create the .env file from there
 # Build the application with Vite
 RUN npm run build-only

@@ -76,17 +76,19 @@ jobs:
         name: Create build environment
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
-          TYPESENSE_KEY:  ${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
-          API_KEY : ${{ secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION }}
+          
         run: |
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
-          mv deployment.env .env 
-          echo  "$SECRETS_CONTEXT"
-          echo "$TYPESENSE_KEY"
-          echo "$API_KEY"
-          echo "$TYPESENSE_KEY" >> .env
-          echo "$API_KEY" >> .env
+        #  mv deployment.env .env 
+        #   echo ${{ secrets.K8S_SECRET_APIS_API_AUTHORIZATION }} >> .env
 
+      - 
+        name: Create vite environment
+        environment: "viecpro frontend development" 
+        run: |
+          mv deployment.env .env 
+          echo ${{ secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION }} >> .env 
+          echo ${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }} >> .env  
       -        
         name: Build and push
         uses: docker/build-push-action@v3
@@ -99,9 +101,10 @@ jobs:
             "secrets_env=./secrets.env"
 
           # build-args: |
+          #     VITE_APIS_API_AUTHORIZATION={{secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION}}
+          #     VITE_TYPESENSE_API_KEY={{secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY}}
+
           #   VITE_APIS_API_URL="https://viecpro-dev.acdh-dev.oeaw.ac.at/"
-          #   VITE_APIS_API_AUTHORIZATION={{secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION}}
-          #   VITE_TYPESENSE_API_KEY={{secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY}}
           #   VITE_TYPESENSE_PORT="443"
           #   VITE_TYPESENSE_PROTOCOL="https"
           #   VITE_TYPESENSE_HOST="typesense.acdh-dev.oeaw.ac.at"
@@ -117,6 +120,8 @@ jobs:
       with:
         DOCKER_TAG: ${{ needs.setup_workflow_env.outputs.registry_root }}${{ needs.setup_workflow_env.outputs.image_tagged }}/${{ github.ref_name }}
         APP_NAME: "viecpro-frontend-dev"
+        # API_KEY : ${{ secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION }}
+        # TYPESENSE_KEY:  ${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
         APP_ROOT: ${{ needs.setup_workflow_env.outputs.APP_ROOT }}
         SERVICE_ID: "21622" 
         PUBLIC_URL: "https://viecpro.oeaw.ac.at/"
