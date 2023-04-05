@@ -53,8 +53,8 @@
 FROM node:18
 
 # default node 16 verwenden
-ARG APIS_API_KEY="key not set"
-ARG TYPESENSE_API_KEY="key not set"
+ARG APIS_API_KEY
+ARG TYPESENSE_API_KEY
 # Set the working directory to /app
 WORKDIR /app/
 
