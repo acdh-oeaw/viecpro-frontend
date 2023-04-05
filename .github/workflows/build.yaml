@@ -41,6 +41,7 @@ jobs:
 
   build_and_push_to_registry:
     runs-on: ubuntu-latest
+    environment: "viecpro frontend development" 
     needs: [setup_workflow_env]
     steps:
       -
@@ -123,8 +124,7 @@ jobs:
       needs: [setup_workflow_env, build_and_push_to_registry]
       uses: acdh-oeaw/gl-autodevops-minimal-port/.github/workflows/deploy-cluster-2.yml@main
       secrets: inherit
-      steps: 
-        - run: echo ${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
+     
       # build-args: |
       #   APIS_API_KEY="test key" 
       #   TYPESENSE_API_KEY=${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
