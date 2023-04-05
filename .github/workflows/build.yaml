@@ -107,7 +107,7 @@ jobs:
 
           build-args: |
             APIS_API_KEY="test key" 
-            TYPESENSE_API_KEY=${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
+            TYPESENSE_API_KEY="${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}"
           #${{ secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION }}
           #   VITE_APIS_API_URL="https://viecpro-dev.acdh-dev.oeaw.ac.at/"
           #   VITE_TYPESENSE_PORT="443"
