@@ -19,6 +19,8 @@ on:
 jobs:
   setup_workflow_env:
     runs-on: ubuntu-latest
+    environment: "viecpro frontend development" 
+
     #environment: production
     outputs:
 # It seems you have to specify the environment twice (passed to reusable workflow)
@@ -92,7 +94,6 @@ jobs:
       #     echo ${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }} >> .env  
       -        
         name: Build and push
-        environment: "viecpro frontend development" 
         uses: docker/build-push-action@v3
       
         with:
