@@ -100,9 +100,9 @@ jobs:
           secret-files: |
             "secrets_env=./secrets.env"
 
-          # build-args: |
-          #     VITE_APIS_API_AUTHORIZATION={{secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION}}
-          #     VITE_TYPESENSE_API_KEY={{secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY}}
+          build-args: |
+            APIS_API_KEY={{secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION}}
+            TYPESENSE_API_KEY={{secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY}}
 
           #   VITE_APIS_API_URL="https://viecpro-dev.acdh-dev.oeaw.ac.at/"
           #   VITE_TYPESENSE_PORT="443"
