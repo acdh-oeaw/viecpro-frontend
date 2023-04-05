@@ -92,11 +92,11 @@ jobs:
       #     echo ${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }} >> .env  
       -        
         name: Build and push
+        environment: "viecpro frontend development" 
         uses: docker/build-push-action@v3
       
         with:
           context: .
-          environment: "viecpro frontend development" 
           platforms: linux/amd64
           push: true
           secret-files: |
