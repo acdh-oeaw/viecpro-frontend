@@ -81,6 +81,8 @@ jobs:
       -        
         name: Build and push
         uses: docker/build-push-action@v3
+        run: |
+          mv deployment.env .env
         with:
           context: .
           platforms: linux/amd64
@@ -103,8 +105,7 @@ jobs:
       needs: [setup_workflow_env, build_and_push_to_registry]
       uses: acdh-oeaw/gl-autodevops-minimal-port/.github/workflows/deploy-cluster-2.yml@main
       secrets: inherit
-      run: |
-        mv deployment.env .env
+      
       with:
         DOCKER_TAG: ${{ needs.setup_workflow_env.outputs.registry_root }}${{ needs.setup_workflow_env.outputs.image_tagged }}/${{ github.ref_name }}
         APP_NAME: "viecpro-frontend-dev"
