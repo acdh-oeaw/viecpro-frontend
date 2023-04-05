@@ -81,8 +81,7 @@ jobs:
       -        
         name: Build and push
         uses: docker/build-push-action@v3
-        run: |
-          mv deployment.env .env
+      
         with:
           context: .
           platforms: linux/amd64
@@ -115,3 +114,5 @@ jobs:
         POSTGRES_ENABLED: ${{ needs.setup_workflow_env.outputs.POSTGRES_ENABLED == 'true'}}
         environment: "viecpro frontend development" 
         default_port: "${{ needs.setup_workflow_env.outputs.default_port}}"
+        run: |
+          mv deployment.env .env
