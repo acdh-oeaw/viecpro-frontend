@@ -26,6 +26,7 @@ jobs:
 # It seems you have to specify the environment twice (passed to reusable workflow)
 # as there is no way yet to get the active environment
       #environment: production
+      environment: "viecpro frontend development" 
       image_tagged: viec-vue
       registry_root: ghcr.io/acdh-oeaw/
       default_port: "3000" 
@@ -37,6 +38,7 @@ jobs:
       POSTGRES_ENABLED: false
     steps:
       - run: "/bin/true"      
+
   build_and_push_to_registry:
     runs-on: ubuntu-latest
     needs: [setup_workflow_env]
