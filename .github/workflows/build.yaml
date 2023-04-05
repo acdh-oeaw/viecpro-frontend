@@ -86,7 +86,6 @@ jobs:
           mv deployment.env .env
           echo ${{ secrets.K8S_SECRET_APIS_API_AUTHORIZATION }}
           echo ${{ secrets.K8S_SECRET_APIS_API_AUTHORIZATION }} >> .
-          cat secrets.env
         #  mv deployment.env .env 
         #   echo ${{ secrets.K8S_SECRET_APIS_API_AUTHORIZATION }} >> .env
 
@@ -124,6 +123,8 @@ jobs:
       needs: [setup_workflow_env, build_and_push_to_registry]
       uses: acdh-oeaw/gl-autodevops-minimal-port/.github/workflows/deploy-cluster-2.yml@main
       secrets: inherit
+      steps: 
+        - run: echo ${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
       # build-args: |
       #   APIS_API_KEY="test key" 
       #   TYPESENSE_API_KEY=${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
