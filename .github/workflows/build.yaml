@@ -105,9 +105,9 @@ jobs:
           secret-files: |
             "secrets_env=./secrets.env"
 
-          build-args: |
-            APIS_API_KEY="test key" 
-            TYPESENSE_API_KEY="${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}"
+          # build-args: |
+          #   APIS_API_KEY="test key" 
+          #   TYPESENSE_API_KEY=${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
           #${{ secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION }}
           #   VITE_APIS_API_URL="https://viecpro-dev.acdh-dev.oeaw.ac.at/"
           #   VITE_TYPESENSE_PORT="443"
@@ -133,4 +133,7 @@ jobs:
         POSTGRES_ENABLED: ${{ needs.setup_workflow_env.outputs.POSTGRES_ENABLED == 'true'}}
         environment: "viecpro frontend development" 
         default_port: "${{ needs.setup_workflow_env.outputs.default_port}}"
+        build-args: |
+          APIS_API_KEY="test key" 
+          TYPESENSE_API_KEY=${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
         
