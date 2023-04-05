@@ -76,11 +76,15 @@ jobs:
         name: Create build environment
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
+          TYPESENSE_KEY:  ${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }}
+          API_KEY : ${{ secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION }}
         run: |
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
           mv deployment.env .env 
-          echo ${{ secrets.K8S_SECRET_VITE_APIS_API_AUTHORIZATION }}
-          echo ${{ secrets.K8S_SECRET_VITE_TYPESENSE_API_KEY }} >> .env
+          echo "$TYPENSENSE_KEY"
+          echo "$API_KEY"
+          echo "$TYPENSENSE_KEY" >> .env
+          echo "$API_KEY" >> .env
 
       -        
         name: Build and push
