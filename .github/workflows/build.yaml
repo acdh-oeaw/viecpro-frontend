@@ -78,6 +78,8 @@ jobs:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
         run: |
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env
+        run: |
+          mv deployment.env .env
       -        
         name: Build and push
         uses: docker/build-push-action@v3
@@ -114,5 +116,4 @@ jobs:
         POSTGRES_ENABLED: ${{ needs.setup_workflow_env.outputs.POSTGRES_ENABLED == 'true'}}
         environment: "viecpro frontend development" 
         default_port: "${{ needs.setup_workflow_env.outputs.default_port}}"
-        run: |
-          mv deployment.env .env
+        
