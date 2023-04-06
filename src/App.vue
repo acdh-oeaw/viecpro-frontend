@@ -74,6 +74,26 @@ const navLinks: navlinkProp[] = [
     <footer>
       <!-- footer section with impressum, logos, etc. -->
       <footerBar>
+        <template v-slot:left>
+          <div class="flex text-black justify-start">
+            <img
+              src="./assets/logos/footer/Logo_ihb_kurzform_CMYK.svg"
+              alt="Logo des
+              IHB."
+              class="max-h-full py-4 mx-4"
+            />
+            <div class="flex-col my-4 mx-4 text-sm">
+              <div class="">
+                <p>Österreichische Akademie der Wissenschaften</p>
+                <p>Institute for Habsburg and Balkan Studies (IHB)</p>
+                <p>Hollandstraße 11-13</p>
+                <p>1020 Wien</p>
+              </div>
+              <p><strong>Email:</strong> viecpro@oeaw.ac.at</p>
+              <p><a class="hover:bg-blue-200" href="">Kontakt Team</a></p>
+            </div>
+          </div>
+        </template>
         <template v-slot:middle>
           <div class="flex justify-between">
             <!-- <div>
@@ -94,7 +114,7 @@ const navLinks: navlinkProp[] = [
               src="./assets/logos/footer/fwf-logo-invers-transparent-var2.gif"
               alt="Logo des
               FWF."
-              class="box max-h-full py-10 mx-4"
+              class="box max-h-full py-10 mx-4 invert"
             />
 
             <img
@@ -102,15 +122,13 @@ const navLinks: navlinkProp[] = [
               alt="Logo der
               ÖAW."
               class="box max-h-full py-10 mx-4"
-            />
+            /></div
+        ></template>
 
-            <img
-              src="./assets/logos/footer/Logo_ihb_kurzform_CMYK.svg"
-              alt="Logo des
-              IHB."
-              class="max-h-full py-10 mx-4"
-            /></div></template
-      ></footerBar>
+        <template v-slot:right></template>
+
+        ></footerBar
+      >
     </footer>
   </body>
 </template>

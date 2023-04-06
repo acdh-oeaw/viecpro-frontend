@@ -12,25 +12,15 @@ const props = defineProps({ navLinks: Array<navlinkProp> });
 
 <template>
   <nav
-    class="bg-primary-300 h-20  flex lg:flex-row text-white flex-nowrap"
+    class="bg-gray-700 h-20 flex lg:flex-row filter-blur text-white flex-nowrap"
   >
-    <!--  TODO: make layout stack on small sizes and place mid at bottom-->
     <div class="grow-0 px-20 justify-start items-center">
       <slot name="left">left</slot>
     </div>
     <div class="bg-primary-600 shrink flex justify-center items-center">
-      <slot name="mid"
-        >
-        <!-- <ul>
-          <li v-for="locale in $i18n.availableLocales" :key="locale">
-            {{ locale }}
-          </li>
-        </ul> -->
-      </slot>
+      <slot name="mid"> </slot>
     </div>
-    <div
-      class="hidden grow lg:flex space-x-4 justify-end pr-20 items-center"
-    >
+    <div class="hidden grow lg:flex space-x-4 justify-end pr-20 items-center">
       <RouterLink
         v-for="link in navLinks"
         :to="link.route"
@@ -42,7 +32,7 @@ const props = defineProps({ navLinks: Array<navlinkProp> });
       <div>login</div>
     </div>
     <div
-      class=" flex lg:hidden basis-1/3 space-x-4 justify-center bg-primary-400 lg:hidden"
+      class="flex lg:hidden basis-1/3 space-x-4 justify-center bg-primary-400 lg:hidden"
     >
       <button>Placeholder Hamburger</button>
     </div>

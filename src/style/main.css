@@ -20,7 +20,7 @@
 
 
 .navigation-link{
-  @apply px-4 py-1 bg-primary-900 text-white rounded-sm hover:cursor-pointer hover:bg-primary-100 hover:text-white;
+  @apply px-4 py-1 bg-gray-400 text-gray-100 rounded-sm hover:cursor-pointer hover:bg-gray-300 hover:text-gray-600;
 }
 
 

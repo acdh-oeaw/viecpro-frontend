@@ -36,7 +36,7 @@ export default defineConfig({
   },
   base: "/",
   server: { host: true, port: 3000 },
-  define: { "process.env": {} }, // TODO: this seems to be an issue. This works in local, but not in production?
+  define: { "process.env": {} }, // TODO: this works now, but might need a config later
   //build: { outDir: ".output" },
   //build: { modulePreload: { polyfill: true } },
 });

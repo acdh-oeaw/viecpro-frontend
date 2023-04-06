@@ -1,13 +1,13 @@
 // The footer bar with impressum, logos, etc.
 <template>
-  <div class="static bottom-0 w-full bg-primary-100 h-40 flex">
-    <div class="bg-primary-200 flex basis-1/3 text-white">
+  <div class="static bottom-0  bg-white py-10 max-h-60 flex border-t-2 mx-20 border-primary-400">
+    <div class="flex basis-1/3 ">
       <slot name="left"></slot>
     </div>
-    <div class="bg-primary-200 flex basis-1/3 text-white">
+    <div class=" flex basis-1/3">
       <slot name="middle"></slot>
     </div>
-    <div class="bg-primary-200 flex basis-1/3 text-white">
+    <div class="flex basis-1/3 ">
       <slot name="right"></slot>
     </div>
   </div>
