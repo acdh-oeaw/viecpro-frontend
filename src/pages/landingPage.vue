@@ -4,20 +4,13 @@ the main navbar
 <script setup lang="ts">
 import { onBeforeMount, ref, watch } from "vue";
 import { texts } from "@/texts.js";
-const textFile = ref({});
 
-onBeforeMount(() => {
-  // fetch("./src/texts.json")
-  //   .then((response) => {
-  //     return response.json();
-  //   })
-  //   .then((json) => {
-  //     textFile.value = json;
-  //     console.log(textFile.value);
-  //     console.log(json);
-  //   });
-  textFile.value = texts;
-});
+//section components
+import welcomeSection from "./landing-page-sections/welcomeSection.vue";
+import databaseSection from "./landing-page-sections/databaseSection.vue";
+import contactSection from "./landing-page-sections/contactSection.vue";
+import documentationSection from "./landing-page-sections/documentationSection.vue";
+const textFile = texts;
 
 watch(textFile, () => {
   // for debuggin now only
@@ -26,8 +19,12 @@ watch(textFile, () => {
 </script>
 
 <template>
-  <div class="min-h-screen mt-20">
-    <div v-if="textFile.pages" class="flex">
+  <div class="min-h-screen mt-20 flex-col mx-40">
+    <welcomeSection></welcomeSection>
+    <databaseSection></databaseSection>
+    <documentationSection></documentationSection>
+    <contactSection></contactSection>
+    <!-- <div v-if="textFile.pages" class="flex">
       <div class="flex-grow pl-20" id="about_content" as="div">
         <div
           v-if="textFile.pages"
@@ -55,7 +52,7 @@ watch(textFile, () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <!-- <div class="w-screen top-20 bg-white main-container">
     <h1 class="text-5xl" id="header-viecpro">

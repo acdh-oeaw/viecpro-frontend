@@ -1,4 +1,20 @@
 {
+  "globals": {
+    "about": "Über das Projekt",
+    "database": "Datenbank",
+    "search": "Suche",
+    "ok": "Ok",
+    "cancel": "Abbrechen",
+    "proceed": "Weiter",
+    "more": "Mehr",
+    "show_more": "Mehr anzeigen",
+    "show_less": "Weniger anzeigen",
+    "home": "Start",
+    "login": "Anmelden",
+    "understood": "Verstanden",
+    "download": "Herunterladen",
+    "data": "Daten"
+  },
   "words": {
     "title": "Der Wiener Hof: Ein prosopographisches Portal.",
     "name": "Deutscher Name.",
@@ -14,41 +30,178 @@
   "pages": {
     "landing-page": {
       "viecpro": {
-        "header": "Der Wiener Hof: Ein prosopographisches Portal.",
-        "text": "Dummy Text Viecpro"
+        "header": "Der Wiener Hof. Ein prosopographisches Portal",
+        "text": "VieCPro liefert erstmals tausende prosopographische Profile für die überwiegende Mehrheit des Wiener Hofpersonals. Gegenwärtig ermöglicht die Datenbank die Recherche des Personals beiderlei Geschlechts wie auch verschiedener sozialer Schichten des Wiener Haupthofstaats von sechs Kaisern und der Teilhofstaate der Kaiserinnen, der Kaiserinwitwen, der Erzherzöge und Erzherzoginnen und weiterer Familienmitglieder von der Mitte des 17. Jahrhunderts bis zum Ende des 18. Jahrhunderts. Für die leopoldinische Zeit umfasst der Personenbestand darüber hinaus erstens zahlreiche Funktionsträger*innen, die am Wiener Hof politisch-administrative Aufgaben und eine ökonomisch-kulturelle Rolle erfüllt haben, zweitens Personen an ausländischen Höfen, die von der Wiener Hofkammer Zahlungen erhalten haben, und drittens in einem verwandtschaftlichen Verhältnis zu Funktionsträger*innen standen.",
+        "aufbau": "Diese prosopographische Datenbank befindet sich im Aufbau. Wir freuen uns über Ihre sachdienlichen Hinweise und Ergänzungsvorschläge!",
+        "link-database": "Zur Datenbank"
       },
       "database": {
-        "header": "Database",
-        "text": "Dummy Text Database"
+        "header": "Die Datenbank ",
+        "text": "… beinhaltet die prosopographischen Datensammlungen zweier abgeschlossener FWF-Projekte zum Wiener Hof von Kaiser Leopold I. (1657–1705) bis Leopold II. (1790–1792). Diese Sammlungen werden durch eine Datenneuaufnahme für die Hofgesellschaft unter Kaiser Franz II./I. (1792–1835) erweitert. In seiner technischen Umsetzung setzt das Team auf die am ACDH-CH der ÖAW entwickelte virtuelle Forschungsumgebung Austrian Prosopographical Information System (APIS). "
       },
-      "team": {
-        "header": "Team",
-        "text": "Dummy Text Team"
+      "documentation": {
+        "header": "Materialien und Dokumentation",
+        "text": "…zur Benutzung der VieCPro-Datenbank reichen von einer Erklärung der APIS-Funktionalitäten über die Darlegung der Bearbeitungsrichtlinien bis hin zu diversen Verzeichnissen (Projektpublikationen, Abkürzungsverzeichnis) und Diagrammen. Der Inhalt befindet sich wie die Datenbank selber noch in Arbeit. "
+      },
+      "contact": {
+        "header": "Kontaktaufnahme",
+        "text": "… zum VieCPro-Team ist stets herzlich willkommen. Die Datenbank befindet sich im Aufbau. Wir freuen uns über Ihre sachdienlichen Hinweise und Ergänzungsvorschläge. Falls Sie eine Idee für Anschlussprojekte haben oder an einer Kooperation interessiert sind, dann schreiben Sie uns an: 'viecpro(at)oeaw.ac.at'."
       }
     },
     "about-page": {
+      "data": {
+        "tablink": "Daten",
+        "header": "Daten",
+        "overview": {
+          "sectionlink": "Übersicht",
+          "header": "Übersicht",
+
+          "t1": "Vollständigkeit und Aktualität der Personendaten: Das Ziel dieser Pilotphase war die Überführung und Aufbereitung der Leopold- und Access-Datensätze in die APIS-Infrastruktur. Auf eine Aktualisierung der erfassten Daten um Informationen aus der Sekundärliteratur musste aufgrund der zeitlichen Begrenzung des Projektes auf 2,5 bzw. 3 Jahre verzichtet werden.",
+          "t2": "Personenkreis der Datensätze: Während der Leopold-Datensatz das Gesamtpersonal des Wiener Hofes der Regierungszeit von Kaiser Leopold I. (1657–1705) erfasste, fokussiert sich der Access-Datensatz auf das Gesamtpersonal der Wiener Hofstaate zwischen 1711 und 1806, die Datenneuaufnahme hingegen auf den Zeitraum von 1807 bis 1835.",
+          "t3": "Bezug zum Wiener Hof: In VieCPro gründet sich ein Bezug zum Wiener Hof nicht nur in der Ausübung einer Hoffunktion, sondern auch über verwandtschaftliche Beziehungen zu Funktionsträger*innen und/oder monetäre Bezüge aus der Wiener Hofkammer.",
+          "t4": "Vereinheitlichungen in den Datensätzen: Personennamen, Funktionsbezeichnungen und Institutionsbezeichnungen wurden unter Berücksichtigung der zeitgenössisch jeweils vorherrschenden Variante bei gleichzeitiger Dokumentation alternativer Schreibweisen vereinheitlicht.",
+          "t5": "Deduplizierung & Merging: Der Leopold-Datensatz wurde im Wesentlichen aus drei verschiedenen Ressourcen – Hofzahlamtsbüchern, Hofstaatsverzeichnissen und Trauungsmatriken / Totenbeschauprotokollen – generiert, in denen viele Doubletten existieren. Im Prozess der Deduplizierung galt das Vorsichtsprinzip. Falls aufgrund unzureichender Datenlage keine eindeutige Entscheidung zugunsten einer Zusammenführung getroffen werden konnte, wurden Personen nicht gemergt. Stattdessen wurde zwischen beiden Personendatenblättern eine Person-Person-Relation („ist potentielle Doublette von“) gesetzt.",
+          "t6": "Hierarchisierungen: Die in dieser Datenbank angelegte Hierarchisierung kann aufgrund der Natur schematischer Darstellungen allzu oft nur unzulänglich die Feinheiten des institutionellen und auch persönlichen Miteinanders abbilden. Es ist auch ein Charakteristikum frühneuzeitlicher Organisationsstrukturen, dass die Zuständigkeiten nicht immer eindeutig und nachhaltig geklärt waren. Aus diesem Grund kann das Ziel der visuellen Datenanalysetools nur das eines Orientierungsrahmens sein. ",
+          "t7": "Gendern & Diskriminierung: Für jede Funktionsbezeichnung – sofern es einen weiblichen und männlichen Funktionsträger gab – werden geschlechtsspezifische Bezeichnungen verwendet. Heute eher negativ konnotierte Funktionsbezeichnungen wie Zwerg, Hofjude, Kammermensch, Extraweib etc. sind keineswegs als abwertend zu verstehen, sondern in ihrem historischen Verwendungskontext ohne modernes Äquivalent zu sehen."
+        },
+        "status": {
+          "sectionlink": "Bearbeitungsstand",
+          "header": "Bearbeitungsstand",
+          "t1": "Folgende Tabelle gibt einen Überblick über Quellen, Personenkreis und Umfang wie auch den Bearbeitungsstand zum jeweiligen Ende der beiden Pilotprojekte:"
+        },
+        "provenance": {
+          "sectionlink": "Datenherkunft",
+          "header": "Zur Provinienz unserer Daten",
+          "t1": "Basis von VieCPro (2020–2023) sind zwei bereits existierende Datensammlungen sowie ein neuer Datensatz.",
+          "t1-l1": "die teilstrukturierten Daten zum Hof Leopolds I. aus dem FWF-Projekt „Die Wiener Hofgesellschaft unter Kaiser Leopold I. (1657–1705)“ unter Leitung von Leopold Auer und in der chronologischen Folge ihrer Beteiligung Sigrid Freisleben, Johannes Werfring, Ulrike Denk und Katharina Arnegger (2001–2005), sog. Leopold-Daten",
+          "t1-l2": "die strukturierten Daten zu den Hofstaaten Karls VI., Maria Theresias, Josephs II., Leopold II. und Franz II. (I.) aus dem FWF-Projekt „Personal und Organisation des Wiener Hofes 1715–1806“ unter Leitung von Martin Scheutz und Mitarbeit von Irene Kubiska-Scharl und Michael Pölzl (2011–2016), sog. Access-Daten",
+          "t1-l3": "die manuelle Einspeisung des Hofpersonals unter Franz II. (I.) für die Jahre zwischen 1807 und 1835 im Rahmen des FWF-Projektes „Der Wiener Hof um 1800: Eliten, Herrschaft und Repräsentation (1790–1835)“ unter Leitung von Katrin Keller und unter Mitarbeit von Christian Standhartinger und Markus Jeitler (2020–2023), sog. Datenneuaufnahme",
+          "h-overview": "Gesamtüberblick zu den drei Datensammlungen inkl. den Herausforderungen beim Import und VieCPro-Bewältigungsstrategien",
+          "overview-sh1": "Datensatz 1: Der Wiener Hof unter Kaiser Leopold I. (1657–1705), sog. Leopold-Daten",
+          "d1-t1": "Das Team unter Leitung von Leopold Auer hat die Daten zum Wiener Hof in der Zeit von Kaiser Leopold I. im Wesentlichen aus den Hofstaatsverzeichnissen (HSV), den Hofzahlamtsbüchern [MR2] (HZAB), den Instruktionen und den Trauungsmatriken und Totenbeschauprotokollen (TM-TBP) des Österreichischen Staatsarchivs (ÖStA), des Wiener Stadt- und Landesarchivs, der Archive der Pfarreien St. Stephan und St. Michael, des Sächsischen Hauptstaatsarchivs und der Landesbibliothek Coburg gesammelt.",
+          "d1-t2": "Der erfasste Personenkreis des Leopold-Datensatzes umfasst zwei Gruppen mit unterschiedlichen Graden der Vollständigkeit:",
+          "d1-l1": "Gruppe 1: Personen, die in ihrer Funktion direkt den obersten Hofämtern des Wiener Hofes zugehörig sind. Neben dem Haupthofstaat von Kaiser Leopold I. sind die Teilhofstaate seiner drei Ehefrauen und ihrer Kinder, der Kaiserinwitwe Eleonora Gonzaga-Nevers wie auch ihrer (Stief-)Kinder und seines Onkels Leopold Wilhelm erfasst.",
+          "d1-l2": "Gruppe 2: Der Personenstand greift in die Organisationsstruktur des weitläufigen Verwaltungswesens, Finanzwesens, Gesandtschaftswesens, Kriegswesens und des Kulturbereiches der Habsburgermonarchie und des Alten Reiches. So werden selektiv Funktionsträger*innen auf Ebene der Zentralbehörden des Reiches und der Habsburgermonarchie, der ständischen Landesverwaltung der Habsburgermonarchie, der städtischen Verwaltungsbehörden und primären Institutionen zur Armen-, Alten- und Krankenversorgung, der frühneuzeitlichen Spitäler und Zuchthäuser und frühneuzeitlichen Universitäten erfasst.",
+          "d1-t3": "Der Leopold-Datensatz umfasst 48.000 Zeilen teilstrukturierter Personendaten zu Funktionsträgern beiderlei Geschlechts, verschiedener sozialer Schichten – vom Kammerweib bis zum Obersthofmarschall, vom Kanzlist bis zum Hofkriegsratspräsidenten – wie auch unterschiedlicher lokaler und (inter-)nationaler Herkunft. Es wurden für jede Person – sofern bekannt – Funktion, Verwandschaftsverhältnisse und soziales Netzwerk, Hofzugehörigkeit, Zahlungen, Ämter, Wohnorte etc. dokumentiert. ",
+          "d1-t4": "Während Gruppe 1 als nahezu vollständig betrachtet werden kann, liegen die Funktionsträger*innen der Gruppe 2 selektiver vor.",
+          "d1-t5": "Nach Abschluss des Projektes 2005 wurden die dokumentierten Daten in drei Excel-Blättern zum jeweiligen Quellenbestand (HZAB, HSV und TM-TBP) sowie einem Excel-Blatt mit einem Überblick zum Personal der Hofkammer auf der Website des Österreichischen Staatsarchivs zum Herunterladen zur Verfügung gestellt.",
+          "d1-t6": "Die Herausforderungen an das VieCPro-Team bei Überführung und Aufbereitung des Datensatzes in die APIS-Datenbank und die Bewältigungsstrategie waren im Wesentlichen:",
+          "d1-l1-1": "Große Menge an teilstrukturierten Datensätze (HZAB, HSV, TM-TBP) und Doubletten",
+          "d1-l1-2": "➔ Fokus auf die ersten beiden Datenblätter und Entwicklung eines Tools zur Deduplizierung und Mergen der Personendatensätze [Import TM-TBP in Arbeit].",
+          "d1-l2-1": "Uneinheitliche Schreibweisen & Leseschwierigkeiten durch fehlende Dokumentation des ursprünglichen Leopold-Projektes",
+          "d1-l2-2": "➔ Syntaktische Analyse der Originaldatenblätter vor dem Import, anschließende manuelle kontinuierliche Nachbearbeitung des Imports wie auch stichprobenartige Überprüfung ausgewerteter Quellen",
+          "d1-l3-1": "Komplexität der Informationen (Hof- u. Verwaltungsstruktur, Funktions- und Institutionsbezeichnungen, etc.) ",
+          "d1-l3-2": "➔ systematische Vereinheitlichung von 2.577 Funktionsbezeichnungen auf 2.203 und 928 Institutionen auf 863; Kategorisierung und organisationsgeschichtliche Hierarchisierung der letztgenannten Entitäten und 229 Hofstaate. Dies ging einher mit einer extensiven Recherche zu Funktionsdefinitionen wie auch zur Organisationsgeschichte von Hof und Verwaltung der Habsburgermonarchie.",
+          "d1-l4-1": "Kommentierung der erfassten Daten (Relativierung von Zeitangaben, Zusätze aus den Quellen wie Todesursachen, Zahlungsgrund)",
+          "d1-l4-2": "➔ Implementierung eines ausgeklügelten Abkürzungssystems zur Unterscheidung von sicheren und unsicheren Zeitangaben [in Arbeit].",
+          "d1-l5-1": "Kompilierte Daten zu einer Person aus verschiedenen Quellen in einer Zelle. Mit Ausnahme des HZAB-Blattes ist eine 1:1 Rückführung der Informationen zu einer Quelle nicht mehr möglich",
+          "d1-l5-2": "➔ Ausgabe eines zusammengefassten Quellenzitates mit Ausnahme des HZAB. Hier Rückführung des Quellenzitats in das Kategorie-Schema des HZAB über die Seitenzahl [in Arbeit].",
+          "d1-l6-1": "Unvollständige oder widersprechende Daten wie fehlende Hofstaatszugehörigkeiten, Funktionszeiträume ",
+          "d1-l6-2": "➔ Hermeneutisches Zusammenlesen vorhandenen Informationen im Zuge des Mergings, selektive weiterführende Recherchen und Kenntlichmachen von Lücken für die Benutzer*innen [in Arbeit].",
+
+          "overview-sh2": "Datensatz 2: Der Wiener Hof im 18. Jahrhundert, sog. Access-Daten",
+          "d2-t1": "Der zweite Datensatz umfasst die Daten von 6.229 Hofangehörigen, die von Irene Kubiska-Scharl und Michael Pölzl im Rahmen ihres Projektes in einer relationalen Datenbank (MS Access) strukturiert erfasst wurden. Bislang wurden die Daten zum Hofpersonal zwischen 1711 und 1792 in zwei Bänden 2013 und 2018 publiziert:",
+          "d2-l1": "ubiska-Scharl, Irene, Pölzl, Michael: Die Karrieren des Wiener Hofpersonals 1711 – 1765. Eine Darstellung anhand der Hofkalender und Hofparteienprotokolle, Innsbruck–Wien–Bozen 2013 (Forschungen und Beiträge zur Wiener Stadtgeschichte, 58)",
+
+          "d2-l2": "Kubiska-Scharl, Irene, Pölzl, Michael: Das Ringen um Reformen. Der Wiener Hof und sein Personal im Wandel (1766–1792), Innsbruck-Wien-Bozen 2018 (Mitteilungen des Österreichischen Staatsarchivs, 60).",
+
+          "d2-t2": "Als Quellenbasis dienten im Wesentlichen die kaiserlichen Hof- und Ehrenkalender und Schematismen und für die Überlieferungslücken der Jahre 1711 bis 1714 und 1741 bis 1744 die Hofparteienprotokolle und Akten der Hofstaatsverwaltung im Wiener Haus-, Hof- und Staatsarchiv. Die Natur der Quellenbasis ergab, dass der erfasste Personenkreis weitaus kleiner als der des Leopold-Projektes ist. Der Fokus lag ausschließlich auf dem Wiener Hofstaat.",
+          "d2-t3": "Des Weiteren werden zum einen etwa ein Drittel der „Funktionsträger, vor allem der unteren Ränge, […] im Hofkalender nicht namentlich, sondern nur summarisch erwähnt“ (Kubiska-Scharl/Pölzl 2013, 297). Dies führt dazu, dass in VieCPro für den Zeitraum 1711-1806 die niedere Ebene des Hofpersonals weniger gut dokumentiert ist. Zum anderen sind keine Angaben zu Gehalt oder Verwandtschaftsbeziehungen enthalten. Die Personenangaben umfassen Vor- und Nachnamen, Ehrentitel, militärische Ränge, Informationen zum Personenstand ebenso wie Angaben zu Standeserhebungen, Tätigkeitsorte, ausgeübte Funktionen, Hofstaatzugehörigkeiten und Beschäftigungsdauern.",
+          "d2-t4": "Die Herausforderungen an das VieCPro-Team bei Überführung und Aufbereitung des Datensatzes in die APIS-Datenbank und die Bewältigungsstrategie waren im Wesentlichen:",
+          "d2-t4-l1-1": "Große Menge an Funktionsschreibweisen, die von den Leopold-Daten abwichen.",
+          "d2-t4-l1-2": "➔ Anpassung der Funktionsschreibweisen an die für die Leopold-Daten bereits etablierten Bezeichnungen im Zuge des Imports.",
+          "d2-t4-l2-1": "Sämtliche Institutionen (mit Ausnahme der Obersten Hofämter) waren keine eigenen Entitäten, sondern Teil der Funktionsbezeichnung (Erster Amtsschreiber im Hofbauamt).",
+          "d2-t4-l2-2": "➔ Auslesung der in den Funktionsbezeichnungen vorkommenden Institutionen und Import derselben als Entitäten.",
+          "d2-t4-l3-1": "Abweichende Bezeichnungen für Oberste Hofämter (in Access „Stäbe“) und geringer Grad an Differenzierung. ",
+          "d2-t4-l3-2": "➔Anpassung an die bereits etablierten Bezeichnungen, Hierarchisierung der Hofstaaten und Institutionen, Kategorisierung der Hofstaaten in regierende Fürsten, Erzherzöge und Erzherzoginnen, Junge Herrschaften etc.",
+          "d2-t4-l4-1": "Heterogenität von unstrukturierten Zusatzinformationen in den Bemerkungsfeldern der Personenblätter.",
+          "d2-t4-l4-2": "➔ Strukturierte Auswertung von Informationen aus den Bemerkungsfeldern (Lebensdaten, Funktionen, Funktionszusätze, Aufenthaltsorte) teilweise schon beim Import, manuelle Nachstrukturierung im Zuge mehrerer Korrekturläufe.",
+          "d2-t4-l5-1": "Auch der Import von strukturierten Daten ist fehleranfällig. ",
+          "d2-t4-l5-2": "➔ Vorwegnahme von ,geplanten‘ Fehlern für den Import und manuelle Korrektur durch dasVieCPro-Team.",
+
+          "overview-sh3": "Datensatz 3: Der Hof von Franz II./I., sog. Datenneuaufnahme",
+          "d3-t1": "Der dritte Datensatz wird in einem Teilprojekt des FWF-Projektes „Der Wiener Hof um 1800“ unter Leitung von Katrin Keller von Christian Standhartinger erhoben. Der Fokus liegt auf der Vervollständigung von unpublizierten Datensätzen des Scheutz-Projektes zum Hofstaat von Franz II. sowie deren Erweiterung bis zum Jahr 1835.",
+          "d3-t2": "Als Quellenbasis dienen hierbei vorwiegend die Hof- und Staatsschematismen (Staatshandbücher) der Jahre 1807 bis 1835. Die kriegsbedingten Überlieferungslücken der Jahre 1809, 1810 und 1815 werden hierbei nicht durch die Auswertung zusätzlicher Quellen geschlossen. Einzelne Personendatenblätter, insbesondere die Träger hoher Hoffunktionen, werden hingegen durch biographische Lexika und einschlägige Werke der Sekundärliteratur erweitert.",
+          "d3-t3": "Erfasst werden sämtliche Personen, die in den Hofschematismen einem der kaiserlichen Obersten Hofämter oder dem Hofstaat eines anderen Familienmitglieds, sofern sich dieses dauerhaft in Wien aufhielt, zugeteilt waren. Zusätzlich wird auch die Erfassung sämtlicher Geheimer Räte, Kämmerer, Palastdamen sowie der Träger und Trägerinnen der in den Hofschematismen aufgelisteten Orden angestrebt. Sämtliche Zusatzinformationen, die in den Hofschematismen neben der eigentlichen Hoffunktion angegeben sind, werden strukturiert mitaufgenommen. Dazu zählen Ordensverleihungen, nicht-höfische Ämter und Würden, militärische Ränge sowie Wohnadressen.",
+          "d3-t4": "Die Herausforderungen an das VieCPro-Team bei Überführung und Aufbereitung des Datensatzes in die APIS-Datenbank und die Bewältigungsstrategie waren im Wesentlichen:",
+          "d3-l1-1": "Wechselnde Ämterhierarchie und Zuordnung von Funktionen zu bestimmten Ämtern in den Schematismen.",
+          "d3-l1-2": "➔ Durchsicht mehrerer aufeinander folgender Schematismen, um Entscheidungen bezüglich Ämterhierarchie und Funktionszuordnungen zu treffen.",
+
+          "d3-l2-1": "Überlieferungslücken in den Jahren 1809, 1810, 1815.",
+          "d3-l2-2": "➔ Relativierende Zusätze bei Laufzeiten von Funktionen, die vor diesen Jahren zum letzten Mal oder nach diesen Jahren zum ersten Mal erwähnt werden.",
+
+          "d3-l3-1": "Große Zahl von summarischen Personalauflistungen ohne Möglichkeit zur Identifizierung.",
+          "d3-l3-2": "➔ Einspeisung und Sammlung des summarischen Personals in eigens dafür angelegten, hofstaatsspezifischen Personenblättern.",
+
+          "d3-l4-1": "Uneinheitliche Angabe von Wohnadressen (Vorstadt + Konskriptionsnummer, Straßenname + Konskritpionsnummer).",
+          "d3-l4-2": "➔ Identifizierung der Straßen und Deduplizierung der Wohnadressen anhand der zeitgenössischen Häuserschematismen.",
+
+          "d3-l5-1": "Funktionsbezeichnungen, die von den bereits etablierten Bezeichnungen abweichen, aber synonym sind. ",
+          "d3-l5-2": "➔ Laufende Mitschrift synonymer Bezeichnungen, die später in das Funktionsregister eingespeist werden.",
+          "d3-l6-1": "Unsicherheiten bei der Identifizierung von Personen, die gängige Namen tragen, Gefahr der Duplizierung von Personen. ",
+          "d3-l6-2": "➔ Anlegen von Relationen zwischen Personen, die möglicherweise Doubletten sind. "
+        },
+        "processing": {
+          "sectionlink": "Bearbeitungsstand",
+          "header": "Bearbeitungsstand"
+        }
+      },
+      "project": {
+        "tablink": "Projekt",
+        "header": "Über das Projekt",
+        "t1": "Ziel dieses Pilotprojektes „The Viennese Court. A Prosopographical Portal“, VieCPro, ist es, eine virtuelle Forschungsumgebung zu schaffen, in der auf langer Sicht eine sukzessive Rekonstruktion des gesamten Wiener Hofes auf allen sozialen, familiären und beruflichen Ebenen ermöglicht wird. In der Realisierung dieses Vorhabens haben in einer ersten Phase zwei im Frühjahr 2020 in Wien bewilligte Projekte ihre finanziellen und personellen Ressourcen gebündelt:",
+        "bib1": "09 {'|'} 2020 – 03 {'|'} 2023 The Viennese Court. A Prosopographical Portal (VieCPro), gefördert vom Innovationsfonds der ÖAW, durchgeführt am IHB & ACDH-CH, hauptverantwortlich geleitet von Marion Romberg und bis 10/22 co-geleitet von Maximilian Kaiser ",
+        "bib2": "09 {'|'} 2020 – 12{'|'}2023 Der Wiener Hof um 1800: Eliten, Herrschaft und Repräsentation (1790–1835), gefördert vom FWF, durchgeführt am IHB & ACDH-CH, geleitet von Katrin Keller unter Mitarbeit von Christian Standhartinger und Markus Jeitler",
+        "t2": "Für die technische Realisierung der gemeinsam entwickelten Datenbank waren Gregor Pirgie und Matthias Schlögl vom Austrian Center for Digital Humanities and Cultural Heritage (ACDH-CH) unter Mitarbeiter von Sabine Laszakovits (ACDH-CH) und Stefan Ebner (IHB) verantwortlich.",
+        "sh1": "Forschungsdaten",
+        "t3": "Im Fokus der Pilotphase (2020–2023) stand die Wiener Hofgesellschaft zwischen 1657 und ca. 1835. Basis der Datenbank stellen die prosopographischen Datensammlungen zweier abgeschlossener Forschungsprojekte dar:",
+        "t4": "2001 – 2005 Die Wiener Hofgesellschaft unter Kaiser Leopold I. (1657–1705), gefördert vom FWF, durchgeführt am Österreichischen Staatsarchiv, geleitet von Leopold Auer und in der chronologischen Folge ihrer Beteiligung Sigrid Freisleben, Johannes Werfring, Ulrike Denk und Katharina Arnegger | sog. Leopold-Datensätze",
+        "t5": "2012 – 2016 Personal und Organisation des Wiener Hofes 1711–1806, gefördert vom FWF, durchgeführt am Institut für Österreichische Geschichtsforschung, geleitet von Martin Scheutz unter Mitarbeit von Irene Kubiska-Scharl und Michael Pölzl | sog. Access-Daten",
+        "t6": "Diese Sammlungen werden durch eine Datenneuaufnahme für die Hofgesellschaft unter Kaiser Franz II./I. für den Zeitraum von 1807 bis längstens 1835 im Rahmen des Wiener Hof-Projektes durch Christian Standhartinger ergänzt.",
+        "sh2": "Forschungsinfrastruktur",
+        "t7": "Für die Erfassung prosopographischer Daten über das Personal am Wiener Hof wurde die am ACDH-CH entwickelte virtuelle Forschungsumgebung Austrian Prosopographical Information System (APIS) gewählt. Das flexible Datenmodell von APIS entspricht mit seinen fünf Entitäten (Personen, Orte, Institutionen, Quellen und Ereignissen) im Wesentlichen den Anforderungen von VieCPro. Eine Anpassung erfolgte auf Ebene der Entitäten, des Vokabulars und der digitalen Werkzeuge wie folgt:",
+        "t7-l1": "Als Hauptentitäten werden in VieCPro Personen, Institutionen, Hofstaate, Orte und Zahlungen (siehe Daten) gesehen. Weitere Angaben zu Quellen und Funktionen dienen innerhalb der prosopographischen Datenbank VieCPro als ergänzende Registerdaten.",
+        "t7-l2": "Die verschiedenen Entitäten werden in APIS über Relationen verbunden. Die Bezeichnung derselben erfolgt durch ein hierarchisch gegliedertes Vokabular, das u.a. im Kontext des Wiener Hofes einerseits eine Vereinheitlichung der vielfältigen Funktionsbezeichnungen und andererseits eine Kategorisierung nach Tätigkeitsgruppen ermöglicht.",
+        "t7-l3": "Begleitend zur Datenerfassung wurden digitale Werkzeuge für die Deduplizierung prosopographischer Daten und die Darstellung der Hierarchie von Hofstaaten, Hofämtern und dem dazugehörigen Personal entwickelt (siehe Visualisierungen).",
+        "data": {},
+        "technical": {}
+      },
+      "team": {
+        "tablink": "Team",
+        "header": "Unser Team",
+
+        "members": {
+          "": ""
+        }
+      },
+      "infrastructure": {
+        "tablink": "Forschungsinfrastruktur",
+        "header": "Forschungsinfrastruktur",
+        "t1": "Für die Erfassung prosopographischer Daten über das Personal am Wiener Hof wurde die am ACDH-CH entwickelte virtuelle Forschungsumgebung Austrian Prosopographical Information System (APIS) gewählt. Das flexible Datenmodell von APIS entspricht mit seinen fünf Entitäten (Personen, Orte, Institutionen, Quellen und Ereignissen) im Wesentlichen den Anforderungen von VieCPro. Eine Anpassung erfolgte auf Ebene der Entitäten, des Vokabulars und der digitalen Werkzeuge wie folgt:",
+        "t1-l1": "Als Hauptentitäten werden in VieCPro Personen, Institutionen, Hofstaate, Orte und Zahlungen (siehe Daten) gesehen. Weitere Angaben zu Quellen und Funktionen dienen innerhalb der prosopographischen Datenbank VieCPro als ergänzende Registerdaten.",
+        "t1-l2": "Die verschiedenen Entitäten werden in APIS über Relationen verbunden. Die Bezeichnung derselben erfolgt durch ein hierarchisch gegliedertes Vokabular, das u.a. im Kontext des Wiener Hofes einerseits eine Vereinheitlichung der vielfältigen Funktionsbezeichnungen und andererseits eine Kategorisierung nach Tätigkeitsgruppen ermöglicht.",
+        "t1-l3": "Begleitend zur Datenerfassung wurden digitale Werkzeuge für die Deduplizierung prosopographischer Daten und die Darstellung der Hierarchie von Hofstaaten, Hofämtern und dem dazugehörigen Personal entwickelt (siehe Visualisierungen)."
+      },
       "database": {
-        "header": "Datenbank",
-        "sub-header": "Informationen zur Benutzung der Datenbank (das ist nur ein test für Sub-titles)",
         "text": "Dummy Text Datenbank.",
         "children": {
-          "datenbestand": {
+          "dataset": {
             "header": "Datenbestand",
+            "tablink": "Datenbestand",
             "text": "Dummy text Datenbestand"
           }
         }
       },
-      "benutzung": {
+      "usage": {
         "header": "Benutzung",
+        "tablink": "Benutzung",
+
         "text": "Dummy Text Benutzung"
       },
       "materials": {
         "header": "Materialien und Dokumentation",
+        "tablink": "Materialien und Dokumentation",
         "text": "Dummy Text Materialien"
-      },
-      "project": {
-        "header": "Über das Projekt",
-        "text": "Dummy Text über das Projekt."
       }
     }
   }

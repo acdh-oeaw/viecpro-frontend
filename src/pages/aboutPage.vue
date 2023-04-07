@@ -1,29 +1,27 @@
-// the about page, with information on project, data, usage, team, etc. // TODO:
+// the about page, with information on project, data, usage, team,
+etc. // TODO:
 
 <script setup lang="ts">
 import genericDialog from "@/components/dialogs/genericDialog.vue";
 import { useCustomConfirmation } from "@/composables/useCustomConfirmation";
 import { ref, onBeforeMount, watch, reactive } from "vue";
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
-import { texts } from "@/texts.js";
+import {
+  TabGroup,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from "@headlessui/vue";
 
-console.log("new style texts", texts);
-// const textFile = ref({});
+import projectSection from "./about-page-sections/projectSection.vue";
+import dataSection from "./about-page-sections/dataSection.vue";
+import teamSection from "./about-page-sections/teamSection.vue";
+import technicalSection from "./about-page-sections/technicalSection.vue";
 
-// onBeforeMount(() => {
-//   // fetch("./src/texts.json")
-//   //   .then((response) => {
-//   //     return response.json();
-//   //   })
-//   //   .then((json) => {
-//   //     textFile.value = json;
-//   //     console.log(textFile.value);
-//   //     console.log(json);
-//   //   });
-//   textFile.value = texts;
+const baseKey = "pages.about-page.";
 
-
-const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
+const { openDialog, isRevealed, confirm, cancel } =
+  useCustomConfirmation();
 
 const sections = ref({
   database: {},
@@ -31,30 +29,92 @@ const sections = ref({
   usage: {},
 });
 
-function myComputation(data){
+const tabs = {
+  database: "database.tablink",
+};
+
+function myComputation(data) {
   console.log(data);
 }
-
-// watch(textFile, () => {
-//   console.log("textfiel content: ", textFile);
-// });
-// function myComputation(data: any) {
-//   console.log("starting process");
-
-//   if (data) {
-//     console.log("running process, data was:", data);
-//   } else {
-//     console.log("aborting process, as data was:", data);
-//   }
-
-//   console.log("finishing process");
-// }
 </script>
 
 <template>
-  <div class="flex min-h-screen justify-between">
-    <div class="min-h-screen mt-20">
-      <TabGroup
+  <div class="flex min-h-screen justify-between mr-80 ml-40 text-left">
+    <div class="min-h-screen my-20">
+      <TabGroup vertical as="div" class="flex" :defaultIndex="0">
+        <TabList
+          class="min-w-40 py-20 border-r-2 px-10"
+          id="about_navigation"
+        >
+          <Tab
+            as="template"
+            v-slot="{ selected }"
+            class="focus:outline-none"
+          >
+            <div
+              class="hover:cursor-pointer hover:bg-primary-900/40 hover:text-white px-2 py-1 rounded my-2"
+              :class="{
+                'bg-primary-900/70 text-white border-0': selected,
+              }"
+            >
+              {{ $t(baseKey + "data.tablink") }}
+            </div>
+          </Tab>
+          <Tab
+            as="template"
+            v-slot="{ selected }"
+            class="focus:outline-none"
+          >
+            <div
+              class="hover:cursor-pointer hover:bg-primary-900/40 hover:text-white px-2 py-1 rounded my-2"
+              :class="{
+                'bg-primary-900/70 text-white border-0': selected,
+              }"
+            >
+              {{ $t(baseKey + "project.tablink") }}
+            </div>
+          </Tab>
+          <Tab
+            as="template"
+            v-slot="{ selected }"
+            class="focus:outline-none"
+          >
+            <div
+              class="hover:cursor-pointer hover:bg-primary-900/40 hover:text-white px-2 py-1 rounded my-2"
+              :class="{
+                'bg-primary-900/70 text-white border-0': selected,
+              }"
+            >
+              {{ $t(baseKey + "team.tablink") }}
+            </div>
+          </Tab>
+          <Tab
+            as="template"
+            v-slot="{ selected }"
+            class="focus:outline-none"
+          >
+            <div
+              class="hover:cursor-pointer hover:bg-primary-900/40 hover:text-white px-2 py-1 rounded my-2"
+              :class="{
+                'bg-primary-900/70 text-white border-0': selected,
+              }"
+            >
+              {{ $t(baseKey + "infrastructure.tablink") }}
+            </div>
+          </Tab>
+        </TabList>
+        <TabPanels
+          class="flex-grow pl-20"
+          id="about_content"
+          as="div"
+        >
+          <TabPanel> <dataSection></dataSection> </TabPanel>
+          <TabPanel> <projectSection></projectSection></TabPanel>
+          <TabPanel> <teamSection></teamSection></TabPanel>
+          <TabPanel> <technicalSection></technicalSection> </TabPanel>
+        </TabPanels>
+      </TabGroup>
+      <!-- <TabGroup
         v-if="texts.pages"
         vertical
         as="div"
@@ -112,17 +172,17 @@ function myComputation(data){
             </div>
           </TabPanel>
         </TabPanels>
-      </TabGroup>
+      </TabGroup> -->
     </div>
 
-    <div class="flex-grow pl-20" id="about_content">
-      <!-- <button
+    <!-- <div class="flex-grow pl-20" id="about_content">
+      <button
         class="bg-primary-200 rounded px-4 py-2 text-white mt-4"
         @click="openDialog(myComputation)"
       >
         Test Dialog
-      </button> -->
-    </div>
+      </button> 
+    </div> -->
   </div>
 
   <genericDialog

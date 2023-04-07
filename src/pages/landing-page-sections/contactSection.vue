@@ -1,0 +1,15 @@
+<script setup lang="ts">
+import { ref, watch, onBeforeMount, onMounted } from "vue";
+const textBase = ref("pages.landing-page.contact.");
+
+const props = defineProps([]);
+</script>
+<template>
+  <div>
+    <h1>{{  $t(textBase +"header") }}</h1>
+    <p>{{  $t(textBase +"text") }}</p>
+    <!-- slot for additional content -->
+    <slot></slot>
+  </div>
+</template>
+<style scoped></style>
