@@ -22,9 +22,3 @@
   "vue3snippets.enable-compile-vue-file-on-did-save-code": false
 }  
 
-  // "prettier": {
-  //   "tabWidth": 2,
-  //   "useTabs": false,
-  //   "printWidth": 100,
-  //   "proseWrap": "always"
-  // }

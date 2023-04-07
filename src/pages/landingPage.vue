@@ -14,7 +14,7 @@ import documentationSection from "./landing-page-sections/documentationSection.v
 </script>
 
 <template>
-  <div class="min-h-screen mt-20 flex-col mx-40">
+  <div class="min-h-screen mt-20 flex-col lg:mx-80">
     <welcomeSection></welcomeSection>
     <databaseSection></databaseSection>
     <documentationSection></documentationSection>
