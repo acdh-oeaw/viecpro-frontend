@@ -15,6 +15,16 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.suggest.insertMode": "replace",
-    "gitlens.codeLens.scopes": ["document"]
-  }
-}
+    "gitlens.codeLens.scopes": ["document"],
+    "editor.wordWrap": "bounded",
+    "editor.wrappingIndent":"indent", // or deepIndent
+  },
+  "vue3snippets.enable-compile-vue-file-on-did-save-code": false
+}  
+
+  // "prettier": {
+  //   "tabWidth": 2,
+  //   "useTabs": false,
+  //   "printWidth": 100,
+  //   "proseWrap": "always"
+  // }
