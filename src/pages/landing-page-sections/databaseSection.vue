@@ -7,7 +7,6 @@ const props = defineProps([]);
 <template>
   <div>
     <h1> {{ $t(textBase + "header") }}</h1>
-    <!-- slot for additional content -->
     <p>{{ $t(textBase + "text") }}</p>
     <button> {{ $t("pages.landing-page.viecpro.link-database") }}</button>
     <slot></slot>
