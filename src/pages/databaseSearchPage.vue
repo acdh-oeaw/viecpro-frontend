@@ -42,7 +42,7 @@ const hitsPerPage: Ref<number> = ref(20);
 // const model_type: Ref<String> = ref("")
 
 onBeforeMount(() => {
-  selectedCollection.value = "PersonInstitution";
+  selectedCollection.value = "Person";
 });
 
 // TODO: move collections to a seperate directory with settings / options or request them dynamically from typesense server
