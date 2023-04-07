@@ -99,7 +99,7 @@ function myComputation(data) {
                 'bg-primary-900/70 text-white border-0': selected,
               }"
             >
-              {{ $t(baseKey + "infrastructure.tablink") }}
+              {{ $t(baseKey + "technical.tablink") }}
             </div>
           </Tab>
         </TabList>
@@ -197,9 +197,9 @@ function myComputation(data) {
   @apply ml-6;
 }
 
-h1 {
+/* h1 {
   @apply text-4xl text-primary-600 mb-4;
-}
+} */
 
 p {
   @apply mb-5;

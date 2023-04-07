@@ -5,9 +5,8 @@ const props = defineProps([]);
 const tB = ref("pages.about-page.data.");
 </script>
 <template>
-
-   <h1>{{  $t("pages.about-page.data.header") }}</h1>
-   <p>PLACEHOLDER INTRODUCTION DATA</p>
+  <h1>{{ $t("pages.about-page.data.header") }}</h1>
+  <p>PLACEHOLDER INTRODUCTION DATA</p>
   <div>
     <h1>{{ $t(tB + "overview.header") }}</h1>
     <p>{{ $t(tB + "overview.t1") }}</p>

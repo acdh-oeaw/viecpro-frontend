@@ -13,7 +13,14 @@
     "login": "Anmelden",
     "understood": "Verstanden",
     "download": "Herunterladen",
-    "data": "Daten"
+    "data": "Daten",
+    "documentation": "Dokumentation"
+  },
+
+  "navigation": {
+    "About": "Dokumentation",
+    "Home": "Start",
+    "Database": "Datenbank"
   },
   "words": {
     "title": "Der Wiener Hof: Ein prosopographisches Portal.",
@@ -174,7 +181,7 @@
           "": ""
         }
       },
-      "infrastructure": {
+      "technical": {
         "tablink": "Forschungsinfrastruktur",
         "header": "Forschungsinfrastruktur",
         "t1": "Für die Erfassung prosopographischer Daten über das Personal am Wiener Hof wurde die am ACDH-CH entwickelte virtuelle Forschungsumgebung Austrian Prosopographical Information System (APIS) gewählt. Das flexible Datenmodell von APIS entspricht mit seinen fünf Entitäten (Personen, Orte, Institutionen, Quellen und Ereignissen) im Wesentlichen den Anforderungen von VieCPro. Eine Anpassung erfolgte auf Ebene der Entitäten, des Vokabulars und der digitalen Werkzeuge wie folgt:",

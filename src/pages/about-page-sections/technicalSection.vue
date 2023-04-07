@@ -2,9 +2,34 @@
 import { ref, watch, onBeforeMount, onMounted } from "vue";
 
 const props = defineProps([]);
-const textBase = ref("pages.about-page..");
+const tB = ref("pages.about-page.technical.");
 </script>
 <template>
-  <div>Technik</div>
+  <div>
+    <h1>{{ $t(tB + "header") }}</h1>
+  </div>
 </template>
-<style scoped></style>
+<style scoped>
+.ul-wrapper {
+  @apply pl-4;
+}
+
+ul {
+  @apply pl-5;
+}
+h1,
+h2,
+h3 {
+  @apply text-2xl my-8;
+}
+p {
+  @apply py-2 pl-4;
+}
+li {
+  @apply list-disc list-outside pl-4;
+}
+
+span {
+  @apply block;
+}
+</style>
