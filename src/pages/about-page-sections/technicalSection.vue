@@ -7,6 +7,14 @@ const tB = ref("pages.about-page.technical.");
 <template>
   <div>
     <h1>{{ $t(tB + "header") }}</h1>
+    <p>{{ $t(tB + "t1") }}</p>
+    <div class="ul-wrapper">
+      <ul>
+        <li>{{ $t(tB + "t1-l1") }}</li>
+        <li>{{ $t(tB + "t1-l2") }}</li>
+        <li>{{ $t(tB + "t1-l3") }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 <style scoped>
