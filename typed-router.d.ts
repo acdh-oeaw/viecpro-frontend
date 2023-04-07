@@ -35,12 +35,21 @@ import type {
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
+    '/about-page-sections/dataSection': RouteRecordInfo<'/about-page-sections/dataSection', '/about-page-sections/dataSection', Record<never, never>, Record<never, never>>,
+    '/about-page-sections/projectSection': RouteRecordInfo<'/about-page-sections/projectSection', '/about-page-sections/projectSection', Record<never, never>, Record<never, never>>,
+    '/about-page-sections/teamSection': RouteRecordInfo<'/about-page-sections/teamSection', '/about-page-sections/teamSection', Record<never, never>, Record<never, never>>,
+    '/about-page-sections/technicalSection': RouteRecordInfo<'/about-page-sections/technicalSection', '/about-page-sections/technicalSection', Record<never, never>, Record<never, never>>,
     '/aboutPage': RouteRecordInfo<'/aboutPage', '/aboutPage', Record<never, never>, Record<never, never>>,
     '/databaseSearchPage': RouteRecordInfo<'/databaseSearchPage', '/databaseSearchPage', Record<never, never>, Record<never, never>>,
     '/deduplicationPage': RouteRecordInfo<'/deduplicationPage', '/deduplicationPage', Record<never, never>, Record<never, never>>,
     '/entityDetailPage': RouteRecordInfo<'/entityDetailPage', '/entityDetailPage', Record<never, never>, Record<never, never>>,
     '/impressumPage': RouteRecordInfo<'/impressumPage', '/impressumPage', Record<never, never>, Record<never, never>>,
+    '/landing-page-sections/contactSection': RouteRecordInfo<'/landing-page-sections/contactSection', '/landing-page-sections/contactSection', Record<never, never>, Record<never, never>>,
+    '/landing-page-sections/databaseSection': RouteRecordInfo<'/landing-page-sections/databaseSection', '/landing-page-sections/databaseSection', Record<never, never>, Record<never, never>>,
+    '/landing-page-sections/documentationSection': RouteRecordInfo<'/landing-page-sections/documentationSection', '/landing-page-sections/documentationSection', Record<never, never>, Record<never, never>>,
+    '/landing-page-sections/welcomeSection': RouteRecordInfo<'/landing-page-sections/welcomeSection', '/landing-page-sections/welcomeSection', Record<never, never>, Record<never, never>>,
     '/landingPage': RouteRecordInfo<'/landingPage', '/landingPage', Record<never, never>, Record<never, never>>,
+    '/page-components/section': RouteRecordInfo<'/page-components/section', '/page-components/section', Record<never, never>, Record<never, never>>,
     '/relationDetailPage': RouteRecordInfo<'/relationDetailPage', '/relationDetailPage', Record<never, never>, Record<never, never>>,
     '/sourceDetailPage': RouteRecordInfo<'/sourceDetailPage', '/sourceDetailPage', Record<never, never>, Record<never, never>>,
     '/visualisationStudio': RouteRecordInfo<'/visualisationStudio', '/visualisationStudio', Record<never, never>, Record<never, never>>,
