@@ -26,7 +26,7 @@ const props = defineProps({ navLinks: Array<navlinkProp> });
         :to="link.route"
         :key="link.name"
         class="navigation-link"
-        >{{ link.name }}
+        >{{ $t("navigation."+link.name) }}
       </RouterLink>
       <div><LocaleSelect></LocaleSelect></div>
       <div>login</div>

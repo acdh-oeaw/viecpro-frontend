@@ -42,7 +42,9 @@ const navLinks: navlinkProp[] = [
       <pageNavigation :nav-links="navLinks">
         <template v-slot:left>
           <!-- <div class="w-20 h-5 bg-highlight-300 text-center">LOGO</div> -->
-          <div class="flex grow lg:place-content-start place-content-center">
+          <div
+            class="flex grow lg:place-content-start place-content-center"
+          >
             <img
               class="h-20 hover:cursor-pointer"
               src="./assets/logos/logo_white.png"
@@ -90,7 +92,9 @@ const navLinks: navlinkProp[] = [
                 <p>1020 Wien</p>
               </div>
               <p><strong>Email:</strong> viecpro@oeaw.ac.at</p>
-              <p><a class="hover:bg-blue-200" href="">Kontakt Team</a></p>
+              <p>
+                <a class="hover:bg-blue-200" href="">Kontakt Team</a>
+              </p>
             </div>
           </div>
         </template>
