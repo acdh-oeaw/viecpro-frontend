@@ -36,6 +36,8 @@ import type {
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
     '/about-page-sections/dataSection': RouteRecordInfo<'/about-page-sections/dataSection', '/about-page-sections/dataSection', Record<never, never>, Record<never, never>>,
+    '/about-page-sections/materialsSection': RouteRecordInfo<'/about-page-sections/materialsSection', '/about-page-sections/materialsSection', Record<never, never>, Record<never, never>>,
+    '/about-page-sections/partnersSection': RouteRecordInfo<'/about-page-sections/partnersSection', '/about-page-sections/partnersSection', Record<never, never>, Record<never, never>>,
     '/about-page-sections/projectSection': RouteRecordInfo<'/about-page-sections/projectSection', '/about-page-sections/projectSection', Record<never, never>, Record<never, never>>,
     '/about-page-sections/teamSection': RouteRecordInfo<'/about-page-sections/teamSection', '/about-page-sections/teamSection', Record<never, never>, Record<never, never>>,
     '/about-page-sections/technicalSection': RouteRecordInfo<'/about-page-sections/technicalSection', '/about-page-sections/technicalSection', Record<never, never>, Record<never, never>>,

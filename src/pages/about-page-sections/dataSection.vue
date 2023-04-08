@@ -20,6 +20,8 @@ const tB = ref("pages.about-page.data.");
   <div>
     <h1>{{ $t(tB + "status.header") }}</h1>
     <p>{{ $t(tB + "status.t1") }}</p>
+    <p>PLACEHOLDER GRAPHIK BEARBEITUNGSSTAND</p>
+
   </div>
 
   <div>
@@ -60,7 +62,7 @@ const tB = ref("pages.about-page.data.");
         </li>
         <li>
           <span>{{ $t(tB + "provenance.d1-l3-1") }}</span>
-          <p>{{ $t(tB + "provenance.d1-l3-2") }}</p>
+          <span>{{ $t(tB + "provenance.d1-l3-2") }}</span>
         </li>
         <li>
           <span>{{ $t(tB + "provenance.d1-l4-1") }}</span>
@@ -149,12 +151,49 @@ const tB = ref("pages.about-page.data.");
       </ul>
     </div>
   </div>
-
-  <div>
-    <h1>{{ $t(tB + "status.header") }}</h1>
-    <p>{{ $t(tB + "status.t1") }}</p>
-    <p>PLACEHOLDER GRAPHIK BEARBEITUNGSSTAND</p>
+  <h3>{{ $t(tB + "workflow.header") }}</h3>
+  <p>{{ $t(tB + "workflow.sh-y1") }}</p>
+  <div class="ul-wrapper">
+    <ul>
+      <li>{{ $t(tB + "workflow.y1-l1") }}</li>
+      <li>{{ $t(tB + "workflow.y1-l2") }}</li>
+      <li>{{ $t(tB + "workflow.y1-l3") }}</li>
+    </ul>
   </div>
+  <p>{{ $t(tB + "workflow.sh-y2") }}</p>
+  <div class="ul-wrapper">
+    <ul>
+      <li>{{ $t(tB + "workflow.y2-l1") }}</li>
+      <li>{{ $t(tB + "workflow.y2-l2") }}</li>
+      <li>{{ $t(tB + "workflow.y2-l3") }}</li>
+      <li>{{ $t(tB + "workflow.y2-l4") }}</li>
+      <li>{{ $t(tB + "workflow.y2-l5") }}</li>
+      <li>{{ $t(tB + "workflow.y2-l6") }}</li>
+    </ul>
+  </div>
+  <p>{{ $t(tB + "workflow.sh-y3") }}</p>
+  <div class="ul-wrapper">
+    <ul>
+      <li>{{ $t(tB + "workflow.y3-l1") }}</li>
+      <li>{{ $t(tB + "workflow.y3-l2") }}</li>
+      <li>{{ $t(tB + "workflow.y3-l3") }}</li>
+      <li>{{ $t(tB + "workflow.y3-l4") }}</li>
+      <li>{{ $t(tB + "workflow.y3-l5") }}</li>
+      <li>{{ $t(tB + "workflow.y3-l6") }}</li>
+      <li>{{ $t(tB + "workflow.y3-l7") }}</li>
+    </ul>
+  </div>
+  <p>{{ $t(tB + "workflow.sh-y4") }}</p>
+  <div class="ul-wrapper">
+    <ul>
+      <li>{{ $t(tB + "workflow.y4-l1") }}</li>
+      <li>{{ $t(tB + "workflow.y4-l2") }}</li>
+      <li>{{ $t(tB + "workflow.y4-l3") }}</li>
+      <li>{{ $t(tB + "workflow.y4-l4") }}</li>
+    </ul>
+  </div>
+
+
 </template>
 <style scoped>
 .ul-wrapper {

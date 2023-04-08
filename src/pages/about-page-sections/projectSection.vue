@@ -17,8 +17,13 @@ const tB = ref("pages.about-page.project.");
     <p>{{ $t(tB + "t2") }}</p>
     <h2>{{ $t(tB + "sh1") }}</h2>
     <p>{{ $t(tB + "t3") }}</p>
-    <p>{{ $t(tB + "t4") }}</p>
-    <p>{{ $t(tB + "t5") }}</p>
+    <div class="ul-wrapper">
+      <ul>
+        <p>{{ $t(tB + "t4") }}</p>
+        <p>{{ $t(tB + "t5") }}</p>
+      </ul>
+    </div>
+
     <p>{{ $t(tB + "t6") }}</p>
     <h2>{{ $t(tB + "sh2") }}</h2>
     <p>{{ $t(tB + "t7") }}</p>

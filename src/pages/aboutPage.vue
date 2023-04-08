@@ -17,6 +17,8 @@ import projectSection from "./about-page-sections/projectSection.vue";
 import dataSection from "./about-page-sections/dataSection.vue";
 import teamSection from "./about-page-sections/teamSection.vue";
 import technicalSection from "./about-page-sections/technicalSection.vue";
+import materialsSection from "./about-page-sections/materialsSection.vue";
+import partnersSection from "./about-page-sections/partnersSection.vue";
 
 const baseKey = "pages.about-page.";
 
@@ -39,7 +41,9 @@ function myComputation(data) {
 </script>
 
 <template>
-  <div class="flex min-h-screen justify-between mr-80 ml-40 text-left">
+  <div
+    class="flex min-h-screen justify-between mr-80 ml-40 text-left"
+  >
     <div class="min-h-screen my-20">
       <TabGroup vertical as="div" class="flex" :defaultIndex="0">
         <TabList
@@ -57,7 +61,7 @@ function myComputation(data) {
                 'bg-primary-900/70 text-white border-0': selected,
               }"
             >
-              {{ $t(baseKey + "data.tablink") }}
+              {{ $t(baseKey + "project.tablink") }}
             </div>
           </Tab>
           <Tab
@@ -71,9 +75,10 @@ function myComputation(data) {
                 'bg-primary-900/70 text-white border-0': selected,
               }"
             >
-              {{ $t(baseKey + "project.tablink") }}
+              {{ $t(baseKey + "data.tablink") }}
             </div>
           </Tab>
+
           <Tab
             as="template"
             v-slot="{ selected }"
@@ -102,16 +107,47 @@ function myComputation(data) {
               {{ $t(baseKey + "technical.tablink") }}
             </div>
           </Tab>
+          <Tab
+            as="template"
+            v-slot="{ selected }"
+            class="focus:outline-none"
+          >
+            <div
+              class="hover:cursor-pointer hover:bg-primary-900/40 hover:text-white px-2 py-1 rounded my-2"
+              :class="{
+                'bg-primary-900/70 text-white border-0': selected,
+              }"
+            >
+              {{ $t(baseKey + "materials.tablink") }}
+            </div>
+          </Tab>
+          <Tab
+            as="template"
+            v-slot="{ selected }"
+            class="focus:outline-none"
+          >
+            <div
+              class="hover:cursor-pointer hover:bg-primary-900/40 hover:text-white px-2 py-1 rounded my-2"
+              :class="{
+                'bg-primary-900/70 text-white border-0': selected,
+              }"
+            >
+              {{ $t(baseKey + "partners.tablink") }}
+            </div>
+          </Tab>
         </TabList>
         <TabPanels
           class="flex-grow pl-20"
           id="about_content"
           as="div"
         >
-          <TabPanel> <dataSection></dataSection> </TabPanel>
           <TabPanel> <projectSection></projectSection></TabPanel>
+
+          <TabPanel> <dataSection></dataSection> </TabPanel>
           <TabPanel> <teamSection></teamSection></TabPanel>
           <TabPanel> <technicalSection></technicalSection> </TabPanel>
+          <TabPanel> <materialsSection></materialsSection> </TabPanel>
+          <TabPanel> <partnersSection></partnersSection> </TabPanel>
         </TabPanels>
       </TabGroup>
       <!-- <TabGroup

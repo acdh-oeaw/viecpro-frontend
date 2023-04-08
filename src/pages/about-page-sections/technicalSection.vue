@@ -8,13 +8,20 @@ const tB = ref("pages.about-page.technical.");
   <div>
     <h1>{{ $t(tB + "header") }}</h1>
     <p>{{ $t(tB + "t1") }}</p>
-    <div class="ul-wrapper">
-      <ul>
-        <li>{{ $t(tB + "t1-l1") }}</li>
-        <li>{{ $t(tB + "t1-l2") }}</li>
-        <li>{{ $t(tB + "t1-l3") }}</li>
-      </ul>
-    </div>
+    <p>{{ $t(tB + "t2") }}</p>
+    <h3>{{ $t(tB + "sh1") }}</h3>
+    <p>{{ $t(tB + "t3") }}</p>
+    <p>{{ $t(tB + "t4") }}</p>
+    <p>{{ $t(tB + "t5") }}</p>
+    <p>{{ $t(tB + "t6") }}</p>
+    <p>{{ $t(tB + "t7") }}</p>
+    <p>{{ $t(tB + "t8") }}</p>
+    <p>{{ $t(tB + "t9") }}</p>
+    <p>{{ $t(tB + "t10") }}</p>
+    <p>{{ $t(tB + "t11") }}</p>
+
+    <p>{{ $t(tB + "t12") }}</p>
+
   </div>
 </template>
 <style scoped>
