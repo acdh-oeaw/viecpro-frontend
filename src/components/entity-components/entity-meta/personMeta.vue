@@ -6,7 +6,7 @@ const functions = ref([""]);
 onMounted(() => {
   let test: Set<string> | Array<string> = new Set(
 
-    props.data.relations.Institution.map((el)=>{return el.relation_type})
+    props.data.relations.PersonInstitution.map((el)=>{return el.relation_type})
 
   );
   console.log("object keys: ", Object.keys(props.data.relations))
