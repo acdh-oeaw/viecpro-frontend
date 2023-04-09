@@ -1,8 +1,9 @@
-// Generic detail page for all entities // maped to a dynamic route // generic
-sections are coded as external components /* TODO: at the moment, this same view
-deals with entities and relations display (i.e. you can view a single relation
-instance as the base entity. This needs to be split into two different generic
-components - if we want to show detail views of relations at all.) */
+// Generic detail page for all entities // maped to a dynamic route //
+generic sections are coded as external components /* TODO: at the
+moment, this same view deals with entities and relations display (i.e.
+you can view a single relation instance as the base entity. This needs
+to be split into two different generic components - if we want to show
+detail views of relations at all.) */
 
 <script setup lang="ts">
 // utitily imports
@@ -10,9 +11,16 @@ import { ref, onBeforeMount, reactive } from "vue";
 import type { Ref } from "vue";
 import genericTable from "@/components/genericTable.vue";
 // component imports
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import {
+  TabGroup,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from "@headlessui/vue";
 import entityVisualisationSection from "@/components/entity-components/entity-vis/entityVisualisationSection.vue";
 import { Switch } from "@headlessui/vue";
+import { Client } from "typesense";
 
 const entityType: Ref<string> = ref("");
 const data: Ref<object> = ref({});
@@ -29,6 +37,36 @@ const props = defineProps({
   model_type: String,
 });
 
+const client = new Client({
+  nodes: [
+    {
+      host: import.meta.env.VITE_TYPESENSE_HOST,
+      port: import.meta.env.VITE_TYPESENSE_PORT,
+      protocol: "http",
+    },
+  ],
+  apiKey: import.meta.env.VITE_TYPESENSE_API_KEY,
+  connectionTimeoutSeconds: 2,
+});
+
+let test_query = {
+  q: "244622",
+  query_by: "source_id, target_id",
+  filter_by: "",
+  sort_by: "",
+};
+
+console.log("querying typesense");
+client
+  .collections("viecpro_PersonInstitution")
+  .documents()
+  .search(test_query)
+  .then((response) => {
+    console.log("queried typesense");
+    console.log(response);
+    console.log(response["hits"]);
+  });
+
 // TODO: make this a composable
 // TODO: delegetae the responsibility for processing the received data to the views that use the composable
 // TODO: write reusable processing functions for formatting the fetched data
@@ -37,20 +75,32 @@ onBeforeMount(() => {
 
   // work around for the current editor only implementation of splitting Persons into viecpro specific types. maps those types back to "person"
   // will be removed later
-  if (["Vorfin", "Single", "Dublette"].includes(props.ent_model as string)) {
+  if (
+    ["Vorfin", "Single", "Dublette"].includes(
+      props.ent_model as string
+    )
+  ) {
     converted_model.value = "person";
   } else {
     converted_model.value = props.ent_model as string;
   }
 
-  const url =
+  const url1 =
     import.meta.env.VITE_APIS_API_URL +
-    `apis/api/${props.ent_type}/${converted_model.value.toLowerCase()}/${
+    `apis/api/${
+      props.ent_type
+    }/${converted_model.value.toLowerCase()}/${
       props.ent_id
     }/?format=json`;
 
+  const url2 =
+    import.meta.env.VITE_APIS_API_URL +
+    `apis/api2/entity/${props.ent_id}/?format=json`;
+
+  // TODO: test alternative: fetch the data through a second, specific query to typesense.
+
   let temp_rels: object = {};
-  fetch(url, {
+  fetch(url2, {
     method: "GET",
     mode: "cors",
     headers: {
@@ -71,7 +121,9 @@ onBeforeMount(() => {
           }
         })
       );
-      test = Array.from(test).filter((el) => el != "placeholder dummy");
+      test = Array.from(test).filter(
+        (el) => el != "placeholder dummy"
+      );
 
       functions.value = test;
       json_data.relations.forEach((el) => {
@@ -116,7 +168,10 @@ onBeforeMount(() => {
         </Switch>
       </div>
     </div> -->
-    <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
+    <div
+      class="flex place-content-between mx-40 pt-20"
+      id="meta-and-actions"
+    >
       <div class="flex-col" id="meta-section">
         <EntityMetaBase :data="data" :model="ent_model"
           ><component
@@ -143,7 +198,10 @@ onBeforeMount(() => {
     </div>
 
     <!-- TODO: add proper :key attribs for all v-for loops here -->
-    <div class="mx-40 bg-blue-200 min-h-screen pt-4" id="tables-section">
+    <div
+      class="mx-40 bg-blue-200 min-h-screen pt-4"
+      id="tables-section"
+    >
       <TabGroup>
         <TabList>
           <Tab class="tab-standard">JSON</Tab>
@@ -173,7 +231,9 @@ onBeforeMount(() => {
             >
               <h3 class="text-xl">{{ model + "-Relations" }}</h3>
               <ul>
-                <li v-for="val in values" :key="val + '_val'">{{ val }}</li>
+                <li v-for="val in values" :key="val + '_val'">
+                  {{ val }}
+                </li>
               </ul>
             </div>
           </TabPanel>

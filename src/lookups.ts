@@ -1,7 +1,7 @@
 import relationsFilters from "@/components/search-components/filters/relationsFilters.vue";
 import PersonMeta from "@/components/entity-components/entity-meta/PersonMeta.vue";
 import InstitutionMeta from "@/components/entity-components/entity-meta/InstitutionMeta.vue";
-
+import genericRelationsFilters from "@/components/search-components/filters/genericRelationsFilters.vue";
 const entityComponentLookup = {
   person: {
     detail: null,
@@ -63,19 +63,27 @@ const collectionsLookup = {
   },
   Work: Entity,
   Event: Entity,
-  PersonPerson: Relation,
-  PersonInstitution: Relation,
-  PersonPlace: Relation,
-  PersonEvent: Relation,
-  PersonWork: Relation,
-  WorkWork: Relation,
-  WorkEvent: Relation,
-  InstitutionInstitution: Relation,
-  InstitutionPlace: Relation,
-  InstitutionWork: Relation,
-  InstitutionEvent: Relation,
-  PlaceWork: Relation,
-  PlaceEvent: Relation,
+  // PersonPerson: Relation,
+  // PersonInstitution: Relation,
+  // PersonPlace: Relation,
+  // PersonEvent: Relation,
+  // PersonWork: Relation,
+  // WorkWork: Relation,
+  // WorkEvent: Relation,
+  // InstitutionInstitution: Relation,
+  // InstitutionPlace: Relation,
+  // InstitutionWork: Relation,
+  // InstitutionEvent: Relation,
+  // PlaceWork: Relation,
+  // PlaceEvent: Relation,
+  Relations:  {
+    components: {
+      filter: genericRelationsFilters,
+      //meta: genericRelationsMeta,
+    },
+    headers: ["source.name", "relation_type", "target.name", "start", "end", "model"],
+    searchParams: "source.name, target.name, relation_type, model",
+  },
 };
 
 export { entityComponentLookup, collectionsLookup };

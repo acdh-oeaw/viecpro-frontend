@@ -1,8 +1,9 @@
-// component for searching within a selection of collections or a single
-collection (typesense collection ) // results, filters, etc. should be external
-components that change with the change of the selectedCollection // should be
-used in the main search page (database search) and a stripped down version for
-searching / filtering the relation tables within the genericEntityDetailView.
+// component for searching within a selection of collections or a
+single collection (typesense collection ) // results, filters, etc.
+should be external components that change with the change of the
+selectedCollection // should be used in the main search page (database
+search) and a stripped down version for searching / filtering the
+relation tables within the genericEntityDetailView.
 
 <script setup lang="ts">
 // TODO: implement all types!
@@ -23,7 +24,14 @@ import {
   ListboxOption,
 } from "@headlessui/vue";
 // import utils, functions, etc.
-import { ref, reactive, computed, watch, onBeforeMount, shallowRef } from "vue";
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  onBeforeMount,
+  shallowRef,
+} from "vue";
 import relationsFiltersVue from "../components//search-components/filters/relationsFilters.vue";
 import router from "../router";
 import type { Ref } from "vue";
@@ -42,7 +50,7 @@ const hitsPerPage: Ref<number> = ref(20);
 // const model_type: Ref<String> = ref("")
 
 onBeforeMount(() => {
-  selectedCollection.value = "Person";
+  selectedCollection.value = "Relations";
 });
 
 // TODO: move collections to a seperate directory with settings / options or request them dynamically from typesense server
@@ -75,7 +83,11 @@ function updateCollection(collection: string) {
   }
 }
 
-function redirectToEntity(ent_type: string, ent_id: string, ent_model: string) {
+function redirectToEntity(
+  ent_type: string,
+  ent_id: string,
+  ent_model: string
+) {
   const route = `/${ent_type}/${ent_model}/detail/${ent_id}`;
   router.push(route);
 }
@@ -145,39 +157,43 @@ watch(selectedCollection, () => {
   // }
 
   console.log("params is now: ", params);
+  console.log("HOst is", import.meta.env.VITE_TYPESENSE_HOST)
   additionalSearchParameters.query_by = params;
   typesenseInstantSearchAdapter.configuration.additionalSearchParameters.highlight_full_fields =
     params;
   placeholder.value = `search in ${selectedCollection.value}`;
 }); // guess I need to make this reactive to change in sync with collection // think even computed would do
 
-const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
-  server: {
-    //apiKey: "xyz", // Be sure to use an API key that only allows searches, in production
-    apiKey: import.meta.env.VITE_TYPESENSE_API_KEY,
-    nodes: [
-      {
-        host: import.meta.env.VITE_TYPESENSE_HOST,
-        port: import.meta.env.VITE_TYPESENSE_PORT,
-        protocol: import.meta.env.VITE_TYPESENSE_PROTOCOL,
-      },
-    ],
-  },
-  // The following parameters are directly passed to Typesense's search API endpoint.
-  //  So you can pass any parameters supported by the search endpoint below.
-  //  queryBy is required.
-  //  filterBy is managed and overridden by InstantSearch.js. To set it, you want to use one of the filter widgets like refinementList or use the `configure` widget.
-  // collectionSpecificSearchParameters: {
-  //   relations: { query_by: "ent_a, relation_type,  ent_b" },
-  //   entities: { query_by: "name" },
-  // },
-  additionalSearchParameters: additionalSearchParameters,
-  //   additionalSearchParameters: {
-  //     query_by: "name, title, first_name",
-  //   },
-});
+const typesenseInstantSearchAdapter =
+  new TypesenseInstantSearchAdapter({
+    server: {
+      //apiKey: "xyz", // Be sure to use an API key that only allows searches, in production
+      apiKey: import.meta.env.VITE_TYPESENSE_API_KEY,
+      nodes: [
+        {
+          host: import.meta.env.VITE_TYPESENSE_HOST,
+          port: import.meta.env.VITE_TYPESENSE_PORT,
+          protocol: import.meta.env.VITE_TYPESENSE_PROTOCOL,
+        },
+      ],
+    },
+    // The following parameters are directly passed to Typesense's search API endpoint.
+    //  So you can pass any parameters supported by the search endpoint below.
+    //  queryBy is required.
+    //  filterBy is managed and overridden by InstantSearch.js. To set it, you want to use one of the filter widgets like refinementList or use the `configure` widget.
+    // collectionSpecificSearchParameters: {
+    //   relations: { query_by: "ent_a, relation_type,  ent_b" },
+    //   entities: { query_by: "name" },
+    // },
+    additionalSearchParameters: additionalSearchParameters,
+    //   additionalSearchParameters: {
+    //     query_by: "name, title, first_name",
+    //   },
+  });
 
 console.log("host", import.meta.env.VITE_TYPESENSE_HOST);
+console.log("port", import.meta.env.VITE_TYPESENSE_PORT)
+console.log("key: ",import.meta.env.VITE_TYPESENSE_API_KEY )
 const searchClient = typesenseInstantSearchAdapter.searchClient;
 </script>
 <template>
@@ -245,7 +261,10 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
           class="w-100 h-auto min-h-100 px-20 py-10 border-r-2"
           id="filter-section"
         >
-          <component v-if="filterComponent" :is="filterComponent"></component>
+          <component
+            v-if="filterComponent"
+            :is="filterComponent"
+          ></component>
           <!-- <div v-if="selectedCollection === 'entities'">Entities Filter</div>
         <div v-else-if="selectedCollection === 'relations'">
           <relationsFilters></relationsFilters>
