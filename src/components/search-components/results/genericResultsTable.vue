@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { watch, onMounted } from "vue";
 import useOpenDetail from "../../../composables/useOpenDetail.ts";
-const props = defineProps(["headers", "items"]);
+const props = defineProps(["headers", "items", "tB"]);
 const redirectToEntity = useOpenDetail();
 
-const tB = "search-result-table-headers."
+//const tB = props.model == "Person"? "search-result-table-headers.person" : "search-result-table-headers."
 // onMounted(() => {
 //   watch(props.headers, () => {
 //     console.log(props.headers.value);
@@ -20,7 +20,7 @@ const tB = "search-result-table-headers."
           :key="header"
           class="text-start capitalize pr-8 border-b-2"
         >
-          {{ $t(tB+header) }}
+          {{ model? "Person": $t(tB+header) }}
         </th>
       </tr>
       <tr

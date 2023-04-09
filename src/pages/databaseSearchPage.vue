@@ -286,6 +286,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
               <genericResultsTable
                 :headers="headers"
                 :items="items"
+                :tB="selectedCollection == 'Person'? 'search-result-table-headers.person.':'search-result-table-headers.' "
               ></genericResultsTable>
               <!-- <table>
               <tr>
