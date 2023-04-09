@@ -104,10 +104,10 @@ onBeforeMount(() => {
     .then((docs) => {
       console.log("parsed:", docs);
       docs.forEach((el) => {
-        if (Object.keys(temp_rels).includes(el.target_kind)) {
-          temp_rels[el.target_kind].push(el);
+        if (Object.keys(temp_rels).includes(el.model)) {
+          temp_rels[el.model].push(el);
         } else {
-          temp_rels[el.target_kind] = [el];
+          temp_rels[el.model] = [el];
         }
       });
       console.log(temp_rels);
