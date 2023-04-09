@@ -3,7 +3,7 @@ import router from "../router";
 
 export default function useOpenDetail(){
 
-    function redirectToEntity(ent_type: string, ent_id: string, ent_model: string) {
+    function redirectToEntity(ent_type: string, ent_id: string, ent_model: string, doc_id:string) {
 
        
         let module;
@@ -15,7 +15,7 @@ export default function useOpenDetail(){
         }
 
 
-        const route = `/${module}/${ent_model}/detail/${ent_id}`;
+        const route = `/${module}/${ent_model}/detail/${ent_id}/${doc_id}/`;
         router.push(route);
       }
 

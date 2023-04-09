@@ -35,6 +35,7 @@ const props = defineProps({
   ent_id: String,
   ent_model: String,
   model_type: String,
+  doc_id: String,
 });
 
 const client = new Client({
@@ -58,13 +59,13 @@ let test_query = {
 
 console.log("querying typesense");
 client
-  .collections("viecpro_PersonInstitution")
-  .documents()
-  .search(test_query)
+  .collections("viecpro_" + props.ent_model)
+  .documents(props.doc_id)
+  .retrieve()
   .then((response) => {
     console.log("queried typesense");
     console.log(response);
-    console.log(response["hits"]);
+    data.value = response;
   });
 
 // TODO: make this a composable
@@ -85,57 +86,60 @@ onBeforeMount(() => {
     converted_model.value = props.ent_model as string;
   }
 
-  const url1 =
-    import.meta.env.VITE_APIS_API_URL +
-    `apis/api/${
-      props.ent_type
-    }/${converted_model.value.toLowerCase()}/${
-      props.ent_id
-    }/?format=json`;
-
-  const url2 =
-    import.meta.env.VITE_APIS_API_URL +
-    `apis/api2/entity/${props.ent_id}/?format=json`;
-
-  // TODO: test alternative: fetch the data through a second, specific query to typesense.
-
   let temp_rels: object = {};
-  fetch(url2, {
-    method: "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: import.meta.env.VITE_APIS_API_AUTHORIZATION,
-      accept: "*/*",
-    },
-  })
-    .then((d) => d.json())
-    .then((json_data) => {
-      data.value = json_data;
-      let test: Set<string> | Array<string> = new Set(
-        json_data.relations.map((el) => {
-          if (el.related_entity.type == "Institution") {
-            return el.relation_type.label;
-          } else {
-            return "placeholder dummy";
-          }
-        })
-      );
-      test = Array.from(test).filter(
-        (el) => el != "placeholder dummy"
-      );
-
-      functions.value = test;
-      json_data.relations.forEach((el) => {
-        // transform relations array into object with key: related_entity, values: array of relations
-        if (Object.keys(temp_rels).includes(el.related_entity.type)) {
-          temp_rels[el.related_entity.type].push(el);
+  client
+    .collections("viecpro_Relations")
+    .documents()
+    .search({
+      q: props.ent_id,
+      query_by: "source.id, target.id",
+      filter_by: "",
+      sort_by: "",
+    })
+    .then((d) => {
+      return d.hits.map((hit) => {
+        return hit.document;
+      });
+    })
+    .then((docs) => {
+      console.log("parsed:", docs);
+      docs.forEach((el) => {
+        if (Object.keys(temp_rels).includes(el.target_kind)) {
+          temp_rels[el.target_kind].push(el);
         } else {
-          temp_rels[el.related_entity.type] = [el];
+          temp_rels[el.target_kind] = [el];
         }
       });
+      console.log(temp_rels);
+      data.value["relations"] = temp_rels;
       relations.value = temp_rels;
     });
+  // .then((json_data) => {
+  //   data.value = json_data;
+  //   let test: Set<string> | Array<string> = new Set(
+  //     json_data.relations.map((el) => {
+  //       if (el.related_entity.type == "Institution") {
+  //         return el.relation_type.label;
+  //       } else {
+  //         return "placeholder dummy";
+  //       }
+  //     })
+  //   );
+  //   test = Array.from(test).filter(
+  //     (el) => el != "placeholder dummy"
+  //   );
+
+  //   functions.value = test;
+  //   json_data.relations.forEach((el) => {
+  //     // transform relations array into object with key: related_entity, values: array of relations
+  //     if (Object.keys(temp_rels).includes(el.related_entity.type)) {
+  //       temp_rels[el.related_entity.type].push(el);
+  //     } else {
+  //       temp_rels[el.related_entity.type] = [el];
+  //     }
+  //   });
+  //   relations.value = temp_rels;
+  // });
 });
 </script>
 <template>
@@ -245,7 +249,13 @@ onBeforeMount(() => {
             <div class="flex-col">
               <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
               <genericTable
-                :headers="['id', 'relation_type', 'related_entity']"
+                :headers="[
+                  'id',
+                  'relation_type',
+                  'target.name',
+                  'start',
+                  'end',
+                ]"
                 :data="rels"
               ></genericTable>
             </div>

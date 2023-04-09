@@ -12,7 +12,7 @@ function sortColumn(column) {
   console.log("clicked:", column);
   console.log("data", data_.value);
   data_.value.sort((a, b) => {
-    let res = a[column].label <= b[column].label;
+    let res = a[column] <= b[column];
     console.log(res);
 
     res = res ? 1 : -1;
@@ -43,7 +43,11 @@ console.log("generic table called");
           :key="entry.id.toString() + '_' + header"
           class="pr-4"
         >
-          {{ entry[header].label ? entry[header].label : entry[header] }}
+          {{
+            header == "target.name"
+              ? entry["target"]["name"]
+              : entry[header]
+          }}
         </td>
       </tr>
     </table>

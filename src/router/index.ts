@@ -21,7 +21,7 @@ const router = createRouter({
     },
     { path: "/search", name: "db-search", component: databaseSearchPage },
     {
-      path: "/:ent_type/:ent_model/detail/:ent_id",
+      path: "/:ent_type/:ent_model/detail/:ent_id/:doc_id/",
       component: entityDetailPage,
       props: true,
     },

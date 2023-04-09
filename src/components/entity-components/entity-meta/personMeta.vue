@@ -5,15 +5,13 @@ const functions = ref([""]);
 
 onMounted(() => {
   let test: Set<string> | Array<string> = new Set(
-    props.data.relations.map((el) => {
-      if (el.related_entity.type == "Institution") {
-        return el.relation_type.label;
-      } else {
-        return "placeholder dummy";
-      }
-    })
+
+    props.data.relations.Institution.map((el)=>{return el.relation_type})
+
   );
-  test = Array.from(test).filter((el) => el != "placeholder dummy");
+  console.log("object keys: ", Object.keys(props.data.relations))
+
+  //test = Array.from(test).filter((el) => el != "placeholder dummy");
 
   functions.value = test;
 });
