@@ -3,6 +3,8 @@ import { watch, onMounted } from "vue";
 import useOpenDetail from "../../../composables/useOpenDetail.ts";
 const props = defineProps(["headers", "items"]);
 const redirectToEntity = useOpenDetail();
+
+const tB = "search-result-table-headers."
 // onMounted(() => {
 //   watch(props.headers, () => {
 //     console.log(props.headers.value);
@@ -16,9 +18,9 @@ const redirectToEntity = useOpenDetail();
         <th
           v-for="header in headers"
           :key="header"
-          class="text-start capitalize pr-8"
+          class="text-start capitalize pr-8 border-b-2"
         >
-          {{ header }}
+          {{ $t(tB+header) }}
         </th>
       </tr>
       <tr
@@ -27,7 +29,7 @@ const redirectToEntity = useOpenDetail();
         align="left"
         style="min-width: 50%"
       >
-        <td v-for="header in headers" :key="header">
+        <td v-for="header in headers" :key="header" class="text-sm pb-2 pr-4">
           <ais-highlight
             :hit="item"
             :attribute="header"

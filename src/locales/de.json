@@ -16,6 +16,24 @@
     "data": "Daten",
     "documentation": "Dokumentation"
   },
+  "search-result-table-headers": {
+    "source": {"name":"Basis"},
+    "target": {"name":"Ziel"},
+    "relation_type": "Relationsart",
+    "kind": "Art",
+    "start": "Von",
+    "end": "Bis",
+    "start_date_written": "Von (text)",
+    "end_date_written": "Bis (text)",
+    "model": "Klasse",
+    "first_name": "Vorname",
+    "name": "Nachname",
+    "fullname": "Name",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
+  },
 
   "navigation": {
     "About": "Dokumentation",

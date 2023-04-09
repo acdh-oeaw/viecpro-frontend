@@ -157,7 +157,7 @@ watch(selectedCollection, () => {
   // }
 
   console.log("params is now: ", params);
-  console.log("HOst is", import.meta.env.VITE_TYPESENSE_HOST)
+  console.log("HOst is", import.meta.env.VITE_TYPESENSE_HOST);
   additionalSearchParameters.query_by = params;
   typesenseInstantSearchAdapter.configuration.additionalSearchParameters.highlight_full_fields =
     params;
@@ -192,8 +192,8 @@ const typesenseInstantSearchAdapter =
   });
 
 console.log("host", import.meta.env.VITE_TYPESENSE_HOST);
-console.log("port", import.meta.env.VITE_TYPESENSE_PORT)
-console.log("key: ",import.meta.env.VITE_TYPESENSE_API_KEY )
+console.log("port", import.meta.env.VITE_TYPESENSE_PORT);
+console.log("key: ", import.meta.env.VITE_TYPESENSE_API_KEY);
 const searchClient = typesenseInstantSearchAdapter.searchClient;
 </script>
 <template>
@@ -278,7 +278,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
         </div>-->
         </div>
 
-        <div id="result-section" class="mx-auto px-60 py-10">
+        <div id="result-section" class="mx-auto px-10 py-10">
           <ais-configure :hits-per-page.camel="hitsPerPage" />
 
           <ais-hits>

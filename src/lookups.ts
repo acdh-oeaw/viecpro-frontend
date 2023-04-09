@@ -39,7 +39,13 @@ const Relation = {
     filter: relationsFilters,
     //meta: genericRelationsMeta,
   },
-  headers: ["source.name", "relation_type", "target.name", "start", "end"],
+  headers: [
+    "source.name",
+    "relation_type",
+    "target.name",
+    "start",
+    "end",
+  ],
   searchParams: "source.name, target.name, relation_type",
 };
 
@@ -76,12 +82,19 @@ const collectionsLookup = {
   // InstitutionEvent: Relation,
   // PlaceWork: Relation,
   // PlaceEvent: Relation,
-  Relations:  {
+  Relations: {
     components: {
       filter: genericRelationsFilters,
       //meta: genericRelationsMeta,
     },
-    headers: ["source.name", "relation_type", "target.name", "start", "end", "model"],
+    headers: [
+      "model",
+      "source.name",
+      "relation_type",
+      "target.name",
+      "start",
+      "end",
+    ],
     searchParams: "source.name, target.name, relation_type, model",
   },
 };
