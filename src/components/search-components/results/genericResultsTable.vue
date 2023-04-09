@@ -28,8 +28,9 @@ const tB = "search-result-table-headers."
         :key="item.id"
         align="left"
         style="min-width: 50%"
+        class="hover:bg-gray-100"
       >
-        <td v-for="header in headers" :key="header" class="text-sm pb-2 pr-4">
+        <td v-for="header in headers" :key="header" class="text-sm py-1 pr-4 ">
           <ais-highlight
             :hit="item"
             :attribute="header"

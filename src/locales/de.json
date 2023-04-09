@@ -29,8 +29,8 @@
     "first_name": "Vorname",
     "name": "Nachname",
     "fullname": "Name",
-    "": "",
-    "": "",
+    "lat": "Breitengrad",
+    "long": "Längengrad",
     "": "",
     "": ""
   },

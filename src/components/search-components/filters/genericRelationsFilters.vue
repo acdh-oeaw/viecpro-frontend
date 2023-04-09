@@ -1,5 +1,6 @@
 <template>
-  <h2 class="mb-4">{{ $t("words.filter results") }}</h2>
+    <div class="text-sm">
+  <h2 class="mb-4 text-base">{{ $t("words.filter results") }}:</h2>
 
   <!-- <h4>by Relation</h4> -->
   <!-- <ais-refinement-list attribute="model" :show-more-limit="40" style="text-align: left; min-width: 300px" class="pl-10" /> -->
@@ -37,6 +38,7 @@
       }}
     </template></ais-refinement-list
   >
+</div>
 </template>
 <script setup lang="ts"></script>
 

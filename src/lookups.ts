@@ -1,5 +1,6 @@
 import relationsFilters from "@/components/search-components/filters/relationsFilters.vue";
 import PersonMeta from "@/components/entity-components/entity-meta/PersonMeta.vue";
+import PersonFilter from "./components/search-components/filters/PersonFilter.vue";
 import InstitutionMeta from "@/components/entity-components/entity-meta/InstitutionMeta.vue";
 import genericRelationsFilters from "@/components/search-components/filters/genericRelationsFilters.vue";
 const entityComponentLookup = {
@@ -52,7 +53,7 @@ const Relation = {
 const collectionsLookup = {
   Person: {
     components: {
-      filter: null,
+      filter: PersonFilter,
       meta: PersonMeta,
     },
     headers: ["first_name", "name", "start", "end"],
