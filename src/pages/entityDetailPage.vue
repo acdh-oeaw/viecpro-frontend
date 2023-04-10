@@ -5,7 +5,7 @@ different generic components - if we want to show detail views of relations at a
 
 <script setup lang="ts">
 // utitily imports
-import { ref, onBeforeMount, reactive } from 'vue';
+import { ref, onBeforeMount, reactive, computed } from 'vue';
 import type { Ref } from 'vue';
 import genericTable from '@/components/genericTable.vue';
 // component imports
@@ -18,17 +18,16 @@ const entityType: Ref<string> = ref('');
 const data: Ref<object> = ref({});
 const functions: Ref<Array<string>> = ref([]);
 const relations: Ref<object> = ref({});
-const converted_model: Ref<string> = ref('');
+//const converted_model: Ref<string> = ref(''); // TODO: get rid of this.
 const showInformation: Ref<boolean> = ref(false);
 //const model_type: Ref<String> = ref("")
 
 const props = defineProps({
-  ent_type: String,
-  ent_id: String,
-  ent_model: String,
-  model_type: String,
-  doc_id: String,
+  object_id: String,
+  model: String,
 });
+
+//const collection = ref('');
 
 const client = new Client({
   nodes: [
@@ -48,11 +47,15 @@ let test_query = {
   filter_by: '',
   sort_by: '',
 };
-
-console.log('querying typesense');
+const collection = computed(() => {
+  return ['Person', 'Work', 'Event', 'Place', 'Institution'].includes(props.model)
+    ? props.model
+    : 'Relations';
+});
+console.log('querying typesense', collection.value);
 client
-  .collections('viecpro_' + props.ent_model)
-  .documents(props.doc_id)
+  .collections('viecpro_' + collection.value)
+  .documents(props.model + '_' + props.object_id) // make this composable, if id structure changes in future
   .retrieve()
   .then((response) => {
     console.log('queried typesense');
@@ -68,19 +71,19 @@ onBeforeMount(() => {
 
   // work around for the current editor only implementation of splitting Persons into viecpro specific types. maps those types back to "person"
   // will be removed later
-  if (['Vorfin', 'Single', 'Dublette'].includes(props.ent_model as string)) {
-    converted_model.value = 'person';
-  } else {
-    converted_model.value = props.ent_model as string;
-  }
+  // if (['Vorfin', 'Single', 'Dublette'].includes(props.ent_model as string)) {
+  //   converted_model.value = 'person';
+  // } else {
+  //   converted_model.value = props.ent_model as string;
+  // }
 
   let temp_rels: object = {};
   client
     .collections('viecpro_Relations')
     .documents()
     .search({
-      q: props.ent_id,
-      query_by: 'source.id, target.id',
+      q: props.object_id,
+      query_by: 'source.object_id, target.object_id',
       filter_by: '',
       sort_by: '',
       per_page: 200,
@@ -164,8 +167,8 @@ onBeforeMount(() => {
     </div> -->
     <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
-        <EntityMetaBase :data="data" :model="ent_model"
-          ><component v-if="data.relations" :is="ent_model + 'Meta'" :data="data"> </component
+        <EntityMetaBase :data="data" :model="model"
+          ><component v-if="data.relations" :is="collection + 'Meta'" :data="data"> </component
         ></EntityMetaBase>
       </div>
       <div
@@ -178,7 +181,7 @@ onBeforeMount(() => {
     </div>
     <div class="mx-40" id="vis-section">
       <!-- Just a dummy at the moment. Needs to be generic and adapt to entity type.  -->
-      <entityVisualisationSection :ent_type="converted_model"></entityVisualisationSection>
+      <entityVisualisationSection :ent_type="model"></entityVisualisationSection>
     </div>
 
     <!-- TODO: add proper :key attribs for all v-for loops here -->

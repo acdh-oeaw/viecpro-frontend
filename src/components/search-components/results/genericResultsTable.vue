@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { watch, onMounted } from "vue";
-import useOpenDetail from "../../../composables/useOpenDetail.ts";
-const props = defineProps(["headers", "items", "tB"]);
-const redirectToEntity = useOpenDetail();
+import { watch, onMounted } from 'vue';
+import useOpenDetail from '../../../composables/useOpenDetail.ts';
+import useOpenDetailNew from '../../../composables/useOpenDetailNew.ts';
+const props = defineProps(['headers', 'items', 'tB']);
+
 
 //const tB = props.model == "Person"? "search-result-table-headers.person" : "search-result-table-headers."
 // onMounted(() => {
@@ -15,12 +16,8 @@ const redirectToEntity = useOpenDetail();
   <div>
     <table>
       <tr>
-        <th
-          v-for="header in headers"
-          :key="header"
-          class="text-start capitalize pr-8 border-b-2"
-        >
-          {{ model? "Person": $t(tB+header) }}
+        <th v-for="header in headers" :key="header" class="text-start capitalize pr-8 border-b-2">
+          {{ model ? 'Person' : $t(tB + header) }}
         </th>
       </tr>
       <tr
@@ -30,12 +27,12 @@ const redirectToEntity = useOpenDetail();
         style="min-width: 50%"
         class="hover:bg-gray-100"
       >
-        <td v-for="header in headers" :key="header" class="text-sm py-1 pr-4 ">
+        <td v-for="header in headers" :key="header" class="text-sm py-1 pr-4">
           <ais-highlight
             :hit="item"
             :attribute="header"
             class="entity_tag hover:cursor-pointer hover:underline"
-            @click="redirectToEntity('entities', item.object_id, item.model, item.id)"
+            @click="useOpenDetailNew(item.model, item.object_id)"
           ></ais-highlight>
           <!--                     @click="redirectToEntity('entities', item.id, item.model)"
  -->
