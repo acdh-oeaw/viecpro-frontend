@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { watch, onMounted } from 'vue';
-import useOpenDetail from '../../../composables/useOpenDetail.ts';
-import useOpenDetailNew from '../../../composables/useOpenDetailNew.ts';
+import useOpenDetail from '../../../composables/useOpenDetail.js'
 const props = defineProps(['headers', 'items', 'tB']);
 
 //const tB = props.model == "Person"? "search-result-table-headers.person" : "search-result-table-headers."
@@ -32,21 +31,21 @@ const props = defineProps(['headers', 'items', 'tB']);
             :hit="item"
             :attribute="header"
             class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
-            @click="useOpenDetailNew(item.model, item.object_id)"
+            @click="useOpenDetail(item.model, item.object_id)"
           ></ais-highlight>
           <ais-highlight
             v-else-if="header == 'target.name'"
             :hit="item"
             :attribute="header"
             class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
-            @click="useOpenDetailNew(item.target.model, item.target.object_id)"
+            @click="useOpenDetail(item.target.model, item.target.object_id)"
           ></ais-highlight>
           <ais-highlight
             v-else-if="header == 'source.name'"
             :hit="item"
             :attribute="header"
             class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
-            @click="useOpenDetailNew(item.source.model, item.source.object_id)"
+            @click="useOpenDetail(item.source.model, item.source.object_id)"
           ></ais-highlight>
           <ais-highlight v-else :hit="item" :attribute="header" class="entity_tag"></ais-highlight>
 

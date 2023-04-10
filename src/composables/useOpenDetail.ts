@@ -1,23 +1,9 @@
+import router from '../router';
 
-import router from "../router";
+export default function useOpenDetail(model: string, object_id: string) {
+  // TODO: check if I need redirect to be able to handle either using object_id or doc_id.
+  // if so, implement auto conversion here. Make fetching object_id the default.
 
-export default function useOpenDetail(){
-
-    function redirectToEntity(ent_type: string, ent_id: string, ent_model: string, doc_id:string) {
-
-       
-        let module;
-
-        if (["Person", "Work", "Institution", "Place", "Event"].includes(ent_model)){
-            module = "entities"
-        } else {
-            module = "relations"
-        }
-
-
-        const route = `/${module}/${ent_model}/detail/${ent_id}/${doc_id}/`;
-        router.push(route);
-      }
-
-      return redirectToEntity
+  const route = `/detail/${model}/${object_id}/`;
+  router.push(route);
 }
