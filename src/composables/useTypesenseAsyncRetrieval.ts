@@ -1,20 +1,18 @@
-export default function useTypesenseAsyncRetrieval(){
+import { client } from './useBasicTypesenseClient.js';
+import usePrefixedCollection from './usePrefixedCollection.js';
+//const { client } = useBasicTypesenseClient();
 
-    function retrieveFromTypesense(ent_type: string, ent_id: string, ent_model: string, doc_id:string) {
+function useTypesenseAsyncRetrieval(collection: string, doc_id: string, callback: Function) {
+  collection = usePrefixedCollection(collection);
 
-       
-        let module;
-
-        if (["Person", "Work", "Institution", "Place", "Event"].includes(ent_model)){
-            module = "entities"
-        } else {
-            module = "relations"
-        }
-
-
-        const route = `/${module}/${ent_model}/detail/${ent_id}/${doc_id}/`;
-        router.push(route);
-      }
-
-      return redirectToEntity
+  client
+    .collections(collection)
+    .documents(doc_id)
+    .retrieve()
+    .then((response) => {
+      //TODO: add error handling
+      callback(response);
+    });
 }
+
+export default useTypesenseAsyncRetrieval;
