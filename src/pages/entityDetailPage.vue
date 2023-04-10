@@ -30,14 +30,10 @@ const collection = useGetCollectionFromModel(props.model);
 const doc_id = useConstructDocIDFromParams(props.model, props.object_id);
 
 useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
-  console.log('queried typesense');
-  console.log(response);
   data.value = response;
 });
 
-// TODO: make this a composable
-// TODO: delegetae the responsibility for processing the received data to the views that use the composable
-// TODO: write reusable processing functions for formatting the fetched data
+// TODO: make the two data fetching functions failsafe and work together.
 onBeforeMount(() => {
   function process_results(response) {
     const docs = useExtractHitsFromResults(response);
