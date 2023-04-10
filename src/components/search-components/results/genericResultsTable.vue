@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { watch, onMounted } from 'vue';
-import useOpenDetail from '../../../composables/useOpenDetail.js'
+import useOpenDetail from '../../../composables/useOpenDetail.js';
 const props = defineProps(['headers', 'items', 'tB']);
 
 //const tB = props.model == "Person"? "search-result-table-headers.person" : "search-result-table-headers."

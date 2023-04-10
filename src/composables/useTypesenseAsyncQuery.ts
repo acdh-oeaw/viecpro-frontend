@@ -7,8 +7,8 @@ export default function useTypesenseAsyncQuery(
   collection: string,
   query: string,
   query_by: string,
+  callback: Function,
   options: object = { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
-  callback: Function
 ) {
   console.log("in composable, query is:", query)
   client

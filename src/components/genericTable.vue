@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted } from 'vue';
 
-const props = defineProps(["headers", "data"]);
+const props = defineProps(['headers', 'data']);
 
 const data_ = ref([]);
 onMounted(() => {
@@ -9,8 +9,8 @@ onMounted(() => {
 });
 
 function sortColumn(column) {
-  console.log("clicked:", column);
-  console.log("data", data_.value);
+  console.log('clicked:', column);
+  console.log('data', data_.value);
   data_.value.sort((a, b) => {
     let res = a[column] <= b[column];
     console.log(res);
@@ -19,10 +19,10 @@ function sortColumn(column) {
     return res;
   });
 
-  console.log("data after", data_.value);
+  console.log('data after', data_.value);
 }
-
-console.log("generic table called");
+// TODO: also implement using lang -file to overwrite header names.
+console.log('generic table called');
 </script>
 <template>
   <div v-if="props.headers.length > 0" class="bg-white p-5">
@@ -37,17 +37,9 @@ console.log("generic table called");
           {{ header }}
         </th>
       </tr>
-      <tr v-for="entry in data_" :key="entry.id">
-        <td
-          v-for="header in headers"
-          :key="entry.id.toString() + '_' + header"
-          class="pr-4"
-        >
-          {{
-            header == "target.name"
-              ? entry["target"]["name"]
-              : entry[header]
-          }}
+      <tr v-for="entry in data_" :key="entry.object_id">
+        <td v-for="header in headers" :key="entry.object_id.toString() + '_' + header" class="pr-4">
+          {{ header == 'target.name' ? entry['target']['name'] : entry[header] }}
         </td>
       </tr>
     </table>

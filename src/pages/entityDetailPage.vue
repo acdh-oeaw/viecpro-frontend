@@ -10,34 +10,26 @@ import type { Ref } from 'vue';
 import genericTable from '@/components/genericTable.vue';
 import useTypesenseAsyncRetrieval from '@/composables/useTypesenseAsyncRetrieval';
 import useTypesenseAsyncQuery from '@/composables/useTypesenseAsyncQuery';
+import useExtractHitsFromResults from '@/composables/transform-data/useExtractHitsFromResults';
+import useGroupRelationsByClass from '@/composables/transform-data/useGroupRelationsByClass';
+import useGetCollectionFromModel from '@/composables/utils/useGetCollectionFromModel';
+import useConstructDocIDFromParams from '@/composables/utils/useConstructDocIDFromParams';
 // component imports
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
 import entityVisualisationSection from '@/components/entity-components/entity-vis/entityVisualisationSection.vue';
-
-
-const data: Ref<object> = ref({}); // todo: make more clear distinction between metada and relations-data
-const relations: Ref<object> = ref({});
-//const converted_model: Ref<string> = ref(''); // TODO: get rid of this.
-const showInformation: Ref<boolean> = ref(false);
-//const model_type: Ref<String> = ref("")
 
 const props = defineProps({
   object_id: String,
   model: String,
 });
 
+const data: Ref<object> = ref({}); // TODO: make more clear distinction between metada and relations-data
+const relations: Ref<object> = ref({});
+const showInformation: Ref<boolean> = ref(false); // TODO: get rid of this
+const collection = useGetCollectionFromModel(props.model);
+const doc_id = useConstructDocIDFromParams(props.model, props.object_id);
 
-const collection = computed(() => {
-  return ['Person', 'Work', 'Event', 'Place', 'Institution'].includes(props.model)
-    ? props.model
-    : 'Relations';
-});
-
-const doc_id = computed(() => {
-  return props.model + '_' + props.object_id;
-});
-
-useTypesenseAsyncRetrieval(collection.value, doc_id.value, (response) => {
+useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
   console.log('queried typesense');
   console.log(response);
   data.value = response;
@@ -47,41 +39,28 @@ useTypesenseAsyncRetrieval(collection.value, doc_id.value, (response) => {
 // TODO: delegetae the responsibility for processing the received data to the views that use the composable
 // TODO: write reusable processing functions for formatting the fetched data
 onBeforeMount(() => {
+  function process_results(response) {
+    const docs = useExtractHitsFromResults(response);
+    const transformedRelations = useGroupRelationsByClass(docs);
 
-  let temp_rels: object = {};
-  function process_results (d){
-    let docs = d.hits.map((hit) => {
-      return hit.document;
-    });
-
-    console.log('parsed:', docs);
-    docs.forEach((el) => {
-      if (Object.keys(temp_rels).includes(el.model)) {
-        temp_rels[el.model].push(el);
-      } else {
-        temp_rels[el.model] = [el];
-      }
-    });
-    console.log(temp_rels);
-    data.value['relations'] = temp_rels;
-    relations.value = temp_rels;
-  };
+    data.value['relations'] = transformedRelations;
+    relations.value = transformedRelations;
+  }
 
   useTypesenseAsyncQuery(
     'Relations',
     props.object_id,
     'source.object_id, target.object_id',
-    { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
     process_results
+    // { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
   );
-
 });
 </script>
 <template>
   <div id="main-container flex" class="bg-white">
-
     <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
+        <!-- TODO: change the v-if condition here, once the data is split into metadata and relations-data -->
         <EntityMetaBase :data="data" :model="model"
           ><component v-if="data.relations" :is="collection + 'Meta'" :data="data"> </component
         ></EntityMetaBase>
@@ -138,7 +117,7 @@ onBeforeMount(() => {
             <div class="flex-col">
               <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
               <genericTable
-                :headers="['id', 'relation_type', 'target.name', 'start', 'end']"
+                :headers="['object_id', 'relation_type', 'target.name', 'start', 'end']"
                 :data="rels"
               ></genericTable>
             </div>
