@@ -5,18 +5,17 @@ different generic components - if we want to show detail views of relations at a
 
 <script setup lang="ts">
 // utitily imports
-import { ref, onBeforeMount, reactive, computed } from 'vue';
+import { ref, onBeforeMount, computed } from 'vue';
 import type { Ref } from 'vue';
 import genericTable from '@/components/genericTable.vue';
+import useTypesenseAsyncRetrieval from '@/composables/useTypesenseAsyncRetrieval';
+import useTypesenseAsyncQuery from '@/composables/useTypesenseAsyncQuery';
 // component imports
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
 import entityVisualisationSection from '@/components/entity-components/entity-vis/entityVisualisationSection.vue';
-import { Switch } from '@headlessui/vue';
-import { Client } from 'typesense';
 
-const entityType: Ref<string> = ref('');
-const data: Ref<object> = ref({});
-const functions: Ref<Array<string>> = ref([]);
+
+const data: Ref<object> = ref({}); // todo: make more clear distinction between metada and relations-data
 const relations: Ref<object> = ref({});
 //const converted_model: Ref<string> = ref(''); // TODO: get rid of this.
 const showInformation: Ref<boolean> = ref(false);
@@ -27,144 +26,60 @@ const props = defineProps({
   model: String,
 });
 
-//const collection = ref('');
 
-const client = new Client({
-  nodes: [
-    {
-      host: import.meta.env.VITE_TYPESENSE_HOST,
-      port: import.meta.env.VITE_TYPESENSE_PORT,
-      protocol: 'http',
-    },
-  ],
-  apiKey: import.meta.env.VITE_TYPESENSE_API_KEY,
-  connectionTimeoutSeconds: 2,
-});
-
-let test_query = {
-  q: '244622',
-  query_by: 'source_id, target_id',
-  filter_by: '',
-  sort_by: '',
-};
 const collection = computed(() => {
   return ['Person', 'Work', 'Event', 'Place', 'Institution'].includes(props.model)
     ? props.model
     : 'Relations';
 });
-console.log('querying typesense', collection.value);
-client
-  .collections('viecpro_' + collection.value)
-  .documents(props.model + '_' + props.object_id) // make this composable, if id structure changes in future
-  .retrieve()
-  .then((response) => {
-    console.log('queried typesense');
-    console.log(response);
-    data.value = response;
-  });
+
+const doc_id = computed(() => {
+  return props.model + '_' + props.object_id;
+});
+
+useTypesenseAsyncRetrieval(collection.value, doc_id.value, (response) => {
+  console.log('queried typesense');
+  console.log(response);
+  data.value = response;
+});
 
 // TODO: make this a composable
 // TODO: delegetae the responsibility for processing the received data to the views that use the composable
 // TODO: write reusable processing functions for formatting the fetched data
 onBeforeMount(() => {
-  const etype = props.ent_type == 'entities' ? 'person' : 'relation';
-
-  // work around for the current editor only implementation of splitting Persons into viecpro specific types. maps those types back to "person"
-  // will be removed later
-  // if (['Vorfin', 'Single', 'Dublette'].includes(props.ent_model as string)) {
-  //   converted_model.value = 'person';
-  // } else {
-  //   converted_model.value = props.ent_model as string;
-  // }
 
   let temp_rels: object = {};
-  client
-    .collections('viecpro_Relations')
-    .documents()
-    .search({
-      q: props.object_id,
-      query_by: 'source.object_id, target.object_id',
-      filter_by: '',
-      sort_by: '',
-      per_page: 200,
-      num_typos: 0,
-    })
-    .then((d) => {
-      return d.hits.map((hit) => {
-        return hit.document;
-      });
-    })
-    .then((docs) => {
-      console.log('parsed:', docs);
-      docs.forEach((el) => {
-        if (Object.keys(temp_rels).includes(el.model)) {
-          temp_rels[el.model].push(el);
-        } else {
-          temp_rels[el.model] = [el];
-        }
-      });
-      console.log(temp_rels);
-      data.value['relations'] = temp_rels;
-      relations.value = temp_rels;
+  function process_results (d){
+    let docs = d.hits.map((hit) => {
+      return hit.document;
     });
-  // .then((json_data) => {
-  //   data.value = json_data;
-  //   let test: Set<string> | Array<string> = new Set(
-  //     json_data.relations.map((el) => {
-  //       if (el.related_entity.type == "Institution") {
-  //         return el.relation_type.label;
-  //       } else {
-  //         return "placeholder dummy";
-  //       }
-  //     })
-  //   );
-  //   test = Array.from(test).filter(
-  //     (el) => el != "placeholder dummy"
-  //   );
 
-  //   functions.value = test;
-  //   json_data.relations.forEach((el) => {
-  //     // transform relations array into object with key: related_entity, values: array of relations
-  //     if (Object.keys(temp_rels).includes(el.related_entity.type)) {
-  //       temp_rels[el.related_entity.type].push(el);
-  //     } else {
-  //       temp_rels[el.related_entity.type] = [el];
-  //     }
-  //   });
-  //   relations.value = temp_rels;
-  // });
+    console.log('parsed:', docs);
+    docs.forEach((el) => {
+      if (Object.keys(temp_rels).includes(el.model)) {
+        temp_rels[el.model].push(el);
+      } else {
+        temp_rels[el.model] = [el];
+      }
+    });
+    console.log(temp_rels);
+    data.value['relations'] = temp_rels;
+    relations.value = temp_rels;
+  };
+
+  useTypesenseAsyncQuery(
+    'Relations',
+    props.object_id,
+    'source.object_id, target.object_id',
+    { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
+    process_results
+  );
+
 });
 </script>
 <template>
   <div id="main-container flex" class="bg-white">
-    <!-- TODO: uncommented, because for now tooltip on hover solution is tested -->
-    <!-- <div class="w-screen bg-transparent flex place-content-end sticky top-20">
-      <div
-        class=" flex place-content-center mr-80 py-5 w-40 sticky top-20"
-      >
-        <label for="information-switch" class="mr-4 sticky top-20">{{
-          showInformation ? "Infos:" : "Infos: "
-        }}</label>
-        <Switch
-          v-model="showInformation"
-          as="template"
-          v-slot="{ checked }"
-          id="information-switch"
-          class=""
-        >
-          <button
-            class="inline-flex h-6 w-11 items-center rounded-full"
-            :class="checked ? 'bg-blue-600' : 'bg-gray-200'"
-          >
-            <span class="sr-only">Enable information</span>
-            <span
-              :class="checked ? 'translate-x-6' : 'translate-x-1'"
-              class="inline-block h-4 w-4 transform rounded-full bg-white transition"
-            />
-          </button>
-        </Switch>
-      </div>
-    </div> -->
+
     <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
         <EntityMetaBase :data="data" :model="model"

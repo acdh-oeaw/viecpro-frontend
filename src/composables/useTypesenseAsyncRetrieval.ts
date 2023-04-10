@@ -2,11 +2,10 @@ import { client } from './useBasicTypesenseClient.js';
 import usePrefixedCollection from './usePrefixedCollection.js';
 //const { client } = useBasicTypesenseClient();
 
-function useTypesenseAsyncRetrieval(collection: string, doc_id: string, callback: Function) {
-  collection = usePrefixedCollection(collection);
+export default function useTypesenseAsyncRetrieval(collection: string, doc_id: string, callback: Function) {
 
   client
-    .collections(collection)
+    .collections(usePrefixedCollection(collection))
     .documents(doc_id)
     .retrieve()
     .then((response) => {
@@ -15,4 +14,3 @@ function useTypesenseAsyncRetrieval(collection: string, doc_id: string, callback
     });
 }
 
-export default useTypesenseAsyncRetrieval;

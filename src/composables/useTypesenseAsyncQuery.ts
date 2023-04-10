@@ -10,9 +10,9 @@ export default function useTypesenseAsyncQuery(
   options: object = { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
   callback: Function
 ) {
-  collection = usePrefixedCollection(collection);
+  console.log("in composable, query is:", query)
   client
-    .collections(collection)
+    .collections(usePrefixedCollection(collection))
     .documents()
     .search({
       q: query,
