@@ -18,8 +18,8 @@
   },
   "search-result-table-headers": {
     "person": { "name": "Nachname", "fullname": "Name", "kind": "Art",
-    "start": "Von",
-    "end": "Bis",
+    "start": "Geboren",
+    "end": "Gestorben",
     "start_date_written": "Von (text)",
     "end_date_written": "Bis (text)",
     "model": "Klasse",

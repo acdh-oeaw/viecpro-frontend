@@ -31,21 +31,21 @@ const props = defineProps(['headers', 'items', 'tB']);
             v-if="['name', 'first_name'].includes(header)"
             :hit="item"
             :attribute="header"
-            class="entity_tag hover:cursor-pointer hover:underline"
+            class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
             @click="useOpenDetailNew(item.model, item.object_id)"
           ></ais-highlight>
           <ais-highlight
             v-else-if="header == 'target.name'"
             :hit="item"
             :attribute="header"
-            class="entity_tag hover:cursor-pointer hover:underline"
+            class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
             @click="useOpenDetailNew(item.target.model, item.target.object_id)"
           ></ais-highlight>
           <ais-highlight
             v-else-if="header == 'source.name'"
             :hit="item"
             :attribute="header"
-            class="entity_tag hover:cursor-pointer hover:underline"
+            class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
             @click="useOpenDetailNew(item.source.model, item.source.object_id)"
           ></ais-highlight>
           <ais-highlight v-else :hit="item" :attribute="header" class="entity_tag"></ais-highlight>
