@@ -1,32 +1,24 @@
-// Generic detail page for all entities // maped to a dynamic route //
-generic sections are coded as external components /* TODO: at the
-moment, this same view deals with entities and relations display (i.e.
-you can view a single relation instance as the base entity. This needs
-to be split into two different generic components - if we want to show
-detail views of relations at all.) */
+// Generic detail page for all entities // maped to a dynamic route // generic sections are coded as
+external components /* TODO: at the moment, this same view deals with entities and relations display
+(i.e. you can view a single relation instance as the base entity. This needs to be split into two
+different generic components - if we want to show detail views of relations at all.) */
 
 <script setup lang="ts">
 // utitily imports
-import { ref, onBeforeMount, reactive } from "vue";
-import type { Ref } from "vue";
-import genericTable from "@/components/genericTable.vue";
+import { ref, onBeforeMount, reactive } from 'vue';
+import type { Ref } from 'vue';
+import genericTable from '@/components/genericTable.vue';
 // component imports
-import {
-  TabGroup,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@headlessui/vue";
-import entityVisualisationSection from "@/components/entity-components/entity-vis/entityVisualisationSection.vue";
-import { Switch } from "@headlessui/vue";
-import { Client } from "typesense";
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
+import entityVisualisationSection from '@/components/entity-components/entity-vis/entityVisualisationSection.vue';
+import { Switch } from '@headlessui/vue';
+import { Client } from 'typesense';
 
-const entityType: Ref<string> = ref("");
+const entityType: Ref<string> = ref('');
 const data: Ref<object> = ref({});
 const functions: Ref<Array<string>> = ref([]);
 const relations: Ref<object> = ref({});
-const converted_model: Ref<string> = ref("");
+const converted_model: Ref<string> = ref('');
 const showInformation: Ref<boolean> = ref(false);
 //const model_type: Ref<String> = ref("")
 
@@ -43,7 +35,7 @@ const client = new Client({
     {
       host: import.meta.env.VITE_TYPESENSE_HOST,
       port: import.meta.env.VITE_TYPESENSE_PORT,
-      protocol: "http",
+      protocol: 'http',
     },
   ],
   apiKey: import.meta.env.VITE_TYPESENSE_API_KEY,
@@ -51,19 +43,19 @@ const client = new Client({
 });
 
 let test_query = {
-  q: "244622",
-  query_by: "source_id, target_id",
-  filter_by: "",
-  sort_by: "",
+  q: '244622',
+  query_by: 'source_id, target_id',
+  filter_by: '',
+  sort_by: '',
 };
 
-console.log("querying typesense");
+console.log('querying typesense');
 client
-  .collections("viecpro_" + props.ent_model)
+  .collections('viecpro_' + props.ent_model)
   .documents(props.doc_id)
   .retrieve()
   .then((response) => {
-    console.log("queried typesense");
+    console.log('queried typesense');
     console.log(response);
     data.value = response;
   });
@@ -72,29 +64,27 @@ client
 // TODO: delegetae the responsibility for processing the received data to the views that use the composable
 // TODO: write reusable processing functions for formatting the fetched data
 onBeforeMount(() => {
-  const etype = props.ent_type == "entities" ? "person" : "relation";
+  const etype = props.ent_type == 'entities' ? 'person' : 'relation';
 
   // work around for the current editor only implementation of splitting Persons into viecpro specific types. maps those types back to "person"
   // will be removed later
-  if (
-    ["Vorfin", "Single", "Dublette"].includes(
-      props.ent_model as string
-    )
-  ) {
-    converted_model.value = "person";
+  if (['Vorfin', 'Single', 'Dublette'].includes(props.ent_model as string)) {
+    converted_model.value = 'person';
   } else {
     converted_model.value = props.ent_model as string;
   }
 
   let temp_rels: object = {};
   client
-    .collections("viecpro_Relations")
+    .collections('viecpro_Relations')
     .documents()
     .search({
       q: props.ent_id,
-      query_by: "source.id, target.id",
-      filter_by: "",
-      sort_by: "",
+      query_by: 'source.id, target.id',
+      filter_by: '',
+      sort_by: '',
+      per_page: 200,
+      num_typos: 0,
     })
     .then((d) => {
       return d.hits.map((hit) => {
@@ -102,7 +92,7 @@ onBeforeMount(() => {
       });
     })
     .then((docs) => {
-      console.log("parsed:", docs);
+      console.log('parsed:', docs);
       docs.forEach((el) => {
         if (Object.keys(temp_rels).includes(el.model)) {
           temp_rels[el.model].push(el);
@@ -111,7 +101,7 @@ onBeforeMount(() => {
         }
       });
       console.log(temp_rels);
-      data.value["relations"] = temp_rels;
+      data.value['relations'] = temp_rels;
       relations.value = temp_rels;
     });
   // .then((json_data) => {
@@ -172,18 +162,10 @@ onBeforeMount(() => {
         </Switch>
       </div>
     </div> -->
-    <div
-      class="flex place-content-between mx-40 pt-20"
-      id="meta-and-actions"
-    >
+    <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
         <EntityMetaBase :data="data" :model="ent_model"
-          ><component
-            v-if="data.relations"
-            :is="ent_model + 'Meta'"
-            :data="data"
-          >
-          </component
+          ><component v-if="data.relations" :is="ent_model + 'Meta'" :data="data"> </component
         ></EntityMetaBase>
       </div>
       <div
@@ -196,31 +178,23 @@ onBeforeMount(() => {
     </div>
     <div class="mx-40" id="vis-section">
       <!-- Just a dummy at the moment. Needs to be generic and adapt to entity type.  -->
-      <entityVisualisationSection
-        :ent_type="converted_model"
-      ></entityVisualisationSection>
+      <entityVisualisationSection :ent_type="converted_model"></entityVisualisationSection>
     </div>
 
     <!-- TODO: add proper :key attribs for all v-for loops here -->
-    <div
-      class="mx-40 bg-blue-200 min-h-screen pt-4"
-      id="tables-section"
-    >
+    <div class="mx-40 bg-blue-200 min-h-screen pt-4" id="tables-section">
       <TabGroup>
         <TabList>
           <Tab class="tab-standard">JSON</Tab>
           <Tab class="tab-standard">RelationsData</Tab>
-          <Tab
-            v-for="(rels, model) in relations"
-            class="tab-standard"
-            :key="model + '_tablist'"
-            >{{ model + " - Relations" }}
+          <Tab v-for="(rels, model) in relations" class="tab-standard" :key="model + '_tablist'"
+            >{{ model + ' - Relations' }}
           </Tab>
         </TabList>
         <TabPanels>
           <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
           <TabPanel class="tab-panel-standard">
-            {{ data ? data : "loading" }}
+            {{ data ? data : 'loading' }}
             <div
               class="bg-black text-white w-20 h-20 pt-7 text-center"
               :class="showInformation ? 'visible' : 'hidden'"
@@ -229,11 +203,8 @@ onBeforeMount(() => {
             </div>
           </TabPanel>
           <TabPanel class="tab-panel-standard">
-            <div
-              v-for="(values, model) in relations"
-              :key="model + '_relation'"
-            >
-              <h3 class="text-xl">{{ model + "-Relations" }}</h3>
+            <div v-for="(values, model) in relations" :key="model + '_relation'">
+              <h3 class="text-xl">{{ model + '-Relations' }}</h3>
               <ul>
                 <li v-for="val in values" :key="val + '_val'">
                   {{ val }}
@@ -249,13 +220,7 @@ onBeforeMount(() => {
             <div class="flex-col">
               <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
               <genericTable
-                :headers="[
-                  'id',
-                  'relation_type',
-                  'target.name',
-                  'start',
-                  'end',
-                ]"
+                :headers="['id', 'relation_type', 'target.name', 'start', 'end']"
                 :data="rels"
               ></genericTable>
             </div>

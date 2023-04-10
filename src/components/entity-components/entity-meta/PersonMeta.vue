@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-const props = defineProps(["data"]);
-const functions = ref([""]);
+import { ref, onMounted } from 'vue';
+const props = defineProps(['data']);
+const functions = ref(['']);
 
 onMounted(() => {
   let test: Set<string> | Array<string> = new Set(
-
-    props.data.relations.PersonInstitution.map((el)=>{return el.relation_type})
-
+    props.data.relations.PersonInstitution.map((el) => {
+      return el.relation_type;
+    })
   );
-  console.log("object keys: ", Object.keys(props.data.relations))
+  console.log('object keys: ', Object.keys(props.data.relations));
 
   //test = Array.from(test).filter((el) => el != "placeholder dummy");
 
@@ -34,14 +34,14 @@ onMounted(() => {
       data.kind ? data.kind.label : data.gender
     }}) 
     </p> -->
-  <p>
+  <div class="flex flex-wrap" style="max-width: 40rem;">
     <span
       v-for="func in functions"
-      class="mr-4 bg-gray-500 px-4 py-2 rounded text-white text-xs uppercase clickable"
+      class="block mx-2 my-1 bg-gray-200 px-4 py-2 rounded  text-gray-500 text-xs hover:bg-gray-300 hover:text-gray-700 hover:cursor-pointer"
       :key="func"
       >{{ func }}</span
     >
-  </p>
+  </div>
   <!-- </div> -->
 </template>
 <style scoped>
