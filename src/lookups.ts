@@ -1,8 +1,10 @@
-import relationsFilters from "@/components/search-components/filters/relationsFilters.vue";
-import PersonMeta from "@/components/entity-components/entity-meta/PersonMeta.vue";
-import PersonFilter from "./components/search-components/filters/PersonFilter.vue";
-import InstitutionMeta from "@/components/entity-components/entity-meta/InstitutionMeta.vue";
-import genericRelationsFilters from "@/components/search-components/filters/genericRelationsFilters.vue";
+import relationsFilters from '@/components/search-components/filters/relationsFilters.vue';
+import PersonMeta from '@/components/entity-components/entity-meta/PersonMeta.vue';
+import PlaceMeta from './components/entity-components/entity-meta/PlaceMeta.vue';
+import PersonFilter from './components/search-components/filters/PersonFilter.vue';
+import InstitutionMeta from '@/components/entity-components/entity-meta/InstitutionMeta.vue';
+import genericRelationsFilters from '@/components/search-components/filters/genericRelationsFilters.vue';
+import GenericEntityFilters from './components/search-components/filters/GenericEntityFilters.vue';
 const entityComponentLookup = {
   person: {
     detail: null,
@@ -29,10 +31,10 @@ const entityComponentLookup = {
 
 const Entity = {
   components: {
-    filter: null,
+    filter: GenericEntityFilters,
   },
-  headers: ["name", "kind", "start", "end"],
-  searchParams: "name, kind",
+  headers: ['name', 'kind', 'start', 'end'],
+  searchParams: 'name, kind',
 };
 
 const Relation = {
@@ -40,14 +42,8 @@ const Relation = {
     filter: relationsFilters,
     //meta: genericRelationsMeta,
   },
-  headers: [
-    "source.name",
-    "relation_type",
-    "target.name",
-    "start",
-    "end",
-  ],
-  searchParams: "source.name, target.name, relation_type",
+  headers: ['source.name', 'relation_type', 'target.name', 'start', 'end'],
+  searchParams: 'source.name, target.name, relation_type',
 };
 
 const collectionsLookup = {
@@ -56,17 +52,17 @@ const collectionsLookup = {
       filter: PersonFilter,
       meta: PersonMeta,
     },
-    headers: ["first_name", "name", "start", "end"],
-    searchParams: "first_name, name",
+    headers: ['first_name', 'name', 'start', 'end'],
+    searchParams: 'first_name, name',
   },
   Institution: Entity,
   Place: {
     components: {
-      filter: null,
-      meta: InstitutionMeta,
+      filter: GenericEntityFilters,
+      meta: PlaceMeta,
     },
-    headers: ["name", "kind", "start", "end", "lat", "long"],
-    searchParams: "name, kind, lat, long",
+    headers: ['name', 'kind', 'start', 'end', 'lat', 'long'],
+    searchParams: 'name, kind, lat, long',
   },
   Work: Entity,
   Event: Entity,
@@ -88,15 +84,8 @@ const collectionsLookup = {
       filter: genericRelationsFilters,
       //meta: genericRelationsMeta,
     },
-    headers: [
-      "model",
-      "source.name",
-      "relation_type",
-      "target.name",
-      "start",
-      "end",
-    ],
-    searchParams: "source.name, target.name, relation_type, model",
+    headers: ['model', 'source.name', 'relation_type', 'target.name', 'start', 'end'],
+    searchParams: 'source.name, target.name, relation_type, model',
   },
 };
 

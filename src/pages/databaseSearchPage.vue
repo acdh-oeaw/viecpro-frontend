@@ -182,7 +182,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
     <ais-instant-search
       :search-client="searchClient"
       :index-name="usePrefixedCollection(selectedCollection)"
-      :routing="true"
+      routing="true"
     >
       <div class="min-h-20 flex py-10 place-content-between px-60">
         <div id="buttons-div" class="flex-col">

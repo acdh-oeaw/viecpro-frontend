@@ -17,13 +17,17 @@
     "documentation": "Dokumentation"
   },
   "search-result-table-headers": {
-    "person": { "name": "Nachname", "fullname": "Name", "kind": "Art",
-    "start": "Geboren",
-    "end": "Gestorben",
-    "start_date_written": "Von (text)",
-    "end_date_written": "Bis (text)",
-    "model": "Klasse",
-    "first_name": "Vorname", },
+    "person": {
+      "name": "Nachname",
+      "fullname": "Name",
+      "kind": "Art",
+      "start": "Geboren",
+      "end": "Gestorben",
+      "start_date_written": "Von (text)",
+      "end_date_written": "Bis (text)",
+      "model": "Klasse",
+      "first_name": "Vorname"
+    },
     "source": { "name": "Basis" },
     "target": { "name": "Ziel" },
     "relation_type": "Relationsart",
@@ -39,6 +43,12 @@
     "long": "Längengrad",
     "": "",
     "": ""
+  },
+  "filters-section": {
+    "filter-results": "Ergebnisse filtern",
+    "by kind": "Nach Art",
+    "by class": "Nach Klasse",
+    "by relation type": "Nach Relationsart"
   },
 
   "navigation": {
