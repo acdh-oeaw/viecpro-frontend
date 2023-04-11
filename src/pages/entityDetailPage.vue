@@ -5,7 +5,7 @@ different generic components - if we want to show detail views of relations at a
 
 <script setup lang="ts">
 // utitily imports
-import { ref, onBeforeMount, computed } from 'vue';
+import { ref, onBeforeMount, computed, watch, onMounted } from 'vue';
 import type { Ref } from 'vue';
 import genericTable from '@/components/genericTable.vue';
 import useTypesenseAsyncRetrieval from '@/composables/useTypesenseAsyncRetrieval';
@@ -29,32 +29,56 @@ const relations: Ref<object> = ref({});
 const showInformation: Ref<boolean> = ref(false); // TODO: get rid of this
 const collection = useGetCollectionFromModel(props.model);
 const doc_id = useConstructDocIDFromParams(props.model, props.object_id);
-const labels = ref({})
+const labels = ref({});
 
 useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
   data.value = response;
 });
 
 // TODO: make the two data fetching functions failsafe and work together.
-onBeforeMount(() => {
-  function process_results(response) {
-    const docs = useExtractHitsFromResults(response);
-    const transformedRelations = useGroupRelationsByClass(docs);
-    labels.value = useGroupArrayOfObjectsByKey(data.value.labels, "label_type")
+// onBeforeMount(() => {
+//     function process_results(response) {
+//     const docs = useExtractHitsFromResults(response);
+//     const transformedRelations = useGroupRelationsByClass(docs);
+//     labels.value = useGroupArrayOfObjectsByKey(data.value.labels, "label_type")
+//     // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
 
-    data.value["grouped_labels"] = labels.value 
-    data.value['relations'] = transformedRelations;
-    relations.value = transformedRelations;
-  }
+//     data.value["grouped_labels"] = labels.value
+//     data.value['relations'] = transformedRelations;
+//     relations.value = transformedRelations;
+//   }
 
-  useTypesenseAsyncQuery(
-    'Relations',
-    props.object_id,
-    'source.object_id, target.object_id',
-    process_results
-    // { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
-  );
-});
+//   useTypesenseAsyncQuery(
+//     'Relations',
+//     props.object_id,
+//     'source.object_id, target.object_id',
+//     process_results
+//     // { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
+//   );
+// });
+//onMounted(() => {
+  watch(data, () => {
+    // TODO: this is a hack atm, settings value below should re-trigger the watcher... improve this.
+    function process_results(response) {
+      const docs = useExtractHitsFromResults(response);
+      const transformedRelations = useGroupRelationsByClass(docs);
+      labels.value = useGroupArrayOfObjectsByKey(data.value.labels, 'label_type');
+      // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
+
+      data.value['grouped_labels'] = labels.value;
+      data.value['relations'] = transformedRelations;
+      relations.value = transformedRelations;
+    }
+
+    useTypesenseAsyncQuery(
+      'Relations',
+      props.object_id,
+      'source.object_id, target.object_id',
+      process_results
+      // { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
+    );
+  });
+//});
 </script>
 <template>
   <div id="main-container flex" class="bg-white">

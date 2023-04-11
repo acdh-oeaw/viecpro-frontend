@@ -11,7 +11,7 @@ onMounted(() => {
     })
   );
   console.log('object keys: ', Object.keys(props.data.relations));
-
+  console.log(props.data.titles);
   //test = Array.from(test).filter((el) => el != "placeholder dummy");
 
   functions.value = parsedFunctions;
@@ -27,13 +27,12 @@ onMounted(() => {
       >{{ func }}</span
     >
   </div>
-  <div v-if="data.grouped_labels">
-    <div v-for="(values, key) in data.grouped_labels">
-      <h2 class="bg-blue-100">{{ key }}</h2>
-      <ul>
-        <li v-for="val in values">{{ val.name }}</li>
-      </ul>
-    </div>
+
+  <div v-if="data.titles">
+    <h2 class="bg-blue-100">Titel:</h2>
+    <ul>
+      <li v-for="val in data.titles">{{ val.name }}</li>
+    </ul>
   </div>
   <!-- </div> -->
 </template>
