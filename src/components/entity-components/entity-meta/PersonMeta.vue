@@ -27,6 +27,14 @@ onMounted(() => {
       >{{ func }}</span
     >
   </div>
+  <div v-if="data.grouped_labels">
+    <div v-for="(values, key) in data.grouped_labels">
+      <h2 class="bg-blue-100">{{ key }}</h2>
+      <ul>
+        <li v-for="val in values">{{ val.name }}</li>
+      </ul>
+    </div>
+  </div>
   <!-- </div> -->
 </template>
 <style scoped>

@@ -12,6 +12,7 @@ import useTypesenseAsyncRetrieval from '@/composables/useTypesenseAsyncRetrieval
 import useTypesenseAsyncQuery from '@/composables/useTypesenseAsyncQuery';
 import useExtractHitsFromResults from '@/composables/transform-data/useExtractHitsFromResults';
 import useGroupRelationsByClass from '@/composables/transform-data/useGroupRelationsByClass';
+import useGroupArrayOfObjectsByKey from '@/composables/transform-data/useGroupArrayOfObjectsByKey';
 import useGetCollectionFromModel from '@/composables/utils/useGetCollectionFromModel';
 import useConstructDocIDFromParams from '@/composables/utils/useConstructDocIDFromParams';
 // component imports
@@ -28,6 +29,7 @@ const relations: Ref<object> = ref({});
 const showInformation: Ref<boolean> = ref(false); // TODO: get rid of this
 const collection = useGetCollectionFromModel(props.model);
 const doc_id = useConstructDocIDFromParams(props.model, props.object_id);
+const labels = ref({})
 
 useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
   data.value = response;
@@ -38,7 +40,9 @@ onBeforeMount(() => {
   function process_results(response) {
     const docs = useExtractHitsFromResults(response);
     const transformedRelations = useGroupRelationsByClass(docs);
+    labels.value = useGroupArrayOfObjectsByKey(data.value.labels, "label_type")
 
+    data.value["grouped_labels"] = labels.value 
     data.value['relations'] = transformedRelations;
     relations.value = transformedRelations;
   }
