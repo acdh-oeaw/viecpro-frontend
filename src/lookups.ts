@@ -5,6 +5,10 @@ import PersonFilter from './components/search-components/filters/PersonFilter.vu
 import InstitutionMeta from '@/components/entity-components/entity-meta/InstitutionMeta.vue';
 import GenericRelationsFilters from '@/components/search-components/filters/GenericRelationsFilters.vue';
 import GenericEntityFilters from './components/search-components/filters/GenericEntityFilters.vue';
+
+
+// TODO: needs cleanup and refactor, quite outdated currently.
+
 const entityComponentLookup = {
   person: {
     detail: null,

@@ -9,7 +9,7 @@ import type { navlinkProp } from './types/prop_types';
 const navLinks: navlinkProp[] = [
   { name: 'Home', route: '/' },
   { name: 'Database', route: '/search' },
-  // { name: "Deduplication", route: "/deduplication" }, // TODO: removed for now, as not needed yet and not completet
+  //{ name: "Deduplication", route: "/deduplication" }, // TODO: removed for now, as not needed yet and not completet
   { name: 'About', route: '/about' },
 ];
 </script>
