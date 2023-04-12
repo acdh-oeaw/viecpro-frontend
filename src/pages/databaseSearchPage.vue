@@ -8,17 +8,15 @@ down version for searching / filtering the relation tables within the genericEnt
 // import components
 import genericResultsTable from '../components//search-components/results/genericResultsTable.vue';
 import usePrefixedCollection from '@/composables/usePrefixedCollection';
-
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
+
 // import utils, functions, etc.
 import { ref, watch, onBeforeMount, shallowRef } from 'vue';
-import router from '../router';
 import type { Ref } from 'vue';
 import { collectionsLookup } from '@/lookups.js';
 
 // import instant-search-stuff
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
-import Typesense from 'typesense';
 
 const headers = ref([]);
 console.log(collectionsLookup);
