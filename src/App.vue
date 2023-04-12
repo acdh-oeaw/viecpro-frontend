@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import { ref, provide } from "vue";
-import pageNavigation from "./components/pageNavigation.vue";
-import footerBar from "./components/footerBar.vue";
-import navLink from "./components/navLink.vue";
-import type { navlinkProp } from "./types/prop_types";
+import { RouterLink, RouterView } from 'vue-router';
+import { ref, provide } from 'vue';
+import PageNavigation from './components/PageNavigation.vue';
+import FooterSection from './components/FooterSection.vue';
+import NavLink from './components/NavLink.vue';
+import type { navlinkProp } from './types/prop_types';
 
 const navLinks: navlinkProp[] = [
-  { name: "Home", route: "/" },
-  { name: "Database", route: "/search" },
+  { name: 'Home', route: '/' },
+  { name: 'Database', route: '/search' },
   // { name: "Deduplication", route: "/deduplication" }, // TODO: removed for now, as not needed yet and not completet
-  { name: "About", route: "/about" },
+  { name: 'About', route: '/about' },
 ];
 </script>
 
@@ -18,11 +18,9 @@ const navLinks: navlinkProp[] = [
   <body class="flex-col w-full min-h-screen">
     <header>
       <!-- main top navbar -->
-      <pageNavigation :nav-links="navLinks">
+      <PageNavigation :nav-links="navLinks">
         <template v-slot:left>
-          <div
-            class="flex grow lg:place-content-start place-content-center"
-          >
+          <div class="flex grow lg:place-content-start place-content-center">
             <img
               class="h-20 hover:cursor-pointer"
               src="./assets/logos/logo_white.png"
@@ -31,7 +29,7 @@ const navLinks: navlinkProp[] = [
             />
           </div>
         </template>
-      </pageNavigation>
+      </PageNavigation>
     </header>
     <main>
       <!-- router section: "pages" from src/pages are displayed in here -->
@@ -39,7 +37,7 @@ const navLinks: navlinkProp[] = [
     </main>
     <footer>
       <!-- footer section with impressum, logos, etc. -->
-      <footerBar>
+      <FooterSection>
         <template v-slot:left>
           <div class="flex text-black justify-start">
             <img
@@ -81,7 +79,7 @@ const navLinks: navlinkProp[] = [
 
         <template v-slot:right></template>
 
-        ></footerBar
+        ></FooterSection
       >
     </footer>
   </body>

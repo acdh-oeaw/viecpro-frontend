@@ -3,7 +3,7 @@ import PersonMeta from '@/components/entity-components/entity-meta/PersonMeta.vu
 import PlaceMeta from './components/entity-components/entity-meta/PlaceMeta.vue';
 import PersonFilter from './components/search-components/filters/PersonFilter.vue';
 import InstitutionMeta from '@/components/entity-components/entity-meta/InstitutionMeta.vue';
-import genericRelationsFilters from '@/components/search-components/filters/genericRelationsFilters.vue';
+import GenericRelationsFilters from '@/components/search-components/filters/GenericRelationsFilters.vue';
 import GenericEntityFilters from './components/search-components/filters/GenericEntityFilters.vue';
 const entityComponentLookup = {
   person: {
@@ -81,7 +81,7 @@ const collectionsLookup = {
   // PlaceEvent: Relation,
   Relations: {
     components: {
-      filter: genericRelationsFilters,
+      filter: GenericRelationsFilters,
       //meta: genericRelationsMeta,
     },
     headers: ['model', 'source.name', 'relation_type', 'target.name', 'start', 'end'],

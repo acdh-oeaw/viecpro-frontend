@@ -5,20 +5,20 @@ the main navbar
 import { onBeforeMount, ref, watch } from "vue";
 
 //section components
-import welcomeSection from "./landing-page-sections/welcomeSection.vue";
-import databaseSection from "./landing-page-sections/databaseSection.vue";
-import contactSection from "./landing-page-sections/contactSection.vue";
-import documentationSection from "./landing-page-sections/documentationSection.vue";
+import WelcomeSection from "./landing-page-sections/WelcomeSection.vue";
+import DatabaseSection from "./landing-page-sections/DatabaseSection.vue";
+import ContactSection from "./landing-page-sections/ContactSection.vue";
+import DocumentationSection from "./landing-page-sections/DocumentationSection.vue";
 
 
 </script>
 
 <template>
   <div class="min-h-screen mt-20 flex-col lg:mx-80">
-    <welcomeSection></welcomeSection>
-    <databaseSection></databaseSection>
-    <documentationSection></documentationSection>
-    <contactSection></contactSection>
+    <WelcomeSection></WelcomeSection>
+    <DatabaseSection></DatabaseSection>
+    <DocumentationSection></DocumentationSection>
+    <ContactSection></ContactSection>
   
   </div>
  

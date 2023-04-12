@@ -6,7 +6,7 @@ down version for searching / filtering the relation tables within the genericEnt
 <script setup lang="ts">
 // TODO: implement all types!
 // import components
-import genericResultsTable from '../components//search-components/results/genericResultsTable.vue';
+import GenericResultsTable from '../components/search-components/results/GenericResultsTable.vue';
 import usePrefixedCollection from '@/composables/usePrefixedCollection';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
 
@@ -144,7 +144,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
 
           <ais-hits>
             <template v-slot="{ items }">
-              <genericResultsTable
+              <GenericResultsTable
                 :headers="headers"
                 :items="items"
                 :tB="
@@ -152,7 +152,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                     ? 'search-result-table-headers.person.'
                     : 'search-result-table-headers.'
                 "
-              ></genericResultsTable>
+              ></GenericResultsTable>
             </template>
           </ais-hits>
         </div>

@@ -7,7 +7,7 @@ different generic components - if we want to show detail views of relations at a
 // utitily imports
 import { ref, onBeforeMount, computed, watch, onMounted } from 'vue';
 import type { Ref } from 'vue';
-import genericTable from '@/components/genericTable.vue';
+import GenericTable from '@/components/GenericTable.vue';
 import useTypesenseAsyncRetrieval from '@/composables/useTypesenseAsyncRetrieval';
 import useTypesenseAsyncQuery from '@/composables/useTypesenseAsyncQuery';
 import useExtractHitsFromResults from '@/composables/transform-data/useExtractHitsFromResults';
@@ -17,7 +17,7 @@ import useGetCollectionFromModel from '@/composables/utils/useGetCollectionFromM
 import useConstructDocIDFromParams from '@/composables/utils/useConstructDocIDFromParams';
 // component imports
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
-import entityVisualisationSection from '@/components/entity-components/entity-vis/entityVisualisationSection.vue';
+import EntityVisualisationSection from '@/components/entity-components/entity-vis/EntityVisualisationSection.vue';
 
 const props = defineProps({
   object_id: String,
@@ -57,27 +57,27 @@ useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
 //   );
 // });
 //onMounted(() => {
-  watch(data, () => {
-    // TODO: this is a hack atm, settings value below should re-trigger the watcher... improve this.
-    function process_results(response) {
-      const docs = useExtractHitsFromResults(response);
-      const transformedRelations = useGroupRelationsByClass(docs);
-      labels.value = useGroupArrayOfObjectsByKey(data.value.labels, 'label_type');
-      // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
+watch(data, () => {
+  // TODO: this is a hack atm, settings value below should re-trigger the watcher... improve this.
+  function process_results(response) {
+    const docs = useExtractHitsFromResults(response);
+    const transformedRelations = useGroupRelationsByClass(docs);
+    labels.value = useGroupArrayOfObjectsByKey(data.value.labels, 'label_type');
+    // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
 
-      data.value['grouped_labels'] = labels.value;
-      data.value['relations'] = transformedRelations;
-      relations.value = transformedRelations;
-    }
+    data.value['grouped_labels'] = labels.value;
+    data.value['relations'] = transformedRelations;
+    relations.value = transformedRelations;
+  }
 
-    useTypesenseAsyncQuery(
-      'Relations',
-      props.object_id,
-      'source.object_id, target.object_id',
-      process_results
-      // { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
-    );
-  });
+  useTypesenseAsyncQuery(
+    'Relations',
+    props.object_id,
+    'source.object_id, target.object_id',
+    process_results
+    // { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
+  );
+});
 //});
 </script>
 <template>
@@ -99,7 +99,7 @@ useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
     </div>
     <div class="mx-40" id="vis-section">
       <!-- Just a dummy at the moment. Needs to be generic and adapt to entity type.  -->
-      <entityVisualisationSection :ent_type="model"></entityVisualisationSection>
+      <EntityVisualisationSection :ent_type="model"></EntityVisualisationSection>
     </div>
 
     <!-- TODO: add proper :key attribs for all v-for loops here -->
@@ -140,10 +140,10 @@ useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
           >
             <div class="flex-col">
               <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
-              <genericTable
+              <GenericTable
                 :headers="['object_id', 'relation_type', 'target.name', 'start', 'end']"
                 :data="rels"
-              ></genericTable>
+              ></GenericTable>
             </div>
           </TabPanel>
         </TabPanels>
