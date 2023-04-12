@@ -6,21 +6,15 @@ down version for searching / filtering the relation tables within the genericEnt
 <script setup lang="ts">
 // TODO: implement all types!
 // import components
-// these components should be handled by the lookup...
-import entitiesResults from '../components/search-components/results/entitiesResults.vue';
-import relationsResults from '../components//search-components/results/relationsResults.vue';
-import entitiesFilters from '../components//search-components/filters/entitiesFilters.vue';
 import genericResultsTable from '../components//search-components/results/genericResultsTable.vue';
 import usePrefixedCollection from '@/composables/usePrefixedCollection';
-import { collectionsLookup } from '@/lookups.js';
 
-import relationsFilters from '../components//search-components/filters/relationsFilters.vue';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
 // import utils, functions, etc.
-import { ref, reactive, computed, watch, onBeforeMount, shallowRef } from 'vue';
-import relationsFiltersVue from '../components//search-components/filters/relationsFilters.vue';
+import { ref, watch, onBeforeMount, shallowRef } from 'vue';
 import router from '../router';
 import type { Ref } from 'vue';
+import { collectionsLookup } from '@/lookups.js';
 
 // import instant-search-stuff
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
@@ -29,56 +23,17 @@ import Typesense from 'typesense';
 const headers = ref([]);
 console.log(collectionsLookup);
 
-// reactive vars
 const selectedCollection: Ref<string> = ref('');
 const placeholder: Ref<string> = ref('type to search');
 const hitsPerPage: Ref<number> = ref(20);
-// const model_type: Ref<String> = ref("")
+
+// using shallow Ref, to avoid overhead for making the component object all reactive...
+const filterComponent = shallowRef(null);
 
 onBeforeMount(() => {
   selectedCollection.value = 'Relations';
 });
 
-// TODO: move collections to a seperate directory with settings / options or request them dynamically from typesense server
-// TODO: only use the option field and prefix the selected collection automatically.
-
-// function increaseHits(){
-//     hitsPerPage.value += 1;
-// }
-// functions defined
-function updateCollection(collection: string) {
-  console.log('COl is now: ', collection);
-
-  switch (collection) {
-    case 'entities':
-      selectedCollection.value = collection;
-      break;
-    case 'relations':
-      selectedCollection.value = collection;
-      break;
-
-    case 'personinstitution':
-      selectedCollection.value = collection;
-      break;
-
-    case 'PersonPlace':
-      selectedCollection.value = collection;
-      break;
-    default:
-      alert('key not found in collections in switch');
-  }
-}
-
-function redirectToEntity(ent_type: string, ent_id: string, ent_model: string) {
-  const route = `/${ent_type}/${ent_model}/detail/${ent_id}`;
-  router.push(route);
-}
-// using shallow Ref, to avoid overhead for making the component object all reactive...
-// TODO: or use the string name of component in is
-const filterComponent = shallowRef(null);
-function showClient() {
-  console.log(typesenseInstantSearchAdapter);
-}
 // search Client logic
 
 const additionalSearchParameters = {
@@ -89,66 +44,25 @@ let params: string;
 watch(selectedCollection, () => {
   console.log('selectdCollection is', selectedCollection.value);
 
-  let col = collectionsLookup[selectedCollection.value];
+  let col = collectionsLookup[selectedCollection.value]; // TODO: needs typing
   console.log('this', col);
   params = col.searchParams;
   headers.value = col.headers;
   filterComponent.value = col.components.filter;
-  // switch (selectedCollection.value) {
-  //   case "entities":
-  //     params = "name";
-  //     console.log("changed to entity params");
-  //     break;
-  //   case "relations":
-  //     params = "ent_a, relation_type";
-  //     console.log("changed to relation params");
-  //     break;
-  //   case "PersonInstitution":
-  //     // params = "source.name";
-  //     // console.log("changed to personinstitution params");
-  //     // headers.value = [
-  //     //   "source.name",
-  //     //   "source_kind",
-  //     //   "relation_type",
-  //     //   "target.name",
-  //     //   "target_kind",
-  //     //   "start",
-  //     //   "end",
-  //     // ];
 
-  //     params = collectionsLookup[selectedCollection.value].searchParams;
-  //     headers.value = collectionsLookup[selectedCollection.value].headers;
-  //     filterComponent.value = relationsFilters;
-
-  //     break;
-
-  //   case "PersonPerson":
-  //     params = collectionsLookup[selectedCollection.value].searchParams;
-  //     headers.value = collectionsLookup[selectedCollection.value].headers;
-  //     filterComponent.value = "relationsFilters";
-
-  //     break;
-  //   case "PersonPlace":
-  //     params = "source.name, target.name";
-  //     break;
-  //   default:
-  //     console.log(
-  //       "in searchParam switch, could not find right case for: ",
-  //       selectedCollection.value
-  //     );
-  // }
-
+  // TODO: refactor to change components and collection in sync; or hide compoenents until collection switch finished.
+  // atm, switching from relations to an entity collection throws an error that gets resolved after a few milliseconds.
   console.log('params is now: ', params);
   console.log('Host is', import.meta.env.VITE_TYPESENSE_HOST);
   additionalSearchParameters.query_by = params;
   typesenseInstantSearchAdapter.configuration.additionalSearchParameters.highlight_full_fields =
     params;
   placeholder.value = `search in ${selectedCollection.value}`;
-}); // guess I need to make this reactive to change in sync with collection // think even computed would do
+});
 
 const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
   server: {
-    //apiKey: "xyz", // Be sure to use an API key that only allows searches, in production
+    // TODO: make sure to use a read-only API-key in production!
     apiKey: import.meta.env.VITE_TYPESENSE_API_KEY,
     nodes: [
       {
@@ -167,9 +81,6 @@ const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
   //   entities: { query_by: "name" },
   // },
   additionalSearchParameters: additionalSearchParameters,
-  //   additionalSearchParameters: {
-  //     query_by: "name, title, first_name",
-  //   },
 });
 
 // console.log('host', import.meta.env.VITE_TYPESENSE_HOST);
@@ -208,12 +119,6 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
             </Listbox>
           </div>
           <div class="flex">
-            <!-- <button @click="updateCollection('entities')">Entities</button>
-          <button @click="updateCollection('personinstitution')">PI</button>
-
-          <button @click="updateCollection('relations')">Relations</button> 
-          <button @click="showClient()">ShowClient</button> -->
-            <!-- <button @click="increaseHits()">AddResults</button> -->
             <label for="set-hits-per-page" class="mr-4">Results per page: </label>
             <input
               type="text"
@@ -234,17 +139,6 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
       <div class="w-full flex" id="result-and-filter-section">
         <div class="w-100 h-auto min-h-100 px-20 py-10 border-r-2" id="filter-section">
           <component v-if="filterComponent" :is="filterComponent"></component>
-          <!-- <div v-if="selectedCollection === 'entities'">Entities Filter</div>
-        <div v-else-if="selectedCollection === 'relations'">
-          <relationsFilters></relationsFilters>
-        </div>
-        <div
-          v-else-if="
-            selectedCollection.replace('viecpro_', '') === 'PersonInstitution'
-          "
-        >
-          <p>PersonInstitution-Filters</p> 
-        </div>-->
         </div>
 
         <div id="result-section" class="mx-auto px-10 py-10">
@@ -261,67 +155,6 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                     : 'search-result-table-headers.'
                 "
               ></genericResultsTable>
-              <!-- <table>
-              <tr>
-                <th>name</th>
-                <th>reltype</th>
-              </tr>
-              <tr
-                v-for="item in items"
-                :key="item.id"
-                align="left"
-                style="min-width: 50%"
-              >
-                <td>
-                  <ais-highlight
-                    v-if="selectedCollection == 'relations'"
-                    :hit="item"
-                    attribute="ent_a"
-                    class="entity_tag hover:cursor-pointer hover:underline"
-                    @click="redirectToEntity('relations', item.id, item.model)"
-                  ></ais-highlight>
-                  <ais-highlight
-                    v-if="selectedCollection == 'entities'"
-                    :hit="item"
-                    attribute="name"
-                    class="entity_tag hover:cursor-pointer hover:underline"
-                    @click="redirectToEntity('entities', item.id, item.model)"
-                  ></ais-highlight>
-                  <ais-highlight
-                    v-if="
-                      selectedCollection.replace('viecpro_','') == 'PersonInstitution' ||
-                      selectedCollection == 'viecpro_PersonPlace'
-                    "
-                    :hit="item"
-                    attribute="source.name"
-                    class="entity_tag hover:cursor-pointer hover:underline"
-                  ></ais-highlight>
-                </td>
-                <td>
-                  <ais-highlight
-                    v-if="selectedCollection == 'relations'"
-                    :hit="item"
-                    attribute="relation_type"
-                    class="entity_tag"
-                  ></ais-highlight>
-                  <ais-highlight
-                    v-if="selectedCollection == 'entities'"
-                    :hit="item"
-                    attribute="start_date_written"
-                    class="entity_tag"
-                  ></ais-highlight>
-                  <ais-highlight
-                    v-if="
-                      selectedCollection == 'personinstitution' ||
-                      selectedCollection == 'PersonPlace'
-                    "
-                    :hit="item"
-                    attribute="target"
-                    class="entity_tag hover:cursor-pointer hover:underline"
-                  ></ais-highlight>
-                </td>
-              </tr>
-            </table> -->
             </template>
           </ais-hits>
         </div>
@@ -332,8 +165,6 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
 </template>
 
 <style scoped>
-/* TODO: this style section must be scoped again, and styling of the input must move in the main css file */
-
 button {
   border-radius: 25rem;
   @apply bg-primary-100 px-4 py-1 text-white mx-1;
