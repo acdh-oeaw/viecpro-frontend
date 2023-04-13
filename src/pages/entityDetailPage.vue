@@ -80,10 +80,9 @@ watch(data, () => {
         <TabList>
           <Tab
             v-for="(rels, model) in relations"
-            class="tab-standard"
             :key="model + '_tablist'"
             v-slot="{ selected }"
-            >{{ model + ' - Relations' }}
+            ><button :class="{ 'bg-red-400': selected }" class="rounded bg-gray-200 text-black px-4 py-2">{{ model + ' - Relations' }}</button>
           </Tab>
         </TabList>
         <TabPanels>
@@ -109,5 +108,6 @@ watch(data, () => {
 </template>
 
 <style scoped>
+
 /* This was just a test to try the scoped apply */
 </style>
