@@ -30,7 +30,6 @@ useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
 });
 
 // TODO: make the two data fetching functions failsafe and work together.
-
 watch(data, () => {
   // TODO: this is a hack atm, settings value below should re-trigger the watcher... improve this.
   function process_results(response) {
@@ -52,7 +51,6 @@ watch(data, () => {
     // { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
   );
 });
-
 </script>
 <template>
   <div id="main-container flex" class="bg-white">
@@ -78,30 +76,19 @@ watch(data, () => {
 
     <!-- TODO: add proper :key attribs for all v-for loops here -->
     <div class="mx-40 bg-blue-200 min-h-screen pt-4" id="tables-section">
-      <TabGroup>
+      <TabGroup v-if="data.relations" :defaultIndex="0">
         <TabList>
-          <Tab class="tab-standard">JSON</Tab>
-          <Tab class="tab-standard">RelationsData</Tab>
-          <Tab v-for="(rels, model) in relations" class="tab-standard" :key="model + '_tablist'"
+          <Tab
+            v-for="(rels, model) in relations"
+            class="tab-standard"
+            :key="model + '_tablist'"
+            v-slot="{ selected }"
             >{{ model + ' - Relations' }}
           </Tab>
         </TabList>
         <TabPanels>
           <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
-          <TabPanel class="tab-panel-standard">
-            {{ data ? data : 'loading' }}
-      
-          </TabPanel>
-          <TabPanel class="tab-panel-standard">
-            <div v-for="(values, model) in relations" :key="model + '_relation'">
-              <h3 class="text-xl">{{ model + '-Relations' }}</h3>
-              <ul>
-                <li v-for="val in values" :key="val + '_val'">
-                  {{ val }}
-                </li>
-              </ul>
-            </div>
-          </TabPanel>
+
           <TabPanel
             v-for="(rels, model) in relations"
             class="tab-panel-standard"
