@@ -27,9 +27,7 @@ const tabs = {
   database: 'database.tablink',
 };
 
-function myComputation(data) {
-  console.log(data);
-}
+
 </script>
 
 <template>
@@ -101,7 +99,6 @@ function myComputation(data) {
         </TabList>
         <TabPanels class="flex-grow pl-20" id="about_content" as="div">
           <TabPanel> <ProjectSection></ProjectSection></TabPanel>
-
           <TabPanel> <DataSection></DataSection> </TabPanel>
           <TabPanel> <TeamSection></TeamSection></TabPanel>
           <TabPanel> <TechnicalSection></TechnicalSection> </TabPanel>
