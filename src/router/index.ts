@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LandingPage from '../pages/LandingPage.vue';
 import SearchPage from '../pages/SearchPage.vue';
-import SearchPageNew from '../pages/SearchPageNew.vue';
 import EntityDetailPage from '@/pages/EntityDetailPage.vue';
 import DeduplicationPage from '@/pages/DeduplicationPage.vue';
 const router = createRouter({
@@ -26,7 +25,7 @@ const router = createRouter({
       component: EntityDetailPage,
       props: true,
     },
-    { path: '/search/:collection/', name: 'search_new', component: SearchPageNew, props: true },
+    { path: '/search/:collection/', name: 'search_new', component: SearchPage, props: true },
     // {
     //   path: "/deduplication",
     //   name: "Deduplication",
