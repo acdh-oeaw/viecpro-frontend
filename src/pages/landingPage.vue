@@ -1,16 +1,13 @@
-// landing page, should be the default route on loading the app. // reachable
-via the home navlink in the main navbar and by clicking on the viecpro logo in
-the main navbar
+// landing page, should be the default route on loading the app. // reachable via the home navlink
+in the main navbar and by clicking on the viecpro logo in the main navbar
 <script setup lang="ts">
-import { onBeforeMount, ref, watch } from "vue";
+import { onBeforeMount, ref, watch } from 'vue';
 
 //section components
-import WelcomeSection from "./landing-page-sections/WelcomeSection.vue";
-import DatabaseSection from "./landing-page-sections/DatabaseSection.vue";
-import ContactSection from "./landing-page-sections/ContactSection.vue";
-import DocumentationSection from "./landing-page-sections/DocumentationSection.vue";
-
-
+import WelcomeSection from './landing-page-sections/WelcomeSection.vue';
+import DatabaseSection from './landing-page-sections/DatabaseSection.vue';
+import ContactSection from './landing-page-sections/ContactSection.vue';
+import DocumentationSection from './landing-page-sections/DocumentationSection.vue';
 </script>
 
 <template>
@@ -19,9 +16,7 @@ import DocumentationSection from "./landing-page-sections/DocumentationSection.v
     <DatabaseSection></DatabaseSection>
     <DocumentationSection></DocumentationSection>
     <ContactSection></ContactSection>
-  
   </div>
- 
 </template>
 <style scoped>
 div.main-container {
@@ -36,7 +31,7 @@ p {
 h1 {
   margin-bottom: 2rem;
   margin-top: 4rem;
-  @apply text-gray-600;
+  @apply text-gray-600 ;
 }
 
 #header-viecpro {
