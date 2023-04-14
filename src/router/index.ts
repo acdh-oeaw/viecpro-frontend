@@ -26,7 +26,7 @@ const router = createRouter({
       component: EntityDetailPage,
       props: true,
     },
-    { path: '/search/:collection/', name: 'search_new', component: SearchPageNew, props = true },
+    { path: '/search/:collection/', name: 'search_new', component: SearchPageNew, props: true },
     // {
     //   path: "/deduplication",
     //   name: "Deduplication",
