@@ -36,7 +36,10 @@
       "title": "Titel",
       "shortTitle": "Kurztitel",
       "kind": "Art",
-      "folio": "Fundstelle"
+      "folio": "Fundstelle",
+      "related_doc": {
+        "name": "Belegte Entität",
+      }
     },
     "folio": "Fundstelle",
     "source": { "name": "Basis" },

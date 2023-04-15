@@ -41,6 +41,7 @@ watch(data, () => {
 
     data.value['grouped_labels'] = labels.value;
     data.value['relations'] = transformedRelations;
+    
     relations.value = transformedRelations;
   }
 
@@ -55,7 +56,7 @@ watch(data, () => {
 </script>
 <template>
   <div id="main-container flex" class="bg-white">
-    <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
+    <div class="flex place-content-between pt-20 mx-40" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
         <!-- TODO: change the v-if condition here, once the data is split into metadata and relations-data -->
         <EntityMetaBase :data="data" :model="model">
@@ -86,7 +87,7 @@ watch(data, () => {
                 'bg-gray-400 text-white border-0': selected,
                 'text-gray-400': !selected,
               }"
-              class="border-2 mr-1 rounded text-black px-4 py-2"
+              class="border-2 mr-1 rounded text-black px-4 py-2 bg-white"
             >
               {{ model }}
             </button>
@@ -96,7 +97,7 @@ watch(data, () => {
           <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
 
           <TabPanel v-for="(rels, model) in relations" :key="model + '_rel2'">
-            <div class="rounded flex-col w-fit p-8 border-2 mt-4" style="min-width: 40rem">
+            <div class="rounded flex-col w-fit p-8 border-2 mt-4 bg-white" style="min-width: 40rem">
               <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
               <GenericTable
                 :headers="['object_id', 'relation_type', 'target.name', 'start', 'end']"

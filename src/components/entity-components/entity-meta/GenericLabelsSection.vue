@@ -13,7 +13,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="grouped_labels >= 1" style="max-width: 40rem" class="border-2 p-8 mb-8">
+  <div v-if="grouped_labels && hasAltNameInKeys" style="max-width: 40rem" class="border-2 p-8 mb-8 bg-white">
     <div v-if="hasAltNameInKeys">
       <h1 class="text-xl mb-8 text-gray-400">Namensvarianten</h1>
       <div v-for="(values, key) in grouped_labels" :key="key">
@@ -23,6 +23,7 @@ onMounted(() => {
             <p
               v-for="val in values"
               class="bg-gray-100 mx-2 mb-2 rounded px-2 py-1 text-sm text-gray-600"
+              :key="val"
             >
               {{ val.name }}
             </p>

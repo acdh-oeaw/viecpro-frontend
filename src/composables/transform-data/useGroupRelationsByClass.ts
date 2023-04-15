@@ -6,7 +6,9 @@ export default function useGroupRelationsByClass(relations) {
     if (Object.keys(temp_rels).includes(rel.model)) {
       temp_rels[rel.model].push(rel);
     } else {
-      temp_rels[rel.model] = [rel];
+      if (!rel.model.includes('Work')) {
+        temp_rels[rel.model] = [rel];
+      }
     }
   });
   return temp_rels;
