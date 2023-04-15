@@ -39,9 +39,12 @@ watch(data, () => {
     labels.value = useGroupArrayOfObjectsByKey(data.value.labels, 'label_type');
     // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
 
+    if ('Konfession' in labels.value) {
+      data.value['konfession'] = labels.value['Konfession'];
+    }
     data.value['grouped_labels'] = labels.value;
     data.value['relations'] = transformedRelations;
-    
+
     relations.value = transformedRelations;
   }
 
@@ -77,8 +80,8 @@ watch(data, () => {
       <TabGroup v-if="data.relations" :defaultIndex="0">
         <TabList as="div" class="flex justify-start">
           <Tab
-            v-for="(rels, model) in relations"
-            :key="model + '_tablist'"
+            v-for="(rels, rel_model) in relations"
+            :key="rel_model + '_tablist'"
             as="div"
             v-slot="{ selected }"
             className="{ui-selected: outline-none border-none}"
@@ -89,7 +92,7 @@ watch(data, () => {
               }"
               class="border-2 mr-1 rounded text-black px-4 py-2 bg-white"
             >
-              {{ model }}
+              {{ $t(`entity-detail.relations.${model}.${rel_model}`) }}
             </button>
           </Tab>
         </TabList>
@@ -100,7 +103,7 @@ watch(data, () => {
             <div class="rounded flex-col w-fit p-8 border-2 mt-4 bg-white" style="min-width: 40rem">
               <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
               <GenericTable
-                :headers="['object_id', 'relation_type', 'target.name', 'start', 'end']"
+                :headers="['source.name', 'relation_type', 'relation_reverse', 'target.name', 'start', 'end']"
                 :data="rels"
               ></GenericTable>
             </div>

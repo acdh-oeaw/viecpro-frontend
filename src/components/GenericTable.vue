@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 const props = defineProps(['headers', 'data']);
 
@@ -21,12 +21,31 @@ function sortColumn(column) {
 
   console.log('data after', data_.value);
 }
+const getHeaderValue = (header, entry) => {
+  let res = '';
+
+  if (header && entry) {
+    console.log('computing header', header, entry);
+    switch (header) {
+      case 'target.name':
+        res = entry['target']['name'];
+        break;
+
+      case 'source.name':
+        res = entry['source']['name'];
+        break;
+      default:
+        res = entry[header];
+    }
+  }
+  return res;
+};
 // TODO: also implement using lang -file to overwrite header names.
 console.log('generic table called');
 </script>
 <template>
   <div v-if="props.headers.length > 0" class="bg-white p-5">
-    <table class=""> 
+    <table class="">
       <tr>
         <th
           v-for="header in headers"
@@ -39,7 +58,8 @@ console.log('generic table called');
       </tr>
       <tr v-for="entry in data_" :key="entry.object_id">
         <td v-for="header in headers" :key="entry.object_id.toString() + '_' + header" class="pr-4">
-          {{ header == 'target.name' ? entry['target']['name'] : entry[header] }}
+          <!-- {{ header == 'target.name' ? entry['target']['name'] : entry[header] }} -->
+          {{ getHeaderValue(header, entry) }}
         </td>
       </tr>
     </table>

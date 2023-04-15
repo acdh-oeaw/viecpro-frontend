@@ -18,6 +18,47 @@
     "male": "Männlich",
     "female": "Weiblich"
   },
+  "entity-detail": {
+    "relations": {
+      "Person": {
+        "PersonPlace": "Ortsbeziehungen",
+        "PersonPerson": "Personenbeziehungen",
+        "PersonInstitution": "Funktionen",
+        "PersonEvent": "Ereignisse",
+        "PlacePlace": "Orstbeziehungen"
+      },
+      "Place": {
+        "PersonPlace": "Personenbeziehungen",
+        "PlacePlace": "Orstbeziehungen",
+        "InstitutionPlace": "Institutionsbeziehungen",
+        "PlaceEvent": "",
+        "EventEvent": "",
+        "InstitutionEvent": ""
+      },
+      "Institution": {
+        "PersonPlace": "Ortsbeziehungen",
+        "PersonPerson": "Personenbeziehungen",
+        "PersonInstitution": "Funktionen",
+        "PersonEvent": "Ereignisse",
+        "PlacePlace": "Orstbeziehungen",
+        "InstitutionPlace": "",
+        "PlaceEvent": "",
+        "EventEvent": "",
+        "InstitutionEvent": ""
+      },
+      "Event": {
+        "PersonPlace": "Ortsbeziehungen",
+        "PersonPerson": "Personenbeziehungen",
+        "PersonInstitution": "Funktionen",
+        "PersonEvent": "Ereignisse",
+        "PlacePlace": "Orstbeziehungen",
+        "InstitutionPlace": "",
+        "PlaceEvent": "",
+        "EventEvent": "",
+        "InstitutionEvent": ""
+      }
+    }
+  },
   "search-result-table-headers": {
     "person": {
       "name": "Nachname",
@@ -31,6 +72,7 @@
       "first_name": "Vorname",
       "gender": "Gender"
     },
+
     "bibtex": { "title": "Kurztitel", "shortTitle": "Titel", "type": "Art" }, // TODO: this needs cleanup, Once the un-nesteed implementation of bibtex, works, reduce these keys here.
     "reference": {
       "title": "Titel",
@@ -38,7 +80,7 @@
       "kind": "Art",
       "folio": "Fundstelle",
       "related_doc": {
-        "name": "Belegte Entität",
+        "name": "Belegte Entität"
       }
     },
     "folio": "Fundstelle",
