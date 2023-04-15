@@ -4,6 +4,7 @@ const props = defineProps(['data']);
 const functions = ref(new Set<string>());
 
 onMounted(() => {
+  if (props.data.relations.PersonInstitution){
   let parsedFunctions: Set<string> | Array<string> = new Set(
     props.data.relations.PersonInstitution.map((el: object) => {
       //TODO: type this object.
@@ -13,8 +14,9 @@ onMounted(() => {
   console.log('object keys: ', Object.keys(props.data.relations));
   console.log(props.data.titles);
   //test = Array.from(test).filter((el) => el != "placeholder dummy");
-
   functions.value = parsedFunctions;
+
+  }
 });
 </script>
 
@@ -39,7 +41,7 @@ onMounted(() => {
       <span class="rounded bg-gray-100 px-2 py-1"> {{ data.konfession[0].name }} </span></span
     >
   </div>
-  <div style="max-width: 40rem" class="flex mt-4">
+  <div  v-if="functions.length" style="max-width: 40rem" class="flex mt-4">
     <label class="mr-2"> Funktionen: </label>
     <div class="flex flex-wrap">
       <span
