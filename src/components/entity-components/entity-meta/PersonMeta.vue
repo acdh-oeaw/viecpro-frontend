@@ -41,7 +41,7 @@ onMounted(() => {
       <span class="rounded bg-gray-100 px-2 py-1"> {{ data.konfession[0].name }} </span></span
     >
   </div>
-  <div  v-if="functions.length" style="max-width: 40rem" class="flex mt-4">
+  <div  v-if="functions.size" style="max-width: 40rem" class="flex mt-4">
     <label class="mr-2"> Funktionen: </label>
     <div class="flex flex-wrap">
       <span
