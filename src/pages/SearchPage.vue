@@ -55,7 +55,7 @@ watch(selectedCollection, () => {
   additionalSearchParameters.query_by = params;
   typesenseInstantSearchAdapter.configuration.additionalSearchParameters.highlight_full_fields =
     params;
-  placeholder.value = `search in ${selectedCollection.value}`;
+  placeholder.value = 'duchsuchen'; // `search in ${selectedCollection.value}`;
 });
 
 const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
@@ -108,14 +108,19 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
       :index-name="usePrefixedCollection(selectedCollection)"
       routing="true"
     >
-      <div class="min-h-20 flex py-10 place-content-between px-60">
-        <div id="buttons-div" class="flex-col">
-          <div class="flex my-4 place-items-center">
-            <label for="select-collection-listbox" class="mr-4">Selected collection: </label>
+      <div class="min-h-20 flex py-10 place-content-center px-60">
+        <div id="buttons-div " class="flex-col">
+          <div class="flex my-4  place-items-center">
+            <label for="select-collection-listbox" class="collection-select"> </label>
 
             <!-- TODO: Accesability: focus and keyboard navigation of opened listbox needs implementation  -->
             <Listbox v-model="selectedCollection" id="select-collection-listbox" as="div">
-              <ListboxButton> {{ $t(`collections.${selectedCollection}`) }}</ListboxButton>
+              <div class="flex">
+                <ListboxButton class="" id="collection-select">
+                  {{ $t(`collections.${selectedCollection}`) }}</ListboxButton
+                >
+                <ais-search-box :placeholder="placeholder" class="h-8"> </ais-search-box>
+              </div>
 
               <ListboxOptions
                 class="absolute bg-white rounded px-4 py-2 shadow-2xl shadow-black translate-y-1 text-black"
@@ -142,11 +147,9 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
           </div>
         </div>
         <div>
-          <ais-search-box :placeholder="placeholder">
-            <!-- <template v-slot:submit-icon>
+          <!-- <template v-slot:submit-icon>
                                                                                                                                                                                                                                                                                                                                                                                                                                                               <img src="../assets/suche.png" alt="" class="search_icon" />
                                                                                                                                                                                                                                                                                                                                                                                                                                                             </template> -->
-          </ais-search-box>
         </div>
       </div>
       <div class="w-full flex" id="result-and-filter-section">
@@ -173,8 +176,17 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
   </div>
 </template>
 
-<style scoped>
-button {
-  @apply bg-primary-100 px-4 py-1 text-white mx-1 rounded;
+<style>
+.ais-SearchBox-input {
+  @apply border-black border-2 rounded-r-xl pl-2 px-4 py-1 h-8;
+  width: 30rem;
+}
+
+#collection-select {
+  @apply border-primary-100 border-2 bg-primary-100 px-4 py-1 text-white h-8;
+}
+
+.collection-select {
+  @apply border-primary-100 border-2 bg-primary-100 px-4 py-1 text-gray-600 h-8 rounded-l-xl;
 }
 </style>
