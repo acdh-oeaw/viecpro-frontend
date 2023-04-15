@@ -45,33 +45,25 @@
         "PersonPlace": "Ortsbeziehungen",
         "PersonPerson": "Personenbeziehungen",
         "PersonInstitution": "Funktionen",
-        "PersonEvent": "Ereignisse",
-        "PlacePlace": "Orstbeziehungen"
+        "PersonEvent": "Ereignisbeziehungen"
       },
       "Place": {
         "PersonPlace": "Personenbeziehungen",
         "PlacePlace": "Orstbeziehungen",
         "InstitutionPlace": "Institutionsbeziehungen",
-        "PlaceEvent": "",
-        "EventEvent": "",
-        "InstitutionEvent": ""
+        "PlaceEvent": "Ereignisbeziehungen"
       },
       "Institution": {
         "PersonInstitution": "Personenbeziehungen",
         "InstitutionPlace": "Ortsbeziehungen",
         "InstitutionInstitution": "Institutionsbeziehungen",
-        "InstitutionEvent": "Ereignisse"
+        "InstitutionEvent": "Ereignisbeziehungen"
       },
       "Event": {
-        "PersonPlace": "Ortsbeziehungen",
-        "PersonPerson": "Personenbeziehungen",
-        "PersonInstitution": "Funktionen",
-        "PersonEvent": "Ereignisse",
-        "PlacePlace": "Orstbeziehungen",
-        "InstitutionPlace": "",
-        "PlaceEvent": "",
-        "EventEvent": "",
-        "InstitutionEvent": ""
+        "PersonEvent": "Personenbeziehungen",
+        "PlaceEvent": "Ortsbeziehungen",
+        "EventEvent": "Ereignisbeziehungen",
+        "InstitutionEvent": "Institutionsbeziehungen"
       }
     }
   },
