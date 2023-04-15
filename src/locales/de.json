@@ -41,7 +41,8 @@
         "PersonInstitution": "Funktionen",
         "PersonEvent": "Ereignisse",
         "PlacePlace": "Orstbeziehungen",
-        "InstitutionPlace": "",
+        "InstitutionPlace": "Ortsbeziehungen",
+        "InstitutionInstitution": "Institutionsbeziehungen",
         "PlaceEvent": "",
         "EventEvent": "",
         "InstitutionEvent": ""

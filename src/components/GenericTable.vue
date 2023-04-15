@@ -56,10 +56,10 @@ console.log('generic table called');
           {{ header }}
         </th>
       </tr>
-      <tr v-for="entry in data_" :key="entry.object_id">
+      <tr v-for="entry in data_" :key="entry.object_id" class=" hover:bg-gray-100">
         <td v-for="header in headers" :key="entry.object_id.toString() + '_' + header" class="pr-4">
           <!-- {{ header == 'target.name' ? entry['target']['name'] : entry[header] }} -->
-          <span v-if="['target.name'].includes(header)" @click="useOpenDetail(entry.target.model, entry.target.object_id)"> {{ getHeaderValue(header, entry) }}</span>
+          <span v-if="['target.name'].includes(header)" @click="useOpenDetail(entry.target.model, entry.target.object_id)" class="hover:cursor-pointer hover:text-red-600 hover:underline"> {{ getHeaderValue(header, entry) }}</span>
           <span v-else> {{ getHeaderValue(header, entry) }} </span>
         </td>
       </tr>
