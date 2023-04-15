@@ -1,4 +1,3 @@
-import RelationsFilters from '@/components/search-components/filters/RelationsFilters.vue';
 import PersonMeta from '@/components/entity-components/entity-meta/PersonMeta.vue';
 import PlaceMeta from './components/entity-components/entity-meta/PlaceMeta.vue';
 import PersonFilter from './components/search-components/filters/PersonFilter.vue';
@@ -6,6 +5,7 @@ import InstitutionMeta from '@/components/entity-components/entity-meta/Institut
 import GenericRelationsFilters from '@/components/search-components/filters/GenericRelationsFilters.vue';
 import GenericEntityFilters from './components/search-components/filters/GenericEntityFilters.vue';
 import ReferenceFilter from '@/components/search-components/filters/ReferenceFilter.vue';
+import RelationsFilters from '@/components/search-components/filters/RelationsFilters.vue';
 
 // TODO: needs cleanup and refactor, quite outdated currently.
 
