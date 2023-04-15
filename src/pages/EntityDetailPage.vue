@@ -39,6 +39,8 @@ watch(data, () => {
     labels.value = useGroupArrayOfObjectsByKey(data.value.labels, 'label_type');
     // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
 
+
+    console.log("LABELS", labels.value)
     if ('Konfession' in labels.value) {
       data.value['konfession'] = labels.value['Konfession'];
     }
