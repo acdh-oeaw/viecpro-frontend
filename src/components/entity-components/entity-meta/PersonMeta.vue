@@ -22,7 +22,7 @@ onMounted(() => {
   <div class="flex flex-wrap" style="max-width: 40rem">
     <span
       v-for="func in functions"
-      class="block mx-2 my-1 bg-gray-200 px-4 py-2 rounded text-gray-500 text-xs hover:bg-gray-300 hover:text-gray-700 hover:cursor-pointer"
+      class="block mr-2 my-1 bg-gray-200 px-4 py-2 rounded text-gray-500 text-xs hover:bg-gray-300 hover:text-gray-700 hover:cursor-pointer"
       :key="func"
       >{{ func }}</span
     >
@@ -31,7 +31,7 @@ onMounted(() => {
   <div v-if="data.titles">
     <h2 class="bg-blue-100">Titel:</h2>
     <ul>
-      <li v-for="val in data.titles">{{ val.name }}</li>
+      <li v-for="val in data.titles" :key="val">{{ val.name }}</li>
     </ul>
   </div>
   <!-- </div> -->
