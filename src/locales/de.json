@@ -42,16 +42,10 @@
         "InstitutionEvent": ""
       },
       "Institution": {
-        "PersonPlace": "Ortsbeziehungen",
-        "PersonPerson": "Personenbeziehungen",
-        "PersonInstitution": "Funktionen",
-        "PersonEvent": "Ereignisse",
-        "PlacePlace": "Orstbeziehungen",
+        "PersonInstitution": "Personenbeziehungen",
         "InstitutionPlace": "Ortsbeziehungen",
         "InstitutionInstitution": "Institutionsbeziehungen",
-        "PlaceEvent": "",
-        "EventEvent": "",
-        "InstitutionEvent": ""
+        "InstitutionEvent": "Ereignisse"
       },
       "Event": {
         "PersonPlace": "Ortsbeziehungen",

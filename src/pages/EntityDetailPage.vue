@@ -39,8 +39,7 @@ watch(data, () => {
     labels.value = useGroupArrayOfObjectsByKey(data.value.labels, 'label_type');
     // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
 
-
-    console.log("LABELS", labels.value)
+    console.log('LABELS', labels.value);
     if ('Konfession' in labels.value) {
       data.value['konfession'] = labels.value['Konfession'];
     }
@@ -60,8 +59,8 @@ watch(data, () => {
 });
 </script>
 <template>
-  <div id="main-container flex" class="bg-white">
-    <div class="flex place-content-between pt-20 mx-40" id="meta-and-actions">
+  <div id="main-container flex " class="bg-white">
+    <div class="flex place-content-between pt-20 mx-80" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
         <!-- TODO: change the v-if condition here, once the data is split into metadata and relations-data -->
         <EntityMetaBase :data="data" :model="model">
@@ -78,7 +77,7 @@ watch(data, () => {
     </div>
 
     <!-- TODO: add proper :key attribs for all v-for loops here -->
-    <div class="mx-40 min-h-screen pt-4 mt-8" id="tables-section">
+    <div class="mx-80 min-h-screen pt-4 mt-8" id="tables-section">
       <TabGroup v-if="data.relations" :defaultIndex="0">
         <TabList as="div" class="flex justify-start">
           <Tab

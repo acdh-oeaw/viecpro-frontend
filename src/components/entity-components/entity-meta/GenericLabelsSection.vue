@@ -19,7 +19,7 @@ onMounted(() => {
     class="border-2 p-8 mb-8 bg-white"
   >
     <div v-if="hasAltNameInKeys">
-      <div class="text-xl flex justify-between text-gray-400" :class="{ 'mb-8': showNames }">
+      <div class="text-lg flex justify-between text-gray-400" :class="{ 'mb-8': showNames }">
         <label for="">Namensvarianten</label>
         <button
           class="rounded bg-gray-300 text-white text-sm px-4 py-1"
@@ -29,12 +29,12 @@ onMounted(() => {
             }
           "
         >
-          {{ showNames? 'up' : "down" }}
+          {{ showNames ? 'up' : 'down' }}
         </button>
       </div>
       <template v-if="showNames">
         <div v-for="(values, key) in grouped_labels" :key="key">
-          <div v-if="key.includes('name')" class="flex mb-4 text-gray-600">
+          <div v-if="key.includes('name')" class="flex mb-2 text-gray-600">
             <label for="alt_names"> {{ key.replace('Schreibvariante', '') }}: </label>
             <div id="alt_names" class="flex flex-wrap">
               <p
