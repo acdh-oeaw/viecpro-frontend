@@ -1,4 +1,4 @@
-import relationsFilters from '@/components/search-components/filters/relationsFilters.vue';
+import RelationsFilters from '@/components/search-components/filters/RelationsFilters.vue';
 import PersonMeta from '@/components/entity-components/entity-meta/PersonMeta.vue';
 import PlaceMeta from './components/entity-components/entity-meta/PlaceMeta.vue';
 import PersonFilter from './components/search-components/filters/PersonFilter.vue';
@@ -43,7 +43,7 @@ const Entity = {
 
 const Relation = {
   components: {
-    filter: relationsFilters,
+    filter: RelationsFilters,
     //meta: genericRelationsMeta,
   },
   headers: ['source.name', 'relation_type', 'target.name', 'start', 'end'],
