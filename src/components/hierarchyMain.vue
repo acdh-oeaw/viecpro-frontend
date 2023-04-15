@@ -1,1 +1,0 @@
-// main component for the hierarchy tool 
