@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 const props = defineProps(['grouped_labels', 'model']);
 
 const hasAltNameInKeys = computed(() => {
   const all_keys = Object.keys(props.grouped_labels);
   const includesName = (el) => el.includes('name');
   return all_keys.some(includesName);
+});
+
+onMounted(() => {
+  console.log(props.grouped_labels);
 });
 </script>
 <template>

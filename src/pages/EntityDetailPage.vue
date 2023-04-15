@@ -72,9 +72,9 @@ watch(data, () => {
     </div>
 
     <!-- TODO: add proper :key attribs for all v-for loops here -->
-    <div class="mx-40 min-h-screen pt-4" id="tables-section">
+    <div class="mx-40 min-h-screen pt-4 mt-8" id="tables-section">
       <TabGroup v-if="data.relations" :defaultIndex="0">
-        <TabList as="div" class="flex justify-center">
+        <TabList as="div" class="flex justify-start">
           <Tab
             v-for="(rels, model) in relations"
             :key="model + '_tablist'"
@@ -83,10 +83,10 @@ watch(data, () => {
             className="{ui-selected: outline-none border-none}"
             ><button
               :class="{
-                'bg-primary-100 text-white border-o': selected,
+                'bg-gray-400 text-white border-0': selected,
                 'text-gray-400': !selected,
               }"
-              class="border-2 mx-2 rounded text-black px-4 py-2"
+              class="border-2 mr-1 rounded text-black px-4 py-2"
             >
               {{ model }}
             </button>
@@ -95,8 +95,8 @@ watch(data, () => {
         <TabPanels>
           <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
 
-          <TabPanel v-for="(rels, model) in relations" class="" :key="model + '_rel2'">
-            <div class="flex-col min-w-full">
+          <TabPanel v-for="(rels, model) in relations" :key="model + '_rel2'">
+            <div class="rounded flex-col w-fit p-8 border-2 mt-4" style="min-width: 40rem">
               <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
               <GenericTable
                 :headers="['object_id', 'relation_type', 'target.name', 'start', 'end']"
