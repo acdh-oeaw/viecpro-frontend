@@ -9,6 +9,7 @@ down version for searching / filtering the relation tables within the genericEnt
 import GenericResultsTable from '../components/search-components/results/GenericResultsTable.vue';
 import usePrefixedCollection from '@/composables/usePrefixedCollection';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
+import router from '../router';
 
 // import utils, functions, etc.
 import { ref, watch, onBeforeMount, shallowRef } from 'vue';
@@ -18,6 +19,7 @@ import { collectionsLookup } from '@/lookups.js';
 // import instant-search-stuff
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
 
+const props = defineProps(['collection'])
 const headers = ref([]);
 console.log(collectionsLookup);
 
@@ -29,7 +31,7 @@ const hitsPerPage: Ref<number> = ref(20);
 const filterComponent = shallowRef(null);
 
 onBeforeMount(() => {
-  selectedCollection.value = 'Person';
+  selectedCollection.value = props.collection;
 });
 
 // search Client logic
@@ -40,6 +42,7 @@ const additionalSearchParameters = {
 let params: string;
 
 watch(selectedCollection, () => {
+  router.push(`/search/${selectedCollection.value}/`)
   console.log('selectdCollection is', selectedCollection.value);
 
   let col = collectionsLookup[selectedCollection.value]; // TODO: needs typing

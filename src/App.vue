@@ -8,7 +8,7 @@ import type { navlinkProp } from './types/prop_types';
 
 const navLinks: navlinkProp[] = [
   { name: 'Home', route: '/' },
-  { name: 'Database', route: '/search' },
+  { name: 'Database', route: '/search/Person/' },
   //{ name: "Deduplication", route: "/deduplication" }, // TODO: removed for now, as not needed yet and not completet
   { name: 'About', route: '/about' },
 ];
@@ -33,7 +33,9 @@ const navLinks: navlinkProp[] = [
     </header>
     <main>
       <!-- router section: "pages" from src/pages are displayed in here -->
+      <transition name="fade">
       <RouterView :key="$route.fullPath" />
+    </transition>
     </main>
     <footer>
       <!-- footer section with impressum, logos, etc. -->
@@ -89,5 +91,16 @@ const navLinks: navlinkProp[] = [
 header {
   position: sticky;
   top: 0;
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

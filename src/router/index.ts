@@ -19,7 +19,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../pages/AboutPage.vue'),
     },
-    { path: '/search', name: 'db-search', component: SearchPage },
+    { path: '/search/:collection/', name: 'db-search', component: SearchPage, props:true},
     {
       path: '/detail/:model/:object_id/',
       component: EntityDetailPage,
