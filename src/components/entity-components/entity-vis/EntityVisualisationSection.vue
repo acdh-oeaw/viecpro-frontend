@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-200 rounded text-white h-20">
+  <div class="border-2 rounded text-white h-20">
     Visualisation Section {{ props.ent_type }}
   </div>
 </template>

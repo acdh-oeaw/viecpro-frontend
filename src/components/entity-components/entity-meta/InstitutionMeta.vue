@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div></div>
+  <div>Institution Meta</div>
 </template>
 <style scoped></style>
