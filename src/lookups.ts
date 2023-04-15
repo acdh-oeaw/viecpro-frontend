@@ -76,21 +76,8 @@ const collectionsLookup = {
     headers: ['name', 'kind', 'start', 'end', 'lat', 'long'],
     searchParams: 'name, kind, lat, long',
   },
-  // Work: Entity,
   Event: Entity,
-  // PersonPerson: Relation,
-  // PersonInstitution: Relation,
-  // PersonPlace: Relation,
-  // PersonEvent: Relation,
-  // PersonWork: Relation,
-  // WorkWork: Relation,
-  // WorkEvent: Relation,
-  // InstitutionInstitution: Relation,
-  // InstitutionPlace: Relation,
-  // InstitutionWork: Relation,
-  // InstitutionEvent: Relation,
-  // PlaceWork: Relation,
-  // PlaceEvent: Relation,
+ 
   Relations: {
     components: {
       filter: GenericRelationsFilters,

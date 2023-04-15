@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-
+import useOpenDetail from '@/composables/useOpenDetail';
 const props = defineProps(['headers', 'data']);
 
 const data_ = ref([]);
@@ -59,7 +59,8 @@ console.log('generic table called');
       <tr v-for="entry in data_" :key="entry.object_id">
         <td v-for="header in headers" :key="entry.object_id.toString() + '_' + header" class="pr-4">
           <!-- {{ header == 'target.name' ? entry['target']['name'] : entry[header] }} -->
-          {{ getHeaderValue(header, entry) }}
+          <span v-if="['target.name'].includes(header)" @click="useOpenDetail(entry.target.model, entry.target.object_id)"> {{ getHeaderValue(header, entry) }}</span>
+          <span v-else> {{ getHeaderValue(header, entry) }} </span>
         </td>
       </tr>
     </table>

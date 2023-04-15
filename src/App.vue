@@ -33,7 +33,7 @@ const navLinks: navlinkProp[] = [
     </header>
     <main>
       <!-- router section: "pages" from src/pages are displayed in here -->
-      <RouterView />
+      <RouterView :key="$route.fullPath" />
     </main>
     <footer>
       <!-- footer section with impressum, logos, etc. -->
