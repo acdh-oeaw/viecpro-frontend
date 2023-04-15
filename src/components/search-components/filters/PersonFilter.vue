@@ -14,13 +14,11 @@
       }}
     </template></ais-refinement-list
   >
-  <!-- <h4>by Kind</h4>
+  <h4>nach Gender</h4>
   <ais-refinement-list
-    attribute="kind"
-    show-more
-    :show-more-limit="40"
+    attribute="gender"
     style="text-align: left; min-width: 300px"
-  /> -->
+  />
 </template>
 <script setup lang="ts"></script>
 

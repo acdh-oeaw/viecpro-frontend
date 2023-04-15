@@ -19,21 +19,32 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-wrap" style="max-width: 40rem">
-    <span
-      v-for="func in functions"
-      class="block mr-2 my-1 bg-gray-200 px-4 py-2 rounded text-gray-500 text-xs hover:bg-gray-300 hover:text-gray-700 hover:cursor-pointer"
-      :key="func"
-      >{{ func }}</span
+  <div v-if="data.titles.length" class="mt-4">
+    <span>
+      <label class="mr-2">Titel:</label>
+      <span v-for="val in data.titles" :key="val" class="rounded bg-gray-100 px-2 py-1">{{
+        val.name
+      }}</span>
+    </span>
+  </div>
+  <div v-if="data.gender" class="mt-4">
+    <span>
+      <label>Gender: </label>
+      <span class="rounded bg-gray-100 px-2 py-1"> {{ $t(`globals.${data.gender}`) }} </span></span
     >
   </div>
-
-  <div v-if="data.titles">
-    <h2 class="bg-blue-100">Titel:</h2>
-    <ul>
-      <li v-for="val in data.titles" :key="val">{{ val.name }}</li>
-    </ul>
+  <div style="max-width: 40rem" class="flex mt-4">
+    <label class="mr-2"> Funktionen: </label>
+    <div class="flex flex-wrap ">
+      <span
+        v-for="func in functions"
+        class="block mr-2 my-1 bg-gray-200 px-4 py-2 rounded text-gray-500 text-xs hover:bg-gray-300 hover:text-gray-700 hover:cursor-pointer"
+        :key="func"
+        >{{ func }}</span
+      >
+    </div>
   </div>
+
   <!-- </div> -->
 </template>
 <style scoped>

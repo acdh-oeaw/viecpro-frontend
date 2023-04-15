@@ -58,9 +58,11 @@ watch(data, () => {
     <div class="flex place-content-between mx-40 pt-20" id="meta-and-actions">
       <div class="flex-col" id="meta-section">
         <!-- TODO: change the v-if condition here, once the data is split into metadata and relations-data -->
-        <EntityMetaBase :data="data" :model="model"
-          ><component v-if="data.relations" :is="collection + 'Meta'" :data="data"> </component
-        ></EntityMetaBase>
+        <EntityMetaBase :data="data" :model="model">
+          <template v-slot:functions_and_titles>
+            <component v-if="data.relations" :is="collection + 'Meta'" :data="data"> </component>
+          </template>
+        </EntityMetaBase>
       </div>
       <ActionsBox></ActionsBox>
     </div>

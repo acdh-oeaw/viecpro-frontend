@@ -14,7 +14,9 @@
     "understood": "Verstanden",
     "download": "Herunterladen",
     "data": "Daten",
-    "documentation": "Dokumentation"
+    "documentation": "Dokumentation",
+    "male": "Männlich",
+    "female": "Weiblich"
   },
   "search-result-table-headers": {
     "person": {
@@ -26,7 +28,8 @@
       "start_date_written": "Von (text)",
       "end_date_written": "Bis (text)",
       "model": "Klasse",
-      "first_name": "Vorname"
+      "first_name": "Vorname",
+      "gender": "Gender"
     },
     "bibtex": { "title": "Kurztitel", "shortTitle": "Titel", "type": "Art" }, // TODO: this needs cleanup, Once the un-nesteed implementation of bibtex, works, reduce these keys here.
     "reference": {

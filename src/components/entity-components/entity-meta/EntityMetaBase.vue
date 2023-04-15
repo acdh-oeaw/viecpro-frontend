@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import GenericLabelsSection from "./GenericLabelsSection.vue";
 const props = defineProps(["data", "model"]);
 </script>
 
@@ -21,16 +22,18 @@ const props = defineProps(["data", "model"]);
     }}) -->
     </p>
   
-    <slot> </slot>
-    <div v-if="data.grouped_labels">
+    <slot name="functions_and_titles"> </slot>
+    <!-- <div v-if="data.grouped_labels">
     <div v-for="(values, key) in data.grouped_labels" :key="key">
       <h2 class="bg-blue-100">{{ key }}</h2>
       <ul>
         <li v-for="val in values" :key="val">{{ val.name }}</li>
       </ul>
     </div>
+  </div> -->
   </div>
-  </div>
+  <slot name="content-below"></slot>
+  <GenericLabelsSection v-if="data.grouped_labels" :grouped_labels="data.grouped_labels" :model="model"></GenericLabelsSection>
 </template>
 <style scoped>
 

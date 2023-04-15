@@ -64,7 +64,7 @@ const collectionsLookup = {
       filter: PersonFilter,
       meta: PersonMeta,
     },
-    headers: ['first_name', 'name', 'start', 'end'],
+    headers: ['first_name', 'name', 'start', 'end', 'gender'],
     searchParams: 'first_name, name',
   },
   Institution: Entity,
