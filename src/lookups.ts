@@ -56,7 +56,7 @@ const collectionsLookup = {
       filter: ReferenceFilter, // ReferenceFilter,
       meta: null, //ReferenceMeta,
     },
-    headers: ['related_doc.name', 'folio', 'title', 'shortTitle'],
+    headers: ['related_doc.name', 'folio', 'shortTitle', 'title'],
     searchParams: 'related_doc.name, title, shortTitle, folio',
   },
   Person: {

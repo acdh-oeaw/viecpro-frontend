@@ -35,7 +35,7 @@ watch(data, () => {
   // TODO: this is a hack atm, settings value below should re-trigger the watcher... improve this.
   function process_results(response) {
     const docs = useExtractHitsFromResults(response);
-    const transformedRelations = useGroupRelationsByClass(docs);
+    const transformedRelations = useGroupRelationsByClass(docs, data.value.name);
     labels.value = useGroupArrayOfObjectsByKey(data.value.labels, 'label_type');
     // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
 
@@ -103,7 +103,7 @@ watch(data, () => {
             <div class="rounded flex-col w-fit p-8 border-2 mt-4 bg-white" style="min-width: 40rem">
               <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
               <GenericTable
-                :headers="['source.name', 'relation_type', 'relation_reverse', 'target.name', 'start', 'end']"
+                :headers="['relation_type', 'target.name', 'start', 'end']"
                 :data="rels"
               ></GenericTable>
             </div>
