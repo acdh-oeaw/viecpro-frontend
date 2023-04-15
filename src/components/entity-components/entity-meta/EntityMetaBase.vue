@@ -5,7 +5,7 @@ const props = defineProps(["data", "model"]);
 </script>
 
 <template>
-  <div class="border-2 py-8 pr-8 p-8 rounded mb-8 ">
+  <div class="border-2 p-8 rounded mb-8 ">
     <span class="text-gray-400 px-4 py-1 border-x-2 border-gray-300"
       > {{ data.kind ? data.kind : model }}</span
     >

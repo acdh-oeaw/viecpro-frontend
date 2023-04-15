@@ -35,7 +35,7 @@ onMounted(() => {
   </div>
   <div style="max-width: 40rem" class="flex mt-4">
     <label class="mr-2"> Funktionen: </label>
-    <div class="flex flex-wrap ">
+    <div class="flex flex-wrap">
       <span
         v-for="func in functions"
         class="block mr-2 my-1 bg-gray-200 px-4 py-2 rounded text-gray-500 text-xs hover:bg-gray-300 hover:text-gray-700 hover:cursor-pointer"
