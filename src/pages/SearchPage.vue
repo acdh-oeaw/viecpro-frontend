@@ -29,7 +29,7 @@ const hitsPerPage: Ref<number> = ref(20);
 const filterComponent = shallowRef(null);
 
 onBeforeMount(() => {
-  selectedCollection.value = 'Relations';
+  selectedCollection.value = 'Person';
 });
 
 // search Client logic
@@ -115,18 +115,18 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
 
             <!-- TODO: Accesability: focus and keyboard navigation of opened listbox needs implementation  -->
             <Listbox v-model="selectedCollection" id="select-collection-listbox" as="div">
-              <ListboxButton>{{ selectedCollection }}</ListboxButton>
+              <ListboxButton> {{ $t(`collections.${selectedCollection}`) }}</ListboxButton>
 
               <ListboxOptions
-                class="absolute bg-white rounded-2xl px-4 py-2 shadow-2xl shadow-black -translate-x-9 translate-y-2 text-black"
+                class="absolute bg-white rounded px-4 py-2 shadow-2xl shadow-black translate-y-1 text-black"
               >
                 <ListboxOption
                   v-for="key in Object.keys(collectionsLookup)"
                   :value="key"
-                  class="hover:bg-green-100 hover:cursor-pointer"
+                  class="hover:bg-green-100 hover:cursor-pointer px-2 py-1"
                   :key="key"
                 >
-                  {{ key }}
+                  {{ $t(`collections.${key}`) }}
                 </ListboxOption>
               </ListboxOptions>
             </Listbox>
@@ -175,7 +175,6 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
 
 <style scoped>
 button {
-  border-radius: 25rem;
-  @apply bg-primary-100 px-4 py-1 text-white mx-1;
+  @apply bg-primary-100 px-4 py-1 text-white mx-1 rounded;
 }
 </style>

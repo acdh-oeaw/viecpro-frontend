@@ -6,8 +6,8 @@ const props = defineProps(["data", "model"]);
 
 <template>
   <div class="border-2 p-8 rounded mb-8 bg-white">
-    <span class="text-gray-400 px-4 py-1 border-l-2 border-gray-300" :class="{'border-r-2':data.kind}"
-      > {{  model }}</span
+    <span class="text-gray-400 px-4 py-1 border-x-2 border-gray-300"
+      > {{  $t(`models.${model}`) }}</span
     >
     <span v-if="data.kind" class="text-gray-400 px-4 py-1 border-r-2 border-gray-300"> {{ data.kind }}</span>
     <h3 class="text-black text-3xl mb-2 mt-1">

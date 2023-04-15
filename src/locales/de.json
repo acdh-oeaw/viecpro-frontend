@@ -18,6 +18,21 @@
     "male": "Männlich",
     "female": "Weiblich"
   },
+  "models": {
+    "Place": "Ort",
+    "Institution": "Institution",
+    "Event": "Ereignis",
+    "Person": "Person"
+  },
+
+  "collections": {
+    "Relations": "Relationen",
+    "Person": "Personen",
+    "Institution": "Institutionen",
+    "Place": "Orte",
+    "Event": "Ereignisse",
+    "Reference": "Quellenbelege"
+  },
   "entity-detail": {
     "relations-table-headers": {
       "target-name": "In Beziehung zu",

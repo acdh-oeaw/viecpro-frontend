@@ -51,14 +51,6 @@ const Relation = {
 };
 
 const collectionsLookup = {
-  Reference: {
-    components: {
-      filter: ReferenceFilter, // ReferenceFilter,
-      meta: null, //ReferenceMeta,
-    },
-    headers: ['related_doc.name', 'folio', 'shortTitle', 'title'],
-    searchParams: 'related_doc.name, title, shortTitle, folio',
-  },
   Person: {
     components: {
       filter: PersonFilter,
@@ -66,6 +58,14 @@ const collectionsLookup = {
     },
     headers: ['first_name', 'name', 'start', 'end', 'gender'],
     searchParams: 'first_name, name',
+  },
+  Relations: {
+    components: {
+      filter: GenericRelationsFilters,
+      //meta: genericRelationsMeta,
+    },
+    headers: ['model', 'source.name', 'relation_type', 'target.name', 'start', 'end'],
+    searchParams: 'source.name, target.name, relation_type, model',
   },
   Institution: Entity,
   Place: {
@@ -77,14 +77,14 @@ const collectionsLookup = {
     searchParams: 'name, kind, lat, long',
   },
   Event: Entity,
- 
-  Relations: {
+
+  Reference: {
     components: {
-      filter: GenericRelationsFilters,
-      //meta: genericRelationsMeta,
+      filter: ReferenceFilter, // ReferenceFilter,
+      meta: null, //ReferenceMeta,
     },
-    headers: ['model', 'source.name', 'relation_type', 'target.name', 'start', 'end'],
-    searchParams: 'source.name, target.name, relation_type, model',
+    headers: ['related_doc.name', 'folio', 'shortTitle', 'title'],
+    searchParams: 'related_doc.name, title, shortTitle, folio',
   },
 };
 
