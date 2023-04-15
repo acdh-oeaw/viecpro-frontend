@@ -28,6 +28,14 @@
       "model": "Klasse",
       "first_name": "Vorname"
     },
+    "bibtex": { "title": "Kurztitel", "shortTitle": "Titel", "type": "Art" }, // TODO: this needs cleanup, Once the un-nesteed implementation of bibtex, works, reduce these keys here.
+    "reference": {
+      "title": "Titel",
+      "shortTitle": "Kurztitel",
+      "kind": "Art",
+      "folio": "Fundstelle"
+    },
+    "folio": "Fundstelle",
     "source": { "name": "Basis" },
     "target": { "name": "Ziel" },
     "relation_type": "Relationsart",

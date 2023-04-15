@@ -4,7 +4,7 @@ const props = defineProps(["data", "model"]);
 </script>
 
 <template>
-  <div class="border-2 p-8 rounded mb-8 ">
+  <div class="border-2 py-8 pr-8 p-8 rounded mb-8 ">
     <span class="text-gray-400 px-4 py-1 border-x-2 border-gray-300"
       > {{ data.kind ? data.kind : model }}</span
     >
@@ -23,10 +23,10 @@ const props = defineProps(["data", "model"]);
   
     <slot> </slot>
     <div v-if="data.grouped_labels">
-    <div v-for="(values, key) in data.grouped_labels">
+    <div v-for="(values, key) in data.grouped_labels" :key="key">
       <h2 class="bg-blue-100">{{ key }}</h2>
       <ul>
-        <li v-for="val in values">{{ val.name }}</li>
+        <li v-for="val in values" :key="val">{{ val.name }}</li>
       </ul>
     </div>
   </div>

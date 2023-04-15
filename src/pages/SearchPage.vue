@@ -81,6 +81,21 @@ const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
   additionalSearchParameters: additionalSearchParameters,
 });
 
+function getTBForModel(model) {
+  let res;
+  switch (model) {
+    case 'Person':
+      res = 'search-result-table-headers.person.';
+      break;
+    case 'Reference':
+      res = 'search-result-table-headers.reference.';
+      break;
+    default:
+      res = 'search-result-table-headers.';
+  }
+
+  return res;
+}
 // console.log('host', import.meta.env.VITE_TYPESENSE_HOST);
 // console.log('port', import.meta.env.VITE_TYPESENSE_PORT);
 // console.log('key: ', import.meta.env.VITE_TYPESENSE_API_KEY);
@@ -147,11 +162,7 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
               <GenericResultsTable
                 :headers="headers"
                 :items="items"
-                :tB="
-                  selectedCollection == 'Person'
-                    ? 'search-result-table-headers.person.'
-                    : 'search-result-table-headers.'
-                "
+                :tB="getTBForModel(selectedCollection)"
               ></GenericResultsTable>
             </template>
           </ais-hits>

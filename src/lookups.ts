@@ -5,7 +5,7 @@ import PersonFilter from './components/search-components/filters/PersonFilter.vu
 import InstitutionMeta from '@/components/entity-components/entity-meta/InstitutionMeta.vue';
 import GenericRelationsFilters from '@/components/search-components/filters/GenericRelationsFilters.vue';
 import GenericEntityFilters from './components/search-components/filters/GenericEntityFilters.vue';
-
+import ReferenceFilter from '@/components/search-components/filters/ReferenceFilter.vue';
 
 // TODO: needs cleanup and refactor, quite outdated currently.
 
@@ -51,6 +51,14 @@ const Relation = {
 };
 
 const collectionsLookup = {
+  Reference: {
+    components: {
+      filter: ReferenceFilter, // ReferenceFilter,
+      meta: null, //ReferenceMeta,
+    },
+    headers: ['folio', 'title', 'shortTitle', 'kind'],
+    searchParams: 'title, shortTitle, kind, folio',
+  },
   Person: {
     components: {
       filter: PersonFilter,

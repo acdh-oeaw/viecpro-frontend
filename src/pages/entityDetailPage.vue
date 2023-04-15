@@ -13,6 +13,7 @@ import useConstructDocIDFromParams from '@/composables/utils/useConstructDocIDFr
 // component imports
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
 import EntityVisualisationSection from '@/components/entity-components/entity-vis/EntityVisualisationSection.vue';
+import ActionsBox from '@/components/entity-components/ActionsBox.vue';
 
 const props = defineProps({
   object_id: String,
@@ -61,13 +62,7 @@ watch(data, () => {
           ><component v-if="data.relations" :is="collection + 'Meta'" :data="data"> </component
         ></EntityMetaBase>
       </div>
-      <div
-        class="my-section bg-gray-200 rounded w-40 h-40 text-white text-center"
-        id="actions-section"
-      >
-        <!-- This section will contain download, how to cite entity, and visualisations redirect (to vis studio) as well as inline visualisation selection actions -->
-        actions
-      </div>
+      <ActionsBox></ActionsBox>
     </div>
     <div class="mx-40" id="vis-section">
       <!-- Just a dummy at the moment. Needs to be generic and adapt to entity type.  -->
@@ -75,25 +70,31 @@ watch(data, () => {
     </div>
 
     <!-- TODO: add proper :key attribs for all v-for loops here -->
-    <div class="mx-40 bg-blue-200 min-h-screen pt-4" id="tables-section">
+    <div class="mx-40 min-h-screen pt-4" id="tables-section">
       <TabGroup v-if="data.relations" :defaultIndex="0">
-        <TabList>
+        <TabList as="div" class="flex justify-center">
           <Tab
             v-for="(rels, model) in relations"
             :key="model + '_tablist'"
+            as="div"
             v-slot="{ selected }"
-            ><button :class="{ 'bg-red-400': selected }" class="rounded bg-gray-200 text-black px-4 py-2">{{ model + ' - Relations' }}</button>
+            className="{ui-selected: outline-none border-none}"
+            ><button
+              :class="{
+                'bg-primary-100 text-white border-o': selected,
+                'text-gray-400': !selected,
+              }"
+              class="border-2 mx-2 rounded text-black px-4 py-2"
+            >
+              {{ model }}
+            </button>
           </Tab>
         </TabList>
         <TabPanels>
           <!-- TODO: implement correct loading logic for all components in a reusable fashion -->
 
-          <TabPanel
-            v-for="(rels, model) in relations"
-            class="tab-panel-standard"
-            :key="model + '_rel2'"
-          >
-            <div class="flex-col">
+          <TabPanel v-for="(rels, model) in relations" class="" :key="model + '_rel2'">
+            <div class="flex-col min-w-full">
               <!-- <p v-for="rel in rels" :key="rel + '_rel_el'">{{ rel }}</p> -->
               <GenericTable
                 :headers="['object_id', 'relation_type', 'target.name', 'start', 'end']"
@@ -108,6 +109,5 @@ watch(data, () => {
 </template>
 
 <style scoped>
-
 /* This was just a test to try the scoped apply */
 </style>

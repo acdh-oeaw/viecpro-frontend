@@ -26,7 +26,7 @@ console.log('generic table called');
 </script>
 <template>
   <div v-if="props.headers.length > 0" class="bg-white p-5">
-    <table>
+    <table class="mx-auto"> 
       <tr>
         <th
           v-for="header in headers"

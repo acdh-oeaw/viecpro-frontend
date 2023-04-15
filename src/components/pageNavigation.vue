@@ -12,7 +12,7 @@ const props = defineProps({ navLinks: Array<navlinkProp> });
 
 <template>
   <nav
-    class="bg-gray-700 h-20 flex lg:flex-row filter-blur text-white flex-nowrap"
+    class="bg-primary-100 h-20 flex lg:flex-row filter-blur text-white flex-nowrap"
   >
     <div class="grow-0 px-20 justify-start items-center">
       <slot name="left">left</slot>
