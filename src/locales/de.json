@@ -19,6 +19,12 @@
     "female": "Weiblich"
   },
   "entity-detail": {
+    "relations-table-headers": {
+      "target-name": "In Beziehung zu",
+      "relation_type": "Art der Beziehung",
+      "start": "Von",
+      "end": "Bis"
+    },
     "relations": {
       "Person": {
         "PersonPlace": "Ortsbeziehungen",
