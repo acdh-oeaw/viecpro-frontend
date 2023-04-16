@@ -55,5 +55,17 @@ const props = defineProps(['headers', 'items', 'tB']);
       </tr>
     </table>
   </div>
+  <div class="flex justify-content-between"><ais-pagination /></div>
 </template>
-<style scoped></style>
+<style>
+.ais-Pagination-list {
+  @apply rounded-lg px-4 py-2 flex self-center;
+}
+.ais-Pagination-item {
+  /* @apply bg-gray-100 px-3 mx-2 text-gray-600 rounded hover:bg-primary-100 hover:text-white; */
+}
+
+.ais-Pagination-link {
+  @apply bg-gray-100 px-3  py-1 mx-2 text-gray-600 rounded hover:bg-primary-100 hover:text-white;
+}
+</style>
