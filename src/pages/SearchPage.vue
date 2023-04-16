@@ -10,16 +10,17 @@ import GenericResultsTable from '../components/search-components/results/Generic
 import usePrefixedCollection from '@/composables/usePrefixedCollection';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
 import router from '../router';
-
+import { simple } from 'instantsearch.js/es/lib/stateMappings';
 // import utils, functions, etc.
 import { ref, watch, onBeforeMount, shallowRef } from 'vue';
 import type { Ref } from 'vue';
 import { collectionsLookup } from '@/lookups.js';
-
 // import instant-search-stuff
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
+import { isSimpleIdentifier } from '@vue/compiler-core';
+import { history } from 'instantsearch.js/es/lib/routers';
 
-const props = defineProps(['collection'])
+const props = defineProps(['collection']);
 const headers = ref([]);
 console.log(collectionsLookup);
 
@@ -32,17 +33,6 @@ const filterComponent = shallowRef(null);
 
 onBeforeMount(() => {
   selectedCollection.value = props.collection;
-});
-
-// search Client logic
-
-const additionalSearchParameters = {
-  query_by: 'source.name, target.name',
-};
-let params: string;
-
-watch(selectedCollection, () => {
-  router.push(`/search/${selectedCollection.value}/`)
   console.log('selectdCollection is', selectedCollection.value);
 
   let col = collectionsLookup[selectedCollection.value]; // TODO: needs typing
@@ -59,6 +49,17 @@ watch(selectedCollection, () => {
   typesenseInstantSearchAdapter.configuration.additionalSearchParameters.highlight_full_fields =
     params;
   placeholder.value = 'duchsuchen'; // `search in ${selectedCollection.value}`;
+});
+
+// search Client logic
+
+const additionalSearchParameters = {
+  query_by: 'source.name, target.name',
+};
+let params: string;
+
+watch(selectedCollection, () => {
+  router.push(`/search/${selectedCollection.value}/`);
 });
 
 const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
@@ -103,17 +104,32 @@ function getTBForModel(model) {
 // console.log('port', import.meta.env.VITE_TYPESENSE_PORT);
 // console.log('key: ', import.meta.env.VITE_TYPESENSE_API_KEY);
 const searchClient = typesenseInstantSearchAdapter.searchClient;
+
+const routing = {
+  router: history(
+    {
+      writeDelay: 400,
+    }
+
+    /*{
+    push(url) {
+      router.push(url);
+    },
+  } **/
+  ),
+  stateMapping: simple(),
+};
 </script>
 <template>
   <div class="min-h-screen">
     <ais-instant-search
       :search-client="searchClient"
       :index-name="usePrefixedCollection(selectedCollection)"
-      routing="true"
+      :routing="routing"
     >
       <div class="min-h-20 flex py-10 place-content-center px-60">
         <div id="buttons-div " class="flex-col">
-          <div class="flex my-4  place-items-center">
+          <div class="flex my-4 place-items-center">
             <label for="select-collection-listbox" class="collection-select"> </label>
 
             <!-- TODO: Accesability: focus and keyboard navigation of opened listbox needs implementation  -->
@@ -122,7 +138,11 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
                 <ListboxButton class="" id="collection-select">
                   {{ $t(`collections.${selectedCollection}`) }}</ListboxButton
                 >
-                <ais-search-box :placeholder="placeholder" class="h-8"> </ais-search-box>
+                <ais-search-box :placeholder="placeholder" class="h-8">
+                  <template v-slot:submit-icon><div class="hidden"></div></template>
+                  <template v-slot:reset-icon><div class=""></div></template>
+
+                </ais-search-box>
               </div>
 
               <ListboxOptions
@@ -162,6 +182,24 @@ const searchClient = typesenseInstantSearchAdapter.searchClient;
 
         <div id="result-section" class="mx-auto px-10 py-10">
           <ais-configure :hits-per-page.camel="hitsPerPage" />
+          <!-- <ais-state-results>
+            <template v-slot="{ state: { query } }">
+              <ais-hits v-if="query.length > 0">
+                <template v-slot="{ items }">
+                  <GenericResultsTable
+                    :headers="headers"
+                    :items="items"
+                    :tB="getTBForModel(selectedCollection)"
+                  ></GenericResultsTable>
+                </template>
+              </ais-hits>
+
+              <div v-else>
+                Beginn Typing to see results.
+                <ais-current-refinements :excluded-attributes="[]" />
+              </div>
+            </template>
+          </ais-state-results> -->
 
           <ais-hits>
             <template v-slot="{ items }">
