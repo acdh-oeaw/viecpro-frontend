@@ -41,6 +41,13 @@ const props = defineProps(['headers', 'items', 'tB']);
             @click="useOpenDetail(item.target.model, item.target.object_id)"
           ></ais-highlight>
           <ais-highlight
+            v-else-if="header == 'related_doc.name'"
+            :hit="item"
+            :attribute="header"
+            class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
+            @click="useOpenDetail(item.related_doc.model, item.related_doc.object_id)"
+          ></ais-highlight>
+          <ais-highlight
             v-else-if="header == 'source.name'"
             :hit="item"
             :attribute="header"
