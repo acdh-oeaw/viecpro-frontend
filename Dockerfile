@@ -69,8 +69,7 @@ RUN npm install
 
 # Copy the rest of the application files to the container
 COPY . /app
-# RUN echo  >> /app/.env && echo "${APIS_API_KEY}" >> /app/.env
-# RUN echo  >> /app/.env && echo "${TYPESENSE_API_KEY}"  >> /app/.env
+
 
 
 # TODO: exclude .env file here and construct it from build env args, if they start with "VITE_" and create the .env file from there

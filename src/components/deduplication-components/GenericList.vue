@@ -10,7 +10,7 @@ import type {
   ItemType,
   deduplicationItem,
 } from "../../types/deduplication_types";
-import SelectedSingleItem from "./selectedSingleItem.vue";
+import SelectedSingleItem from "./SelectedSingleItem.vue";
 import VorfinListItem from "./VorfinListItem.vue";
 
 console.log("generic list component body parsed");
