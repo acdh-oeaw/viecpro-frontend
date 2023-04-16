@@ -33,9 +33,8 @@ const navLinks: navlinkProp[] = [
     </header>
     <main>
       <!-- router section: "pages" from src/pages are displayed in here -->
-      <transition name="fade">
-      <RouterView :key="$route.fullPath" />
-    </transition>
+      <RouterView :key="$route.path" >
+      </RouterView>
     </main>
     <footer>
       <!-- footer section with impressum, logos, etc. -->
@@ -92,7 +91,6 @@ header {
   position: sticky;
   top: 0;
 }
-
 
 .fade-enter-active,
 .fade-leave-active {
