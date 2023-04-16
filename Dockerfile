@@ -58,7 +58,7 @@ FROM node:18
 # Set the working directory to /app
 WORKDIR /app/
 
-SHELL ["/bin/bash", "-c"]
+# SHELL ["/bin/bash", "-c"]
 
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json /app
