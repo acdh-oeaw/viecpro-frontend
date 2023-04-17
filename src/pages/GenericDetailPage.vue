@@ -8,8 +8,11 @@ import useExtractHitsFromResults from '@/composables/transform-data/useExtractHi
 import useGroupArrayOfObjectsByKey from '@/composables/transform-data/useGroupArrayOfObjectsByKey';
 import useGroupRelationsByClass from '@/composables/transform-data/useGroupRelationsByClass';
 import useGroupPersonPersonRelsByLookup from '@/composables/transform-data/useGroupPersonPersonRelsByLookup';
-import GenericListSection from './detail-page-sections/GenericListSection.vue';
-import CollapsableSection from './detail-page-sections/CollapsableSection.vue';
+// import GenericListSection from './detail-page-sections/GenericListSection.vue';
+import CollapsableRelationSection from './detail-page-sections/CollapsableRelationSection.vue';
+import CollabsableLabelSection from './detail-page-sections/CollabsableLabelSection.vue';
+import CollabsableMixedSection from './detail-page-sections/CollabsableMixedSection.vue';
+
 // define props as entry point
 const props = defineProps(['model', 'object_id']);
 const collection = useGetCollectionFromModel(props.model);
@@ -75,6 +78,10 @@ watch(rawDocData, () => {
           <component :is="null"></component> Meta {{ model }} - {{ object_id }}
         </div>
         <div id="container-below-meta" class="mb-10 w-full">
+          <CollapsableRelationSection
+            header="Verwandtschaftliche Beziehungen"
+            :data="personRelData['Verwandtschaftliche Beziehung']"
+          ></CollapsableRelationSection>
           <component :is="null"></component>
         </div>
       </div>
@@ -82,14 +89,24 @@ watch(rawDocData, () => {
         <div id="container-relations" class="mb-10 w-full bg-red-100">
           <h1>Beziehungen zum Wiener Hof</h1>
           <!-- <h2>Funktionen am Hof</h2> -->
-          <CollapsableSection header="Funktionen am Hof" :data="relData.PersonInstitution" :is-collapsed="true"></CollapsableSection>
+          <CollapsableRelationSection
+            header="Funktionen am Hof"
+            :data="relData.PersonInstitution"
+            :is-collapsed="true"
+          ></CollapsableRelationSection>
           <!-- <GenericListSection :data="relData.PersonInstitution"></GenericListSection> -->
-          <CollapsableSection header="Personenbeziehungen am Hof" :data="personRelData['Berufliche Beziehung']" :is-collapsed="false"></CollapsableSection>
+          <CollapsableRelationSection
+            header="Personenbeziehungen am Hof"
+            :data="personRelData['Berufliche Beziehung']"
+            :is-collapsed="false"
+          ></CollapsableRelationSection>
 
-          <h2>Teilnahme an Hofereignissen</h2>
+          <!-- <h2>Teilnahme an Hofereignissen</h2> -->
 
           <h2>Sonstige Beziehungen am Hof</h2>
+          <CollabsableMixedSection></CollabsableMixedSection>
           <h1>Beziehungen zu Kirche und Orden</h1>
+          <CollabsableMixedSection></CollabsableMixedSection>
           <h1>Sonstige Beziehungen</h1>
           <component :is="null"></component>
         </div>

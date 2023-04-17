@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import GenericListSection from './GenericListSection.vue';
 const props = defineProps(['header', 'data', 'isCollapsed']);
+const orderedKeys = ['label', 'start_date', 'end_date'];
 </script>
 <template>
   <div class="w-full bg-green-100">
@@ -21,7 +22,13 @@ const props = defineProps(['header', 'data', 'isCollapsed']);
         </button>
       </div>
     </div>
-    <GenericListSection :data="data" :class="{ hidden: isCollapsed }"></GenericListSection>
+    <ul :class="{ hidden: isCollapsed }">
+      <li v-for="el in data" :key="el.id">
+        <!-- TODO: make this grid -->
+        <span v-for="key in orderedKeys" :key="el + '_' + key" class="mx-2"> {{ el[key] }}</span>
+      </li>
+    </ul>
+    <!-- <GenericListSection :data="data" :class="{ hidden: isCollapsed }"></GenericListSection> -->
   </div>
 </template>
 <style scoped></style>
