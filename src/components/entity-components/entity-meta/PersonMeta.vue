@@ -9,7 +9,7 @@ onMounted(() => {
   let parsedFunctions: Set<string> | Array<string> = new Set(
     props.data.relations.PersonInstitution.map((el: object) => {
       //TODO: type this object.
-      return {"name": el.relation_type, "id": "dummy id"};
+      return {"name": el.relation_type, "id": el.relation_type_id};
     })
   );
   console.log('object keys: ', Object.keys(props.data.relations));
