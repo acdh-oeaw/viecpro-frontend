@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch, onMounted } from 'vue';
 import useOpenDetail from '../../../composables/useOpenDetail.js';
+import useOpenRegister from '@/composables/redirection-utils/useOpenRegister'
 const props = defineProps(['headers', 'items', 'tB']);
 
 //const tB = props.model == "Person"? "search-result-table-headers.person" : "search-result-table-headers."
@@ -48,11 +49,25 @@ const props = defineProps(['headers', 'items', 'tB']);
             @click="useOpenDetail(item.related_doc.model, item.related_doc.object_id)"
           ></ais-highlight>
           <ais-highlight
+            v-else-if="header == 'relation_type' && item.model === 'PersonInstitution'"
+            :hit="item"
+            :attribute="header"
+            class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
+            @click="useOpenRegister('Function', item.relation_type_id)"
+          ></ais-highlight>
+          <ais-highlight
             v-else-if="header == 'source.name'"
             :hit="item"
             :attribute="header"
             class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
             @click="useOpenDetail(item.source.model, item.source.object_id)"
+          ></ais-highlight>
+          <ais-highlight
+            v-else-if="['shortTitle', 'title'].includes(header)"
+            :hit="item"
+            :attribute="header"
+            class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
+            @click="useOpenRegister('Source', item.id)"
           ></ais-highlight>
           <ais-highlight v-else :hit="item" :attribute="header" class="entity_tag"></ais-highlight>
 
