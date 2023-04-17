@@ -4,8 +4,8 @@ const labelKeys = ['label', 'start_date', 'end_date'];
 const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
 </script>
 <template>
-  <div class="w-full bg-green-100">
-    <div class="flex">
+  <div class="border-2 rounded px-10">
+    <div class="flex justify-between pr-10">
       <div>
         <h2
           class="mr-4"

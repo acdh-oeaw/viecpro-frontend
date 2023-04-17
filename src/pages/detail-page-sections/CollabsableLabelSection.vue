@@ -22,8 +22,8 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <div class="w-full bg-green-100">
-    <div class="flex">
+  <div class="border-2 rounded px-10">
+    <div class="flex justify-between pr-10">
       <h2
         class="mr-4"
         :class="{

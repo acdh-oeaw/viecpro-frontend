@@ -30,14 +30,6 @@ const dataIsReady = ref(false);
 const referencesAreReady = ref(false);
 const referencesData = ref([]);
 
-const PersonPersonKindLookup = {
-  'Berufliche Beziehung': '',
-  'Doubletten Beziehung': '',
-  'Verwandtschaftliche Beziehung': '',
-  'Kirchl. Amtsbeziehung': '',
-  'Dynastische Beziehung': '',
-};
-
 function processReferences(response) {
   console.log('REFERENCES RESPONSE', response);
   referencesAreReady.value = true;
@@ -97,18 +89,39 @@ watch(rawDocData, () => {
 // prepare data for all sub-views (name them accordingly)
 </script>
 <template>
-  <div id="container-main" class="flex-col min-h-screen">
-    <div id="container-above-split" class="w-full">Above Container</div>
-    <div id="container-split" class="p-10 xl:justify-between flex flex-col xl:flex-row">
+  <div id="container-main" class="flex-col min-h-screen mx-40">
+    <div id="container-above-split" class="w-full text-left">
+      <h2 class="text-3xl font-light pt-16 mb-2 text-gray-400">Datenblatt - {{ model }}</h2>
+
+      <h1 class="text-4xl text-primary-100 font-medium">
+        {{ metaData.fullname ? metaData.fullname : metaData.name }}
+      </h1>
+    </div>
+    <div id="container-split" class="py-10 xl:justify-between flex flex-col xl:flex-row">
       <div id="container-split-left" class="flex-col w-full xl:w-1/4 xl:mb-0 mb-10">
-        <div id="container-meta" class="mb-10 w- bg-red-100">
+        <div id="container-meta" class="mb-10">
           <div v-if="dataIsReady">
-            <component :is="null"></component> Meta {{ model }} - {{ object_id }}
+            <component :is="null"></component>
+            <div class="flex-col">
+              <h1 class="text-gray-400 font-light text-2xl text-left pb-4">Stammdaten</h1>
+              <div class="grid grid-cols-4 gap-4">
+                <label class="col-span-1" for="">Name:</label>
+                <p class="col-span-3">test1</p>
+                <label class="col-span-1" for="">Vorname:</label>
+                <p class="col-span-3">test2</p>
+                <label class="col-span-1" for="">Gender:</label>
+                <p class="col-span-3">test3</p>
+                <label for="" class="col-span-1">Titel:</label>
+                <p class="col-span-3">test4</p>
+                <label for="" class="col-span-1">Funktionen:</label>
+                <p class="col-span-3">test5</p>
+              </div>
+            </div>
           </div>
           <div v-else>Loading</div>
         </div>
         <div id="container-below-meta" class="mb-10 w-full">
-          <div v-if="dataIsReady">
+          <div v-if="dataIsReady" class="flex-col space-y-8">
             <CollapsableRelationSection
               header="Potentielle Dubletten"
               :data="personRelData['Doubletten Beziehung']"
@@ -157,9 +170,9 @@ watch(rawDocData, () => {
         </div>
       </div>
       <div id="container-split-right" class="flex-col xl:w-2/3 xl:mb-0 mb-10">
-        <div id="container-relations" class="mb-10 w-full bg-red-100">
-          <div v-if="dataIsReady">
-            <h1>Beziehungen zum Wiener Hof</h1>
+        <div id="container-relations" class="mb-10 w-full">
+          <div v-if="dataIsReady" class="flex-col space-y-10">
+            <h1 class="text-2xl font-light font-">Beziehungen zum Wiener Hof</h1>
             <!-- <h2>Funktionen am Hof</h2> -->
             <CollapsableRelationSection
               header="Funktionen am Hof"
@@ -208,8 +221,8 @@ watch(rawDocData, () => {
       </div>
     </div>
     <div id="container-below-split" class="">
-      <label for=""> docData:</label>
-      {{ referencesData }}
+      <!-- <label for=""> docData:</label>
+      {{ referencesData }} -->
     </div>
   </div>
 </template>
