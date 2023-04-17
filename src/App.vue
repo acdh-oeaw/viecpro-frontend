@@ -33,8 +33,9 @@ const navLinks: navlinkProp[] = [
     </header>
     <main>
       <!-- router section: "pages" from src/pages are displayed in here -->
-      <RouterView :key="$route.path" >
-      </RouterView>
+      <transition name="fade">
+        <RouterView :key="$route.path"> </RouterView>
+      </transition>
     </main>
     <footer>
       <!-- footer section with impressum, logos, etc. -->

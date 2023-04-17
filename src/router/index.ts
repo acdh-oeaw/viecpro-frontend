@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LandingPage from '../pages/LandingPage.vue';
 import SearchPage from '../pages/SearchPage.vue';
 import EntityDetailPage from '@/pages/EntityDetailPage.vue';
-import DeduplicationPage from '@/pages/DeduplicationPage.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
