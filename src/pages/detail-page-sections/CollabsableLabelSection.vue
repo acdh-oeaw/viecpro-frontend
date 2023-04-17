@@ -54,11 +54,13 @@ onBeforeMount(() => {
     <!-- TODO: implement check against certain labels that are displayed in one span, not as list (alt names!) -->
     <!-- CHECK could be: for those, I add the label_type in the parsed Labels and if this appears, make label_type a label element and list values after it. -->
     <div v-if="isReady" class="flex-col" :class="{ hidden: isCollapsed }">
-      <div v-for="(values, key) in groupedLabels" :key="key" class="pb-2 flex items-center">
+      <div v-for="(values, key) in groupedLabels" :key="key" class="pb-2 flex">
         <label> {{ key }}: </label>
-        <span v-for="val in values" :key="val" class="mx-2 rounded bg-gray-200 px-2 py-1">
-          {{ val.name }}</span
-        >
+        <div class="flex flex-wrap pb-2 items-center justify-start">
+          <span v-for="val in values" :key="val" class="mx-2 my-2 rounded bg-gray-200 px-2 py-1">
+            {{ val.name }}</span
+          >
+        </div>
       </div>
     </div>
     <ul v-else :class="{ hidden: isCollapsed }">

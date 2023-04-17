@@ -13,7 +13,7 @@ import useGroupLabels from '@/composables/transform-data/useGroupLabels';
 import CollapsableRelationSection from './detail-page-sections/CollapsableRelationSection.vue';
 import CollabsableLabelSection from './detail-page-sections/CollabsableLabelSection.vue';
 import CollabsableMixedSection from './detail-page-sections/CollabsableMixedSection.vue';
-import GenericCollabsabelSection from './detail-page-sections/GenericCollabsableSection.vue';
+import GenericCollapsableSection from './detail-page-sections/GenericCollapsableSection.vue';
 
 // define props as entry point
 const props = defineProps(['model', 'object_id']);
@@ -27,6 +27,8 @@ const relData = ref({});
 const personRelData = ref({});
 const labelData = ref({});
 const dataIsReady = ref(false);
+const referencesAreReady = ref(false);
+const referencesData = ref([]);
 
 const PersonPersonKindLookup = {
   'Berufliche Beziehung': '',
@@ -35,6 +37,12 @@ const PersonPersonKindLookup = {
   'Kirchl. Amtsbeziehung': '',
   'Dynastische Beziehung': '',
 };
+
+function processReferences(response) {
+  console.log('REFERENCES RESPONSE', response);
+  referencesAreReady.value = true;
+  referencesData.value = useExtractHitsFromResults(response);
+}
 onBeforeMount(() => {
   useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
     rawDocData.value = response;
@@ -66,6 +74,8 @@ function processRawData(response) {
   metaData.value = constructedMeta;
   console.log('METADATA', metaData.value);
   relData.value = groupedRelations;
+
+  // TODO: this should be unneccessary now!
   personRelData.value = groupedRelations.PersonPerson
     ? useGroupPersonPersonRelsByLookup(groupedRelations.PersonPerson)
     : {};
@@ -82,6 +92,7 @@ watch(rawDocData, () => {
     processRawData,
     { filter_by: '', sort_by: '', per_page: 250, num_typos: 0 }
   );
+  useTypesenseAsyncQuery('Reference', props.object_id, 'related_doc.object_id', processReferences);
 });
 // prepare data for all sub-views (name them accordingly)
 </script>
@@ -98,11 +109,6 @@ watch(rawDocData, () => {
         </div>
         <div id="container-below-meta" class="mb-10 w-full">
           <div v-if="dataIsReady">
-            <GenericCollabsabelSection
-              header="Download und Zitierweise"
-              :data="['test']"
-              :is-collapsed="false"
-            ></GenericCollabsabelSection>
             <CollapsableRelationSection
               header="Potentielle Dubletten"
               :data="personRelData['Doubletten Beziehung']"
@@ -122,6 +128,16 @@ watch(rawDocData, () => {
               :data="labelData.title_academic"
               :is-collapsed="false"
             ></CollabsableLabelSection>
+            <GenericCollapsableSection
+              header="Download und Zitierweise"
+              :data="['test']"
+              :is-collapsed="false"
+            ></GenericCollapsableSection>
+            <GenericCollapsableSection header="Quellenbelege" :data="referencesData">
+              <template v-slot:collapsable-content>
+                <p>Test</p>
+              </template>
+            </GenericCollapsableSection>
             <component :is="null"></component>
           </div>
           <div v-else>Loading</div>
@@ -180,7 +196,7 @@ watch(rawDocData, () => {
     </div>
     <div id="container-below-split" class="">
       <label for=""> docData:</label>
-      {{ rawDocData }}
+      {{ referencesData }}
     </div>
   </div>
 </template>
