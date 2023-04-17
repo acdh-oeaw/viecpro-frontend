@@ -35,7 +35,7 @@ watch(data, () => {
   // TODO: this is a hack atm, settings value below should re-trigger the watcher... improve this.
   function process_results(response) {
     const docs = useExtractHitsFromResults(response);
-    const transformedRelations = useGroupRelationsByClass(docs, data.value.name);
+    const transformedRelations = useGroupRelationsByClass(docs, data.value.fullname ? data.value.fullname : data.value.name);
     labels.value = useGroupArrayOfObjectsByKey(data.value.labels, 'label_type');
     // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
 
