@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch } from 'vue';
+import { ref, onBeforeMount, watch, unref } from 'vue';
 import useConstructDocIDFromParams from '@/composables/utils/useConstructDocIDFromParams';
 import useTypesenseAsyncRetrieval from '@/composables/useTypesenseAsyncRetrieval';
 import useGetCollectionFromModel from '@/composables/utils/useGetCollectionFromModel';
@@ -43,6 +43,7 @@ onBeforeMount(() => {
 function processRawData(response) {
   const docs = useExtractHitsFromResults(response);
   console.log('DOCS', docs);
+  const constructedMeta = { ...rawDocData.value };
   const groupedRelations = useGroupRelationsByClass(
     docs,
     rawDocData.value.fullname ? rawDocData.value.fullname : rawDocData.value.name
@@ -52,13 +53,17 @@ function processRawData(response) {
   labelData.value = useGroupLabels(rawDocData.value.labels);
   console.log('PARSED LABELS', labelData.value);
   console.log('LABELS', rawLabelData.value);
+  constructedMeta.religion = labelData.value.religion;
 
-  if ('Konfession' in rawLabelData.value) {
-    metaData.value['konfession'] = rawLabelData.value['Konfession'];
-  }
+  // is read from labelData !
+  //   if ('Konfession' in rawLabelData.value) {
+  //     metaData.value['konfession'] = rawLabelData.value['Konfession'][0];
+  //   }
   rawDocData.value['grouped_labels'] = rawLabelData.value;
   //rawDocData.value['relations'] = transformedRelations;
 
+  metaData.value = constructedMeta;
+  console.log('METADATA', metaData.value);
   relData.value = groupedRelations;
   personRelData.value = groupedRelations.PersonPerson
     ? useGroupPersonPersonRelsByLookup(groupedRelations.PersonPerson)
@@ -92,6 +97,11 @@ watch(rawDocData, () => {
         </div>
         <div id="container-below-meta" class="mb-10 w-full">
           <div v-if="dataIsReady">
+          <CollapsableRelationSection header="Potentielle Dubletten" :data="personRelData['Doubletten Beziehung']" :is-collapsed="true"></CollapsableRelationSection>
+            <CollabsableLabelSection
+              header="Alternative Namenschreibweisen"
+              :data="labelData.alt_names"
+            ></CollabsableLabelSection>
             <CollapsableRelationSection
               header="Verwandtschaftliche Beziehungen"
               :data="personRelData['Verwandtschaftliche Beziehung']"

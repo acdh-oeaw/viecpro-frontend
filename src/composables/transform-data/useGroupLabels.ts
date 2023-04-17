@@ -22,7 +22,13 @@ export default function useGroupLabels(labels: object[]) {
     const lt = l.label_type;
 
     if (check(lt, 'name')) {
-      res.alt_names.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
+      console.log('NAMECHECK WAS TRUE');
+      res.alt_names.push({
+        label_type: lt,
+        name: l.name,
+        start_date: l.start_date,
+        end_date: l.end_date,
+      });
     } else if (check(lt, 'Konfession')) {
       res.religion = l.name;
     } else if (check(lt, 'Adelstitel')) {
@@ -40,11 +46,11 @@ export default function useGroupLabels(labels: object[]) {
     }
   });
 
-//   for (const [key, val] of Object.keys(res)) {
-//     if (!val.length) {
-//       res[key] = null;
-//     }
-//   }
+  //   for (const [key, val] of Object.keys(res)) {
+  //     if (!val.length) {
+  //       res[key] = null;
+  //     }
+  //   }
 
   return res;
 }

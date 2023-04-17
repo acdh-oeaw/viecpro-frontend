@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import GenericListSection from './GenericListSection.vue';
 const props = defineProps(['header', 'relationData', 'labelData', 'isCollapsed']);
 const labelKeys = ['label', 'start_date', 'end_date'];
 const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
