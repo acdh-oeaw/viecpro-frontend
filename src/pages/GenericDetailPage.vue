@@ -8,6 +8,7 @@ import useExtractHitsFromResults from '@/composables/transform-data/useExtractHi
 import useGroupArrayOfObjectsByKey from '@/composables/transform-data/useGroupArrayOfObjectsByKey';
 import useGroupRelationsByClass from '@/composables/transform-data/useGroupRelationsByClass';
 import useGroupPersonPersonRelsByLookup from '@/composables/transform-data/useGroupPersonPersonRelsByLookup';
+import useGroupLabels from '@/composables/transform-data/useGroupLabels';
 // import GenericListSection from './detail-page-sections/GenericListSection.vue';
 import CollapsableRelationSection from './detail-page-sections/CollapsableRelationSection.vue';
 import CollabsableLabelSection from './detail-page-sections/CollabsableLabelSection.vue';
@@ -23,6 +24,7 @@ const rawLabelData = ref({});
 const metaData = ref({});
 const relData = ref({});
 const personRelData = ref({});
+const labelData = ref({});
 
 const PersonPersonKindLookup = {
   'Berufliche Beziehung': '',
@@ -45,8 +47,10 @@ function processRawData(response) {
   );
   rawLabelData.value = useGroupArrayOfObjectsByKey(rawDocData.value.labels, 'label_type');
   // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
-
+  labelData.value = useGroupLabels(rawDocData.value.labels);
+  console.log('PARSED LABELS', labelData.value);
   console.log('LABELS', rawLabelData.value);
+
   if ('Konfession' in rawLabelData.value) {
     metaData.value['konfession'] = rawLabelData.value['Konfession'];
   }
