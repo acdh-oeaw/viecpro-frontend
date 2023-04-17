@@ -30,6 +30,8 @@ export default function useGroupLabels(labels: object[]) {
       res.married_name.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
     } else if (check(lt, 'Nachname verheiratet (1. Ehe')) {
       res.first_marriage = l.name;
+    } else if (check(lt, 'Sonstiger Hofbezug')) {
+      res.court_other.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
     }
   });
 

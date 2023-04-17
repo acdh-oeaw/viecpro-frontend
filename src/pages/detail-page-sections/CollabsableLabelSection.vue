@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import GenericListSection from './GenericListSection.vue';
 const props = defineProps(['header', 'data', 'isCollapsed']);
-const orderedKeys = ['label', 'start_date', 'end_date'];
+const orderedKeys = ['name', 'start_date', 'end_date'];
 </script>
 <template>
   <div class="w-full bg-green-100">

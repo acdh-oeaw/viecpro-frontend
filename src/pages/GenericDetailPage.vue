@@ -107,10 +107,13 @@ watch(rawDocData, () => {
 
           <!-- <h2>Teilnahme an Hofereignissen</h2> -->
 
-          <h2>Sonstige Beziehungen am Hof</h2>
-          <CollabsableMixedSection></CollabsableMixedSection>
-          <h1>Beziehungen zu Kirche und Orden</h1>
-          <CollabsableMixedSection></CollabsableMixedSection>
+          <CollabsableLabelSection
+            header="Sonstige Beziehungen am Hof"
+            :data="labelData.court_other"
+          ></CollabsableLabelSection>
+          <CollabsableMixedSection
+            header="Beziehungen zu Kirche und Orden"
+          ></CollabsableMixedSection>
           <h1>Sonstige Beziehungen</h1>
           <component :is="null"></component>
         </div>
