@@ -13,6 +13,7 @@ import useGroupLabels from '@/composables/transform-data/useGroupLabels';
 import CollapsableRelationSection from './detail-page-sections/CollapsableRelationSection.vue';
 import CollabsableLabelSection from './detail-page-sections/CollabsableLabelSection.vue';
 import CollabsableMixedSection from './detail-page-sections/CollabsableMixedSection.vue';
+import GenericCollabsabelSection from './detail-page-sections/GenericCollabsableSection.vue';
 
 // define props as entry point
 const props = defineProps(['model', 'object_id']);
@@ -97,7 +98,16 @@ watch(rawDocData, () => {
         </div>
         <div id="container-below-meta" class="mb-10 w-full">
           <div v-if="dataIsReady">
-          <CollapsableRelationSection header="Potentielle Dubletten" :data="personRelData['Doubletten Beziehung']" :is-collapsed="true"></CollapsableRelationSection>
+            <GenericCollabsabelSection
+              header="Download und Zitierweise"
+              :data="['test']"
+              :is-collapsed="false"
+            ></GenericCollabsabelSection>
+            <CollapsableRelationSection
+              header="Potentielle Dubletten"
+              :data="personRelData['Doubletten Beziehung']"
+              :is-collapsed="true"
+            ></CollapsableRelationSection>
             <CollabsableLabelSection
               header="Alternative Namenschreibweisen"
               :data="labelData.alt_names"
