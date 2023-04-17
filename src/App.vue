@@ -20,14 +20,14 @@ const navLinks: navlinkProp[] = [
       <!-- main top navbar -->
       <PageNavigation :nav-links="navLinks">
         <template v-slot:left>
-          <div class="flex grow lg:place-content-start place-content-center">
-            <img
-              class="h-20 hover:cursor-pointer"
-              src="./assets/logos/logo_white.png"
-              alt="Logo of the viecpro-project, containing the sillouette of a male face within the letter c."
-              @click="$router.push('/')"
-            />
-          </div>
+          <!-- <div class="flex grow-0 max-w-1/3 md:place-content-start place-content-center"> -->
+          <img
+            class="h-20 hover:cursor-pointer mx-auto md:mx-0"
+            src="./assets/logos/logo_white.png"
+            alt="Logo of the viecpro-project, containing the sillouette of a male face within the letter c."
+            @click="$router.push('/')"
+          />
+          <!-- </div> -->
         </template>
       </PageNavigation>
     </header>
