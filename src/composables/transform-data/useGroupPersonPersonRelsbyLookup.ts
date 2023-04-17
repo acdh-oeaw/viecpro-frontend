@@ -1,11 +1,10 @@
-import  {personRelationLookup as lookup} from "../../lookups";
+import { personRelationLookup as lookup } from '../../lookups';
 
 export default function useGroupPersonPersonRelsByLookup(relData: object[]) {
-
-
   console.log(relData);
 
-  const res = { other: [] };
+  //const res = { other: [] };
+  const res = {};
   let controlCounter = 0;
   relData.forEach((rel) => {
     for (const key of lookup) {
@@ -13,22 +12,22 @@ export default function useGroupPersonPersonRelsByLookup(relData: object[]) {
         console.log('is included', key);
         if (Object.keys(res).includes(key)) {
           res[key].push(rel);
-          controlCounter +=1
+          controlCounter += 1;
         } else {
           res[key] = [rel];
-          controlCounter +=1
+          controlCounter += 1;
         }
       } else {
-        console.log("not included", key, rel)
+        console.log('not included', key, rel);
         //res.other.push(rel);
       }
     }
   });
 
-  if (controlCounter != relData.length){
-    console.log("Counter WRONG");
+  if (controlCounter != relData.length) {
+    console.log('Counter WRONG');
   } else {
-    console.log("COUNTER MATCHES")
+    console.log('COUNTER MATCHES');
   }
 
   return res;

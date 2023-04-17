@@ -8,7 +8,8 @@ import useExtractHitsFromResults from '@/composables/transform-data/useExtractHi
 import useGroupArrayOfObjectsByKey from '@/composables/transform-data/useGroupArrayOfObjectsByKey';
 import useGroupRelationsByClass from '@/composables/transform-data/useGroupRelationsByClass';
 import useGroupPersonPersonRelsByLookup from '@/composables/transform-data/useGroupPersonPersonRelsByLookup';
-
+import GenericListSection from './detail-page-sections/GenericListSection.vue';
+import CollapsableSection from './detail-page-sections/CollapsableSection.vue';
 // define props as entry point
 const props = defineProps(['model', 'object_id']);
 const collection = useGetCollectionFromModel(props.model);
@@ -18,7 +19,7 @@ const rawDocData = ref({});
 const rawLabelData = ref({});
 const metaData = ref({});
 const relData = ref({});
-const sortedPPRels = ref({});
+const personRelData = ref({});
 
 const PersonPersonKindLookup = {
   'Berufliche Beziehung': '',
@@ -34,6 +35,7 @@ useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
 
 function processRawData(response) {
   const docs = useExtractHitsFromResults(response);
+  console.log('DOCS', docs);
   const groupedRelations = useGroupRelationsByClass(
     docs,
     rawDocData.value.fullname ? rawDocData.value.fullname : rawDocData.value.name
@@ -49,7 +51,7 @@ function processRawData(response) {
   //rawDocData.value['relations'] = transformedRelations;
 
   relData.value = groupedRelations;
-  sortedPPRels.value = useGroupPersonPersonRelsByLookup(groupedRelations.PersonPerson);
+  personRelData.value = useGroupPersonPersonRelsByLookup(groupedRelations.PersonPerson);
 }
 
 // fetch additional data
@@ -58,8 +60,8 @@ watch(rawDocData, () => {
     'Relations',
     props.object_id,
     'source.object_id, target.object_id',
-    processRawData
-    // { filter_by: '', sort_by: '', per_page: 200, num_typos: 0 },
+    processRawData,
+    { filter_by: '', sort_by: '', per_page: 250, num_typos: 0 }
   );
 });
 // prepare data for all sub-views (name them accordingly)
@@ -78,10 +80,21 @@ watch(rawDocData, () => {
       </div>
       <div id="container-split-right" class="flex-col xl:w-2/3 xl:mb-0 mb-10">
         <div id="container-relations" class="mb-10 w-full bg-red-100">
-          <component :is="null"></component> relations {{ relData }}
+          <h1>Beziehungen zum Wiener Hof</h1>
+          <!-- <h2>Funktionen am Hof</h2> -->
+          <CollapsableSection header="Funktionen am Hof" :data="relData.PersonInstitution" :is-collapsed="true"></CollapsableSection>
+          <!-- <GenericListSection :data="relData.PersonInstitution"></GenericListSection> -->
+          <CollapsableSection header="Personenbeziehungen am Hof" :data="personRelData['Berufliche Beziehung']" :is-collapsed="false"></CollapsableSection>
+
+          <h2>Teilnahme an Hofereignissen</h2>
+
+          <h2>Sonstige Beziehungen am Hof</h2>
+          <h1>Beziehungen zu Kirche und Orden</h1>
+          <h1>Sonstige Beziehungen</h1>
+          <component :is="null"></component>
         </div>
         <div id="container-below-relations" class="mb-10">
-          <template v-for="(val, key) in sortedPPRels" :key="key">
+          <template v-for="(val, key) in personRelData" :key="key">
             <h1 class="mt-2">{{ key }}</h1>
             <ul>
               <li v-for="v in val" :key="v.id" class="py-2">
