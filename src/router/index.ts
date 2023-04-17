@@ -22,11 +22,11 @@ const router = createRouter({
       component: () => import('../pages/AboutPage.vue'),
     },
     { path: '/search/:collection/', name: 'db-search', component: SearchPage, props: true },
-    {
-      path: '/detail/:model/:object_id/',
-      component: EntityDetailPage,
-      props: true,
-    },
+    // {
+    //   path: '/detail/:model/:object_id/',
+    //   component: EntityDetailPage,
+    //   props: true,
+    // },
     {
       path: '/register/source/:object_id/',
       component: DetailPageSource,
@@ -38,7 +38,7 @@ const router = createRouter({
       props: true,
     },
     {
-      path: '/newdetail/',
+      path: '/detail/:model/:object_id/',
       component: GenericDetailPage,
       props: true,
     },
