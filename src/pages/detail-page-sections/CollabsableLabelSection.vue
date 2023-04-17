@@ -8,8 +8,8 @@ const orderedKeys = ['name', 'start_date', 'end_date'];
       <h2
         class="mr-4"
         :class="{
-          'text-gray-300 cursor-not-allowed': !data,
-          'hover:cursor-pointer': data,
+          'text-gray-300 cursor-not-allowed': !data.length,
+          'hover:cursor-pointer': data.length,
         }"
         @click="
           () => {
@@ -21,7 +21,7 @@ const orderedKeys = ['name', 'start_date', 'end_date'];
       </h2>
       <div>
         <button
-          v-if="data"
+          v-if="data.length"
           @click="
             () => {
               isCollapsed = !isCollapsed;

@@ -40,11 +40,11 @@ export default function useGroupLabels(labels: object[]) {
     }
   });
 
-  for (const [key, val] of Object.keys(res)) {
-    if (!val.length) {
-      res[key] = null;
-    }
-  }
+//   for (const [key, val] of Object.keys(res)) {
+//     if (!val.length) {
+//       res[key] = null;
+//     }
+//   }
 
   return res;
 }

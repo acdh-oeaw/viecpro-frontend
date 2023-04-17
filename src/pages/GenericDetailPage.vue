@@ -64,8 +64,7 @@ function processRawData(response) {
     ? useGroupPersonPersonRelsByLookup(groupedRelations.PersonPerson)
     : {};
 
-    dataIsReady.value = true;
-
+  dataIsReady.value = true;
 }
 
 // fetch additional data
