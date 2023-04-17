@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import GenericListSection from './GenericListSection.vue';
-const props = defineProps(['header', 'relations', 'labels', 'isCollapsed']);
+const props = defineProps(['header', 'relationData', 'labelData', 'isCollapsed']);
 const labelKeys = ['label', 'start_date', 'end_date'];
 const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
 </script>
@@ -10,7 +10,7 @@ const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
       <div>
         <h2
           class="mr-4"
-          :class="{ 'text-gray-300 cursor-not-allowed': !labelData || !relationData }"
+          :class="{ 'text-gray-300 cursor-not-allowed': !labelData.length || !relationData.length }"
           @click="
             () => {
               isCollapsed = !isCollapsed;
@@ -22,7 +22,7 @@ const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
       </div>
       <div>
         <button
-          v-if="labelData || relationData"
+          v-if="labelData.length || relationData.length"
           @click="
             () => {
               isCollapsed = !isCollapsed;
@@ -35,14 +35,14 @@ const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
     </div>
     <div :class="{ hidden: isCollapsed }">
       <ul>
-        <li v-for="el in relations" :key="el.id">
+        <li v-for="el in relationData" :key="el.id">
           <!-- TODO: make this grid -->
           <span v-for="key in relationKeys" :key="el + '_' + key" class="mx-2"> {{ el[key] }}</span>
         </li>
       </ul>
 
       <ul>
-        <li v-for="el in labels" :key="el.id">
+        <li v-for="el in labelData" :key="el.id">
           <!-- TODO: make this grid -->
           <span v-for="key in labelKeys" :key="el + '_' + key" class="mx-2"> {{ el[key] }}</span>
         </li>

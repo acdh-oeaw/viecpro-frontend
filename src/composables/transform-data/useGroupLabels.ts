@@ -13,6 +13,7 @@ export default function useGroupLabels(labels: object[]) {
     religion: null, //TODO: at the moment, a person in viecpro can only have one religion; might need adjustement later (make array and include start and end dates)
     title_academic: [],
     title_honor: [],
+    other_jobs: [],
   };
 
   const check = (lt, check_val) => lt.includes(check_val);
@@ -32,8 +33,18 @@ export default function useGroupLabels(labels: object[]) {
       res.first_marriage = l.name;
     } else if (check(lt, 'Sonstiger Hofbezug')) {
       res.court_other.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
+    } else if (check(lt, 'Akade')) {
+      res.title_academic.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
+    } else if (check(lt, 'Funktion, Amtsinhabe und Beruf')) {
+      res.other_jobs.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
     }
   });
+
+  for (const [key, val] of Object.keys(res)) {
+    if (!val.length) {
+      res[key] = null;
+    }
+  }
 
   return res;
 }

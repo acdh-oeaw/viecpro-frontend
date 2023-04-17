@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import GenericListSection from './GenericListSection.vue';
 const props = defineProps(['header', 'data', 'isCollapsed']);
 const orderedKeys = ['name', 'start_date', 'end_date'];
 </script>
@@ -8,7 +7,10 @@ const orderedKeys = ['name', 'start_date', 'end_date'];
     <div class="flex">
       <h2
         class="mr-4"
-        :class="{ 'text-gray-300 cursor-not-allowed': !data, 'hover:cursor-pointer': data }"
+        :class="{
+          'text-gray-300 cursor-not-allowed': !data,
+          'hover:cursor-pointer': data,
+        }"
         @click="
           () => {
             isCollapsed = !isCollapsed;
@@ -36,7 +38,6 @@ const orderedKeys = ['name', 'start_date', 'end_date'];
         <span v-for="key in orderedKeys" :key="el + '_' + key" class="mx-2"> {{ el[key] }}</span>
       </li>
     </ul>
-    <!-- <GenericListSection :data="data" :class="{ hidden: isCollapsed }"></GenericListSection> -->
   </div>
 </template>
 <style scoped></style>

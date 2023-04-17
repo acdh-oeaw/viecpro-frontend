@@ -25,6 +25,7 @@ const metaData = ref({});
 const relData = ref({});
 const personRelData = ref({});
 const labelData = ref({});
+const dataIsReady = ref(false);
 
 const PersonPersonKindLookup = {
   'Berufliche Beziehung': '',
@@ -33,9 +34,10 @@ const PersonPersonKindLookup = {
   'Kirchl. Amtsbeziehung': '',
   'Dynastische Beziehung': '',
 };
-
-useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
-  rawDocData.value = response;
+onBeforeMount(() => {
+  useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
+    rawDocData.value = response;
+  });
 });
 
 function processRawData(response) {
@@ -58,7 +60,12 @@ function processRawData(response) {
   //rawDocData.value['relations'] = transformedRelations;
 
   relData.value = groupedRelations;
-  personRelData.value = useGroupPersonPersonRelsByLookup(groupedRelations.PersonPerson);
+  personRelData.value = groupedRelations.PersonPerson
+    ? useGroupPersonPersonRelsByLookup(groupedRelations.PersonPerson)
+    : {};
+
+    dataIsReady.value = true;
+
 }
 
 // fetch additional data
@@ -79,43 +86,66 @@ watch(rawDocData, () => {
     <div id="container-split" class="p-10 xl:justify-between flex flex-col xl:flex-row">
       <div id="container-split-left" class="flex-col w-full xl:w-1/4 xl:mb-0 mb-10">
         <div id="container-meta" class="mb-10 w- bg-red-100">
-          <component :is="null"></component> Meta {{ model }} - {{ object_id }}
+          <div v-if="dataIsReady">
+            <component :is="null"></component> Meta {{ model }} - {{ object_id }}
+          </div>
+          <div v-else>Loading</div>
         </div>
         <div id="container-below-meta" class="mb-10 w-full">
-          <CollapsableRelationSection
-            header="Verwandtschaftliche Beziehungen"
-            :data="personRelData['Verwandtschaftliche Beziehung']"
-          ></CollapsableRelationSection>
-          <component :is="null"></component>
+          <div v-if="dataIsReady">
+            <CollapsableRelationSection
+              header="Verwandtschaftliche Beziehungen"
+              :data="personRelData['Verwandtschaftliche Beziehung']"
+              :is-collapsed="false"
+            ></CollapsableRelationSection>
+            <CollabsableLabelSection
+              header="Akademische Titel"
+              :data="labelData.title_academic"
+              :is-collapsed="false"
+            ></CollabsableLabelSection>
+            <component :is="null"></component>
+          </div>
+          <div v-else>Loading</div>
         </div>
       </div>
       <div id="container-split-right" class="flex-col xl:w-2/3 xl:mb-0 mb-10">
         <div id="container-relations" class="mb-10 w-full bg-red-100">
-          <h1>Beziehungen zum Wiener Hof</h1>
-          <!-- <h2>Funktionen am Hof</h2> -->
-          <CollapsableRelationSection
-            header="Funktionen am Hof"
-            :data="relData.PersonInstitution"
-            :is-collapsed="true"
-          ></CollapsableRelationSection>
-          <!-- <GenericListSection :data="relData.PersonInstitution"></GenericListSection> -->
-          <CollapsableRelationSection
-            header="Personenbeziehungen am Hof"
-            :data="personRelData['Berufliche Beziehung']"
-            :is-collapsed="false"
-          ></CollapsableRelationSection>
+          <div v-if="dataIsReady">
+            <h1>Beziehungen zum Wiener Hof</h1>
+            <!-- <h2>Funktionen am Hof</h2> -->
+            <CollapsableRelationSection
+              header="Funktionen am Hof"
+              :data="relData.PersonInstitution"
+              :is-collapsed="true"
+            ></CollapsableRelationSection>
+            <!-- <GenericListSection :data="relData.PersonInstitution"></GenericListSection> -->
+            <CollapsableRelationSection
+              header="Personenbeziehungen am Hof"
+              :data="personRelData['Berufliche Beziehung']"
+              :is-collapsed="false"
+            ></CollapsableRelationSection>
 
-          <!-- <h2>Teilnahme an Hofereignissen</h2> -->
+            <!-- <h2>Teilnahme an Hofereignissen</h2> -->
 
-          <CollabsableLabelSection
-            header="Sonstige Beziehungen am Hof"
-            :data="labelData.court_other"
-          ></CollabsableLabelSection>
-          <CollabsableMixedSection
-            header="Beziehungen zu Kirche und Orden"
-          ></CollabsableMixedSection>
-          <h1>Sonstige Beziehungen</h1>
-          <component :is="null"></component>
+            <CollabsableLabelSection
+              header="Sonstige Beziehungen am Hof"
+              :data="labelData.court_other"
+            ></CollabsableLabelSection>
+            <CollabsableMixedSection
+              header="Beziehungen zu Kirche und Orden"
+              :relationData="
+                relData['Kirchl. Amtsbeziehung'] ? relData['Kirchl. Amtsbeziehung'] : []
+              "
+              :labelData="labelData.church_and_o"
+            ></CollabsableMixedSection>
+            <CollabsableMixedSection
+              header="Sonstige Beziehungen und Tätigkeiten"
+              :relationData="[]"
+              :labelData="labelData.other_jobs"
+            ></CollabsableMixedSection>
+            <component :is="null"></component>
+          </div>
+          <div v-else>Loading</div>
         </div>
         <div id="container-below-relations" class="mb-10">
           <template v-for="(val, key) in personRelData" :key="key">
