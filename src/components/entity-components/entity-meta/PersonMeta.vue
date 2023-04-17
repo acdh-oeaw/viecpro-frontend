@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import useOpenRegister from '@/composables/redirection-utils/useOpenRegister';
 const props = defineProps(['data']);
 const functions = ref(new Set<string>());
 
@@ -8,7 +9,7 @@ onMounted(() => {
   let parsedFunctions: Set<string> | Array<string> = new Set(
     props.data.relations.PersonInstitution.map((el: object) => {
       //TODO: type this object.
-      return el.relation_type;
+      return {"name": el.relation_type, "id": "dummy id"};
     })
   );
   console.log('object keys: ', Object.keys(props.data.relations));
@@ -47,8 +48,9 @@ onMounted(() => {
       <span
         v-for="func in functions"
         class="block mr-2 my-1 bg-gray-200 px-4 py-2 rounded text-gray-500 text-xs hover:bg-gray-300 hover:text-gray-700 hover:cursor-pointer"
-        :key="func"
-        >{{ func }}</span
+        :key="func.name"
+        @click="useOpenRegister('Function', func.id)"
+        >{{ func.name }}</span
       >
     </div>
   </div>
