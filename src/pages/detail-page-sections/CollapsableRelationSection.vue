@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import useOpenDetail from '@/composables/useOpenDetail';
 const props = defineProps(['header', 'data', 'isCollapsed']);
 const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
 </script>
@@ -35,7 +36,13 @@ const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
       <li v-for="el in data" :key="el.id">
         <template v-for="key in orderedKeys" :key="el + '_' + key">
           <!-- TODO: make this grid -->
-          <span v-if="key === 'target.name'" class="mx-2"> {{ el['target']['name'] }}</span>
+          <span
+            v-if="key === 'target.name'"
+            class="mx-2 hover:cursor-pointer"
+            @click="useOpenDetail(el.target.model, el.target.object_id)"
+          >
+            {{ el['target']['name'] }}</span
+          >
           <span v-else class="mx-2"> {{ el[key] }}</span>
         </template>
       </li>

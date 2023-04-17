@@ -135,7 +135,20 @@ watch(rawDocData, () => {
             ></GenericCollapsableSection>
             <GenericCollapsableSection header="Quellenbelege" :data="referencesData">
               <template v-slot:collapsable-content>
-                <p>Test</p>
+                <ul>
+                  <template v-for="el in referencesData" :key="el.id">
+                    <li
+                      v-if="el.folio.includes('https://')"
+                      class="flex flex-wrap items-center justify-start"
+                    >
+                      <span class="mr-4">{{ el.shortTitle }}: </span>
+                      <a :href="el.folio" class="rounded px-2 py-1 text-white bg-gray-300">
+                        {{ '-> Eintrag' }}
+                      </a>
+                    </li>
+                    <li v-else>{{ el.shortTitle }}, {{ el.folio }}.</li>
+                  </template>
+                </ul>
               </template>
             </GenericCollapsableSection>
             <component :is="null"></component>
@@ -151,7 +164,7 @@ watch(rawDocData, () => {
             <CollapsableRelationSection
               header="Funktionen am Hof"
               :data="relData.PersonInstitution"
-              :is-collapsed="true"
+              :is-collapsed="false"
             ></CollapsableRelationSection>
             <!-- <GenericListSection :data="relData.PersonInstitution"></GenericListSection> -->
             <CollapsableRelationSection

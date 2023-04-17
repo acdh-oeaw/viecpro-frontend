@@ -30,7 +30,7 @@ const props = defineProps(['header', 'data', 'isCollapsed']);
       </button>
     </div>
       <div :class="{ hidden: isCollapsed }" class="flex-col">
-        <slot name="collapsable-content" :data="data"></slot>
+        <slot name="collapsable-content"></slot>
       </div>
       <slot name="content-below-allways-visible"></slot>
   </div>
