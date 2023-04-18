@@ -1,7 +1,5 @@
 <template>
-  <div class="border-0 rounded text-white h-20">
-    Visualisation Section {{ props.ent_type }}
-  </div>
+	<div class="border-0 rounded text-white h-20">Visualisation Section {{ props.ent_type }}</div>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 export default function useExtractHitsFromResults(results) {
-  return results.hits.map((hit) => {
-    return hit.document;
-  });
+	return results.hits.map((hit) => {
+		return hit.document;
+	});
 }

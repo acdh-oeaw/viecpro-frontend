@@ -1,12 +1,8 @@
 <script setup lang="ts">
-
-
-// need the relations data here, what else? 
+// need the relations data here, what else?
 const props = defineProps(["data"]);
-
 </script>
 <template>
-    <div>
-    </div>
+	<div></div>
 </template>
 <style scoped></style>

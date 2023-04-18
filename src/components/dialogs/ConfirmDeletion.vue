@@ -4,7 +4,5 @@ import { DialogTitle, DialogDescription } from "@headlessui/vue";
 
 const { isBlurred, toggleBlurred } = inject("bgBlurred");
 </script>
-<template>
-
-</template>
+<template></template>
 <style scoped></style>

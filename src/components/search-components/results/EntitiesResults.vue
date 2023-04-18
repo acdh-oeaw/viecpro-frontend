@@ -1,5 +1,5 @@
 <template>
-  <div>Entities Results</div>
+	<div>Entities Results</div>
 </template>
 <script setup lang="ts"></script>
 

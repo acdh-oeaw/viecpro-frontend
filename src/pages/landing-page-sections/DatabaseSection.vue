@@ -5,33 +5,37 @@ const textBase = ref("pages.landing-page.database.");
 const props = defineProps([]);
 </script>
 <template>
-  <div>
-    <h1> {{ $t(textBase + "header") }}</h1>
-    <p>{{ $t(textBase + "text") }}</p>
-    <button> {{ $t("pages.landing-page.viecpro.link-database") }}</button>
-    <slot></slot>
-  </div>
+	<div>
+		<h1>{{ $t(textBase + "header") }}</h1>
+		<p>{{ $t(textBase + "text") }}</p>
+		<button>{{ $t("pages.landing-page.viecpro.link-database") }}</button>
+		<slot></slot>
+	</div>
 </template>
 <style scoped>
 .ul-wrapper {
-  @apply pl-4;
+	@apply pl-4;
 }
 
 ul {
-  @apply pl-5;
+	@apply pl-5;
 }
+
 h1,
 h2,
 h3 {
-  @apply text-2xl my-8;
+	@apply text-2xl my-8;
 }
+
 p {
-  @apply py-2 pl-4;
+	@apply py-2 pl-4;
 }
+
 li {
-  @apply list-disc list-outside pl-4;
+	@apply list-disc list-outside pl-4;
 }
 
 span {
-  @apply block;
-}</style>
+	@apply block;
+}
+</style>

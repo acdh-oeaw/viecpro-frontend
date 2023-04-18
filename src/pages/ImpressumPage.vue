@@ -1,1 +1,1 @@
-// page with impressum information 
+// page with impressum information

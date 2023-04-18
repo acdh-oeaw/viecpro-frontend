@@ -1,24 +1,28 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": false,
-  "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
-  "[vue]": {
-    "editor.defaultFormatter": "vue.volar"
-  },
-  "eslint.enable": true,
-  "eslint.validate": ["javascript", "typescript", "vue"],
-  "javascript.preferences.importModuleSpecifier": "non-relative",
-  "[json]": {
-    "editor.quickSuggestions": {
-      "strings": true
-    },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.suggest.insertMode": "replace",
-    "gitlens.codeLens.scopes": ["document"],
-    "editor.wordWrap": "bounded",
-    "editor.wrappingIndent":"indent", // or deepIndent
-  },
-  "vue3snippets.enable-compile-vue-file-on-did-save-code": false
-}  
-
+	"css.validate": false,
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.quickSuggestions": {
+		"strings": true
+	},
+	"editor.rulers": [100],
+	"eslint.enable": true,
+	"eslint.validate": ["javascript", "typescript", "vue"],
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"files.eol": "\n",
+	"javascript.preferences.importModuleSpecifier": "non-relative",
+	"less.validate": false,
+	"scss.validate": false,
+	"stylelint.enable": true,
+	"stylelint.snippet": ["css", "postcss", "tailwindcss", "vue"],
+	"stylelint.validate": ["css", "postcss", "tailwindcss", "vue"],
+	"tailwindCSS.validate": true,
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.tsdk": "node_modules/typescript/lib"
+}

@@ -3,54 +3,54 @@
 import type { genderOptions } from "./apis_types";
 
 export type requestMap = {
-  [key: string]: deduplicationRequestSettings;
+	[key: string]: deduplicationRequestSettings;
 };
 export interface memberItem {
-  id: string;
-  name: string;
+	id: string;
+	name: string;
 }
 export interface vorfinItem {
-  id: number;
-  name: string;
+	id: number;
+	name: string;
 }
 
 export interface singleListItem {
-  id: number;
-  name: string;
-  first_name: string;
+	id: number;
+	name: string;
+	first_name: string;
 }
 
 export interface memberListItem {
-  id: number;
-  name: string;
-  first_name: string;
+	id: number;
+	name: string;
+	first_name: string;
 }
 
 export interface vorfinListItem {
-  id: number;
-  name: string;
-  first_name: string;
+	id: number;
+	name: string;
+	first_name: string;
 }
 
 export interface groupListItem {
-  id: number;
-  name: string;
-  vorfin: vorfinItem;
+	id: number;
+	name: string;
+	vorfin: vorfinItem;
 }
 export type deduplicationItem = groupListItem | singleListItem | memberItem;
 
 export type ItemType = "single" | "member" | "group" | "selectedGroup" | "vorfin";
 export interface deduplicationRequestSettings {
-  url: string;
-  method: "POST" | "PUT" | "UPDATE" | "DELETE" | "GET";
-  callback: Function;
+	url: string;
+	method: "POST" | "PUT" | "UPDATE" | "DELETE" | "GET";
+	callback: Function;
 }
 
 export interface Group {
-  name: string;
-  gender: genderOptions;
-  vorfin: vorfinItem;
-  members: Array<memberItem>;
+	name: string;
+	gender: genderOptions;
+	vorfin: vorfinItem;
+	members: Array<memberItem>;
 }
 
 export type itemIDArray = number[];
