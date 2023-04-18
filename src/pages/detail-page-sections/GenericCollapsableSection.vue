@@ -3,11 +3,11 @@ const props = defineProps(['header', 'data', 'isCollapsed']);
 </script>
 <template>
   <div class="border-2 rounded px-10">
-    <div class="flex justify-between pr-10">
+    <div class="flex justify-between">
       <h2
-        class="mr-4"
+      class="my-auto py-5"
         :class="{
-          'text-gray-300 cursor-not-allowed': !data.length,
+          'text-gray-400 cursor-not-allowed': !data.length,
           'hover:cursor-pointer': data.length,
         }"
         @click="
@@ -28,6 +28,8 @@ const props = defineProps(['header', 'data', 'isCollapsed']);
       >
         Toggle
       </button>
+      <!-- <p v-else class="box text-gray-400 font-mono my-auto py-5">KEINE DATEN</p> -->
+
     </div>
       <div :class="{ hidden: isCollapsed }" class="flex-col">
         <slot name="collapsable-content"></slot>

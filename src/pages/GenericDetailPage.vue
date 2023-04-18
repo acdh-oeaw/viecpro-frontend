@@ -131,11 +131,7 @@ watch(rawDocData, () => {
               header="Alternative Namenschreibweisen"
               :data="labelData.alt_names"
             ></CollabsableLabelSection>
-            <CollapsableRelationSection
-              header="Verwandtschaftliche Beziehungen"
-              :data="personRelData['Verwandtschaftliche Beziehung']"
-              :is-collapsed="false"
-            ></CollapsableRelationSection>
+        
             <CollabsableLabelSection
               header="Akademische Titel"
               :data="labelData.title_academic"
@@ -192,6 +188,14 @@ watch(rawDocData, () => {
               header="Sonstige Beziehungen am Hof"
               :data="labelData.court_other"
             ></CollabsableLabelSection>
+
+            <h1 class="text-2xl font-light font-">Beziehungen außerhalb des Wiener Hofs</h1>
+            <CollapsableRelationSection
+              header="Verwandtschaftliche Beziehungen"
+              :data="personRelData['Verwandtschaftliche Beziehung']"
+              :is-collapsed="false"
+            ></CollapsableRelationSection>
+
             <CollabsableMixedSection
               header="Beziehungen zu Kirche und Orden"
               :relationData="
@@ -209,14 +213,14 @@ watch(rawDocData, () => {
           <div v-else>Loading</div>
         </div>
         <div id="container-below-relations" class="mb-10">
-          <template v-for="(val, key) in personRelData" :key="key">
+          <!-- <template v-for="(val, key) in personRelData" :key="key">
             <h1 class="mt-2">{{ key }}</h1>
             <ul>
               <li v-for="v in val" :key="v.id" class="py-2">
                 {{ v.relation_type_hierarchy }}{{ v }}
               </li>
             </ul>
-          </template>
+          </template> -->
         </div>
       </div>
     </div>

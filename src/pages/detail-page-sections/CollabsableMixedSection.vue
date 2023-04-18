@@ -5,11 +5,11 @@ const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
 </script>
 <template>
   <div class="border-2 rounded px-10">
-    <div class="flex justify-between pr-10">
+    <div class="flex justify-between">
       <div>
         <h2
-          class="mr-4"
-          :class="{ 'text-gray-300 cursor-not-allowed': !labelData.length || !relationData.length }"
+          class="my-auto py-5"
+          :class="{ 'text-gray-400 cursor-not-allowed': !labelData.length || !relationData.length }"
           @click="
             () => {
               isCollapsed = !isCollapsed;
@@ -21,6 +21,7 @@ const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
       </div>
       <div>
         <button
+          class="my-auto py-5"
           v-if="labelData.length || relationData.length"
           @click="
             () => {
@@ -30,6 +31,8 @@ const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
         >
           Toggle
         </button>
+        <!-- <p v-else class="box text-gray-400 font-mono my-auto py-5">KEINE DATEN</p> -->
+
       </div>
     </div>
     <div :class="{ hidden: isCollapsed }">

@@ -26,6 +26,7 @@ export default function useGroupLabels(labels: object[]) {
       res.alt_names.push({
         label_type: lt,
         name: l.name,
+        name_clean: l.name.replace('Schreibvariante', ''),
         start_date: l.start_date,
         end_date: l.end_date,
       });

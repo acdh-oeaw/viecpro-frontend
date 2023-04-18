@@ -4,12 +4,12 @@ const props = defineProps(['header', 'data', 'isCollapsed']);
 const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
 </script>
 <template>
-  <div class="border-2 rounded px-10">
-    <div class="flex justify-between pr-10">
+   <div class="border-2 rounded px-10">
+    <div class="flex justify-between">
       <div>
         <h2
           class="my-auto py-5"
-          :class="{ 'text-gray-300 cursor-not-allowed': !data, 'hover:cursor-pointer': data }"
+          :class="{ 'text-gray-400 cursor-not-allowed': !data, 'hover:cursor-pointer': data }"
           @click="
             () => {
               isCollapsed = !isCollapsed;
@@ -31,6 +31,7 @@ const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
         >
           Toggle
         </button>
+        <!-- <p v-else class="box text-gray-400 font-mono my-auto py-5">Keine Daten</p> -->
       </div>
     </div>
     <ul :class="{ hidden: isCollapsed }">
