@@ -296,7 +296,7 @@ watch(rawDocData, () => {
       <div id="container-split-right" class="flex-col xl:w-2/3 pl-40 xl:mb-0 mb-10">
         <div id="container-relations" class="mb-10 w-full">
           <div v-if="dataIsReady" class="flex-col space-y-10">
-            <h1 class="text-gray-400 font-light text-2xl text-left pb-4">
+            <h1 class="text-gray-400 font-light text-2xl text-left mb-2">
               Bezug zum Wiener Hof
             </h1>
             <!-- <h2>Funktionen am Hof</h2> -->
@@ -320,7 +320,7 @@ watch(rawDocData, () => {
               :is-collapsed="true"
             ></CollapsableLabelSection>
 
-            <h2 class="text-gray-400 font-light text-2xl text-left pb-4">Weitere Informationen</h2>
+            <h2 class="text-gray-400 font-light text-2xl text-left mb-2 pt-8">Weitere Informationen</h2>
             <CollapsableRelationSection
               header="Ehe- und Verwandtschaftsverhältnisse"
               :data="personRelData['Verwandtschaftliche Beziehung']"
