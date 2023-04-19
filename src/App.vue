@@ -18,7 +18,7 @@ const navLinks: navlinkProp[] = [
   <body class="flex-col w-full min-h-screen">
     <header>
       <!-- main top navbar -->
-      <PageNavigation :nav-links="navLinks">
+      <PageNavigation v-if="$route.name != 'page-not-found'" :nav-links="navLinks">
         <template v-slot:left>
           <!-- <div class="flex grow-0 max-w-1/3 md:place-content-start place-content-center"> -->
           <img
@@ -39,7 +39,7 @@ const navLinks: navlinkProp[] = [
     </main>
     <footer>
       <!-- footer section with impressum, logos, etc. -->
-      <FooterSection>
+      <FooterSection v-if="$route.name != 'page-not-found'">
         <template v-slot:left>
           <div class="flex text-black justify-start">
             <img

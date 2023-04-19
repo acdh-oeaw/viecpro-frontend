@@ -192,7 +192,7 @@ watch(rawDocData, () => {
               <h1 class="text-gray-400 font-light text-2xl text-left pb-4">Stammdaten</h1>
               <div class="grid grid-cols-4 gap-4">
                 <label class="col-span-1" for="">
-                  {{ metaData.gender === 'female' ? 'Mädchenname' : 'Name' }}</label
+                  {{ metaData.gender === 'female' ? 'Geburtstname' : 'Name' }}</label
                 >
                 <p class="col-span-3">{{ metaData.name }}</p>
                 <label v-if="metaData.gender === 'female'" class="col-span-1" for=""
@@ -201,12 +201,19 @@ watch(rawDocData, () => {
                 <p v-if="metaData.gender === 'female'" class="col-span-3">
                   {{ labelData.first_marriage }}
                 </p>
+                <label class="col-span-1" for="">Vorname/n:</label>
+                <p class="col-span-3">{{ metaData.first_name }}</p>
+                <label for="" class="col-span-1">Titel:</label>
+                <p class="col-span-3">
+                  <span v-if="labelData.title_honor.length" v-for="title in labelData.title_honor">
+                    {{ title.name }}</span
+                  ><span v-else> - </span>
+                </p>
                 <label class="col-span-1" for="">Geboren:</label>
                 <p class="col-span-3"> {{ metaData.start_date ? metaData.start_date : "?"}} in <span v-if="birthplace.target" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> {{ birthplace.target.name }}</span> <span v-else> ? </span></p>
                 <label class="col-span-1" for="">Gestorben:</label>
                 <p class="col-span-3"> {{ metaData.end_date ? metaData.end_date : "?"}} in <span v-if="deathplace.target" class="clickable-data-span" @click="useOpenDetail('Place', deathplace.target.object_id)"> {{ deathplace.target.name }}</span><span v-else> ? </span></p>
-                <label class="col-span-1" for="">Vorname:</label>
-                <p class="col-span-3">{{ metaData.first_name }}</p>
+            
                 <label class="col-span-1" for="">Geschlecht:</label>
                 <p class="col-span-3">{{ $t(`globals.${metaData.gender}`) }}</p>
 
@@ -219,12 +226,7 @@ watch(rawDocData, () => {
                     {{ hof.target.name }}</p
                   >
                 </p>
-                <label for="" class="col-span-1">Titel:</label>
-                <p class="col-span-3">
-                  <span v-if="labelData.title_honor" v-for="title in labelData.title_honor">
-                    {{ title.name }}</span
-                  ><span v-else> - </span>
-                </p>
+            
               </div>
             </div>
           </div>
@@ -311,7 +313,7 @@ watch(rawDocData, () => {
         <div id="container-relations" class="mb-10 w-full">
           <div v-if="dataIsReady" class="flex-col space-y-10">
             <h1 class="text-gray-400 font-light text-2xl text-left pb-4">
-              Beziehungen am und zum Wiener Hof
+              Bezug zum Wiener Hof
             </h1>
             <!-- <h2>Funktionen am Hof</h2> -->
             <CollapsableRelationSection
@@ -329,26 +331,26 @@ watch(rawDocData, () => {
             <!-- <h2>Teilnahme an Hofereignissen</h2> -->
 
             <CollabsableLabelSection
-              header="Sonstige Beziehungen am Hof"
+              header="Sonstiger Bezug zum Hof"
               :data="labelData.court_other"
             ></CollabsableLabelSection>
 
-            <h2 class="text-gray-400 font-light text-2xl text-left pb-4">Sonstige Informationen</h2>
+            <h2 class="text-gray-400 font-light text-2xl text-left pb-4">Weitere Informationen</h2>
             <CollapsableRelationSection
-              header="Verwandtschaftliche Beziehungen und Ehen"
+              header="Ehe- und Verwandtschaftsverhältnisse"
               :data="personRelData['Verwandtschaftliche Beziehung']"
               :is-collapsed="true"
             ></CollapsableRelationSection>
 
             <CollabsableMixedSection
-              header="Beziehungen zu Kirche und Orden"
+              header="Bezug zu Kirche und Orden"
               :relationData="
                 relData['Kirchl. Amtsbeziehung'] ? relData['Kirchl. Amtsbeziehung'] : []
               "
               :labelData="labelData.church_and_o"
             ></CollabsableMixedSection>
             <CollabsableMixedSection
-              header="Sonstige Beziehungen und Tätigkeiten"
+              header="Sonstige Tätigkeiten"
               :relationData="[]"
               :labelData="labelData.other_jobs"
             ></CollabsableMixedSection>
