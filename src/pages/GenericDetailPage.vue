@@ -35,6 +35,8 @@ const referencesData = ref([]);
 const functions = ref([]);
 const copyResult = ref('');
 const hofstaat = ref([]);
+const birthplace = ref({})
+const deathplace = ref({})
 function processReferences(response) {
   console.log('REFERENCES RESPONSE', response);
   referencesAreReady.value = true;
@@ -108,8 +110,20 @@ function processRawData(response) {
   hofstaat.value = groupedRelations.PersonInstitution.filter((rel) => {
     return rel.relation_type == 'hatte den Hofstaat';
   });
+
+  if (groupedRelations.PersonPlace) {
+  birthplace.value = groupedRelations.PersonPlace.filter((rel) => {
+    return rel.relation_type == "ist geboren in"
+  })[0]
+
+  deathplace.value = groupedRelations.PersonPlace.filter((rel)=> {
+    return rel.relation_type == "ist gestorben in"
+  })[0]
+}
   console.log('HOFSTAATEN', hofstaat.value);
   console.log(groupedRelations.PersonInstitution);
+  console.log("LabelData", labelData.value)
+  console.log("groupedRels", groupedRelations )
   dataIsReady.value = true;
 }
 
@@ -180,23 +194,27 @@ watch(rawDocData, () => {
                 <p v-if="metaData.gender === 'female'" class="col-span-3">
                   {{ labelData.first_marriage }}
                 </p>
+                <label class="col-span-1" for="">Geboren:</label>
+                <p class="col-span-3"> {{ metaData.start_date }} in <span v-if="birthplace" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> {{ birthplace.target.name }}</span> <span v-else> ? </span></p>
+                <label class="col-span-1" for="">Gestorben:</label>
+                <p class="col-span-3"> {{ metaData.end_date }} in <span v-if="deathplace" class="clickable-data-span" @click="useOpenDetail('Place', deathplace.target.object_id)"> {{ deathplace.target.name }}</span><span v-else> ? </span></p>
                 <label class="col-span-1" for="">Vorname:</label>
                 <p class="col-span-3">{{ metaData.first_name }}</p>
                 <label class="col-span-1" for="">Geschlecht:</label>
                 <p class="col-span-3">{{ $t(`globals.${metaData.gender}`) }}</p>
 
-                <label class="col-span-1" v-if="hofstaat"> Hofstaat/en:</label>
-                <p class="col-span-3" v-if="hofstaat">
-                  <span
+                <label class="col-span-1" v-if="hofstaat.length"> Hofstaat/en:</label>
+                <p class="col-span-3" v-if="hofstaat.length">
+                  <p class="rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2 hover:cursor-pointer hover:bg-primary-100 hover:text-white"
                     v-for="hof in hofstaat"
                     @click="useOpenDetail('Hofstaat', hof.target.object_id)"
                   >
-                    {{ hof.target.name }}</span
+                    {{ hof.target.name }}</p
                   >
                 </p>
                 <label for="" class="col-span-1">Titel:</label>
                 <p class="col-span-3">
-                  <span v-if="metaData - titles" v-for="title in metaData.titles">
+                  <span v-if="labelData.title_honor" v-for="title in labelData.title_honor">
                     {{ title.name }}</span
                   ><span v-else> - </span>
                 </p>
@@ -361,4 +379,9 @@ watch(rawDocData, () => {
   >
 </template>
 
-<style scoped></style>
+<style scoped>
+
+.clickable-data-span {
+  @apply rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2 hover:cursor-pointer hover:bg-primary-100 hover:text-white;
+}
+</style>
