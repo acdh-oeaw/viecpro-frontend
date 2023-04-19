@@ -105,11 +105,14 @@ function processRawData(response) {
     );
     functions.value = Array.from(parsedFuncs);
     console.log('numfuncs: ', functions.value.length);
-  }
 
-  hofstaat.value = groupedRelations.PersonInstitution.filter((rel) => {
+    hofstaat.value = groupedRelations.PersonInstitution.filter((rel) => {
     return rel.relation_type == 'hatte den Hofstaat';
   });
+
+  }
+
+    
 
   if (groupedRelations.PersonPlace) {
   const place_of_birth = groupedRelations.PersonPlace.filter((rel) => {
