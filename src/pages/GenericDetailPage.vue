@@ -191,7 +191,7 @@ watch(rawDocData, () => {
         <div id="container-meta" class="mb-10">
           <div v-if="dataIsReady">
             <component :is="null"></component>
-            <div class="flex-col">
+            <div class="flex-col align-baseline">
               <h1 class="text-gray-400 font-light text-2xl text-left pb-4">Stammdaten</h1>
               <div class="grid grid-cols-4 gap-4">
                 <label class="col-span-1" for="">
@@ -213,9 +213,9 @@ watch(rawDocData, () => {
                   ><span v-else> - </span> 
                 </p>-->
                 <label class="col-span-1" for="">Geboren:</label>
-                <p class="col-span-3"> {{ metaData.start_date ? metaData.start_date : "-"}} <span v-if="birthplace.target" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> in {{ birthplace.target.name }}</span> <span v-else>  </span></p>
+                <p class="col-span-3"> {{ metaData.start_date ? metaData.start_date : "-"}}  <span v-if="birthplace.target" class="px-2"> in </span><span v-if="birthplace.target" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> {{ birthplace.target.name }}</span> <span v-else>  </span></p>
                 <label class="col-span-1" for="">Gestorben:</label>
-                <p class="col-span-3"> {{ metaData.end_date ? metaData.end_date : "-"}} <span v-if="deathplace.target" class="clickable-data-span" @click="useOpenDetail('Place', deathplace.target.object_id)"> in {{ deathplace.target.name }}</span><span v-else>  </span></p>
+                <p class="col-span-3"> {{ metaData.end_date ? metaData.end_date : "-"}} <span v-if="deathplace.target" class="px-2"> in </span> <span v-if="deathplace.target" class="clickable-data-span" @click="useOpenDetail('Place', deathplace.target.object_id)">  {{ deathplace.target.name }}</span><span v-else>  </span></p>
             
                 <label class="col-span-1" for="">Geschlecht:</label>
                 <p class="col-span-3">{{ $t(`globals.${metaData.gender}`) }}</p>

@@ -8,9 +8,10 @@ import FooterSection from './components/FooterSection.vue';
 
 <template>
   <body class="flex-col w-full min-h-screen">
-    <header>
+    <header class="sticky -top-0">
       <!-- main top navbar -->
-      <PageNavigation v-if="$route.name != 'page-not-found'" >
+      <!-- <div class="w-full h-10 bg-primary-100 p-0 m-0 border-0"></div> -->
+      <PageNavigation v-if="$route.name != 'page-not-found'">
         <template v-slot:left>
           <img
             class="h-20 hover:cursor-pointer mx-auto md:mx-0"
@@ -79,10 +80,10 @@ import FooterSection from './components/FooterSection.vue';
 </template>
 
 <style scoped>
-header {
+/* header {
   position: sticky;
   top: 0;
-}
+} */
 
 .fade-enter-active,
 .fade-leave-active {
