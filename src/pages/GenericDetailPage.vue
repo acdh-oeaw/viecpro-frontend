@@ -54,6 +54,7 @@ async function copyToClipboard(m, data) {
   }
 }
 onBeforeMount(() => {
+  console.log(collection.value, doc_id)
   useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
     rawDocData.value = response;
   });
@@ -129,7 +130,7 @@ watch(rawDocData, () => {
         Datenblatt <span class="">{{ '- ' }}{{ $t(`models.${model}`) }}</span>
       </h2>
       <h2 class="text-xl font-light mb-2 text-gray-400">
-        <span v-if="metaData.kind" class="">{{ metaData.kind }}</span>
+        <span v-if="metaData.kind && model != 'Hofstaat'" class="">{{ metaData.kind }}</span>
       </h2>
       <h1 class="text-4xl text-primary-100 font-medium">
         {{ metaData.fullname ? metaData.fullname : metaData.name }}

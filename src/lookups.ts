@@ -67,6 +67,7 @@ const collectionsLookup = {
     headers: ['first_name', 'name', 'start', 'end', 'gender'],
     searchParams: 'first_name, name',
   },
+  Hofstaat: Entity,
   Relations: {
     components: {
       filter: GenericRelationsFilters,
