@@ -12,22 +12,14 @@ import FooterSection from './components/FooterSection.vue';
       <!-- main top navbar -->
       <!-- <div class="w-full h-10 bg-primary-100 p-0 m-0 border-0"></div> -->
       <PageNavigation v-if="$route.name != 'page-not-found'">
-        <template v-slot:left>
-          <img
-            class="h-20 hover:cursor-pointer mx-auto md:mx-0"
-            src="./assets/logos/logo_white.png"
-            alt="Logo of the viecpro-project, containing the sillouette of a male face within the letter c."
-            @click="$router.push('/')"
-          />
-          <!-- </div> -->
-        </template>
+
       </PageNavigation>
     </header>
     <main>
       <!-- router section: "pages" from src/pages are displayed in here -->
-      <transition name="fade">
+      <!-- <transition name="fade"> -->
         <RouterView :key="$route.path"> </RouterView>
-      </transition>
+      <!-- </transition> -->
     </main>
     <footer>
       <!-- footer section with impressum, logos, etc. -->
