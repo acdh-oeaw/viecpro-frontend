@@ -76,10 +76,11 @@ function processRawData(response) {
     let parsedFuncs = new Set(
       groupedRelations.PersonInstitution.map((el: object) => {
         //TODO: type this object.
-        return { name: el.relation_type, id: el.relation_type_id };
+        return el.relation_type;
       })
     );
-    functions.value = Array.from(parsedFuncs).slice(0, 3);
+    functions.value = Array.from(parsedFuncs);
+    console.log('numfuncs: ', functions.value.length);
   }
 
   dataIsReady.value = true;
@@ -107,11 +108,14 @@ watch(rawDocData, () => {
       </h1>
       <div class="mt-4">
         <span
-          v-for="func in functions"
+          v-for="func in functions.slice(0, 3)"
           :key="func"
           class="rounded bg-gray-100 text-gray-500 px-2 py-1 mr-2"
         >
-          {{ func.name }}</span
+          {{ func }}</span
+        >
+        <span v-if="functions.length > 3" class="rounded bg-gray-100 text-gray-500 px-2 py-1 mr-2">
+          +{{ functions.length - 3 }} weitere</span
         >
       </div>
     </div>
@@ -123,12 +127,16 @@ watch(rawDocData, () => {
             <div class="flex-col">
               <h1 class="text-gray-400 font-light text-2xl text-left pb-4">Stammdaten</h1>
               <div class="grid grid-cols-4 gap-4">
-                <label class="col-span-1" for=""> {{ metaData.gender == 'female' ? 'Mädchenname' : "Name"}}</label>
+                <label class="col-span-1" for="">
+                  {{ metaData.gender == 'female' ? 'Mädchenname' : 'Name' }}</label
+                >
                 <p class="col-span-3">{{ metaData.name }}</p>
                 <label v-if="metaData.gender === 'female'" class="col-span-1" for=""
                   >Ehename:</label
                 >
-                <p v-if="metaData.gender === 'female'" class="col-span-3">{{ labelData.first_marriage }}</p>
+                <p v-if="metaData.gender === 'female'" class="col-span-3">
+                  {{ labelData.first_marriage }}
+                </p>
                 <label class="col-span-1" for="">Vorname:</label>
                 <p class="col-span-3">{{ metaData.first_name }}</p>
                 <label class="col-span-1" for="">Geschlecht:</label>
@@ -139,8 +147,6 @@ watch(rawDocData, () => {
                     {{ title.name }}</span
                   ><span v-else> - </span>
                 </p>
-                <label for="" class="col-span-1">Funktionen:</label>
-                <p class="col-span-3">test5</p>
               </div>
             </div>
           </div>
