@@ -7,11 +7,11 @@ const props = defineProps(['header', 'data', 'isCollapsed']);
     :class="{ 'shadow-md': data.length && !isCollapsed, 'shadow-0': !data.length || isCollapsed }"
   >
     <div
-      class="flex justify-between px-10 font-light hover:cursor-pointer"
+      class="flex justify-between px-10 font-light "
       :class="{
-        'bg-gray-100 border-b-2 border-gray-200 text-gray-900 ': data.length && !isCollapsed,
+        'bg-gray-100 border-b-2 border-gray-200 text-gray-900 hover:cursor-pointer': data.length && !isCollapsed,
         'text-gray-400 cursor-not-allowed': !data.length,
-        'text-gray-800': data.length && isCollapsed,
+        'text-gray-800 hover:cursor-pointer': data.length && isCollapsed,
       }"
       @click="
         () => {

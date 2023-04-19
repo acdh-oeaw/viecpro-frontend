@@ -5,18 +5,14 @@ import { RouterLink } from 'vue-router';
 import LocaleSelect from './LocaleSelect.vue';
 
 // TODO: make links array of props and not slot content. To allow v-if for rendering links or all as hamburger menu items
-
 </script>
 
-// const navLinks: navlinkProp[] = [
-//   { name: 'Home', route: '/' },
-//   { name: 'Database', route: '/search/Person/' },
-//   //{ name: "Deduplication", route: "/deduplication" }, // TODO: removed for now, as not needed yet and not completet
-//   { name: 'About', route: '/about' },
-// ];
+// const navLinks: navlinkProp[] = [ // { name: 'Home', route: '/' }, // { name: 'Database', route:
+'/search/Person/' }, // //{ name: "Deduplication", route: "/deduplication" }, // TODO: removed for
+now, as not needed yet and not completet // { name: 'About', route: '/about' }, // ];
 
 <template>
-  <nav class="bg-primary-100 h-20 w-full flex-col md:flex text-white flex-wrap pr-20 pl-16">
+  <nav class="bg-primary-100 h-20 w-full flex-col md:flex text-white flex-wrap pr-16 pl-16 text-lg">
     <div class="px-20 justify-center md:justify-start md:items-center md:max-w-1/4">
       <slot name="left">left</slot>
     </div>
@@ -28,7 +24,7 @@ import LocaleSelect from './LocaleSelect.vue';
     >
       <RouterLink
         to="/"
-        class="py-1  mx-4 px-2 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
+        class="py-1 mx-4 px-2 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
       >
         <div class="w-fit">
           <!-- {{ $t('navigation.Home') }} -->
@@ -45,7 +41,7 @@ import LocaleSelect from './LocaleSelect.vue';
       </RouterLink>
       <RouterLink
         to="/about"
-        class="py-1 px-4  text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
+        class="py-1 px-4 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
       >
         <div class="w-fit">
           {{ $t('navigation.About') }}
