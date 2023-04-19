@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps(['header', 'relationData', 'labelData', 'isCollapsed']);
-const labelKeys = ['label', 'start_date', 'end_date'];
+const labelKeys = ['name', 'start_date', 'end_date'];
 const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
 </script>
 <template>
@@ -9,7 +9,7 @@ const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
       <div>
         <h2
           class="my-auto py-5"
-          :class="{ 'text-gray-400 cursor-not-allowed': !labelData.length || !relationData.length }"
+          :class="{ 'text-gray-400 cursor-not-allowed': !labelData.length && !relationData.length,  'hover:cursor-pointer': labelData || relationData }"
           @click="
             () => {
               isCollapsed = !isCollapsed;
@@ -29,18 +29,29 @@ const relationKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
             }
           "
         >
-        <i v-if="isCollapsed" class="fas fa-sm fa-arrow-down text-gray-400"></i>
-        <i v-else class="fas fa-sm fa-arrow-up text-gray-400"></i>
+          <i v-if="isCollapsed" class="fas fa-sm fa-arrow-down text-gray-400"></i>
+          <i v-else class="fas fa-sm fa-arrow-up text-gray-400"></i>
         </button>
         <!-- <p v-else class="box text-gray-400 font-mono my-auto py-5">KEINE DATEN</p> -->
-
       </div>
     </div>
     <div :class="{ hidden: isCollapsed }">
       <ul>
         <li v-for="el in relationData" :key="el.id">
           <!-- TODO: make this grid -->
-          <span v-for="key in relationKeys" :key="el + '_' + key" class="mx-2"> {{ el[key] }}</span>
+          <div class="grid grid-cols-4 justify-items-start auto-cols-max">
+            <template v-for="key in relationKeys" :key="el + '_' + key">
+              <!-- TODO: make this grid -->
+              <span
+                v-if="key === 'target.name'"
+                class="hover:cursor-pointer"
+                @click="useOpenDetail(el.target.model, el.target.object_id)"
+              >
+                {{ el['target']['name'] }}</span
+              >
+              <span v-else class="mx-2"> {{ el[key] }}</span>
+            </template>
+          </div>
         </li>
       </ul>
 

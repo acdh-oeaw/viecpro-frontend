@@ -13,6 +13,7 @@ export default function useGroupLabels(labels: object[]) {
     religion: null, //TODO: at the moment, a person in viecpro can only have one religion; might need adjustement later (make array and include start and end dates)
     title_academic: [],
     title_honor: [],
+    collected_titles: [],
     stand: [],
     awards: [],
     other_jobs: [],
@@ -31,24 +32,39 @@ export default function useGroupLabels(labels: object[]) {
         start_date: l.start_date,
         end_date: l.end_date,
       });
-    } if (check(lt, 'Konfession')) {
+    }
+    if (check(lt, 'Konfession')) {
       res.religion = l.name;
-    } if (check(lt, 'Adelstitel')) {
-      res.title_honor.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
-    } if (check(lt, 'verheiratet')) {
+    }
+    if (check(lt, 'Adelstitel')) {
+      res.collected_titles.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
+    }
+    if (check(lt, 'verheiratet')) {
       res.married_name.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
-    } if (check(lt, 'Nachname verheiratet (1. Ehe')) {
+    }
+    if (check(lt, 'Nachname verheiratet (1. Ehe')) {
       res.first_marriage = l.name;
-    } if (check(lt, 'Sonstiger Hofbezug')) {
+    }
+    if (check(lt, 'Sonstiger Hofbezug')) {
       res.court_other.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
-    } if (check(lt, 'Akade')) {
+    }
+    if (check(lt, 'Akade')) {
       res.title_academic.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
-    } if (check(lt, 'Funktion, Amtsinhabe und Beruf')) {
+    }
+    if (check(lt, 'Funktion, Amtsinhabe und Beruf')) {
       res.other_jobs.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
-    } if (check(lt, "Stand")){
-      res.stand.push({ name: l.name, start_date: l.start_date, end_date: l.end_date })
-    } if (check(lt, "Auszeichnung")){
-      res.awards.push({ name: l.name, start_date: l.start_date, end_date: l.end_date })
+    }
+    if (check(lt, 'Stand')) {
+      res.collected_titles.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
+    }
+    if (check(lt, 'Auszeichnung')) {
+      res.collected_titles.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
+    }
+    if (check(lt, 'Kirche')) {
+      res.church_and_o.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
+    }
+    if (check(lt, 'Orden')) {
+      res.church_and_o.push({ name: l.name, start_date: l.start_date, end_date: l.end_date });
     }
   });
 

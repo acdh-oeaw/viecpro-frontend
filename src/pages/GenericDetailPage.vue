@@ -206,12 +206,12 @@ watch(rawDocData, () => {
                 </p>
                 <label class="col-span-1" for="">Vorname/n:</label>
                 <p class="col-span-3">{{ metaData.first_name }}</p>
-                <label for="" class="col-span-1">Titel:</label>
+                <!-- <label for="" class="col-span-1">Titel:</label>
                 <p class="col-span-3">
                   <span v-if="labelData.title_honor.length" v-for="title in labelData.title_honor">
                     {{ title.name }}</span
-                  ><span v-else> - </span>
-                </p>
+                  ><span v-else> - </span> 
+                </p>-->
                 <label class="col-span-1" for="">Geboren:</label>
                 <p class="col-span-3"> {{ metaData.start_date ? metaData.start_date : "?"}} in <span v-if="birthplace.target" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> {{ birthplace.target.name }}</span> <span v-else> ? </span></p>
                 <label class="col-span-1" for="">Gestorben:</label>
