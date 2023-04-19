@@ -19,6 +19,7 @@ const config = {
       },
       fontFamily: {
         sans: ['roboto-light'],
+        regular: ['roboto-regular'],
         light: ['roboto-light'],
         black: ['roboto-black'],
         medium: ['roboto-medium'],

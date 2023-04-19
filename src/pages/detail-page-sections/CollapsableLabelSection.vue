@@ -29,7 +29,7 @@ onBeforeMount(() => {
   <div
     v-if="isReady"
     class="border-2 rounded"
-    :class="{ 'shadow-md': data.length && !isCollapsed, 'shadow-0': !data.length || isCollapsed }"
+    :class="{ 'shadow-md': data.length && !isCollapsed, 'shadow-0': !data.length && isCollapsed}"
   >
     <div
       class="flex justify-between px-10 font-light"
