@@ -317,6 +317,7 @@ watch(rawDocData, () => {
             <CollapsableLabelSection
               header="Sonstiger Bezug zum Hof"
               :data="labelData.court_other"
+              :is-collapsed="true"
             ></CollapsableLabelSection>
 
             <h2 class="text-gray-400 font-light text-2xl text-left pb-4">Weitere Informationen</h2>
@@ -332,11 +333,13 @@ watch(rawDocData, () => {
                 relData['Kirchl. Amtsbeziehung'] ? relData['Kirchl. Amtsbeziehung'] : []
               "
               :labelData="labelData.church_and_o"
+              :is-collapsed="true"
             ></CollapsableMixedSection>
             <CollapsableMixedSection
               header="Sonstige Tätigkeiten"
               :relationData="[]"
               :labelData="labelData.other_jobs"
+              :is-collapsed="true"
             ></CollapsableMixedSection>
             <component :is="null"></component>
           </div>

@@ -32,15 +32,18 @@ onBeforeMount(() => {
     :class="{ 'shadow-md': data.length && !isCollapsed, 'shadow-0': !data.length || isCollapsed }"
   >
     <div
-      class="flex justify-between px-10 font-light hover:cursor-pointer"
+      class="flex justify-between px-10 font-light"
       :class="{
-        'bg-gray-100 border-b-2 border-gray-200 text-gray-900 ': data.length && !isCollapsed,
-        'text-gray-400 cursor-not-allowed': !data.length,
-        'text-gray-800': data.length && isCollapsed,
+        'bg-gray-100 border-b-2 border-gray-200 text-gray-900 hover:cursor-pointer':
+          data.length && !isCollapsed,
+        'text-gray-400 hover:cursor-not-allowed': !data.length,
+        'text-gray-800 hover:cursor-pointer': data.length && isCollapsed,
       }"
       @click="
         () => {
-          isCollapsed = !isCollapsed;
+          if (data.length) {
+            isCollapsed = !isCollapsed;
+          }
         }
       "
     >
@@ -59,7 +62,7 @@ onBeforeMount(() => {
     <!-- CHECK could be: for those, I add the label_type in the parsed Labels and if this appears, make label_type a label element and list values after it. -->
     <div
       v-if="Object.keys(groupedLabels).length"
-      class="flex-col px-10 mt-4"
+      class="flex-col px-10 my-4"
       :class="{ hidden: isCollapsed }"
     >
       <div
@@ -75,7 +78,7 @@ onBeforeMount(() => {
         </div>
       </div>
     </div>
-    <ul v-else :class="{ hidden: isCollapsed }" class="px-10 mt-4">
+    <ul v-else :class="{ hidden: isCollapsed }" class="px-10 my-4">
       <li v-for="el in data" :key="el.id">
         <!-- TODO: make this grid -->
         <span v-for="key in orderedKeys" :key="el + '_' + key" class="mr-2 text-sm">

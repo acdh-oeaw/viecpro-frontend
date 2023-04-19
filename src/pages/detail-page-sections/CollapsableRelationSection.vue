@@ -9,15 +9,17 @@ const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
     :class="{ 'shadow-md': data && !isCollapsed, 'shadow-0': !data || isCollapsed }"
   >
     <div
-      class="flex justify-between px-10 font-light hover:cursor-pointer"
+      class="flex justify-between px-10 font-light "
       :class="{
-        'bg-gray-100 border-b-2 border-gray-200 text-gray-900 ': data && !isCollapsed,
-        'text-gray-400 cursor-not-allowed': !data,
-        'text-gray-800': data && isCollapsed,
+        'bg-gray-100 border-b-2 border-gray-200 text-gray-900 hover:cursor-pointer ': data && !isCollapsed,
+        'text-gray-400 hover:cursor-not-allowed': !data,
+        'text-gray-800 hover:cursor-pointer': data && isCollapsed,
       }"
       @click="
         () => {
-          isCollapsed = !isCollapsed;
+          if (data) {
+            isCollapsed = !isCollapsed;
+          }
         }
       "
     >
@@ -32,7 +34,7 @@ const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
         <!-- <p v-else class="box text-gray-400 font-mono my-auto py-5">KEINE DATEN</p> -->
       </div>
     </div>
-    <ul :class="{ hidden: isCollapsed }" class="mt-4 px-10">
+    <ul :class="{ hidden: isCollapsed }" class="flex-col px-10 my-4">
       <li v-for="el in data" :key="el.id">
         <div class="grid grid-cols-4 justify-items-start auto-cols-max">
           <template v-for="key in orderedKeys" :key="el + '_' + key">
