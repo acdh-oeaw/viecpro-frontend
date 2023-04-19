@@ -48,7 +48,8 @@ onBeforeMount(() => {
             }
           "
         >
-          Toggle
+          <i v-if="isCollapsed" class="fas fa-sm fa-arrow-down text-gray-400"></i>
+          <i v-else class="fas fa-sm fa-arrow-up text-gray-400"></i>
         </button>
         <!-- <p v-else class="box text-gray-400 font-mono my-auto py-5">KEINE DATEN</p> -->
       </div>
