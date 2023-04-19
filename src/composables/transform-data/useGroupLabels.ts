@@ -22,7 +22,6 @@ export default function useGroupLabels(labels: object[]) {
     const lt = l.label_type;
 
     if (check(lt, 'name')) {
-      console.log('NAMECHECK WAS TRUE');
       res.alt_names.push({
         label_type: lt,
         name: l.name,

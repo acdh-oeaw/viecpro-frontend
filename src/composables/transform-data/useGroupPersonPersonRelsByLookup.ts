@@ -7,6 +7,10 @@ export default function useGroupPersonPersonRelsByLookup(relData: object[]) {
   const res = {};
   let controlCounter = 0;
 
+
+
+  
+
   console.log('REL DATA WAS', relData);
   if (relData.length != undefined) {
     relData.forEach((rel) => {
@@ -22,7 +26,6 @@ export default function useGroupPersonPersonRelsByLookup(relData: object[]) {
           }
         } else {
           console.log('not included', key, rel);
-          //res.other.push(rel);
         }
       }
     });
@@ -36,3 +39,5 @@ export default function useGroupPersonPersonRelsByLookup(relData: object[]) {
 
   return res;
 }
+
+

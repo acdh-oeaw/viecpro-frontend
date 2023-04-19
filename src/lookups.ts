@@ -11,7 +11,7 @@ import RelationsFilters from '@/components/search-components/filters/RelationsFi
 
 const personRelationLookup = [
   'Berufliche Beziehung',
-  // 'Berufliche Beziehung >> Tätigkeiten für ausländische Höfe',
+  'Berufliche Beziehung >> Tätigkeiten für ausländische Höfe',
   'Doubletten Beziehung',
   'Verwandtschaftliche Beziehung',
   'Kirchl. Amtsbeziehung',

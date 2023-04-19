@@ -213,14 +213,6 @@ watch(rawDocData, () => {
           <div v-else>Loading</div>
         </div>
         <div id="container-below-relations" class="mb-10">
-          <!-- <template v-for="(val, key) in personRelData" :key="key">
-            <h1 class="mt-2">{{ key }}</h1>
-            <ul>
-              <li v-for="v in val" :key="v.id" class="py-2">
-                {{ v.relation_type_hierarchy }}{{ v }}
-              </li>
-            </ul>
-          </template> -->
         </div>
       </div>
     </div>
