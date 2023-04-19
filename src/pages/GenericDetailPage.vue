@@ -213,9 +213,9 @@ watch(rawDocData, () => {
                   ><span v-else> - </span> 
                 </p>-->
                 <label class="col-span-1" for="">Geboren:</label>
-                <p class="col-span-3"> {{ metaData.start_date ? metaData.start_date : "?"}} in <span v-if="birthplace.target" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> {{ birthplace.target.name }}</span> <span v-else> ? </span></p>
+                <p class="col-span-3"> {{ metaData.start_date ? metaData.start_date : "-"}} <span v-if="birthplace.target" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> in {{ birthplace.target.name }}</span> <span v-else>  </span></p>
                 <label class="col-span-1" for="">Gestorben:</label>
-                <p class="col-span-3"> {{ metaData.end_date ? metaData.end_date : "?"}} in <span v-if="deathplace.target" class="clickable-data-span" @click="useOpenDetail('Place', deathplace.target.object_id)"> {{ deathplace.target.name }}</span><span v-else> ? </span></p>
+                <p class="col-span-3"> {{ metaData.end_date ? metaData.end_date : "-"}} <span v-if="deathplace.target" class="clickable-data-span" @click="useOpenDetail('Place', deathplace.target.object_id)"> in {{ deathplace.target.name }}</span><span v-else>  </span></p>
             
                 <label class="col-span-1" for="">Geschlecht:</label>
                 <p class="col-span-3">{{ $t(`globals.${metaData.gender}`) }}</p>
@@ -296,7 +296,7 @@ watch(rawDocData, () => {
       <div id="container-split-right" class="flex-col xl:w-2/3 pl-40 xl:mb-0 mb-10">
         <div id="container-relations" class="mb-10 w-full">
           <div v-if="dataIsReady" class="flex-col space-y-10">
-            <h1 class="text-gray-400 font-light text-2xl text-left mb-2">
+            <h1 class="text-gray-400 font-light text-2xl text-left mb-2 pl-2">
               Bezug zum Wiener Hof
             </h1>
             <!-- <h2>Funktionen am Hof</h2> -->
@@ -320,7 +320,7 @@ watch(rawDocData, () => {
               :is-collapsed="true"
             ></CollapsableLabelSection>
 
-            <h2 class="text-gray-400 font-light text-2xl text-left mb-2 pt-8">Weitere Informationen</h2>
+            <h2 class="text-gray-400 font-light text-2xl text-left mb-2 pt-8 pl-2">Weitere Informationen</h2>
             <CollapsableRelationSection
               header="Ehe- und Verwandtschaftsverhältnisse"
               :data="personRelData['Verwandtschaftliche Beziehung']"
