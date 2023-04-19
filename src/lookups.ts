@@ -6,6 +6,7 @@ import GenericRelationsFilters from '@/components/search-components/filters/Gene
 import GenericEntityFilters from './components/search-components/filters/GenericEntityFilters.vue';
 import ReferenceFilter from '@/components/search-components/filters/ReferenceFilter.vue';
 import RelationsFilters from '@/components/search-components/filters/RelationsFilters.vue';
+import HofstaatFilter from '@/components/search-components/filters/HofstaatFilter.vue';
 
 // TODO: needs cleanup and refactor, quite outdated currently.
 
@@ -67,7 +68,13 @@ const collectionsLookup = {
     headers: ['first_name', 'name', 'start', 'end', 'gender'],
     searchParams: 'first_name, name',
   },
-  Hofstaat: Entity,
+  Hofstaat: {
+    components: {
+      filter: HofstaatFilter,
+    },
+    headers: ['name', 'owner', 'start', 'end'],
+    searchParams: 'name, kind, owner',
+  },
   Relations: {
     components: {
       filter: GenericRelationsFilters,

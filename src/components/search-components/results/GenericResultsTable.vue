@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch, onMounted } from 'vue';
 import useOpenDetail from '../../../composables/useOpenDetail.js';
-import useOpenRegister from '@/composables/redirection-utils/useOpenRegister'
+import useOpenRegister from '@/composables/redirection-utils/useOpenRegister';
 const props = defineProps(['headers', 'items', 'tB']);
 
 //const tB = props.model == "Person"? "search-result-table-headers.person" : "search-result-table-headers."
@@ -40,6 +40,14 @@ const props = defineProps(['headers', 'items', 'tB']);
             :attribute="header"
             class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
             @click="useOpenDetail(item.target.model, item.target.object_id)"
+          ></ais-highlight>
+          <ais-highlight
+            v-else-if="header == 'owner'"
+            :hit="item"
+            attribute="main_owner.name"
+            class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
+            @click="useOpenDetail(item.main_owner.model, item.main_owner.object_id)"
+
           ></ais-highlight>
           <ais-highlight
             v-else-if="header == 'related_doc.name'"

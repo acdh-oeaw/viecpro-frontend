@@ -16,6 +16,7 @@ import CollabsableMixedSection from './detail-page-sections/CollabsableMixedSect
 import GenericCollapsableSection from './detail-page-sections/GenericCollapsableSection.vue';
 import GenericDialog from '@/components/dialogs/GenericDialog.vue';
 import useConstructCitation from '@/composables/utils/useConstructCitation';
+import useOpenDetail from '@/composables/useOpenDetail';
 import { useCustomConfirmation } from '@/composables/useCustomConfirmation';
 // define props as entry point
 const props = defineProps(['model', 'object_id']);
@@ -33,15 +34,16 @@ const referencesAreReady = ref(false);
 const referencesData = ref([]);
 const functions = ref([]);
 const copyResult = ref('');
+const hofstaat = ref([]);
 function processReferences(response) {
   console.log('REFERENCES RESPONSE', response);
   referencesAreReady.value = true;
   referencesData.value = useExtractHitsFromResults(response);
 }
 
-function confirmCopy(){
+function confirmCopy() {
   confirm(true);
-  copyResult.value= "";
+  copyResult.value = '';
 }
 async function copyToClipboard(m, data) {
   try {
@@ -54,7 +56,7 @@ async function copyToClipboard(m, data) {
   }
 }
 onBeforeMount(() => {
-  console.log(collection.value, doc_id)
+  console.log(collection.value, doc_id);
   useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
     rawDocData.value = response;
   });
@@ -103,6 +105,11 @@ function processRawData(response) {
     console.log('numfuncs: ', functions.value.length);
   }
 
+  hofstaat.value = groupedRelations.PersonInstitution.filter((rel) => {
+    return rel.relation_type == 'hatte den Hofstaat';
+  });
+  console.log('HOFSTAATEN', hofstaat.value);
+  console.log(groupedRelations.PersonInstitution);
   dataIsReady.value = true;
 }
 
@@ -141,7 +148,14 @@ watch(rawDocData, () => {
           :key="func"
           class="rounded bg-gray-100 text-gray-500 px-2 py-1 mr-2"
         >
-          {{ func.replace('[REVERSE]', '') }}</span
+          {{
+            func
+              .replace('[REVERSE]', '')
+              .replace(
+                'hatte den Hofstaat',
+                metaData.gender == 'female' ? 'Hofstaatsinhaberin' : 'Hofstaatsinhaber'
+              )
+          }}</span
         >
         <span v-if="functions.length > 3" class="rounded bg-gray-100 text-gray-500 px-2 py-1 mr-2">
           +{{ functions.length - 3 }} weitere</span
@@ -157,7 +171,7 @@ watch(rawDocData, () => {
               <h1 class="text-gray-400 font-light text-2xl text-left pb-4">Stammdaten</h1>
               <div class="grid grid-cols-4 gap-4">
                 <label class="col-span-1" for="">
-                  {{ metaData.gender == 'female' ? 'Mädchenname' : 'Name' }}</label
+                  {{ metaData.gender === 'female' ? 'Mädchenname' : 'Name' }}</label
                 >
                 <p class="col-span-3">{{ metaData.name }}</p>
                 <label v-if="metaData.gender === 'female'" class="col-span-1" for=""
@@ -170,6 +184,16 @@ watch(rawDocData, () => {
                 <p class="col-span-3">{{ metaData.first_name }}</p>
                 <label class="col-span-1" for="">Geschlecht:</label>
                 <p class="col-span-3">{{ $t(`globals.${metaData.gender}`) }}</p>
+
+                <label class="col-span-1" v-if="hofstaat"> Hofstaat/en:</label>
+                <p class="col-span-3" v-if="hofstaat">
+                  <span
+                    v-for="hof in hofstaat"
+                    @click="useOpenDetail('Hofstaat', hof.target.object_id)"
+                  >
+                    {{ hof.target.name }}</span
+                  >
+                </p>
                 <label for="" class="col-span-1">Titel:</label>
                 <p class="col-span-3">
                   <span v-if="metaData - titles" v-for="title in metaData.titles">
@@ -316,7 +340,7 @@ watch(rawDocData, () => {
     </div>
   </div>
   <GenericDialog :confirm="confirm" :is-revealed="isRevealed" :cancel="cancel">
-    <template v-slot:title> {{ copyResult ? copyResult : "Vorgeschlagene Zitierweise:" }}</template>
+    <template v-slot:title> {{ copyResult ? copyResult : 'Vorgeschlagene Zitierweise:' }}</template>
     <template v-slot:body>
       <div v-if="!copyResult">
         <p>{{ useConstructCitation(model, metaData) }}</p>
