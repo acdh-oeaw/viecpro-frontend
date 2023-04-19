@@ -244,7 +244,7 @@ watch(rawDocData, () => {
               :is-collapsed="true"
             ></CollapsableRelationSection>
             <CollapsableLabelSection
-              header="Alternative Namenschreibweisen"
+              header="Alternative Namensschreibweisen"
               :data="labelData.alt_names"
               :is-collapsed="true"
             ></CollapsableLabelSection>
@@ -265,7 +265,7 @@ watch(rawDocData, () => {
               :is-collapsed="true"
             >
               <button @click="openDialog(myCallback)" class="hover:text-red-400">
-                Vorgschlagene Zitierweise <i class="fa-solid fa-square-up-right"></i>
+                Vorgeschlagene Zitierweise <i class="fa-solid fa-square-up-right"></i>
               </button>
             </GenericCollapsableSection>
             <GenericCollapsableSection

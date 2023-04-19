@@ -1,26 +1,17 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
-import { ref, provide } from 'vue';
+import {  RouterView } from 'vue-router';
 import PageNavigation from './components/PageNavigation.vue';
 import FooterSection from './components/FooterSection.vue';
-import NavLink from './components/NavLink.vue';
-import type { navlinkProp } from './types/prop_types';
-import GenericDialog from './components/dialogs/GenericDialog.vue';
-const navLinks: navlinkProp[] = [
-  { name: 'Home', route: '/' },
-  { name: 'Database', route: '/search/Person/' },
-  //{ name: "Deduplication", route: "/deduplication" }, // TODO: removed for now, as not needed yet and not completet
-  { name: 'About', route: '/about' },
-];
+
+
 </script>
 
 <template>
   <body class="flex-col w-full min-h-screen">
     <header>
       <!-- main top navbar -->
-      <PageNavigation v-if="$route.name != 'page-not-found'" :nav-links="navLinks">
+      <PageNavigation v-if="$route.name != 'page-not-found'" >
         <template v-slot:left>
-          <!-- <div class="flex grow-0 max-w-1/3 md:place-content-start place-content-center"> -->
           <img
             class="h-20 hover:cursor-pointer mx-auto md:mx-0"
             src="./assets/logos/logo_white.png"
