@@ -11,8 +11,8 @@ import useGroupPersonPersonRelsByLookup from '@/composables/transform-data/useGr
 import useGroupLabels from '@/composables/transform-data/useGroupLabels';
 // import GenericListSection from './detail-page-sections/GenericListSection.vue';
 import CollapsableRelationSection from './detail-page-sections/CollapsableRelationSection.vue';
-import CollabsableLabelSection from './detail-page-sections/CollabsableLabelSection.vue';
-import CollabsableMixedSection from './detail-page-sections/CollabsableMixedSection.vue';
+import CollapsableLabelSection from './detail-page-sections/CollapsableLabelSection.vue';
+import CollapsableMixedSection from './detail-page-sections/CollapsableMixedSection.vue';
 import GenericCollapsableSection from './detail-page-sections/GenericCollapsableSection.vue';
 import GenericDialog from '@/components/dialogs/GenericDialog.vue';
 import useConstructCitation from '@/composables/utils/useConstructCitation';
@@ -225,6 +225,7 @@ watch(rawDocData, () => {
                   <p class="rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2 hover:cursor-pointer hover:bg-primary-100 hover:text-white"
                     v-for="hof in hofstaat"
                     @click="useOpenDetail('Hofstaat', hof.target.object_id)"
+                    :key="hof"
                   >
                     {{ hof.target.name }}</p
                   >
@@ -242,42 +243,22 @@ watch(rawDocData, () => {
               :data="personRelData['Doubletten Beziehung']"
               :is-collapsed="true"
             ></CollapsableRelationSection>
-            <CollabsableLabelSection
+            <CollapsableLabelSection
               header="Alternative Namenschreibweisen"
               :data="labelData.alt_names"
               :is-collapsed="true"
-            ></CollabsableLabelSection>
-
-            <GenericCollapsableSection
+            ></CollapsableLabelSection>
+            <CollapsableLabelSection
               header="Adelsstand und Auszeichnungen"
-              :data="['test']"
+              :data="labelData.collected_titles"
               :is-collapsed="true"
-            >
-              <div class="grid grid-cols-2">
-                <h2>Test:</h2>
-                <ul>
-                  <li v-for="l in labelData.title_honor">{{ l.name }} {{ l.start_date }}</li>
-                </ul>
-                <h2>Titel:</h2>
-                <ul>
-                  <li v-for="title in metaData.titles">{{ title.name }}</li>
-                </ul>
-
-                <h2>Stand:</h2>
-                <ul>
-                  <li v-for="l in labelData.stand" :key="l.name">{{ l.name }}</li>
-                </ul>
-                <h2>Auszeichnungen:</h2>
-                <ul>
-                  <li v-for="l in labelData.awards">{{ l.name }}</li>
-                </ul>
-              </div>
-            </GenericCollapsableSection>
-            <CollabsableLabelSection
+            ></CollapsableLabelSection>
+    
+            <CollapsableLabelSection
               header="Akademische Titel"
               :data="labelData.title_academic"
               :is-collapsed="true"
-            ></CollabsableLabelSection>
+            ></CollapsableLabelSection>
             <GenericCollapsableSection
               header="Download und Zitierweise"
               :data="['test']"
@@ -333,10 +314,10 @@ watch(rawDocData, () => {
 
             <!-- <h2>Teilnahme an Hofereignissen</h2> -->
 
-            <CollabsableLabelSection
+            <CollapsableLabelSection
               header="Sonstiger Bezug zum Hof"
               :data="labelData.court_other"
-            ></CollabsableLabelSection>
+            ></CollapsableLabelSection>
 
             <h2 class="text-gray-400 font-light text-2xl text-left pb-4">Weitere Informationen</h2>
             <CollapsableRelationSection
@@ -345,18 +326,18 @@ watch(rawDocData, () => {
               :is-collapsed="true"
             ></CollapsableRelationSection>
 
-            <CollabsableMixedSection
+            <CollapsableMixedSection
               header="Bezug zu Kirche und Orden"
               :relationData="
                 relData['Kirchl. Amtsbeziehung'] ? relData['Kirchl. Amtsbeziehung'] : []
               "
               :labelData="labelData.church_and_o"
-            ></CollabsableMixedSection>
-            <CollabsableMixedSection
+            ></CollapsableMixedSection>
+            <CollapsableMixedSection
               header="Sonstige Tätigkeiten"
               :relationData="[]"
               :labelData="labelData.other_jobs"
-            ></CollabsableMixedSection>
+            ></CollapsableMixedSection>
             <component :is="null"></component>
           </div>
           <div v-else>Loading</div>
