@@ -69,7 +69,7 @@ onBeforeMount(() => {
       >
         <label> {{ key.replace('', '') }}: </label>
         <div class="flex flex-wrap pb-2 items-center justify-start">
-          <span v-for="val in values" :key="val" class="mx-2 my-2 rounded bg-gray-200 px-2 py-1">
+          <span v-for="val in values" :key="val" class="mr-2 my-2 rounded bg-gray-200 px-2 py-1">
             {{ val.name }}</span
           >
         </div>
@@ -78,7 +78,7 @@ onBeforeMount(() => {
     <ul v-else :class="{ hidden: isCollapsed }" class="px-10 mt-4">
       <li v-for="el in data" :key="el.id">
         <!-- TODO: make this grid -->
-        <span v-for="key in orderedKeys" :key="el + '_' + key" class="mx-2 text-sm">
+        <span v-for="key in orderedKeys" :key="el + '_' + key" class="mr-2 text-sm">
           {{ el[key] }}</span
         >
       </li>
