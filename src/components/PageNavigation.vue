@@ -16,7 +16,7 @@ import LocaleSelect from './LocaleSelect.vue';
 // ];
 
 <template>
-  <nav class="bg-primary-100 h-20 w-full flex-col md:flex text-white flex-wrap px-20">
+  <nav class="bg-primary-100 h-20 w-full flex-col md:flex text-white flex-wrap pr-20 pl-16">
     <div class="px-20 justify-center md:justify-start md:items-center md:max-w-1/4">
       <slot name="left">left</slot>
     </div>
@@ -28,15 +28,16 @@ import LocaleSelect from './LocaleSelect.vue';
     >
       <RouterLink
         to="/"
-        class="py-1 px-2 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
+        class="py-1  mx-4 px-2 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
       >
         <div class="w-fit">
-          {{ $t('navigation.Home') }}
+          <!-- {{ $t('navigation.Home') }} -->
+          <i class="fa-solid fa-house"></i>
         </div>
       </RouterLink>
       <RouterLink
         to="/search/Person"
-        class="py-1 px-2 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
+        class="py-1 px-4 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
       >
         <div class="w-fit">
           {{ $t('navigation.Database') }}
@@ -44,14 +45,14 @@ import LocaleSelect from './LocaleSelect.vue';
       </RouterLink>
       <RouterLink
         to="/about"
-        class="py-1 px-2 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
+        class="py-1 px-4  text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
       >
         <div class="w-fit">
           {{ $t('navigation.About') }}
         </div>
       </RouterLink>
 
-      <LocaleSelect class="w-fit"></LocaleSelect>
+      <!-- <LocaleSelect class="w-fit"></LocaleSelect> -->
       <!-- <div class="py-1 w-4 m-0">login</div> -->
     </div>
     <div class="flex basis-1/3 space-x-4 justify-center bg-primary-400 md:hidden">

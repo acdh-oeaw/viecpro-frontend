@@ -220,7 +220,7 @@ watch(rawDocData, () => {
                 <label class="col-span-1" for="">Geschlecht:</label>
                 <p class="col-span-3">{{ $t(`globals.${metaData.gender}`) }}</p>
 
-                <label class="col-span-1" v-if="hofstaat.length"> Hofstaat/en:</label>
+                <label class="col-span-1" v-if="hofstaat.length"> Hofstaate:</label>
                 <p class="col-span-3" v-if="hofstaat.length">
                   <p class="rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2 hover:cursor-pointer hover:bg-primary-100 hover:text-white"
                     v-for="hof in hofstaat"
