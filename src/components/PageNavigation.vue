@@ -3,7 +3,7 @@
 <script setup lang="ts">
 import { RouterLink, useRoute } from 'vue-router';
 import LocaleSelect from './LocaleSelect.vue';
-import { ref, watchEffect, watch, onMounted, computed } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 const showLogo = ref(true);
 const navBarHeight = ref('h-20');
@@ -19,7 +19,6 @@ const currPage = computed(() => {
 });
 
 function updateScrollPos() {
-  console.log(currPage.value);
   if (currPage.value != 'home') {
     if (window.scrollY > 80) {
       navBarHeight.value = 'h-10';
@@ -39,8 +38,6 @@ function updateScrollPos() {
     }
   }
 }
-
-// TODO: make links array of props and not slot content. To allow v-if for rendering links or all as hamburger menu items
 </script>
 
 <template>
@@ -56,18 +53,15 @@ function updateScrollPos() {
         @click="$router.push('/')"
       />
     </div>
-    <!-- <div class="bg-primary-600 flex justify-center shrink items-center h-full">
-      <slot name="mid"> mid </slot>
-    </div> -->
+
     <div
-      class="flex items-center  flex-col md:flex-row md:justify-end md:flex-wrap md:items-center md:pr-20 md:space-x-4 md:h-full"
+      class="flex items-center flex-col md:flex-row md:justify-end md:flex-wrap md:items-center md:pr-20 md:space-x-4 md:h-full"
     >
       <RouterLink
         to="/"
         class="py-1 mx-4 px-2 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
       >
         <div class="w-fit">
-          <!-- {{ $t('navigation.Home') }} -->
           <i class="fa-solid fa-house"></i>
         </div>
       </RouterLink>
@@ -91,7 +85,7 @@ function updateScrollPos() {
       <!-- <LocaleSelect class="w-fit"></LocaleSelect> -->
       <!-- <div class="py-1 w-4 m-0">login</div> -->
     </div>
-    <div class="flex basis-1/3 space-x-4 justify-center  md:hidden">
+    <div class="flex basis-1/3 space-x-4 justify-center md:hidden">
       <button>Placeholder Hamburger</button>
     </div>
   </nav>
