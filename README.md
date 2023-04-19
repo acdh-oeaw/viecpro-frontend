@@ -1,6 +1,6 @@
 # VieCPro Frontend
 
-Decoupled frontend for the APIS-Instance (apis-vanilla) of the VieCPro project. 
+Decoupled frontend for the APIS-Instance (apis-vanilla) of the VieCPro project.
 
 ## TechStack
 
@@ -16,10 +16,3 @@ Decoupled frontend for the APIS-Instance (apis-vanilla) of the VieCPro project.
   - search components from Vue InstantSearch [InstantSearch Docs](https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/vue/)
 - typescript
 - tailwind.css
-
-## DevContainer
-
-will follow soon...
-
-- setup of vs-code DevContainer with running apis instance, typesense server, mariadb database and frontend for testing
-- link to databse dump will also follow

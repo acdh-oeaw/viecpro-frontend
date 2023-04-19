@@ -11,21 +11,31 @@ const props = defineProps({ navLinks: Array<navlinkProp> });
 </script>
 
 <template>
-  <nav class="bg-primary-100 h-20 flex lg:flex-row filter-blur text-white flex-nowrap">
-    <div class="grow-0 px-20 justify-start items-center">
+  <nav class="bg-primary-100 h-20 w-full flex-col md:flex text-white flex-wrap">
+    <div class="px-20 justify-center md:justify-start md:items-center md:max-w-1/4">
       <slot name="left">left</slot>
     </div>
-    <div class="bg-primary-600 shrink flex justify-center items-center">
-      <slot name="mid"> </slot>
-    </div>
-    <div class="hidden grow lg:flex space-x-4 justify-end pr-20 items-center">
-      <RouterLink v-for="link in navLinks" :to="link.route" :key="link.name" class="navigation-link"
-        >{{ $t('navigation.' + link.name) }}
+    <!-- <div class="bg-primary-600 flex justify-center shrink items-center h-full">
+      <slot name="mid"> mid </slot>
+    </div> -->
+    <div
+      class="flex items-center bg-primary-100 flex-col md:flex-row md:justify-end md:flex-wrap md:items-center md:pr-20 md:space-x-4 md:h-full"
+    >
+      <RouterLink
+        v-for="link in navLinks"
+        :to="link.route"
+        :key="link.name"
+        class="py-1 px-2 text-gray-100 rounded hover:cursor-pointer hover:bg-primary-400 hover:text-white w-fit"
+      >
+        <div class="w-fit">
+          {{ $t('navigation.' + link.name) }}
+        </div>
       </RouterLink>
-      <div><LocaleSelect></LocaleSelect></div>
-      <div>login</div>
+
+      <LocaleSelect class="w-fit"></LocaleSelect>
+      <!-- <div class="py-1 w-4 m-0">login</div> -->
     </div>
-    <div class="flex lg:hidden basis-1/3 space-x-4 justify-center bg-primary-400 lg:hidden">
+    <div class="flex basis-1/3 space-x-4 justify-center bg-primary-400 md:hidden">
       <button>Placeholder Hamburger</button>
     </div>
   </nav>

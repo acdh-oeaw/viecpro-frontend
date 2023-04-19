@@ -9,6 +9,14 @@ import RelationsFilters from '@/components/search-components/filters/RelationsFi
 
 // TODO: needs cleanup and refactor, quite outdated currently.
 
+const personRelationLookup = [
+  'Berufliche Beziehung',
+  'Berufliche Beziehung >> Tätigkeiten für ausländische Höfe',
+  'Doubletten Beziehung',
+  'Verwandtschaftliche Beziehung',
+  'Kirchl. Amtsbeziehung',
+  'Dynastische Beziehung',
+];
 const entityComponentLookup = {
   person: {
     detail: null,
@@ -88,4 +96,4 @@ const collectionsLookup = {
   },
 };
 
-export { entityComponentLookup, collectionsLookup };
+export { entityComponentLookup, collectionsLookup, personRelationLookup };
