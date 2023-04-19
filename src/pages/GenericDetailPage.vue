@@ -29,7 +29,7 @@ const labelData = ref({});
 const dataIsReady = ref(false);
 const referencesAreReady = ref(false);
 const referencesData = ref([]);
-
+const functions = ref([]);
 function processReferences(response) {
   console.log('REFERENCES RESPONSE', response);
   referencesAreReady.value = true;
@@ -43,7 +43,7 @@ onBeforeMount(() => {
 
 function processRawData(response) {
   const docs = useExtractHitsFromResults(response);
-  console.log('DOCS', docs);
+  //console.log('DOCS', docs);
   const constructedMeta = { ...rawDocData.value };
   const groupedRelations = useGroupRelationsByClass(
     docs,
@@ -52,7 +52,7 @@ function processRawData(response) {
   rawLabelData.value = useGroupArrayOfObjectsByKey(rawDocData.value.labels, 'label_type');
   // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
   labelData.value = useGroupLabels(rawDocData.value.labels);
-  console.log('PARSED LABELS', labelData.value);
+  //console.log('PARSED LABELS', labelData.value);
   console.log('LABELS', rawLabelData.value);
   constructedMeta.religion = labelData.value.religion;
 
@@ -72,6 +72,16 @@ function processRawData(response) {
     ? useGroupPersonPersonRelsByLookup(groupedRelations.PersonPerson)
     : {};
 
+  if (groupedRelations.PersonInstitution) {
+    let parsedFuncs = new Set(
+      groupedRelations.PersonInstitution.map((el: object) => {
+        //TODO: type this object.
+        return { name: el.relation_type, id: el.relation_type_id };
+      })
+    );
+    functions.value = Array.from(parsedFuncs).slice(0, 3);
+  }
+
   dataIsReady.value = true;
 }
 
@@ -90,12 +100,20 @@ watch(rawDocData, () => {
 </script>
 <template>
   <div id="container-main" class="flex-col min-h-screen mx-40">
-    <div id="container-above-split" class="w-full text-left">
+    <div id="container-above-split" class="w-full text-left mb-20">
       <h2 class="text-3xl font-light pt-16 mb-2 text-gray-400">Datenblatt - {{ model }}</h2>
-
       <h1 class="text-4xl text-primary-100 font-medium">
         {{ metaData.fullname ? metaData.fullname : metaData.name }}
       </h1>
+      <div class="mt-4">
+        <span
+          v-for="func in functions"
+          :key="func"
+          class="rounded bg-gray-100 text-gray-500 px-2 py-1 mr-2"
+        >
+          {{ func.name }}</span
+        >
+      </div>
     </div>
     <div id="container-split" class="py-10 xl:justify-between flex flex-col xl:flex-row">
       <div id="container-split-left" class="flex-col w-full xl:w-1/4 xl:mb-0 mb-10">
@@ -105,14 +123,22 @@ watch(rawDocData, () => {
             <div class="flex-col">
               <h1 class="text-gray-400 font-light text-2xl text-left pb-4">Stammdaten</h1>
               <div class="grid grid-cols-4 gap-4">
-                <label class="col-span-1" for="">Name:</label>
-                <p class="col-span-3">test1</p>
+                <label class="col-span-1" for=""> {{ metaData.gender == 'female' ? 'Mädchenname' : "Name"}}</label>
+                <p class="col-span-3">{{ metaData.name }}</p>
+                <label v-if="metaData.gender === 'female'" class="col-span-1" for=""
+                  >Ehename:</label
+                >
+                <p v-if="metaData.gender === 'female'" class="col-span-3">{{ labelData.first_marriage }}</p>
                 <label class="col-span-1" for="">Vorname:</label>
-                <p class="col-span-3">test2</p>
-                <label class="col-span-1" for="">Gender:</label>
-                <p class="col-span-3">test3</p>
+                <p class="col-span-3">{{ metaData.first_name }}</p>
+                <label class="col-span-1" for="">Geschlecht:</label>
+                <p class="col-span-3">{{ $t(`globals.${metaData.gender}`) }}</p>
                 <label for="" class="col-span-1">Titel:</label>
-                <p class="col-span-3">test4</p>
+                <p class="col-span-3">
+                  <span v-if="metaData - titles" v-for="title in metaData.titles">
+                    {{ title.name }}</span
+                  ><span v-else> - </span>
+                </p>
                 <label for="" class="col-span-1">Funktionen:</label>
                 <p class="col-span-3">test5</p>
               </div>
@@ -130,35 +156,63 @@ watch(rawDocData, () => {
             <CollabsableLabelSection
               header="Alternative Namenschreibweisen"
               :data="labelData.alt_names"
+              :is-collapsed="true"
             ></CollabsableLabelSection>
-        
+
+            <GenericCollapsableSection
+              header="Adelsstand und Auszeichnungen"
+              :data="['test']"
+              :is-collapsed="true"
+            >
+              <div class="grid grid-cols-2">
+                <h2>Test:</h2>
+                <ul>
+                  <li v-for="l in labelData.title_honor">{{ l.name }} {{ l.start_date }}</li>
+                </ul>
+                <h2>Titel:</h2>
+                <ul>
+                  <li v-for="title in metaData.titles">{{ title.name }}</li>
+                </ul>
+
+                <h2>Stand:</h2>
+                <ul>
+                  <li v-for="l in labelData.stand" :key="l.name">{{ l.name }}</li>
+                </ul>
+                <h2>Auszeichnungen:</h2>
+                <ul>
+                  <li v-for="l in labelData.awards">{{ l.name }}</li>
+                </ul>
+              </div>
+            </GenericCollapsableSection>
             <CollabsableLabelSection
               header="Akademische Titel"
               :data="labelData.title_academic"
-              :is-collapsed="false"
+              :is-collapsed="true"
             ></CollabsableLabelSection>
             <GenericCollapsableSection
               header="Download und Zitierweise"
               :data="['test']"
-              :is-collapsed="false"
+              :is-collapsed="true"
             ></GenericCollapsableSection>
-            <GenericCollapsableSection header="Quellenbelege" :data="referencesData">
-              <template v-slot:collapsable-content>
-                <ul>
-                  <template v-for="el in referencesData" :key="el.id">
-                    <li
-                      v-if="el.folio.includes('https://')"
-                      class="flex flex-wrap items-center justify-start"
-                    >
-                      <span class="mr-4">{{ el.shortTitle }}: </span>
-                      <a :href="el.folio" class="rounded px-2 py-1 text-white bg-gray-300">
-                        {{ '-> Eintrag' }}
-                      </a>
-                    </li>
-                    <li v-else>{{ el.shortTitle }}, {{ el.folio }}.</li>
-                  </template>
-                </ul>
-              </template>
+            <GenericCollapsableSection
+              header="Quellenbelege"
+              :data="referencesData"
+              :is-collapsed="true"
+            >
+              <ul>
+                <template v-for="el in referencesData" :key="el.id">
+                  <li
+                    v-if="el.folio.includes('https://')"
+                    class="flex flex-wrap items-center justify-start"
+                  >
+                    <span class="mr-4">{{ el.shortTitle }}: </span>
+                    <a :href="el.folio" class="rounded px-2 py-1 text-white bg-gray-300">
+                      {{ '-> Eintrag' }}
+                    </a>
+                  </li>
+                  <li v-else>{{ el.shortTitle }}, {{ el.folio }}.</li>
+                </template>
+              </ul>
             </GenericCollapsableSection>
             <component :is="null"></component>
           </div>
@@ -168,18 +222,18 @@ watch(rawDocData, () => {
       <div id="container-split-right" class="flex-col xl:w-2/3 xl:mb-0 mb-10">
         <div id="container-relations" class="mb-10 w-full">
           <div v-if="dataIsReady" class="flex-col space-y-10">
-            <h1 class="text-2xl font-light font-">Beziehungen zum Wiener Hof</h1>
+            <h1 class="text-2xl font-light font-">Beziehungen am und zum Wiener Hof</h1>
             <!-- <h2>Funktionen am Hof</h2> -->
             <CollapsableRelationSection
               header="Funktionen am Hof"
               :data="relData.PersonInstitution"
-              :is-collapsed="false"
+              :is-collapsed="true"
             ></CollapsableRelationSection>
             <!-- <GenericListSection :data="relData.PersonInstitution"></GenericListSection> -->
             <CollapsableRelationSection
               header="Personenbeziehungen am Hof"
               :data="personRelData['Berufliche Beziehung']"
-              :is-collapsed="false"
+              :is-collapsed="true"
             ></CollapsableRelationSection>
 
             <!-- <h2>Teilnahme an Hofereignissen</h2> -->
@@ -189,11 +243,11 @@ watch(rawDocData, () => {
               :data="labelData.court_other"
             ></CollabsableLabelSection>
 
-            <h1 class="text-2xl font-light font-">Beziehungen außerhalb des Wiener Hofs</h1>
+            <h1 class="text-2xl font-light font-">Sonstige Informationen</h1>
             <CollapsableRelationSection
               header="Verwandtschaftliche Beziehungen"
               :data="personRelData['Verwandtschaftliche Beziehung']"
-              :is-collapsed="false"
+              :is-collapsed="true"
             ></CollapsableRelationSection>
 
             <CollabsableMixedSection
@@ -212,8 +266,7 @@ watch(rawDocData, () => {
           </div>
           <div v-else>Loading</div>
         </div>
-        <div id="container-below-relations" class="mb-10">
-        </div>
+        <div id="container-below-relations" class="mb-10"></div>
       </div>
     </div>
     <div id="container-below-split" class="">

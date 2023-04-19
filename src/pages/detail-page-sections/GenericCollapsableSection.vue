@@ -32,9 +32,9 @@ const props = defineProps(['header', 'data', 'isCollapsed']);
 
     </div>
       <div :class="{ hidden: isCollapsed }" class="flex-col">
-        <slot name="collapsable-content"></slot>
+        <slot></slot>
+
       </div>
-      <slot name="content-below-allways-visible"></slot>
   </div>
 </template>
 <style scoped></style>
