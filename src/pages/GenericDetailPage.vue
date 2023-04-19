@@ -195,7 +195,7 @@ watch(rawDocData, () => {
               <h1 class="text-gray-400 font-light text-2xl text-left pb-4">Stammdaten</h1>
               <div class="grid grid-cols-4 gap-4">
                 <label class="col-span-1" for="">
-                  {{ metaData.gender === 'female' ? 'Geburtstname' : 'Name' }}</label
+                  {{ metaData.gender === 'female' ? 'Geburtsname' : 'Name' }}</label
                 >
                 <p class="col-span-3">{{ metaData.name }}</p>
                 <label v-if="metaData.gender === 'female'" class="col-span-1" for=""
