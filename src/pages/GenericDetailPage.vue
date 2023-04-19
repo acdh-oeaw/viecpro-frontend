@@ -112,13 +112,20 @@ function processRawData(response) {
   });
 
   if (groupedRelations.PersonPlace) {
-  birthplace.value = groupedRelations.PersonPlace.filter((rel) => {
+  const place_of_birth = groupedRelations.PersonPlace.filter((rel) => {
     return rel.relation_type == "ist geboren in"
-  })[0]
+  })
 
-  deathplace.value = groupedRelations.PersonPlace.filter((rel)=> {
+  if (place_of_birth.length){
+    birthplace.value = place_of_birth[0]
+  }
+
+  const place_of_death = groupedRelations.PersonPlace.filter((rel)=> {
     return rel.relation_type == "ist gestorben in"
-  })[0]
+  })
+  if (place_of_death.length){
+    deathplace.value = place_of_death[0]
+  }
 }
   console.log('HOFSTAATEN', hofstaat.value);
   console.log(groupedRelations.PersonInstitution);
@@ -195,9 +202,9 @@ watch(rawDocData, () => {
                   {{ labelData.first_marriage }}
                 </p>
                 <label class="col-span-1" for="">Geboren:</label>
-                <p class="col-span-3"> {{ metaData.start_date }} in <span v-if="birthplace" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> {{ birthplace.target.name }}</span> <span v-else> ? </span></p>
+                <p class="col-span-3"> {{ metaData.start_date ? metaData.start_date : "?"}} in <span v-if="birthplace.target" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> {{ birthplace.target.name }}</span> <span v-else> ? </span></p>
                 <label class="col-span-1" for="">Gestorben:</label>
-                <p class="col-span-3"> {{ metaData.end_date }} in <span v-if="deathplace" class="clickable-data-span" @click="useOpenDetail('Place', deathplace.target.object_id)"> {{ deathplace.target.name }}</span><span v-else> ? </span></p>
+                <p class="col-span-3"> {{ metaData.end_date ? metaData.end_date : "?"}} in <span v-if="deathplace.target" class="clickable-data-span" @click="useOpenDetail('Place', deathplace.target.object_id)"> {{ deathplace.target.name }}</span><span v-else> ? </span></p>
                 <label class="col-span-1" for="">Vorname:</label>
                 <p class="col-span-3">{{ metaData.first_name }}</p>
                 <label class="col-span-1" for="">Geschlecht:</label>
@@ -383,5 +390,9 @@ watch(rawDocData, () => {
 
 .clickable-data-span {
   @apply rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2 hover:cursor-pointer hover:bg-primary-100 hover:text-white;
+}
+.non-clickable-data-span {
+  @apply rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2;
+
 }
 </style>
