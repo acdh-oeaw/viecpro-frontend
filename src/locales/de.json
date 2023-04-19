@@ -16,7 +16,8 @@
     "data": "Daten",
     "documentation": "Dokumentation",
     "male": "Männlich",
-    "female": "Weiblich"
+    "female": "Weiblich",
+    "undefined": ""
   },
   "models": {
     "Place": "Ort",

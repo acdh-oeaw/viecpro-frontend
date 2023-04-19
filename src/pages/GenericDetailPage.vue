@@ -14,7 +14,9 @@ import CollapsableRelationSection from './detail-page-sections/CollapsableRelati
 import CollabsableLabelSection from './detail-page-sections/CollabsableLabelSection.vue';
 import CollabsableMixedSection from './detail-page-sections/CollabsableMixedSection.vue';
 import GenericCollapsableSection from './detail-page-sections/GenericCollapsableSection.vue';
-
+import GenericDialog from '@/components/dialogs/GenericDialog.vue';
+import useConstructCitation from '@/composables/utils/useConstructCitation';
+import { useCustomConfirmation } from '@/composables/useCustomConfirmation';
 // define props as entry point
 const props = defineProps(['model', 'object_id']);
 const collection = useGetCollectionFromModel(props.model);
@@ -35,12 +37,23 @@ function processReferences(response) {
   referencesAreReady.value = true;
   referencesData.value = useExtractHitsFromResults(response);
 }
+
+
+async function copyToClipboard(m, data) {
+  try {
+    await navigator.clipboard.writeText(useConstructCitation(m, data));
+    console.log('Page URL copied to clipboard');
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+}
 onBeforeMount(() => {
   useTypesenseAsyncRetrieval(collection.value, doc_id, (response) => {
     rawDocData.value = response;
   });
 });
 
+const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
 function processRawData(response) {
   const docs = useExtractHitsFromResults(response);
   //console.log('DOCS', docs);
@@ -86,6 +99,10 @@ function processRawData(response) {
   dataIsReady.value = true;
 }
 
+function myCallback(res) {
+  console.log(res);
+}
+
 // fetch additional data
 watch(rawDocData, () => {
   useTypesenseAsyncQuery(
@@ -101,8 +118,13 @@ watch(rawDocData, () => {
 </script>
 <template>
   <div id="container-main" class="flex-col min-h-screen mx-40">
-    <div id="container-above-split" class="w-full text-left mb-20">
-      <h2 class="text-3xl font-light pt-16 mb-2 text-gray-400">Datenblatt - {{ model }}</h2>
+    <div id="container-above-split" class="w-full text-left mb-10">
+      <h2 class="text-3xl font-light pt-16 mb-2 text-gray-400">
+        Datenblatt <span class="">{{ '- ' }}{{ $t(`models.${model}`) }}</span>
+      </h2>
+      <h2 class="text-xl font-light mb-2 text-gray-400">
+        <span v-if="metaData.kind" class="">{{ metaData.kind }}</span>
+      </h2>
       <h1 class="text-4xl text-primary-100 font-medium">
         {{ metaData.fullname ? metaData.fullname : metaData.name }}
       </h1>
@@ -112,7 +134,7 @@ watch(rawDocData, () => {
           :key="func"
           class="rounded bg-gray-100 text-gray-500 px-2 py-1 mr-2"
         >
-          {{ func }}</span
+          {{ func.replace('[REVERSE]', '') }}</span
         >
         <span v-if="functions.length > 3" class="rounded bg-gray-100 text-gray-500 px-2 py-1 mr-2">
           +{{ functions.length - 3 }} weitere</span
@@ -199,12 +221,15 @@ watch(rawDocData, () => {
               header="Download und Zitierweise"
               :data="['test']"
               :is-collapsed="true"
-            ></GenericCollapsableSection>
+            >
+              <button @click="openDialog(myCallback)" class="hover:text-red-400">Vorgschlagene Zitierweise <i class="fa-solid fa-square-up-right"></i></button>
+            </GenericCollapsableSection>
             <GenericCollapsableSection
               header="Quellenbelege"
               :data="referencesData"
               :is-collapsed="true"
             >
+
               <ul>
                 <template v-for="el in referencesData" :key="el.id">
                   <li
@@ -251,7 +276,7 @@ watch(rawDocData, () => {
               :data="labelData.court_other"
             ></CollabsableLabelSection>
 
-            <h2 class="text-gray-400 font-light text-2xl text-left pb-4 ">Sonstige Informationen</h2>
+            <h2 class="text-gray-400 font-light text-2xl text-left pb-4">Sonstige Informationen</h2>
             <CollapsableRelationSection
               header="Verwandtschaftliche Beziehungen und Ehen"
               :data="personRelData['Verwandtschaftliche Beziehung']"
@@ -282,6 +307,19 @@ watch(rawDocData, () => {
       {{ referencesData }} -->
     </div>
   </div>
+  <GenericDialog :confirm="confirm" :is-revealed="isRevealed" :cancel="cancel">
+  <template v-slot:title>
+  Vorgeschlagene Zitierweise:
+  </template>
+  <template v-slot:body>
+  
+    <p> {{ useConstructCitation(model, metaData) }}</p>
+    <div class="flex justify-between mt-6 mb-2">
+      <button class="btn-dummy bg-green-300" @click="copyToClipboard(model, metaData)">Kopieren</button>
+      <button class="btn-dummy bg-green-300" @click="confirm(true)">Schließen</button>
+    </div>
+  </template></GenericDialog>
+
 </template>
 
 <style scoped></style>

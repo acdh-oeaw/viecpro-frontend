@@ -5,7 +5,7 @@ import PageNavigation from './components/PageNavigation.vue';
 import FooterSection from './components/FooterSection.vue';
 import NavLink from './components/NavLink.vue';
 import type { navlinkProp } from './types/prop_types';
-
+import GenericDialog from './components/dialogs/GenericDialog.vue';
 const navLinks: navlinkProp[] = [
   { name: 'Home', route: '/' },
   { name: 'Database', route: '/search/Person/' },
