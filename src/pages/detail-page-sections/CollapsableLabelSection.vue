@@ -26,41 +26,42 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <div v-if="isReady" class="border-2 rounded px-10">
-    <div class="flex justify-between">
-      <h2
-        class="my-auto py-5"
-        :class="{
-          'text-gray-400 cursor-not-allowed': !data.length,
-          'hover:cursor-pointer': data.length,
-        }"
-        @click="
-          () => {
-            isCollapsed = !isCollapsed;
-          }
-        "
-      >
+  <div
+    v-if="isReady"
+    class="border-2 rounded"
+    :class="{ 'shadow-md': data.length && !isCollapsed, 'shadow-0': !data.length || isCollapsed }"
+  >
+    <div
+      class="flex justify-between px-10 font-light hover:cursor-pointer"
+      :class="{
+        'bg-gray-100 border-b-2 border-gray-200 text-gray-900 ': data.length && !isCollapsed,
+        'text-gray-400 cursor-not-allowed': !data.length,
+        'text-gray-800': data.length && isCollapsed,
+      }"
+      @click="
+        () => {
+          isCollapsed = !isCollapsed;
+        }
+      "
+    >
+      <h2 class="py-2">
         {{ header }}
       </h2>
       <div>
-        <button
-          class="my-auto py-5"
-          v-if="data.length"
-          @click="
-            () => {
-              isCollapsed = !isCollapsed;
-            }
-          "
-        >
+        <button class="my-auto py-2" v-if="data.length">
           <i v-if="isCollapsed" class="fas fa-sm fa-arrow-down text-gray-400"></i>
-          <i v-else class="fas fa-sm fa-arrow-up text-gray-400"></i>
+          <i v-else class="fas fa-sm fa-arrow-up text-gray-500"></i>
         </button>
         <!-- <p v-else class="box text-gray-400 font-mono my-auto py-5">KEINE DATEN</p> -->
       </div>
     </div>
     <!-- TODO: implement check against certain labels that are displayed in one span, not as list (alt names!) -->
     <!-- CHECK could be: for those, I add the label_type in the parsed Labels and if this appears, make label_type a label element and list values after it. -->
-    <div v-if="Object.keys(groupedLabels).length" class="flex-col" :class="{ hidden: isCollapsed }">
+    <div
+      v-if="Object.keys(groupedLabels).length"
+      class="flex-col px-10 mt-4"
+      :class="{ hidden: isCollapsed }"
+    >
       <div
         v-for="(values, key) in groupedLabels"
         :key="key"
@@ -74,10 +75,12 @@ onBeforeMount(() => {
         </div>
       </div>
     </div>
-    <ul v-else :class="{ hidden: isCollapsed }">
+    <ul v-else :class="{ hidden: isCollapsed }" class="px-10 mt-4">
       <li v-for="el in data" :key="el.id">
         <!-- TODO: make this grid -->
-        <span v-for="key in orderedKeys" :key="el + '_' + key" class="mx-2"> {{ el[key] }}</span>
+        <span v-for="key in orderedKeys" :key="el + '_' + key" class="mx-2 text-sm">
+          {{ el[key] }}</span
+        >
       </li>
     </ul>
   </div>

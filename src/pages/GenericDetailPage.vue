@@ -187,7 +187,7 @@ watch(rawDocData, () => {
       </div>
     </div>
     <div id="container-split" class="py-10 xl:justify-between flex flex-col xl:flex-row">
-      <div id="container-split-left" class="flex-col w-full xl:w-1/4 xl:mb-0 mb-10">
+      <div id="container-split-left" class="flex-col w-full xl:w-1/3 xl:mb-0 mb-10">
         <div id="container-meta" class="mb-10">
           <div v-if="dataIsReady">
             <component :is="null"></component>
@@ -293,7 +293,7 @@ watch(rawDocData, () => {
           <div v-else>Loading</div>
         </div>
       </div>
-      <div id="container-split-right" class="flex-col xl:w-2/3 xl:mb-0 mb-10">
+      <div id="container-split-right" class="flex-col xl:w-2/3 pl-40 xl:mb-0 mb-10">
         <div id="container-relations" class="mb-10 w-full">
           <div v-if="dataIsReady" class="flex-col space-y-10">
             <h1 class="text-gray-400 font-light text-2xl text-left pb-4">
