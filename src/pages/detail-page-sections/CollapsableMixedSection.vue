@@ -122,7 +122,7 @@ function checkHasData() {
         </button>
       </div>
     </div> -->
-    <div :class="{ hidden: isCollapsed }">
+    <div :class="{ hidden: isCollapsed }" class="px-10 my-4">
       <ul>
         <li v-for="el in relationData" :key="el.id">
           <!-- TODO: make this grid -->
@@ -142,7 +142,7 @@ function checkHasData() {
         </li>
       </ul>
 
-      <ul>
+      <ul class="">
         <li v-for="el in labelData" :key="el.id">
           <!-- TODO: make this grid -->
           <span v-for="key in labelKeys" :key="el + '_' + key" class="mx-2"> {{ el[key] }}</span>
