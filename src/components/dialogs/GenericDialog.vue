@@ -17,7 +17,7 @@ const props = defineProps(['confirm', 'cancel', 'isRevealed']);
     <div class="fixed inset-0 flex items-center justify-center p-4">
       <!-- TODO: make the Panel with "component :is" and create templates for use cases -->
       <DialogPanel class="w-full max-w-md rounded bg-white py-4 px-10">
-        <DialogTitle class="mb-4 text-xl">
+        <DialogTitle class="mb-4 text-xl text-center">
           <slot name="title"></slot>
         </DialogTitle>
         <DialogDescription>

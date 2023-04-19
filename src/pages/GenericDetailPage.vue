@@ -32,19 +32,25 @@ const dataIsReady = ref(false);
 const referencesAreReady = ref(false);
 const referencesData = ref([]);
 const functions = ref([]);
+const copyResult = ref('');
 function processReferences(response) {
   console.log('REFERENCES RESPONSE', response);
   referencesAreReady.value = true;
   referencesData.value = useExtractHitsFromResults(response);
 }
 
-
+function confirmCopy(){
+  confirm(true);
+  copyResult.value= "";
+}
 async function copyToClipboard(m, data) {
   try {
     await navigator.clipboard.writeText(useConstructCitation(m, data));
     console.log('Page URL copied to clipboard');
+    copyResult.value = 'Zitation ins Clipboard kopiert.';
   } catch (err) {
     console.error('Failed to copy: ', err);
+    copyResult.value = 'Kopieren leider nicht möglich.';
   }
 }
 onBeforeMount(() => {
@@ -222,14 +228,15 @@ watch(rawDocData, () => {
               :data="['test']"
               :is-collapsed="true"
             >
-              <button @click="openDialog(myCallback)" class="hover:text-red-400">Vorgschlagene Zitierweise <i class="fa-solid fa-square-up-right"></i></button>
+              <button @click="openDialog(myCallback)" class="hover:text-red-400">
+                Vorgschlagene Zitierweise <i class="fa-solid fa-square-up-right"></i>
+              </button>
             </GenericCollapsableSection>
             <GenericCollapsableSection
               header="Quellenbelege"
               :data="referencesData"
               :is-collapsed="true"
             >
-
               <ul>
                 <template v-for="el in referencesData" :key="el.id">
                   <li
@@ -308,18 +315,25 @@ watch(rawDocData, () => {
     </div>
   </div>
   <GenericDialog :confirm="confirm" :is-revealed="isRevealed" :cancel="cancel">
-  <template v-slot:title>
-  Vorgeschlagene Zitierweise:
-  </template>
-  <template v-slot:body>
-  
-    <p> {{ useConstructCitation(model, metaData) }}</p>
-    <div class="flex justify-between mt-6 mb-2">
-      <button class="btn-dummy bg-green-300" @click="copyToClipboard(model, metaData)">Kopieren</button>
-      <button class="btn-dummy bg-green-300" @click="confirm(true)">Schließen</button>
-    </div>
-  </template></GenericDialog>
+    <template v-slot:title> {{ copyResult ? copyResult : "Vorgeschlagene Zitierweise:" }}</template>
+    <template v-slot:body>
+      <div v-if="!copyResult">
+        <p>{{ useConstructCitation(model, metaData) }}</p>
 
+        <div class="flex justify-between mt-6 mb-2">
+          <button class="btn-dummy bg-green-300" @click="copyToClipboard(model, metaData)">
+            Kopieren
+          </button>
+          <button class="btn-dummy bg-green-300" @click="confirm(true)">Schließen</button>
+        </div>
+      </div>
+      <div v-else>
+        <div class="flex justify-end">
+          <button class="btn-dummy bg-green-300 mt-4" @click="confirmCopy">Schließen</button>
+        </div>
+      </div>
+    </template></GenericDialog
+  >
 </template>
 
 <style scoped></style>
