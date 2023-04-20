@@ -43,7 +43,7 @@ function updateScrollPos() {
 <template>
   <nav
     class="bg-primary-100 w-full flex-col md:flex text-white flex-wrap pr-16 pl-16 tracking-wider border-0 transition-all duration-250 ease-in-out"
-    :class="[navBarHeight, textSize, bgOpacity]"
+    :class="[navBarHeight, textSize]"
   >
     <div v-if="showLogo" class="px-20 justify-center md:justify-start md:items-center md:max-w-1/4">
       <img

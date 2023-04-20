@@ -22,6 +22,8 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  assetsInclude: ['**/*.md'],
+
   base: "/",
   server: { host: true, port: 3000 },
   define: { "process.env": {} }, // TODO: this works now, but might need a config later

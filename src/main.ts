@@ -13,6 +13,7 @@ import InstitutionMeta from "@/components/entity-components/entity-meta/Institut
 import PlaceMeta from "@/components/entity-components/entity-meta/PlaceMeta.vue";
 import WorkMeta from "@/components/entity-components/entity-meta/WorkMeta.vue";
 import EntityMetaBase from "@/components/entity-components/entity-meta/EntityMetaBase.vue";
+import Markdown from 'vue3-markdown-it';
 
 const i18n = createI18n({
   legacy: false,
@@ -40,5 +41,6 @@ app.use(createPinia());
 app.use(router);
 app.use(InstantSearch);
 app.use(i18n);
+app.use(Markdown);
 
 app.mount("#app");

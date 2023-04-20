@@ -12,7 +12,8 @@ import TeamSection from './about-page-sections/TeamSection.vue';
 import TechnicalSection from './about-page-sections/TechnicalSection.vue';
 import MaterialsSection from './about-page-sections/MaterialsSection.vue';
 import PartnersSection from './about-page-sections/PartnersSection.vue';
-
+import { marked } from 'marked';
+import test from "/src/assets/test.md"
 const baseKey = 'pages.about-page.';
 
 const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
@@ -23,11 +24,25 @@ const sections = ref({
   usage: {},
 });
 
+const testMarked = ref('');
+
+onBeforeMount(() => {
+  fetch('/src/assets/test.md')
+    .then((res) => {
+      console.log(res)
+      return res.text();
+    })
+    .then((text) => {
+      console.log(text)
+      testMarked.value = marked.parse(text);
+    });
+
+    console.log("htis", test)
+});
+
 const tabs = {
   database: 'database.tablink',
 };
-
-
 </script>
 
 <template>
@@ -96,6 +111,16 @@ const tabs = {
               {{ $t(baseKey + 'partners.tablink') }}
             </div>
           </Tab>
+          <Tab as="template" v-slot="{ selected }" class="focus:outline-none">
+            <div
+              class="hover:cursor-pointer hover:bg-primary-900/40 hover:text-white px-2 py-1 rounded my-2"
+              :class="{
+                'bg-primary-900/70 text-white border-0': selected,
+              }"
+            >
+              Test Markdown
+            </div>
+          </Tab>
         </TabList>
         <TabPanels class="flex-grow pl-20" id="about_content" as="div">
           <TabPanel> <ProjectSection></ProjectSection></TabPanel>
@@ -104,6 +129,7 @@ const tabs = {
           <TabPanel> <TechnicalSection></TechnicalSection> </TabPanel>
           <TabPanel> <MaterialsSection></MaterialsSection> </TabPanel>
           <TabPanel> <PartnersSection></PartnersSection> </TabPanel>
+          <TabPanel>  <div v-html="testMarked"></div>{{ testMarked }}</TabPanel>
         </TabPanels>
       </TabGroup>
     </div>
