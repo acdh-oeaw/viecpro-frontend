@@ -291,7 +291,7 @@ watch(rawDocData, () => {
           <div v-else>Loading</div>
         </div>
       </div>
-      <div id="container-split-right" class="flex-col xl:w-2/3 pl-40 xl:mb-0 mb-10">
+      <div id="container-split-right" class="flex-col xl:w-2/3 xl:pl-40 xl:mb-0 mb-10">
         <div id="container-relations" class="mb-10 w-full">
           <div v-if="dataIsReady" class="flex-col space-y-10">
             <h1 class="text-gray-400 font-light text-2xl text-left mb-2 pl-2 pt-2 ">
