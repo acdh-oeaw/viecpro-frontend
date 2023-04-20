@@ -28,11 +28,11 @@ onBeforeMount(() => {
 <template>
   <div
     v-if="isReady"
-    class="border-2 rounded"
+    class="border-2 rounded transition-all duration-200 ease-out"
     :class="{ 'shadow-md': data.length && !isCollapsed, 'shadow-0': !data.length && isCollapsed }"
   >
     <div
-      class="flex justify-between px-10 font-light "
+      class="flex justify-between px-10 font-light transition-all duration-100 ease-out"
       :class="{
         'bg-gray-100 border-b-2 border-gray-200 text-gray-900 hover:cursor-pointer':
           data.length && !isCollapsed,
@@ -47,7 +47,7 @@ onBeforeMount(() => {
         }
       "
     >
-      <h2 class="py-2 ">{{ header }} Label</h2>
+      <h2 class="py-2">{{ header }} </h2>
       <div>
         <button class="my-auto py-2" v-if="data.length">
           <i v-if="isCollapsed" class="fas fa-sm fa-arrow-down text-gray-400"></i>

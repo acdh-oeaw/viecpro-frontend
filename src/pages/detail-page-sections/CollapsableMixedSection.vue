@@ -29,14 +29,14 @@ function checkHasData() {
 </script>
 <template>
   <div
-    class="border-2 rounded"
+    class="border-2 rounded transition-all duration-150 ease-out"
     :class="{
       'shadow-md': checkHasData() && !isCollapsed,
       'shadow-0': checkHasNoData() || isCollapsed,
     }"
   >
     <div
-      class="flex justify-between px-10 font-light"
+      class="flex justify-between px-10 font-light transition-all duration-100 ease-out"
       :class="{
         'bg-gray-100 border-b-2 border-gray-200 text-gray-900 hover:cursor-pointer':
           checkHasData() && !isCollapsed,

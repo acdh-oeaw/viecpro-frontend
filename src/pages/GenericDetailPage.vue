@@ -190,9 +190,8 @@ watch(rawDocData, () => {
       <div id="container-split-left" class="flex-col w-full xl:w-1/3 xl:mb-0 mb-10">
         <div id="container-meta" class="mb-10">
           <div v-if="dataIsReady">
-            <component :is="null"></component>
             <div class="flex-col align-baseline">
-              <h1 class="text-gray-400 font-light text-2xl text-left pb-4">Stammdaten</h1>
+              <h1 class="text-gray-400 font-light text-2xl text-left pb-4"> <span class="text-gray-400 hover:text-gray-600 w-fit p-0 transition-all ease-in duration-500">Stammdaten</span></h1>
               <div class="grid grid-cols-4 gap-4">
                 <label class="col-span-1" for="">
                   {{ metaData.gender === 'female' ? 'Geburtsname' : 'Name' }}</label
@@ -288,7 +287,6 @@ watch(rawDocData, () => {
                 </template>
               </ul>
             </GenericCollapsableSection>
-            <component :is="null"></component>
           </div>
           <div v-else>Loading</div>
         </div>
@@ -296,8 +294,8 @@ watch(rawDocData, () => {
       <div id="container-split-right" class="flex-col xl:w-2/3 pl-40 xl:mb-0 mb-10">
         <div id="container-relations" class="mb-10 w-full">
           <div v-if="dataIsReady" class="flex-col space-y-10">
-            <h1 class="text-gray-400 font-light text-2xl text-left mb-2 pl-2 pt-2">
-              Bezug zum Wiener Hof
+            <h1 class="text-gray-400 font-light text-2xl text-left mb-2 pl-2 pt-2 ">
+               <span class="text-gray-400 hover:text-gray-600 w-fit p-0 transition-all ease-in duration-500">Bezug zum Wiener Hof</span>
             </h1>
             <!-- <h2>Funktionen am Hof</h2> -->
             <CollapsableRelationSection
@@ -320,7 +318,8 @@ watch(rawDocData, () => {
               :is-collapsed="true"
             ></CollapsableLabelSection>
 
-            <h2 class="text-gray-400 font-light text-2xl text-left mb-2 pt-8 pl-2">Weitere Informationen</h2>
+            <h2 class="text-gray-400 font-light text-2xl text-left mb-2 pt-8 pl-2"> <span class="text-gray-400 hover:text-gray-600 w-fit p-0 transition-all ease-in duration-500">Weitere Informationen  </span>
+</h2>
             <CollapsableRelationSection
               header="Ehe- und Verwandtschaftsverhältnisse"
               :data="personRelData['Verwandtschaftliche Beziehung']"
@@ -341,7 +340,6 @@ watch(rawDocData, () => {
               :labelData="labelData.other_jobs"
               :is-collapsed="true"
             ></CollapsableMixedSection>
-            <component :is="null"></component>
           </div>
           <div v-else>Loading</div>
         </div>
@@ -375,7 +373,7 @@ watch(rawDocData, () => {
   >
 </template>
 
-<style scoped>
+<style>
 
 .clickable-data-span {
   @apply rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2 hover:cursor-pointer hover:bg-primary-100 hover:text-white;
@@ -384,4 +382,6 @@ watch(rawDocData, () => {
   @apply rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2;
 
 }
+
+
 </style>

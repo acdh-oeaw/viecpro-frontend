@@ -2,7 +2,7 @@
     <h2>{{  $t("filters-section.filter-results") }}</h2>
   
     <h4>{{  $t("filters-section.by kind") }}</h4>
-    <ais-refinement-list attribute="kind" :show-more-limit="40" style="text-align: left; min-width: 300px" />
+    <ais-refinement-list attribute="kind" :show-more-limit="40" show-more style="text-align: left; min-width: 300px" />
     <!-- <h4>by Kind</h4>
   <ais-refinement-list
     attribute="kind"

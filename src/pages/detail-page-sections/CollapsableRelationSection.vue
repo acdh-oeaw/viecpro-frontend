@@ -4,14 +4,15 @@ const props = defineProps(['header', 'data', 'isCollapsed']);
 const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
 </script>
 <template>
-    <div
-    class="border-2 rounded"
+  <div
+    class="border-2 rounded transition-all duration-200 ease-out"
     :class="{ 'shadow-md': data && !isCollapsed, 'shadow-0': !data || isCollapsed }"
   >
     <div
-      class="flex justify-between px-10 font-light "
+      class="flex justify-between px-10 font-light transition-all duration-100 ease-out"
       :class="{
-        'bg-gray-100 border-b-2 border-gray-200 text-gray-900 hover:cursor-pointer ': data && !isCollapsed,
+        'bg-gray-100 border-b-2 border-gray-200 text-gray-900 hover:cursor-pointer ':
+          data && !isCollapsed,
         'text-gray-400 hover:cursor-not-allowed': !data,
         'text-gray-800 hover:cursor-pointer': data && isCollapsed,
       }"

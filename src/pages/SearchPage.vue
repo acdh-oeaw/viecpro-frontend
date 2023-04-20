@@ -12,14 +12,17 @@ import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headless
 import router from '../router';
 import { simple } from 'instantsearch.js/es/lib/stateMappings';
 // import utils, functions, etc.
-import { ref, watch, onBeforeMount, shallowRef } from 'vue';
+import { ref, watch, onBeforeMount, onMounted, shallowRef } from 'vue';
 import type { Ref } from 'vue';
 import { collectionsLookup } from '@/lookups.js';
 // import instant-search-stuff
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
 import { isSimpleIdentifier } from '@vue/compiler-core';
 import { history } from 'instantsearch.js/es/lib/routers';
+import { onBeforeRouteUpdate } from 'vue-router';
 
+const loading = ref(true);
+const showComponents = ref(false);
 const props = defineProps(['collection']);
 const headers = ref([]);
 console.log(collectionsLookup);
@@ -43,12 +46,14 @@ onBeforeMount(() => {
 
   // TODO: refactor to change components and collection in sync; or hide compoenents until collection switch finished.
   // atm, switching from relations to an entity collection throws an error that gets resolved after a few milliseconds.
-  console.log('params is now: ', params);
-  console.log('Host is', import.meta.env.VITE_TYPESENSE_HOST);
+
   additionalSearchParameters.query_by = params;
   typesenseInstantSearchAdapter.configuration.additionalSearchParameters.highlight_full_fields =
     params;
   placeholder.value = 'duchsuchen'; // `search in ${selectedCollection.value}`;
+  setTimeout(() => {
+    loading.value = false;
+  }, 250);
 });
 
 // search Client logic
@@ -100,28 +105,21 @@ function getTBForModel(model) {
 
   return res;
 }
-// console.log('host', import.meta.env.VITE_TYPESENSE_HOST);
-// console.log('port', import.meta.env.VITE_TYPESENSE_PORT);
-// console.log('key: ', import.meta.env.VITE_TYPESENSE_API_KEY);
+
 const searchClient = typesenseInstantSearchAdapter.searchClient;
 
 const routing = {
-  router: history(
-    {
-      writeDelay: 400,
-    }
-
-    /*{
-    push(url) {
-      router.push(url);
-    },
-  } **/
-  ),
+  router: history({
+    writeDelay: 400,
+  }),
   stateMapping: simple(),
 };
 </script>
 <template>
-  <div class="min-h-screen">
+  <div
+    class="min-h-screen transition-all ease-in-out duration-300"
+    :class="{ 'invisible blur-sm': loading }"
+  >
     <ais-instant-search
       :search-client="searchClient"
       :index-name="usePrefixedCollection(selectedCollection)"
@@ -141,7 +139,6 @@ const routing = {
                 <ais-search-box :placeholder="placeholder" class="h-8">
                   <template v-slot:submit-icon><div class="hidden"></div></template>
                   <template v-slot:reset-icon><div class=""></div></template>
-
                 </ais-search-box>
               </div>
 
@@ -182,24 +179,6 @@ const routing = {
 
         <div id="result-section" class="mx-auto px-10 py-10">
           <ais-configure :hits-per-page.camel="hitsPerPage" />
-          <!-- <ais-state-results>
-            <template v-slot="{ state: { query } }">
-              <ais-hits v-if="query.length > 0">
-                <template v-slot="{ items }">
-                  <GenericResultsTable
-                    :headers="headers"
-                    :items="items"
-                    :tB="getTBForModel(selectedCollection)"
-                  ></GenericResultsTable>
-                </template>
-              </ais-hits>
-
-              <div v-else>
-                Beginn Typing to see results.
-                <ais-current-refinements :excluded-attributes="[]" />
-              </div>
-            </template>
-          </ais-state-results> -->
 
           <ais-hits>
             <template v-slot="{ items }">
