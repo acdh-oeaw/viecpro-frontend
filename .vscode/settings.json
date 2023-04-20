@@ -19,6 +19,10 @@
     "editor.wordWrap": "bounded",
     "editor.wrappingIndent":"indent", // or deepIndent
   },
-  "vue3snippets.enable-compile-vue-file-on-did-save-code": false
+  "vue3snippets.enable-compile-vue-file-on-did-save-code": false,
+  "tailwindCSS.includeLanguages": {
+    "vue": "html",
+    "vue-html": "html",
+  },
 }  
 

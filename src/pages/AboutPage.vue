@@ -3,17 +3,18 @@
 <script setup lang="ts">
 import GenericDialog from '@/components/dialogs/GenericDialog.vue';
 import { useCustomConfirmation } from '@/composables/useCustomConfirmation';
-import { ref, onBeforeMount, watch, reactive } from 'vue';
+import { ref, onBeforeMount, watch, reactive, toRefs } from 'vue';
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
-
+import StyledMarkdownSection from './about-page-sections/StyledMarkdownSection.vue';
 import ProjectSection from './about-page-sections/ProjectSection.vue';
 import DataSection from './about-page-sections/DataSection.vue';
 import TeamSection from './about-page-sections/TeamSection.vue';
 import TechnicalSection from './about-page-sections/TechnicalSection.vue';
 import MaterialsSection from './about-page-sections/MaterialsSection.vue';
 import PartnersSection from './about-page-sections/PartnersSection.vue';
-import { marked } from 'marked';
-import test from "/src/assets/test.md"
+import useParseMarkdown from '@/composables/utils/useParseMarkdown';
+
+import test from '/src/assets/test.md';
 const baseKey = 'pages.about-page.';
 
 const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
@@ -26,18 +27,36 @@ const sections = ref({
 
 const testMarked = ref('');
 
-onBeforeMount(() => {
-  fetch('/src/assets/test.md')
-    .then((res) => {
-      console.log(res)
-      return res.text();
-    })
-    .then((text) => {
-      console.log(text)
-      testMarked.value = marked.parse(text);
-    });
+const pageFiles = reactive({
+  dataSection: 'Daten.md',
+  materialSection: 'Materialien.md',
+  partnerSection: 'Kooperationspartner.md',
+  projectSection: 'Projekt.md',
+  teamSection: 'Team.md',
+  technicalSection: 'Forschungsinfrastruktur.md',
+});
 
-    console.log("htis", test)
+const {
+  dataSection,
+  materialSection,
+  partnerSection,
+  projectSection,
+  teamSection,
+  technicalSection,
+} = toRefs(pageFiles);
+
+const basePath = '/src/assets/markdown/';
+onBeforeMount(() => {
+  [
+    dataSection,
+    materialSection,
+    partnerSection,
+    projectSection,
+    teamSection,
+    technicalSection,
+  ].forEach((section) => {
+    useParseMarkdown(basePath + section.value, section);
+  });
 });
 
 const tabs = {
@@ -111,7 +130,7 @@ const tabs = {
               {{ $t(baseKey + 'partners.tablink') }}
             </div>
           </Tab>
-          <Tab as="template" v-slot="{ selected }" class="focus:outline-none">
+          <!-- <Tab as="template" v-slot="{ selected }" class="focus:outline-none">
             <div
               class="hover:cursor-pointer hover:bg-primary-900/40 hover:text-white px-2 py-1 rounded my-2"
               :class="{
@@ -120,16 +139,42 @@ const tabs = {
             >
               Test Markdown
             </div>
-          </Tab>
+          </Tab> -->
         </TabList>
         <TabPanels class="flex-grow pl-20" id="about_content" as="div">
-          <TabPanel> <ProjectSection></ProjectSection></TabPanel>
+          <!-- <TabPanel> <ProjectSection></ProjectSection></TabPanel>
           <TabPanel> <DataSection></DataSection> </TabPanel>
           <TabPanel> <TeamSection></TeamSection></TabPanel>
           <TabPanel> <TechnicalSection></TechnicalSection> </TabPanel>
           <TabPanel> <MaterialsSection></MaterialsSection> </TabPanel>
-          <TabPanel> <PartnersSection></PartnersSection> </TabPanel>
-          <TabPanel>  <div v-html="testMarked"></div>{{ testMarked }}</TabPanel>
+          <TabPanel> <PartnersSection></PartnersSection> </TabPanel> -->
+
+          <TabPanel>
+            <StyledMarkdownSection :parsedMarkdown="projectSection"></StyledMarkdownSection>
+          </TabPanel>
+          <TabPanel>
+            <StyledMarkdownSection :parsedMarkdown="dataSection"></StyledMarkdownSection>
+          </TabPanel>
+          <TabPanel>
+            <StyledMarkdownSection :parsedMarkdown="teamSection"></StyledMarkdownSection>
+          </TabPanel>
+          <TabPanel>
+            <StyledMarkdownSection :parsedMarkdown="technicalSection"></StyledMarkdownSection>
+          </TabPanel>
+          <TabPanel>
+            <StyledMarkdownSection :parsedMarkdown="materialSection"></StyledMarkdownSection>
+          </TabPanel>
+          <TabPanel>
+            <StyledMarkdownSection :parsedMarkdown="partnerSection"></StyledMarkdownSection>
+          </TabPanel>
+
+          <!-- <TabPanel>
+            <div v-html="testMarked"></div>
+            {{ testMarked }}
+            <div>
+              <h1>Markdown component example</h1>
+              <Markdown :source="testMarked"></Markdown></div
+          ></TabPanel> -->
         </TabPanels>
       </TabGroup>
     </div>
