@@ -11,7 +11,11 @@ import DocumentationSection from './landing-page-sections/DocumentationSection.v
 </script>
 
 <template>
-  <div class="min-h-screen mt-20 flex-col lg:mx-80">
+    <div class="w-full h-2 bg-primary-600"></div>
+
+  <img src="/src/assets/images/homeBackground.jpeg" alt="" class="w-full">
+  <div class="w-full h-2 bg-primary-400"></div>
+  <div class="min-h-screen mt-20 flex-col max-w-[50rem] mx-auto">
     <WelcomeSection></WelcomeSection>
     <DatabaseSection></DatabaseSection>
     <DocumentationSection></DocumentationSection>
