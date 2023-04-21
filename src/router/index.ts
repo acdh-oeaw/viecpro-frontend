@@ -4,7 +4,7 @@ import SearchPage from '../pages/SearchPage.vue';
 import EntityDetailPage from '@/pages/EntityDetailPage.vue';
 import DetailPageSource from '@/pages/DetailPageSource.vue';
 import DetailPageFunction from '@/pages/DetailPageFunction.vue';
-import GenericDetailPage from '@/pages/GenericDetailPage.vue';
+import GenericDetailPage from '@/pages/PersonDetailPage.vue';
 import ErrorPage from '@/pages/ErrorPage.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,10 +39,30 @@ const router = createRouter({
       props: true,
     },
     {
-      path: '/detail/:model/:object_id/',
+      path: '/detail/Person/:object_id/',
       component: GenericDetailPage,
       props: true,
     },
+    {
+      path: '/detail/Institution/:object_id/',
+      component: GenericDetailPage,
+      props: true,
+    },
+    {
+      path: '/detail/Reference/:object_id/',
+      component: GenericDetailPage,
+      props: true,
+    },
+    {
+      path: '/detail/Hofstaat/:object_id/',
+      component: GenericDetailPage,
+      props: true,
+    },
+    // {
+    //   path: '/detail/:model/:object_id/',
+    //   component: GenericDetailPage,
+    //   props: true,
+    // },
     { path: '/:pathMatch(.*)', component: ErrorPage, name: "page-not-found" },
 
     // { path: '/search/:collection/', name: 'search_new', components: SearchPage, props: true },

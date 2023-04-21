@@ -92,7 +92,15 @@
       "folio": "Fundstelle",
       "related_doc": {
         "name": "Belegte Entität"
-      }
+      },
+     
+    },
+    "hofstaat": {
+      "owner": "Inhaber*in",
+      "name":"Name",
+      "start": "Von",
+      "end": "Bis",
+
     },
     "folio": "Fundstelle",
     "source": { "name": "Basis" },

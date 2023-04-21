@@ -92,12 +92,16 @@ const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
 
 function getTBForModel(model) {
   let res;
+  console.log("TB CASE WAS", model)
   switch (model) {
     case 'Person':
       res = 'search-result-table-headers.person.';
       break;
     case 'Reference':
       res = 'search-result-table-headers.reference.';
+      break;
+    case 'Hofstaat':
+      res = 'search-result-table-headers.hofstaat.';
       break;
     default:
       res = 'search-result-table-headers.';
