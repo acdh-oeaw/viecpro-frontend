@@ -6,15 +6,14 @@ import { useCustomConfirmation } from '@/composables/useCustomConfirmation';
 import { ref, onBeforeMount, watch, reactive, toRefs } from 'vue';
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
 import StyledMarkdownSection from './about-page-sections/StyledMarkdownSection.vue';
-import ProjectSection from './about-page-sections/ProjectSection.vue';
-import DataSection from './about-page-sections/DataSection.vue';
-import TeamSection from './about-page-sections/TeamSection.vue';
-import TechnicalSection from './about-page-sections/TechnicalSection.vue';
-import MaterialsSection from './about-page-sections/MaterialsSection.vue';
-import PartnersSection from './about-page-sections/PartnersSection.vue';
+// import ProjectSection from './about-page-sections/ProjectSection.vue';
+// import DataSection from './about-page-sections/DataSection.vue';
+// import TeamSection from './about-page-sections/TeamSection.vue';
+// import TechnicalSection from './about-page-sections/TechnicalSection.vue';
+// import MaterialsSection from './about-page-sections/MaterialsSection.vue';
+// import PartnersSection from './about-page-sections/PartnersSection.vue';
 import useParseMarkdown from '@/composables/utils/useParseMarkdown';
 
-import test from '/src/assets/test.md';
 const baseKey = 'pages.about-page.';
 
 const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
@@ -45,7 +44,7 @@ const {
   technicalSection,
 } = toRefs(pageFiles);
 
-const basePath = '/src/assets/markdown/';
+const basePath =  import.meta.env.VITE_MARKDOWN_ASSETS //'/assets/markdown'  // '/src/assets/markdown/';
 onBeforeMount(() => {
   [
     dataSection,
