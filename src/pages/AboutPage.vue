@@ -12,51 +12,55 @@ import StyledMarkdownSection from './about-page-sections/StyledMarkdownSection.v
 // import TechnicalSection from './about-page-sections/TechnicalSection.vue';
 // import MaterialsSection from './about-page-sections/MaterialsSection.vue';
 // import PartnersSection from './about-page-sections/PartnersSection.vue';
-import useParseMarkdown from '@/composables/utils/useParseMarkdown';
-
+// import useParseMarkdown from '@/composables/utils/useParseMarkdown';
+import { Daten, Team, Technical, Materials, Partners, Project }from "@/markdown"
+// import { marked } from "marked"
 const baseKey = 'pages.about-page.';
 
 const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
 
-const sections = ref({
-  database: {},
-  team: {},
-  usage: {},
-});
+// const sections = ref({
+//   database: {},
+//   team: {},
+//   usage: {},
+// });
 
-const testMarked = ref('');
+// const testMarked = ref('');
 
-const pageFiles = reactive({
-  dataSection: 'Daten.md',
-  materialSection: 'Materialien.md',
-  partnerSection: 'Kooperationspartner.md',
-  projectSection: 'Projekt.md',
-  teamSection: 'Team.md',
-  technicalSection: 'Forschungsinfrastruktur.md',
-});
+// const pageFiles = reactive({
+//   dataSection: 'Daten.md',
+//   materialSection: 'Materialien.md',
+//   partnerSection: 'Kooperationspartner.md',
+//   projectSection: 'Projekt.md',
+//   teamSection: 'Team.md',
+//   technicalSection: 'Forschungsinfrastruktur.md',
+// });
 
-const {
-  dataSection,
-  materialSection,
-  partnerSection,
-  projectSection,
-  teamSection,
-  technicalSection,
-} = toRefs(pageFiles);
+// const DATA = marked.parse(Daten);
+// console.log("THIS TEST", DATA)
 
-const basePath =  import.meta.env.VITE_MARKDOWN_ASSETS //'/assets/markdown'  // '/src/assets/markdown/';
-onBeforeMount(() => {
-  [
-    dataSection,
-    materialSection,
-    partnerSection,
-    projectSection,
-    teamSection,
-    technicalSection,
-  ].forEach((section) => {
-    useParseMarkdown(basePath + section.value, section);
-  });
-});
+// const {
+//   dataSection,
+//   materialSection,
+//   partnerSection,
+//   projectSection,
+//   teamSection,
+//   technicalSection,
+// } = toRefs(pageFiles);
+
+// const basePath =  import.meta.env.VITE_MARKDOWN_ASSETS //'/assets/markdown'  // '/src/assets/markdown/';
+// onBeforeMount(() => {
+//   [
+//     dataSection,
+//     materialSection,
+//     partnerSection,
+//     projectSection,
+//     teamSection,
+//     technicalSection,
+//   ].forEach((section) => {
+//     useParseMarkdown(basePath + section.value, section);
+//   });
+// });
 
 const tabs = {
   database: 'database.tablink',
@@ -149,22 +153,22 @@ const tabs = {
           <TabPanel> <PartnersSection></PartnersSection> </TabPanel> -->
 
           <TabPanel>
-            <StyledMarkdownSection :parsedMarkdown="projectSection"></StyledMarkdownSection>
+            <StyledMarkdownSection :parsedMarkdown="Project"></StyledMarkdownSection>
           </TabPanel>
           <TabPanel>
-            <StyledMarkdownSection :parsedMarkdown="dataSection"></StyledMarkdownSection>
+            <StyledMarkdownSection :parsedMarkdown="Daten"></StyledMarkdownSection>
           </TabPanel>
           <TabPanel>
-            <StyledMarkdownSection :parsedMarkdown="teamSection"></StyledMarkdownSection>
+            <StyledMarkdownSection :parsedMarkdown="Team"></StyledMarkdownSection>
           </TabPanel>
           <TabPanel>
-            <StyledMarkdownSection :parsedMarkdown="technicalSection"></StyledMarkdownSection>
+            <StyledMarkdownSection :parsedMarkdown="Technical"></StyledMarkdownSection>
           </TabPanel>
           <TabPanel>
-            <StyledMarkdownSection :parsedMarkdown="materialSection"></StyledMarkdownSection>
+            <StyledMarkdownSection :parsedMarkdown="Materials"></StyledMarkdownSection>
           </TabPanel>
           <TabPanel>
-            <StyledMarkdownSection :parsedMarkdown="partnerSection"></StyledMarkdownSection>
+            <StyledMarkdownSection :parsedMarkdown="Partners"></StyledMarkdownSection>
           </TabPanel>
 
           <!-- <TabPanel>
