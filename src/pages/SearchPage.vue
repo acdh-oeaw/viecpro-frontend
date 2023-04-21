@@ -160,7 +160,7 @@ const routing = {
               </ListboxOptions>
             </Listbox>
           </div>
-          <div class="flex">
+          <!-- <div class="flex">
             <label for="set-hits-per-page" class="mr-4">Results per page: </label>
             <input
               type="text"
@@ -168,7 +168,7 @@ const routing = {
               id="set-hits-per-page"
               class="border-2 border-black rounded-xl px-4 text-center w-20"
             />
-          </div>
+          </div> -->
         </div>
         <div>
           <!-- <template v-slot:submit-icon>
