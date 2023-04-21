@@ -20,7 +20,7 @@ import useOpenDetail from '@/composables/useOpenDetail';
 import { useCustomConfirmation } from '@/composables/useCustomConfirmation';
 // define props as entry point
 const props = defineProps(['object_id']);
-const model = "Institution"
+const model = 'Institution';
 const collection = useGetCollectionFromModel(model);
 const doc_id = useConstructDocIDFromParams(model, props.object_id);
 const rawDocData = ref({});
@@ -33,11 +33,11 @@ const labelData = ref({});
 const dataIsReady = ref(false);
 const referencesAreReady = ref(false);
 const referencesData = ref([]);
-const functions = ref([]);
+const standorte = ref([]);
 const copyResult = ref('');
 const hofstaat = ref([]);
-const birthplace = ref({})
-const deathplace = ref({})
+const birthplace = ref({});
+const deathplace = ref({});
 function processReferences(response) {
   console.log('REFERENCES RESPONSE', response);
   referencesAreReady.value = true;
@@ -97,44 +97,41 @@ function processRawData(response) {
     ? useGroupPersonPersonRelsByLookup(groupedRelations.PersonPerson)
     : {};
 
-  if (groupedRelations.PersonInstitution) {
-    let parsedFuncs = new Set(
-      groupedRelations.PersonInstitution.map((el: object) => {
+  if (groupedRelations.InstitutionPlace) {
+    let parsedStandorte = new Set(
+      groupedRelations.InstitutionPlace.map((el: object) => {
         //TODO: type this object.
-        return el.relation_type;
+        return ;
       })
     );
-    functions.value = Array.from(parsedFuncs);
-    console.log('numfuncs: ', functions.value.length);
+    standorte.value = Array.from(parsedStandorte);
+    console.log('numfuncs: ', standorte.value.length);
 
-    hofstaat.value = groupedRelations.PersonInstitution.filter((rel) => {
-    return rel.relation_type == 'hatte den Hofstaat';
-  });
-
+    // hofstaat.value = groupedRelations.PersonInstitution.filter((rel) => {
+    //   return rel.relation_type == 'hatte den Hofstaat';
+    // });
   }
-
-    
 
   if (groupedRelations.PersonPlace) {
-  const place_of_birth = groupedRelations.PersonPlace.filter((rel) => {
-    return rel.relation_type == "ist geboren in"
-  })
+    const place_of_birth = groupedRelations.PersonPlace.filter((rel) => {
+      return rel.relation_type == 'ist geboren in';
+    });
 
-  if (place_of_birth.length){
-    birthplace.value = place_of_birth[0]
-  }
+    if (place_of_birth.length) {
+      birthplace.value = place_of_birth[0];
+    }
 
-  const place_of_death = groupedRelations.PersonPlace.filter((rel)=> {
-    return rel.relation_type == "ist gestorben in"
-  })
-  if (place_of_death.length){
-    deathplace.value = place_of_death[0]
+    const place_of_death = groupedRelations.PersonPlace.filter((rel) => {
+      return rel.relation_type == 'ist gestorben in';
+    });
+    if (place_of_death.length) {
+      deathplace.value = place_of_death[0];
+    }
   }
-}
   console.log('HOFSTAATEN', hofstaat.value);
   console.log(groupedRelations.PersonInstitution);
-  console.log("LabelData", labelData.value)
-  console.log("groupedRels", groupedRelations )
+  console.log('LabelData', labelData.value);
+  console.log('groupedRels', groupedRelations);
   dataIsReady.value = true;
 }
 
@@ -167,7 +164,7 @@ watch(rawDocData, () => {
       <h1 class="text-4xl text-primary-100 font-medium">
         {{ metaData.fullname ? metaData.fullname : metaData.name }}
       </h1>
-      <div class="mt-4">
+      <!-- <div class="mt-4">
         <span
           v-for="func in functions.slice(0, 3)"
           :key="func"
@@ -184,35 +181,60 @@ watch(rawDocData, () => {
         >
         <span v-if="functions.length > 3" class="rounded bg-gray-100 text-gray-500 px-2 py-1 mr-2">
           +{{ functions.length - 3 }} weitere</span
-        >
-      </div>
+        > 
+      </div>  -->
     </div>
     <div id="container-split" class="py-10 xl:justify-between flex flex-col xl:flex-row">
       <div id="container-split-left" class="flex-col w-full xl:w-1/3 xl:mb-0 mb-10">
         <div id="container-meta" class="mb-10">
           <div v-if="dataIsReady">
             <div class="flex-col align-baseline">
-              <h1 class="text-gray-400 font-light text-2xl text-left pb-4"> <span class="text-gray-400 hover:text-gray-600 w-fit p-0 transition-all ease-in duration-500">Stammdaten</span></h1>
+              <h1 class="text-gray-400 font-light text-2xl text-left pb-4">
+                <span
+                  class="text-gray-400 hover:text-gray-600 w-fit p-0 transition-all ease-in duration-500"
+                  >Stammdaten</span
+                >
+              </h1>
               <div class="grid grid-cols-4 gap-4">
-                <label class="col-span-1" for="">
+                <label class="col-span-1" for=""> Name: </label>
+                <p class="col-span-3">
+                  {{ metaData.name }}
+                </p>
+                <!-- <label class="col-span-1" for=""> Kategorie: </label>
+                <p class="col-span-3">
+                  {{ metaData.name }}
+                </p>
+                <label class="col-span-1" for=""> Auflösung: </label>
+                <p class="col-span-3">
+                  {{ metaData.name }}
+                </p>
+                <label class="col-span-1" for=""> Standorte: </label>
+                <div class="col-span-3 flex-col justify-start">
+                <span v-for="stand in standorte" :key="stand"> {{ stand  }}</span>
+                  {{ metaData.name }}
+                </div> -->
+                <label class="col-span-1" for=""> VieCPro ID: </label>
+                <p>{{ metaData.object_id }}</p>
+
+                <!-- <label class="col-span-1" for="">
                   {{ metaData.gender === 'female' ? 'Geburtsname' : 'Name' }}</label
                 >
                 <p class="col-span-3">{{ metaData.name }}</p>
                 <label v-if="metaData.gender === 'female'" class="col-span-1" for=""
                   >Ehename:</label
-                >
-                <p v-if="metaData.gender === 'female'" class="col-span-3">
+                > -->
+                <!-- <p v-if="metaData.gender === 'female'" class="col-span-3">
                   {{ labelData.first_marriage }}
                 </p>
                 <label class="col-span-1" for="">Vorname/n:</label>
-                <p class="col-span-3">{{ metaData.first_name }}</p>
+                <p class="col-span-3">{{ metaData.first_name }}</p> -->
                 <!-- <label for="" class="col-span-1">Titel:</label>
                 <p class="col-span-3">
                   <span v-if="labelData.title_honor.length" v-for="title in labelData.title_honor">
                     {{ title.name }}</span
                   ><span v-else> - </span> 
                 </p>-->
-                <label class="col-span-1" for="">Geboren:</label>
+                <!-- <label class="col-span-1" for="">Geboren:</label>
                 <p class="col-span-3"> {{ metaData.start_date ? metaData.start_date : "-"}}  <span v-if="birthplace.target" class="px-2"> in </span><span v-if="birthplace.target" class="clickable-data-span" @click="useOpenDetail('Place', birthplace.target.object_id)"> {{ birthplace.target.name }}</span> <span v-else>  </span></p>
                 <label class="col-span-1" for="">Gestorben:</label>
                 <p class="col-span-3"> {{ metaData.end_date ? metaData.end_date : "-"}} <span v-if="deathplace.target" class="px-2"> in </span> <span v-if="deathplace.target" class="clickable-data-span" @click="useOpenDetail('Place', deathplace.target.object_id)">  {{ deathplace.target.name }}</span><span v-else>  </span></p>
@@ -229,8 +251,7 @@ watch(rawDocData, () => {
                   >
                     {{ hof.target.name }}</p
                   >
-                </p>
-            
+                </p> -->
               </div>
             </div>
           </div>
@@ -238,7 +259,7 @@ watch(rawDocData, () => {
         </div>
         <div id="container-below-meta" class="mb-10 w-full">
           <div v-if="dataIsReady" class="flex-col space-y-8">
-            <CollapsableRelationSection
+            <!-- <CollapsableRelationSection
               header="Potentielle Dubletten"
               :data="personRelData['Doubletten Beziehung']"
               :is-collapsed="true"
@@ -258,7 +279,7 @@ watch(rawDocData, () => {
               header="Akademische Titel"
               :data="labelData.title_academic"
               :is-collapsed="true"
-            ></CollapsableLabelSection>
+            ></CollapsableLabelSection> -->
             <GenericCollapsableSection
               header="Download und Zitierweise"
               :data="['test']"
@@ -295,24 +316,34 @@ watch(rawDocData, () => {
       <div id="container-split-right" class="flex-col xl:w-2/3 xl:pl-40 xl:mb-0 mb-10">
         <div id="container-relations" class="mb-10 w-full">
           <div v-if="dataIsReady" class="flex-col space-y-10">
-            <h1 class="text-gray-400 font-light text-2xl text-left mb-2 pl-2 pt-2 ">
-               <span class="text-gray-400 hover:text-gray-600 w-fit p-0 transition-all ease-in duration-500">Bezug zum Wiener Hof</span>
+            <h1 class="text-gray-400 font-light text-2xl text-left mb-2 pl-2 pt-2">
+              <span
+                class="text-gray-400 hover:text-gray-600 w-fit p-0 transition-all ease-in duration-500"
+                >Bezug zum Wiener Hof</span
+              >
             </h1>
             <!-- <h2>Funktionen am Hof</h2> -->
             <CollapsableRelationSection
-              header="Funktionen am Hof"
+              header="Personalliste"
               :data="relData.PersonInstitution"
               :is-collapsed="true"
+              :headers="['Relation', 'Ziel', 'Von', 'Bis']"
             ></CollapsableRelationSection>
             <!-- <GenericListSection :data="relData.PersonInstitution"></GenericListSection> -->
             <CollapsableRelationSection
-              header="Personenbeziehungen am Hof"
-              :data="personRelData['Berufliche Beziehung']"
+              header="Standorte"
+              :data="relData.InstitutionPlace"
+              :headers="['Relation', 'Ziel', 'Von', 'Bis']"
               :is-collapsed="true"
             ></CollapsableRelationSection>
-
+            <CollapsableRelationSection
+              header="Hierarchie"
+              :data="relData.InstitutionInstitution"
+              :headers="['Relation', 'Ziel', 'Von', 'Bis']"
+              :is-collapsed="true"
+            ></CollapsableRelationSection>
             <!-- <h2>Teilnahme an Hofereignissen</h2> -->
-
+            <!-- 
             <CollapsableLabelSection
               header="Sonstiger Bezug zum Hof"
               :data="labelData.court_other"
@@ -340,7 +371,7 @@ watch(rawDocData, () => {
               :relationData="[]"
               :labelData="labelData.other_jobs"
               :is-collapsed="true"
-            ></CollapsableMixedSection>
+            ></CollapsableMixedSection> -->
           </div>
           <div v-else>Loading</div>
         </div>
@@ -375,14 +406,10 @@ watch(rawDocData, () => {
 </template>
 
 <style>
-
 .clickable-data-span {
   @apply rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2 hover:cursor-pointer hover:bg-primary-100 hover:text-white;
 }
 .non-clickable-data-span {
   @apply rounded bg-gray-100 text-gray-500 py-1 px-2 mr-2 text-sm w-fit mb-2;
-
 }
-
-
 </style>
