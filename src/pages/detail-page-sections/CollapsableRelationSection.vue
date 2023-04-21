@@ -18,7 +18,7 @@ const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
       }"
       @click="
         () => {
-          if (data) {
+          if (data.length) {
             isCollapsed = !isCollapsed;
           }
         }

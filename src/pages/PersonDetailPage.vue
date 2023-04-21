@@ -283,9 +283,8 @@ watch(rawDocData, () => {
                     class="flex flex-wrap items-center justify-start"
                   >
                     <span class="mr-4">{{ el.shortTitle }}: </span>
-                    <a :href="el.folio" class="rounded px-2 py-1 text-white bg-gray-300">
-                      {{ '-> Eintrag' }}
-                    </a>
+                    <a :href="el.folio" class="">
+                      <i class="fa-solid fa-square-up-right"></i>                    </a>
                   </li>
                   <li v-else>{{ el.shortTitle }}, {{ el.folio }}.</li>
                 </template>

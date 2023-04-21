@@ -60,7 +60,7 @@ onBeforeMount(() => {
     <!-- CHECK could be: for those, I add the label_type in the parsed Labels and if this appears, make label_type a label element and list values after it. -->
     <div
       v-if="Object.keys(groupedLabels).length"
-      class="flex-col px-10 my-4"
+      class="flex-col px-10 my-4 text-sm"
       :class="{ hidden: isCollapsed }"
     >
       <div

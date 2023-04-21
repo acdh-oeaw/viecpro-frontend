@@ -352,7 +352,7 @@ watch(rawDocData, () => {
             ></CollapsableRelationSection>
             <CollapsableRelationSection
               header="Personalliste"
-              :data="relData.PersonInstitution ? relData.PersonInstitution.filter((el)=>{ return !['war Hofstaat von [REVERSE]', 'gehörte'].includes(el.relation_type) }): relData.PersonInstitution"
+              :data="relData.PersonInstitution.length ? relData.PersonInstitution.filter((el)=>{ return !['war Hofstaat von [REVERSE]', 'gehörte'].includes(el.relation_type) }): []"
               :is-collapsed="true"
               :headers="['Relation', 'Ziel', 'Von', 'Bis']"
             ></CollapsableRelationSection>
