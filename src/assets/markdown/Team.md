@@ -1,6 +1,6 @@
 # Kontaktaufnahme
 Die Datenbank befindet sich **im Aufbau**. Wir freuen uns über Ihre **sachdienlichen Hinweise und Ergänzungsvorschläge**. Falls Sie eine **Idee für Anschlussprojekte** haben oder an einer Kooperation interessiert sind, dann schreiben Sie uns an: 
-[viecpro@oeaw.ac.at] {mailto:viecpro@oeaw.ac.at}
+[viecpro@oeaw.ac.at](mailto:viecpro@oeaw.ac.at)
 
 ## Wissenschaftliches Team:
 * Dr. Marion Romberg, ÖAW-IHB | Leiterin des ÖAW-Projektes, 09/2020 – 04/2023
@@ -19,7 +19,7 @@ Die Datenbank befindet sich **im Aufbau**. Wir freuen uns über Ihre **sachdienl
 * Mag. Sabine Laszakovits BSC MA, ACDH-CH | 11/2020  
 * Sebastian Piringer BA, ÖAW-IHB | wissenschaftl. Mitarbeiter des ÖAW-Projektes, 12/2022 – 03/2023
 
-Unterstützt von **Hilfskräften** der [Abteilung für die Geschichte der Frühen Neuzeit und Rheinischen Landesgeschichte] {https://www.igw.uni-bonn.de/fnzrlg/de} des Instituts für Geschichtswissenschaft der Universität Bonn (Prof. Dr. Michael Rohrschneider, Sept. 2020 – Aug. 2021):
+Unterstützt von **Hilfskräften** der [Abteilung für die Geschichte der Frühen Neuzeit und Rheinischen Landesgeschichte](https://www.igw.uni-bonn.de/fnzrlg/de) des Instituts für Geschichtswissenschaft der Universität Bonn (Prof. Dr. Michael Rohrschneider, Sept. 2020 – Aug. 2021):
 
 * Marius Engel BA
 * Lennart Katzenbach BA

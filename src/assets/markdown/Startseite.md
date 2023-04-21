@@ -6,7 +6,7 @@ VieCPro liefert erstmals **tausende prosopographische Profile** für die überwi
 **Diese prosopographische Datenbank befindet sich im Aufbau. Wir freuen uns über Ihre sachdienlichen Hinweise und Ergänzungsvorschläge!**
 
 ## VieCPro
-`BILD` … ist ein **Gemeinschaftsprodukt zweier Forschungsteams**, die vom [ÖAW-Innovationsfonds {https://www.oeaw.ac.at/foerderungen/innovationsfonds} (09/2020–03/2023) und dem Wissenschaftsfonds [FWF] {https://www.fwf.ac.at/de/} (09/2020–06/2024) in **einer ersten Pilotphase** gefördert wurde. 
+`BILD` … ist ein **Gemeinschaftsprodukt zweier Forschungsteams**, die vom [ÖAW-Innovationsfonds](https://www.oeaw.ac.at/foerderungen/innovationsfonds) (09/2020–03/2023) und dem Wissenschaftsfonds [FWF](https://www.fwf.ac.at/de/) (09/2020–06/2024) in **einer ersten Pilotphase** gefördert wurde. 
 
 
 ## Datenbank
@@ -20,5 +20,5 @@ VieCPro liefert erstmals **tausende prosopographische Profile** für die überwi
 
 
 ## Kontaktaufnahme
-`BILD` … zum VieCPro-Team ist stets herzlich willkommen. **Die Datenbank befindet sich im Aufbau**. Wir freuen uns über Ihre sachdienlichen Hinweise und Ergänzungsvorschläge. Falls Sie eine Idee für Anschlussprojekte haben oder an einer Kooperation interessiert sind, dann schreiben Sie uns an: [viecpro(at)oeaw.ac.at] {mailto:viecpro(at)oeaw.ac.at}.
+`BILD` … zum VieCPro-Team ist stets herzlich willkommen. **Die Datenbank befindet sich im Aufbau**. Wir freuen uns über Ihre sachdienlichen Hinweise und Ergänzungsvorschläge. Falls Sie eine Idee für Anschlussprojekte haben oder an einer Kooperation interessiert sind, dann schreiben Sie uns an: [viecpro(at)oeaw.ac.at](mailto:viecpro(at)oeaw.ac.at).
 `Zur Datenbank`

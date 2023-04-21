@@ -184,6 +184,7 @@ const tabs = {
 </template>
 
 <style scoped>
+
 .indent {
   @apply ml-6;
 }

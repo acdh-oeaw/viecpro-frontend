@@ -1,14 +1,5 @@
 # Daten
 
-`GREGOR: Das Inhaltsverzeichnis bitte mit Textanker verlinken. DANKE!`
-
-1. Grundsätzliches zu den Daten
-2. Bearbeitungsstand
-3. Zur Provenienz der Daten
-4. Gesamtüberblick zu den drei Datensammlungen
-5. VieCPro-Workflow (09/2020 – 06/2024)
-
-
 ## 1. Grundsätzliches zu den Daten
 
 #### Vollständigkeit und Aktualität der Personendaten
@@ -18,14 +9,14 @@ Das Ziel dieser Pilotphase war die **Überführung und Aufbereitung der Leopold-
 Prosopographie bedeutet, Personendaten über die systematische Auswertung von historischen Quellen zu sammeln, um ein möglichst vollständiges Bild einer bestimmten Bevölkerungsgruppe zu bekommen. Während der Leopold-Datensatz nahezu **das Gesamtpersonal des Wiener Hofes der Regierungszeit von Kaiser Leopold I. (1657–1705)** erfasste, fokussiert sich der Access-Datensatz auf das **Gesamtpersonal der Wiener Hofstaate zwischen 1711 und 1806**, die Datenneuaufnahme hingegen auf den **Zeitraum von 1807 bis 1835**. 
 
 #### Begrifflichkeiten *Wiener Hofstaat* und *Wiener Hof*
-Der Begriff des **„Wiener Hofstaats“** bezeichnet die Gesamtheit des Hofpersonals, das für die persönliche Versorgung des Herrschers/der Herrscherin („Haupthofstaat“) oder eines seiner Familienmitglieder („Teilhofstaat“) zuständig war. Hierzu werden alle weiblichen und männlichen Funktionsträger gezählt, die zum einen unabhängig von ihrer Besoldung eine Funktion im Haushalt der Herrscherfamilien innehatten. Diese Funktion musste zum anderen in der höfischen Ämterstruktur der obersten Hofämter verortet werden können.  Die Summe des Hofpersonals von Haupt- und Teilhofstaaten der Kaiser, der Kaiserinnen, der Kaiserinwitwen, der Kaiserkinder und anderer Verwandter macht die **Gesamtheit des Wiener Hofpersonals bzw. des Wiener Hofstaats** aus. 
+Der Begriff des **„Wiener Hofstaats“** bezeichnet die Gesamtheit des Hofpersonals, das für die persönliche Versorgung des Herrschers/der Herrscherin („Haupthofstaat“) oder eines seiner Familienmitglieder („Teilhofstaat“) zuständig war. Hierzu werden alle weiblichen und männlichen Funktionsträger gezählt, die zum einen unabhängig von ihrer Besoldung eine Funktion im Haushalt der Herrscherfamilien innehatten. Diese Funktion musste zum anderen in der höfischen Ämterstruktur der obersten Hofämter verortet werden können. Die Summe des Hofpersonals von Haupt- und Teilhofstaaten der Kaiser, der Kaiserinnen, der Kaiserinwitwen, der Kaiserkinder und anderer Verwandter macht die **Gesamtheit des Wiener Hofpersonals bzw. des Wiener Hofstaats** aus. 
 
 Der Begriff des **„Wiener Hofes“** ist im Hinblick auf seinen Aufgabenbereich und Personenkreis weiter gefasst, da es außer der Gesamtheit des Hofpersonals (= Wiener Hofstaat) auch das diplomatische, militärische und administrative Personal umfasst. Der **Wiener Hof bzw. die Wiener Hofgesellschaft** kam den Bedürfnissen des fürstlichen Haushaltes nach (Versorgungsfunktion) und hatte eine politisch administrative Aufgabe (Verwaltungs- und Regierungsfunktion) und eine ökonomisch-kulturelle Rolle (Repräsentationsfunktion) zu erfüllen. 
 
-In VieCPro gründet sich ein **Bezug zum Wiener Hof** nicht nur in der Ausübung einer Hoffunktion, sondern auch über verwandtschaftliche Beziehungen zu Funktionsträger*innen und/oder monetäre Bezüge aus der Wiener Hofkammer.
+In VieCPro gründet sich ein **Bezug zum Wiener Hof** nicht nur in der Ausübung einer Hoffunktion, sondern auch über verwandtschaftliche Beziehungen zu Funktionsträger:innen und/oder monetäre Bezüge aus der Wiener Hofkammer.
 
 #### Vereinheitlichungen in den Datensätzen 
-Personennamen, Funktionsbezeichnungen und Institutionsbezeichnungen wurden unter Berücksichtigung der zeitgenössisch jeweils vorherrschenden Variante bei gleichzeitiger Dokumentation alternativer Schreibweisen vereinheitlicht. (__➔ Funktionsregister_)
+Personennamen, Funktionsbezeichnungen und Institutionsbezeichnungen wurden unter Berücksichtigung der zeitgenössisch jeweils vorherrschenden Variante bei gleichzeitiger Dokumentation alternativer Schreibweisen vereinheitlicht (_➔ Funktionsregister_ [in Arbeit]).
 
 #### Deduplizierung und Merging 
 Der Leopold-Datensatz wurde im Wesentlichen aus drei verschiedenen Ressourcen – Hofzahlamtsbüchern, Hofstaatsverzeichnissen und Trauungsmatriken / Totenbeschauprotokollen – generiert, in denen viele Doubletten existieren. Im Prozess der Deduplizierung galt das **Vorsichtsprinzip**. Falls aufgrund unzureichender Datenlage keine eindeutige Entscheidung zugunsten einer Zusammenführung getroffen werden konnte, wurden Personen nicht gemergt. Stattdessen wurde zwischen beiden Personendatenblättern **potenzielle VieCPro-Doubletten** ausgewiesen. 
@@ -34,8 +25,7 @@ Der Leopold-Datensatz wurde im Wesentlichen aus drei verschiedenen Ressourcen �
 Die in dieser Datenbank angelegte Hierarchisierung kann aufgrund der Natur schematischer Darstellungen allzu oft nur unzulänglich die Feinheiten des institutionellen und auch persönlichen Miteinanders abbilden. Es ist auch ein Charakteristikum frühneuzeitlicher Organisationsstrukturen, dass die Zuständigkeiten nicht immer eindeutig und nachhaltig geklärt waren. 
 
 ### Manuelle LOD-Verlinkung
-Aufgrund weitestgehenden Fehlens von Lebensdaten war ein automatisierter Abgleich der VieCPro-Personendaten mit existierenden LOD-Ressourcen wie GND, Wikidata, Kaiser & Höfe (München) nicht möglich. Stattdessen wurden LOD-Referenzen zu 690 Personen in leitenden Funktionen manuell recherchiert und in VieCPro angelegt. Im Zuge fortschreitender redaktioneller Arbeit werden weitere LOD-Referenzen eingespeist.
-
+Aufgrund weitestgehenden Fehlens von Lebensdaten war ein automatisierter Abgleich der VieCPro-Personendaten mit existierenden LOD-Ressourcen wie GND, Wikidata, Kaiser und Höfe (München) nicht möglich. Stattdessen wurden bislang LOD-Referenzen zu 690 Personen in leitenden Funktionen manuell recherchiert und in VieCPro angelegt. Im Zuge fortschreitender redaktioneller Arbeit werden weitere LOD-Referenzen eingespeist.
 
 #### Gendern & Diskriminierung: 
 Für jede Funktionsbezeichnung – sofern es einen weiblichen und männlichen Funktionsträger gab – werden geschlechtsspezifische Bezeichnungen verwendet. Heute negativ konnotierte Funktionsbezeichnungen wie Zwerg, Hofjude, Kammermensch, Extraweib etc. sind in ihrem historischen Verwendungskontext ohne modernes Äquivalent zu sehen.
@@ -50,9 +40,9 @@ Basis von VieCPro (2020–2024) sind zwei bereits existierende Datensammlungen s
 
 * die teilstrukturierten Daten zum Hof Leopolds I. aus dem FWF-Projekt *Die Wiener Hofgesellschaft unter Kaiser Leopold I. (1657–1705)* unter Leitung von Leopold Auer und in der chronologischen Folge ihrer Beteiligung Sigrid Freisleben, Johannes Werfring, Ulrike Denk und Katharina Arnegger (2001–2005), sog. **Leopold-Daten**
 
-* die strukturierten Daten zu den Hofstaaten Karls VI., Maria Theresias, Josephs II., Leopold II. und Franz II. (I.) aus dem FWF-Projekt [*Personal und Organisation des Wiener Hofes 1711–1806*] {https://hofpersonal.univie.ac.at/de/startseite/} unter Leitung von Martin Scheutz und Mitarbeit von Irene Kubiska-Scharl und Michael Pölzl (2011–2016), sog. **Access-Daten**
+* die strukturierten Daten zu den Hofstaaten Karls VI., Maria Theresias, Josephs II., Leopold II. und Franz II. (I.) aus dem FWF-Projekt [*Personal und Organisation des Wiener Hofes 1711–1806*](https://hofpersonal.univie.ac.at/de/startseite/) unter Leitung von Martin Scheutz und Mitarbeit von Irene Kubiska-Scharl und Michael Pölzl (2011–2016), sog. **Access-Daten**
 
-* die manuelle Einspeisung des Hofpersonals unter Franz II. (I.) für die Jahre zwischen 1807 und 1835 im Rahmen des FWF-Projektes [*Der Wiener Hof um 1800: Eliten, Herrschaft und Repräsentation (1790–1835)*] {https://www.oeaw.ac.at/ihb/forschungsbereiche/geschichte-der-habsburgermonarchie/forschung/wiener-hof-um-1800} unter Leitung von Katrin Keller und unter Mitarbeit von Christian Standhartinger und Markus Jeitler (2020–2023), sog. **Datenneuaufnahme**
+* die manuelle Einspeisung des Hofpersonals unter Franz II. (I.) für die Jahre zwischen 1807 und 1835 im Rahmen des FWF-Projektes [*Der Wiener Hof um 1800: Eliten, Herrschaft und Repräsentation (1790–1835)*](https://www.oeaw.ac.at/ihb/forschungsbereiche/geschichte-der-habsburgermonarchie/forschung/wiener-hof-um-1800) unter Leitung von Katrin Keller und unter Mitarbeit von Christian Standhartinger und Markus Jeitler (2020–2023), sog. **Datenneuaufnahme**
 
 *  das VieCPro-Team hat begonnen, den „geerbten“ Literatur- und Quellenbestand im Zuge der Datenkuratierung durch die Verwendung aktueller Literatur zu erweitern. Hierbei kann allerdings kein Anspruch auf Vollständigkeit erhoben werden. Ausgehend vom Recherche-gegenstand wurde auf Werke der Sekundärliteratur , Nachschlagewerke  oder auch genealogische Datenbanken  zurückgegriffen, um Einträge zu Personen, Institutionen oder Orten zu ergänzen. Sog. **redaktionelle Ergänzungen von Personen, Institutionen, Orten**
 
@@ -67,13 +57,13 @@ Der erfasste Personenkreis des Leopold-Datensatzes umfasst zwei Gruppen mit unte
 
 **Gruppe 1: Wiener Hofpersonal** – Personen, die in ihrer Funktion direkt den obersten Hofämtern des Wiener Hofes zugehörig sind. Neben dem Haupthofstaat von Kaiser Leopold I. sind die Teilhofstaate seiner drei Ehefrauen und ihrer Kinder, der Kaiserinwitwe Eleonora Gonzaga-Nevers wie auch ihrer (Stief-)Kinder und seines Onkels Leopold Wilhelm erfasst.
 
-**Gruppe 2: Wiener Hofgesellschaft** – Der Personenstand greift in die Organisationsstruktur des weitläufigen Verwaltungswesens, Finanzwesens, Gesandtschaftswesens, Kriegswesens und des Kulturbereiches der Habsburgermonarchie und des Alten Reiches. So werden selektiv Funktionsträger*innen auf Ebene der Zentralbehörden des Reiches und der Habsburgermonarchie, der ständischen Landesverwaltung der Habsburgermonarchie, der städtischen Verwaltungsbehörden und primären Institutionen zur Armen-, Alten- und Krankenversorgung, der frühneuzeitlichen Spitäler und Zuchthäuser und frühneuzeitlichen Universitäten erfasst.
+**Gruppe 2: Wiener Hofgesellschaft** – Der Personenstand greift in die Organisationsstruktur des weitläufigen Verwaltungswesens, Finanzwesens, Gesandtschaftswesens, Kriegswesens und des Kulturbereiches der Habsburgermonarchie und des Alten Reiches. So werden selektiv Funktionsträger:innen auf Ebene der Zentralbehörden des Reiches und der Habsburgermonarchie, der ständischen Landesverwaltung der Habsburgermonarchie, der städtischen Verwaltungsbehörden und primären Institutionen zur Armen-, Alten- und Krankenversorgung, der frühneuzeitlichen Spitäler und Zuchthäuser und frühneuzeitlichen Universitäten erfasst.
 
 Der Leopold-Datensatz umfasst **48.000 Zeilen teilstrukturierter Personendaten zu Funktionsträgern beiderlei Geschlechts, verschiedener sozialer Schichten** – vom Kammerweib bis zum Obersthofmarschall, vom Kanzlist bis zum Hofkriegsratspräsidenten – wie auch **unterschiedlicher lokaler und (inter-)nationaler Herkunft**. Es wurden für jede Person – sofern bekannt – Funktion, Verwandschaftsverhältnisse und soziales Netzwerk, Hofzugehörigkeit, Zahlungen, Ämter, Wohnorte etc. dokumentiert.
 
 Während **Gruppe 1** als **nahezu vollständig** betrachtet werden kann, liegen die Funktionsträger*innen der **Gruppe 2 selektiver** vor.
 
-Nach Abschluss des Projektes 2005 wurden die dokumentierten Daten in **drei Excel-Blättern zum jeweiligen Quellenbestand (HZAB, HSV und TM-TBP)** sowie einem Excel-Blatt mit einem Überblick zum Personal der Hofkammer auf der Website des Österreichischen Staatsarchivs zum Herunterladen zur Verfügung gestellt (*➔  Materialien*).
+Nach Abschluss des Projektes 2005 wurden die dokumentierten Daten in **drei Excel-Blättern zum jeweiligen Quellenbestand (HZAB, HSV und TM-TBP)** sowie einem Excel-Blatt mit einem Überblick zum Personal der Hofkammer auf der Website des Österreichischen Staatsarchivs zum Herunterladen zur Verfügung gestellt (_➔  Materialien_).
 
 Die **Herausforderungen** an das VieCPro-Team bei Überführung und Aufbereitung des Datensatzes in die APIS-Datenbank und die **Bewältigungsstrategie** waren im Wesentlichen:
 
@@ -88,7 +78,7 @@ Die **Herausforderungen** an das VieCPro-Team bei Überführung und Aufbereitung
 
 * *Kompilierte Daten zu einer Person aus verschiedenen Quellen in einer Zelle. Mit Ausnahme des HZAB-Blattes ist eine 1:1 Rückführung der Informationen zu einer Quelle nicht mehr möglich* ➔ Ausgabe eines zusammengefassten Quellenzitates mit Ausnahme des HZAB. Hier Rückführung des Quellenzitats in das Kategorie-Schema des HZAB über die Seitenzahl [in Arbeit].
 
-* *Unvollständige oder widersprechende Daten wie fehlende Hofstaatszugehörigkeiten, Funktionszeiträume* * ➔ Hermeneutisches Zusammenlesen vorhandenen Informationen im Zuge des Mergings, selektive weiterführende Recherchen und Kenntlichmachen von Lücken für die Benutzer*innen [in Arbeit].
+* *Unvollständige oder widersprechende Daten wie fehlende Hofstaatszugehörigkeiten, Funktionszeiträume* ➔ Hermeneutisches Zusammenlesen vorhandenen Informationen im Zuge des Mergings, selektive weiterführende Recherchen und Kenntlichmachen von Lücken für die Benutzer*innen [in Arbeit].
 
 ### Datensatz 2: Der Wiener Hof im 18. Jahrhundert, sog. Access-Daten
 
@@ -116,16 +106,15 @@ Die **Herausforderungen** an das VieCPro-Team bei Überführung und Aufbereitung
 
 ### Datensatz 3: Der Hof von Franz II./I., sog. Datenneuaufnahme
 
-Der dritte Datensatz wird in einem Teilprojekt des FWF-Projektes [*Der Wiener Hof um 1800: Eliten, Herrschaft und Repräsentation (1790–1835)*] {https://www.oeaw.ac.at/ihb/forschungsbereiche/geschichte-der-habsburgermonarchie/forschung/wiener-hof-um-1800} unter Leitung von Katrin Keller durch Christian Standhartinger erhoben. Der Fokus liegt auf der **Vervollständigung von unpublizierten Datensätzen des Scheutz-Projektes zum Hofstaat von Franz II. sowie deren Erweiterung bis zum Jahr 1835.**
+Der dritte Datensatz wird in einem Teilprojekt des FWF-Projektes [*Der Wiener Hof um 1800: Eliten, Herrschaft und Repräsentation (1790–1835)*](https://www.oeaw.ac.at/ihb/forschungsbereiche/geschichte-der-habsburgermonarchie/forschung/wiener-hof-um-1800) unter Leitung von Katrin Keller durch Christian Standhartinger erhoben. Der Fokus liegt auf der **Vervollständigung von unpublizierten Datensätzen des Scheutz-Projektes zum Hofstaat von Franz II. sowie deren Erweiterung bis zum Jahr 1835.**
 
 Als **Quellenbasis** dienen hierbei vorwiegend die **Hof- und Staatsschematismen (Staatshandbücher)** der Jahre 1807 bis 1835. Die kriegsbedingten Überlieferungslücken der Jahre 1809, 1810 und 1815 werden hierbei nicht durch die Auswertung zusätzlicher Quellen geschlossen. Einzelne Personendatenblätter, insbesondere die Träger hoher Hoffunktionen, werden hingegen durch biographische Lexika und einschlägige Werke der Sekundärliteratur erweitert.
 
-Erfasst werden **sämtliche Personen, die in den Hofschematismen einem der kaiserlichen Obersten Hofämter oder dem Hofstaat eines anderen Familienmitglieds, sofern sich dieses dauerhaft in Wien aufhielt,** zugeteilt waren. Zusätzlich wird auch die **Erfassung sämtlicher Geheimer Räte, Kämmerer, Palastdamen sowie der Träger und Trägerinnen der in den Hofschematismen aufgelisteten Orden **angestrebt. Sämtliche Zusatzinformationen, die in den Hofschematismen neben der eigentlichen Hoffunktion angegeben sind, werden strukturiert mitaufgenommen. Dazu zählen Ordensverleihungen, nicht-höfische Ämter und Würden, militärische Ränge sowie Wohnadressen.
+Erfasst werden **sämtliche Personen, die in den Hofschematismen einem der kaiserlichen Obersten Hofämter oder dem Hofstaat eines anderen Familienmitglieds, sofern sich dieses dauerhaft in Wien aufhielt,** zugeteilt waren. Zusätzlich wird auch die **Erfassung sämtlicher Geheimer Räte, Kämmerer, Palastdamen sowie der Träger und Trägerinnen der in den Hofschematismen aufgelisteten Orden** angestrebt. Sämtliche Zusatzinformationen, die in den Hofschematismen neben der eigentlichen Hoffunktion angegeben sind, werden strukturiert mitaufgenommen. Dazu zählen Ordensverleihungen, nicht-höfische Ämter und Würden, militärische Ränge sowie Wohnadressen.
 
 Die **Herausforderungen** an das VieCPro-Team bei Überführung und Aufbereitung des Datensatzes in die APIS-Datenbank und die **Bewältigungsstrategie** waren im Wesentlichen:
 
-* *Wechselnde Ämterhierarchie und Zuordnung von Funktionen zu bestimmten Ämtern in den Schematismen.*
-➔ Durchsicht mehrerer aufeinander folgender Schematismen, um Entscheidungen bezüglich Ämterhierarchie und Funktionszuordnungen zu treffen.
+* *Wechselnde Ämterhierarchie und Zuordnung von Funktionen zu bestimmten Ämtern in den Schematismen.* ➔ Durchsicht mehrerer aufeinander folgender Schematismen, um Entscheidungen bezüglich Ämterhierarchie und Funktionszuordnungen zu treffen.
 
 * *Überlieferungslücken in den Jahren 1809, 1810, 1815.* ➔ Relativierende Zusätze bei Laufzeiten von Funktionen, die vor diesen Jahren zum letzten Mal oder nach diesen Jahren zum ersten Mal erwähnt werden.
 
@@ -175,4 +164,4 @@ Die **Herausforderungen** an das VieCPro-Team bei Überführung und Aufbereitung
 * Fortsetzung der zweiten und finalen manuellen Nachkorrektur der Leopolddaten
 * Fortsetzung der Datenneuaufnahme
 
-06/2024 Ende des FWF-Projektes [*Der Wiener Hof um 1800: Eliten, Herrschaft und Repräsentation (1790–1835)*] {https://www.oeaw.ac.at/ihb/forschungsbereiche/geschichte-der-habsburgermonarchie/forschung/wiener-hof-um-1800}, Leitung: Katrin Keller
+06/2024 Ende des FWF-Projektes [*Der Wiener Hof um 1800: Eliten, Herrschaft und Repräsentation (1790–1835)*](https://www.oeaw.ac.at/ihb/forschungsbereiche/geschichte-der-habsburgermonarchie/forschung/wiener-hof-um-1800}), Leitung: Katrin Keller
