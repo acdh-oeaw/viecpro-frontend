@@ -26,6 +26,10 @@ const textBase = ref('pages.landing-page.viecpro.');
       erhalten haben, und drittens in einem verwandtschaftlichen Verhältnis zu Funktionsträger*innen
       standen.
     </p>
+    <div class="mx-auto mb-10 ml-80"> 
+      <button class="bg-gray-300  rounded px-4 py-2 text-gray-600 hover:bg-gray-400 hover:text-gray-800  mt-10 uppercase font-regular"  @click="$router.push('/search/Person')"> Datenbank</button>
+
+    </div>
 
     <!-- <div class="flex-col w-fit p-4 mx-auto">
       <span class="mb-2 flex justify-between w-full">

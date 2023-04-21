@@ -32,8 +32,8 @@ import ViecproSection from './landing-page-sections/ViecproSection.vue';
       <DocumentationSection></DocumentationSection>
     </div>
     <div class="mx-auto flex justify-between max-w-[80rem] space-x-20 border-b-4 border-gray-200 mt-10 pb-24 pl-20 pr-80">
-      <button class="btn-dummy mt-10"  @click="$router.push('/search/Person')">{{ $t('pages.landing-page.viecpro.link-database') }}</button>
-      <button class="btn-dummy mt-10" @click="$router.push('/about')">Zur Dokumentation</button>
+      <button class="bg-gray-300  rounded px-4 py-2 text-gray-600 hover:bg-gray-400 hover:text-gray-800  mt-10 uppercase font-regular"  @click="$router.push('/search/Person')">{{ $t('pages.landing-page.viecpro.link-database') }}</button>
+      <button class="bg-gray-300  rounded px-4 py-2 text-gray-600 hover:bg-gray-400 hover:text-gray-800  mt-10 uppercase font-regular" @click="$router.push('/about')">Zur Dokumentation</button>
 
     </div>
     <div class="mx-auto max-w-[50rem] mt-28">
