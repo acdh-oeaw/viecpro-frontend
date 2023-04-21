@@ -209,8 +209,12 @@ watch(rawDocData, () => {
                 </p>
                 <label class="col-span-1" for=""> Laufzeit: </label>
                 <p class="col-span-3">
-                   <span v-if="metaData.start_date"> {{ metaData.start_date }}</span> <span v-else> {{'?'}}</span>  <span> <span>{{'-'}} </span></span><span v-if="metaData.end_date"> {{ metaData.end_date }} </span>
-<span v-else> ? </span>
+                  <span v-if="metaData.start_date"> {{ metaData.start_date }}</span>
+                  <span v-else> {{ '?' }}</span>
+                  <span>
+                    <span>{{ '-' }} </span></span
+                  ><span v-if="metaData.end_date"> {{ metaData.end_date }} </span>
+                  <span v-else> ? </span>
                 </p>
                 <!--
                 <label class="col-span-1" for=""> Auflösung: </label>
