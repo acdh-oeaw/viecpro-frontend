@@ -19,9 +19,10 @@ import useConstructCitation from '@/composables/utils/useConstructCitation';
 import useOpenDetail from '@/composables/useOpenDetail';
 import { useCustomConfirmation } from '@/composables/useCustomConfirmation';
 // define props as entry point
-const props = defineProps(['model', 'object_id']);
-const collection = useGetCollectionFromModel(props.model);
-const doc_id = useConstructDocIDFromParams(props.model, props.object_id);
+const props = defineProps(['object_id']);
+const model = "Reference"
+const collection = useGetCollectionFromModel(model);
+const doc_id = useConstructDocIDFromParams(model, props.object_id);
 const rawDocData = ref({});
 // const rawRelData = ref({});
 const rawLabelData = ref({});

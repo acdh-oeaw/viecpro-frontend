@@ -69,7 +69,7 @@ const props = defineProps(['headers', 'items', 'tB']);
             :hit="item"
             :attribute="header"
             class="entity_tag hover:cursor-pointer hover:underline hover:text-red-800"
-            @click="useOpenRegister('Source', item.id)"
+            @click="useOpenRegister('Reference', item.id)"
           ></ais-highlight>
           <ais-highlight v-else :hit="item" :attribute="header" class="entity_tag"></ais-highlight>
 

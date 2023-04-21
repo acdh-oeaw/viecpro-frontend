@@ -4,7 +4,11 @@ import SearchPage from '../pages/SearchPage.vue';
 import EntityDetailPage from '@/pages/EntityDetailPage.vue';
 import DetailPageSource from '@/pages/DetailPageSource.vue';
 import DetailPageFunction from '@/pages/DetailPageFunction.vue';
-import GenericDetailPage from '@/pages/PersonDetailPage.vue';
+import PersonDetailPage from '@/pages/PersonDetailPage.vue';
+import InstitutionDetailPage from '@/pages/InstitutionDetailPage.vue';
+import QuelleDetailPage from '@/pages/QuelleDetailPage.vue';
+import HofstaatDetailPage from '@/pages/HofstaatDetailPage.vue';
+import PlaceDetailPage from '@/pages/PlaceDetailPage.vue';
 import ErrorPage from '@/pages/ErrorPage.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,11 +32,11 @@ const router = createRouter({
     //   component: EntityDetailPage,
     //   props: true,
     // },
-    {
-      path: '/register/source/:object_id/',
-      component: DetailPageSource,
-      props: true,
-    },
+    // {
+    //   path: '/register/source/:object_id/',
+    //   component: DetailPageSource,
+    //   props: true,
+    // },
     {
       path: '/register/function/:object_id/',
       component: DetailPageFunction,
@@ -40,22 +44,27 @@ const router = createRouter({
     },
     {
       path: '/detail/Person/:object_id/',
-      component: GenericDetailPage,
+      component: PersonDetailPage,
       props: true,
     },
     {
       path: '/detail/Institution/:object_id/',
-      component: GenericDetailPage,
+      component: InstitutionDetailPage,
       props: true,
     },
     {
       path: '/detail/Reference/:object_id/',
-      component: GenericDetailPage,
+      component: QuelleDetailPage,
       props: true,
     },
     {
       path: '/detail/Hofstaat/:object_id/',
-      component: GenericDetailPage,
+      component: HofstaatDetailPage,
+      props: true,
+    },
+    {
+      path: '/detail/Place/:object_id/',
+      component: PlaceDetailPage,
       props: true,
     },
     // {
@@ -63,7 +72,7 @@ const router = createRouter({
     //   component: GenericDetailPage,
     //   props: true,
     // },
-    { path: '/:pathMatch(.*)', component: ErrorPage, name: "page-not-found" },
+    { path: '/:pathMatch(.*)', component: ErrorPage, name: 'page-not-found' },
 
     // { path: '/search/:collection/', name: 'search_new', components: SearchPage, props: true },
     // {

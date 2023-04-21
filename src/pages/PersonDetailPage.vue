@@ -19,6 +19,7 @@ import useConstructCitation from '@/composables/utils/useConstructCitation';
 import useOpenDetail from '@/composables/useOpenDetail';
 import { useCustomConfirmation } from '@/composables/useCustomConfirmation';
 // define props as entry point
+console.log("PERSON DETAIL PAGE")
 const props = defineProps(['object_id']);
 const model = "Person"
 const collection = useGetCollectionFromModel(model);
