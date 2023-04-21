@@ -338,7 +338,7 @@ watch(rawDocData, () => {
             <h1 class="text-gray-400 font-light text-2xl text-left mb-2 pl-2 pt-2">
               <span
                 class="text-gray-400 hover:text-gray-600 w-fit p-0 transition-all ease-in duration-500"
-                >Bezug zum Wiener Hof</span
+                >Relationen</span
               >
             </h1>
             <!-- <h2>Funktionen am Hof</h2> -->
