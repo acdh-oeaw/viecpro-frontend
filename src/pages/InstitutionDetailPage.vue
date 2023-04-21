@@ -161,7 +161,7 @@ watch(rawDocData, () => {
         Datenblatt <span class="">{{ '- ' }}{{ $t(`models.${model}`) }}</span>
       </h2>
       <h2 class="text-xl font-light mb-2 text-gray-400">
-        <span v-if="metaData.kind && model != 'Hofstaat'" class="">{{ metaData.kind }}</span>
+        <span v-if="metaData.kind && model != 'Hofstaat'" class="">{{ metaData.kind }}</span> <span v-if="labelData.kategorie"> {{ " | "+ labelData.kategorie }}</span>
       </h2>
       <h1 class="text-4xl text-primary-100 font-medium">
         {{ metaData.fullname ? metaData.fullname : metaData.name }}
@@ -201,6 +201,11 @@ watch(rawDocData, () => {
                 <label class="col-span-1" for=""> Name: </label>
                 <p class="col-span-3">
                   {{ metaData.name }}
+                </p>
+                <label class="col-span-1" for=""> Auflösung: </label>
+                <p class="col-span-3">
+                  <span v-if="labelData.resolution">{{ labelData.resolution }}</span
+                  ><span v-else> - </span>
                 </p>
                 <label class="col-span-1" for=""> Kategorie: </label>
                 <p class="col-span-3">
@@ -276,12 +281,13 @@ watch(rawDocData, () => {
               header="Potentielle Dubletten"
               :data="personRelData['Doubletten Beziehung']"
               :is-collapsed="true"
-            ></CollapsableRelationSection>
+            ></CollapsableRelationSection> -->
             <CollapsableLabelSection
-              header="Alternative Namensschreibweisen"
+              header="Alternative Bezeichnungen"
               :data="labelData.alt_names"
               :is-collapsed="true"
             ></CollapsableLabelSection>
+            <!--
             <CollapsableLabelSection
               header="Adelsstand und Auszeichnungen"
               :data="labelData.collected_titles"
