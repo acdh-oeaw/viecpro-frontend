@@ -8,7 +8,7 @@ const props = defineProps([]);
   <div>
     <h1 >Datenbank</h1>
     <p class="w-[35rem]">
-      Die Datenbank beinhaltet die **prosopographischen Datensammlungen zweier abgeschlossener FWF-Projekte
+      Die Datenbank beinhaltet die prosopographischen Datensammlungen zweier abgeschlossener FWF-Projekte
       zum Wiener Hof von Kaiser Leopold I. (1657–1705) bis Leopold II. (1790–1792). Diese Sammlungen
       werden durch eine <strong>Datenneuaufnahme</strong> für die Hofgesellschaft unter Kaiser Franz II./I.
       (1792–1835) erweitert. In seiner technischen Umsetzung setzt das Team auf die am ACDH-CH der

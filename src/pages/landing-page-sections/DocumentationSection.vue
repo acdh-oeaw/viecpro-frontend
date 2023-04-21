@@ -19,6 +19,9 @@ const props = defineProps([]);
   </div>
 </template>
 <style scoped>
+strong {
+  @apply font-regular;
+}
 .ul-wrapper {
   @apply pl-4;
 }
