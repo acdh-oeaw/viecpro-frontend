@@ -29,12 +29,12 @@ onMounted(() => {
   @apply w-2 h-2 rounded-full bg-red-300;
 } */
 .x:deep(li > p) {
-  @apply text-black ml-4 list-item list-outside list-disc;
+  @apply text-black ml-4 list-item list-outside list-disc pb-2;
   
   /* -translate-x-[1.44rem]; relative -top-[1.44rem]; */
 }
 .x:deep(p:not(li > p)) {
-  @apply text-black;
+  @apply text-black pt-2;
 }
 .x:deep(strong) {
   @apply text-red-600 font-regular tracking-wider text-black;
