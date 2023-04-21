@@ -27,7 +27,7 @@ const textBase = ref('pages.landing-page.viecpro.');
       standen.
     </p>
     <div class="mx-auto mb-10 ml-80"> 
-      <button class="bg-gray-300  rounded px-4 py-2 text-gray-600 hover:bg-gray-400 hover:text-gray-800  mt-10 uppercase font-regular"  @click="$router.push('/search/Person')"> Datenbank</button>
+      <button class="bg-gray-300  rounded px-4 py-2 text-gray-600 hover:bg-gray-400 hover:text-gray-800  mt-10 uppercase font-regular"  @click="$router.push('/search/Person')"> Zur Datenbank</button>
 
     </div>
 

@@ -24,7 +24,7 @@ scrollToTop()
 
   <img src="/src/assets/images/homeBackground.jpeg" alt="" class="w-full" />
   <div class="w-full h-2 bg-primary-400"></div>
-  <div class="text-primary-100 text-center text-5xl font-black mt-20 flex justify-center mx-auto">
+  <div class="text-primary-100 text-center text-5xl font-black mt-40 flex justify-center mx-auto">
     <span class="pr-2">Der Wiener Hof.</span>
     <span class="font-light"> Ein prosopographisches Portal</span>
   </div>

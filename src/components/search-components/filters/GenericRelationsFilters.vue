@@ -13,7 +13,6 @@
   <h4 class="mb-2">Nach Klasse</h4>
   <ais-refinement-list
     attribute="model"
-    show-more
     :show-more-limit="40"
     style="text-align: left; min-width: 300px"
     class="pl-6"
@@ -27,7 +26,6 @@
   <h4 class="mt-4 mb-2">{{ $t("words.by relation type") }}</h4>
   <ais-refinement-list
     attribute="relation_type"
-    show-more
     :show-more-limit="40"
     style="text-align: left; min-width: 300px"
     class="pl-6"

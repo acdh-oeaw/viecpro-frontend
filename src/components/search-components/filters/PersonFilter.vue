@@ -1,12 +1,13 @@
 <template>
-  <h2>Filter Results</h2>
+  <h2 class="mb-4 text-base">{{ $t("words.filter results") }}:</h2>
 
-  <h4>by Nachname</h4>
+  <h4 class="mt-4 mb-2">nach Nachname</h4>
   <ais-refinement-list
     attribute="name"
-    show-more
     :show-more-limit="40"
     style="text-align: left; min-width: 300px"
+    class="pl-6"
+
   >
     <template v-slot:showMoreLabel="{ isShowingMore }">
       {{
@@ -14,10 +15,11 @@
       }}
     </template></ais-refinement-list
   >
-  <h4>nach Gender</h4>
+  <h4 class="mt-4 mb-2">nach Geschlecht</h4>
   <ais-refinement-list
     attribute="gender"
     style="text-align: left; min-width: 300px"
+    class="pl-6"
   />
 </template>
 <script setup lang="ts"></script>

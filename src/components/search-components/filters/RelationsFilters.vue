@@ -11,7 +11,6 @@
   <h4>{{ $t('words.by relation type') }}</h4>
   <ais-refinement-list
     attribute="relation_type"
-    show-more
     :show-more-limit="40"
     style="text-align: left; min-width: 300px"
   >
