@@ -18,7 +18,12 @@ import { Daten, Team, Technical, Materials, Partners, Project }from "@/markdown"
 const baseKey = 'pages.about-page.';
 
 const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
+function scrollToTop(){
+  window.scrollTo(0, 0);
 
+}
+
+scrollToTop()
 // const sections = ref({
 //   database: {},
 //   team: {},

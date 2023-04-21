@@ -9,6 +9,14 @@ import DatabaseSection from './landing-page-sections/DatabaseSection.vue';
 import ContactSection from './landing-page-sections/ContactSection.vue';
 import DocumentationSection from './landing-page-sections/DocumentationSection.vue';
 import ViecproSection from './landing-page-sections/ViecproSection.vue';
+
+
+function scrollToTop(){
+  window.scrollTo(0, 0);
+
+}
+
+scrollToTop()
 </script>
 
 <template>

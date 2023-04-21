@@ -34,7 +34,12 @@ const hitsPerPage: Ref<number> = ref(20);
 // using shallow Ref, to avoid overhead for making the component object all reactive...
 const filterComponent = shallowRef(null);
 
+function scrollToTop(){
+  window.scrollTo(0, 0);
+
+}
 onBeforeMount(() => {
+  scrollToTop()
   selectedCollection.value = props.collection;
   console.log('selectdCollection is', selectedCollection.value);
 
