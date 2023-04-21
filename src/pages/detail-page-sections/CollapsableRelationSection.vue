@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useOpenDetail from '@/composables/useOpenDetail';
-const props = defineProps(['header', 'data', 'isCollapsed']);
+const props = defineProps(['header', 'data', 'isCollapsed', 'headers']);
 const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
 </script>
 <template>
@@ -36,6 +36,9 @@ const orderedKeys = ['relation_type', 'target.name', 'start_date', 'end_date'];
       </div>
     </div>
     <ul :class="{ hidden: isCollapsed }" class="flex-col px-10 my-4">
+      <div class="grid grid-cols-4 justify-items-start auto-cols-max border-b-2 mb-2 font-regular">
+        <li v-for="header in headers" :key="header">{{ header }}</li>
+      </div>
       <li v-for="el in data" :key="el.id">
         <div class="grid grid-cols-4 justify-items-start auto-cols-max">
           <template v-for="key in orderedKeys" :key="el + '_' + key">

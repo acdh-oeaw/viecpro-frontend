@@ -242,6 +242,8 @@ watch(rawDocData, () => {
             <CollapsableRelationSection
               header="Potentielle Dubletten"
               :data="personRelData['Doubletten Beziehung']"
+              :headers="['Relation', 'Ziel', 'Von', 'Bis']"
+
               :is-collapsed="true"
             ></CollapsableRelationSection>
             <CollapsableLabelSection
@@ -303,12 +305,15 @@ watch(rawDocData, () => {
             <CollapsableRelationSection
               header="Funktionen am Hof"
               :data="relData.PersonInstitution"
+              :headers="['Bezeichnung', 'Institution', 'Von', 'Bis']"
               :is-collapsed="true"
             ></CollapsableRelationSection>
             <!-- <GenericListSection :data="relData.PersonInstitution"></GenericListSection> -->
             <CollapsableRelationSection
               header="Personenbeziehungen am Hof"
               :data="personRelData['Berufliche Beziehung']"
+              :headers="['Relation', 'Ziel', 'Von', 'Bis']"
+
               :is-collapsed="true"
             ></CollapsableRelationSection>
 
@@ -325,6 +330,8 @@ watch(rawDocData, () => {
             <CollapsableRelationSection
               header="Ehe- und Verwandtschaftsverhältnisse"
               :data="personRelData['Verwandtschaftliche Beziehung']"
+              :headers="['Relation', 'Ziel', 'Von', 'Bis']"
+
               :is-collapsed="true"
             ></CollapsableRelationSection>
 
@@ -334,12 +341,15 @@ watch(rawDocData, () => {
                 relData['Kirchl. Amtsbeziehung'] ? relData['Kirchl. Amtsbeziehung'] : []
               "
               :labelData="labelData.church_and_o"
+              :headers="['Relation', 'Ziel', 'Von', 'Bis']"
+
               :is-collapsed="true"
             ></CollapsableMixedSection>
             <CollapsableMixedSection
               header="Sonstige Tätigkeiten"
               :relationData="[]"
               :labelData="labelData.other_jobs"
+              :headers="['Relation', 'Ziel', 'Von', 'Bis']"
               :is-collapsed="true"
             ></CollapsableMixedSection>
           </div>
