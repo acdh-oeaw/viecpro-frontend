@@ -141,7 +141,7 @@ const tabs = {
             </div>
           </Tab> -->
         </TabList>
-        <TabPanels class="flex-grow pl-20" id="about_content" as="div">
+        <TabPanels class="flex-grow pl-20 mx-40"  id="about_content" as="div">
           <!-- <TabPanel> <ProjectSection></ProjectSection></TabPanel>
           <TabPanel> <DataSection></DataSection> </TabPanel>
           <TabPanel> <TeamSection></TeamSection></TabPanel>
