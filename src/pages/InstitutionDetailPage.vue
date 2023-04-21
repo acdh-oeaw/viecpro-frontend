@@ -8,7 +8,7 @@ import useExtractHitsFromResults from '@/composables/transform-data/useExtractHi
 import useGroupArrayOfObjectsByKey from '@/composables/transform-data/useGroupArrayOfObjectsByKey';
 import useGroupRelationsByClass from '@/composables/transform-data/useGroupRelationsByClass';
 import useGroupPersonPersonRelsByLookup from '@/composables/transform-data/useGroupPersonPersonRelsByLookup';
-import useGroupLabels from '@/composables/transform-data/useGroupLabels';
+import useGroupLabelsInstitution from '@/composables/transform-data/useGroupLabelsInstitution';
 // import GenericListSection from './detail-page-sections/GenericListSection.vue';
 import CollapsableRelationSection from './detail-page-sections/CollapsableRelationSection.vue';
 import CollapsableLabelSection from './detail-page-sections/CollapsableLabelSection.vue';
@@ -68,7 +68,7 @@ onBeforeMount(() => {
 const { openDialog, isRevealed, confirm, cancel } = useCustomConfirmation();
 function processRawData(response) {
   const docs = useExtractHitsFromResults(response);
-  //console.log('DOCS', docs);
+  console.log('DOCS', rawDocData.value);
   const constructedMeta = { ...rawDocData.value };
   const groupedRelations = useGroupRelationsByClass(
     docs,
@@ -76,7 +76,7 @@ function processRawData(response) {
   );
   rawLabelData.value = useGroupArrayOfObjectsByKey(rawDocData.value.labels, 'label_type');
   // TODO: consider moving grouping logic into meta views of specific classes (Person, Institution)
-  labelData.value = useGroupLabels(rawDocData.value.labels);
+  labelData.value = useGroupLabelsInstitution(rawDocData.value.labels);
   //console.log('PARSED LABELS', labelData.value);
   console.log('LABELS', rawLabelData.value);
   constructedMeta.religion = labelData.value.religion;
@@ -101,7 +101,7 @@ function processRawData(response) {
     let parsedStandorte = new Set(
       groupedRelations.InstitutionPlace.map((el: object) => {
         //TODO: type this object.
-        return ;
+        return;
       })
     );
     standorte.value = Array.from(parsedStandorte);
@@ -132,6 +132,8 @@ function processRawData(response) {
   console.log(groupedRelations.PersonInstitution);
   console.log('LabelData', labelData.value);
   console.log('groupedRels', groupedRelations);
+  console.log('DOCS', rawDocData.value);
+
   dataIsReady.value = true;
 }
 
@@ -200,10 +202,12 @@ watch(rawDocData, () => {
                 <p class="col-span-3">
                   {{ metaData.name }}
                 </p>
-                <!-- <label class="col-span-1" for=""> Kategorie: </label>
+                <label class="col-span-1" for=""> Kategorie: </label>
                 <p class="col-span-3">
-                  {{ metaData.name }}
+                  <span v-if="labelData.kategorie"> {{ labelData.kategorie }} </span>
+                  <span v-else> - </span>
                 </p>
+                <!--
                 <label class="col-span-1" for=""> Auflösung: </label>
                 <p class="col-span-3">
                   {{ metaData.name }}
