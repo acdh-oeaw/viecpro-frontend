@@ -8,18 +8,37 @@ import WelcomeSection from './landing-page-sections/WelcomeSection.vue';
 import DatabaseSection from './landing-page-sections/DatabaseSection.vue';
 import ContactSection from './landing-page-sections/ContactSection.vue';
 import DocumentationSection from './landing-page-sections/DocumentationSection.vue';
+import ViecproSection from './landing-page-sections/ViecproSection.vue';
 </script>
 
 <template>
-    <div class="w-full h-2 bg-primary-600"></div>
+  <div class="w-full h-2 bg-primary-600"></div>
 
-  <img src="/src/assets/images/homeBackground.jpeg" alt="" class="w-full">
+  <img src="/src/assets/images/homeBackground.jpeg" alt="" class="w-full" />
   <div class="w-full h-2 bg-primary-400"></div>
-  <div class="min-h-screen mt-20 flex-col max-w-[50rem] mx-auto">
-    <WelcomeSection></WelcomeSection>
-    <DatabaseSection></DatabaseSection>
-    <DocumentationSection></DocumentationSection>
-    <ContactSection></ContactSection>
+  <div class="text-primary-100 text-center text-5xl font-black mt-20 flex justify-center mx-auto">
+    <span class="pr-2">Der Wiener Hof.</span>
+    <span class="font-light"> Ein prosopographisches Portal</span>
+  </div>
+  <div class="min-h-screen mb-60">
+    <div class="mt-20 flex-col max-w-[50rem] mx-auto">
+      <WelcomeSection></WelcomeSection>
+
+      <ViecproSection class="bg-gray-100 rounded-lg p-8"></ViecproSection>
+
+    </div>
+    <div class="mx-auto flex justify-between max-w-[80rem] space-x-20 border-t-4 border-gray-200 mt-32 pt-10">
+      <DatabaseSection></DatabaseSection>
+      <DocumentationSection></DocumentationSection>
+    </div>
+    <div class="mx-auto flex justify-between max-w-[80rem] space-x-20 border-b-4 border-gray-200 mt-10 pb-24 pl-20 pr-80">
+      <button class="btn-dummy mt-10"  @click="$router.push('/search/Person')">{{ $t('pages.landing-page.viecpro.link-database') }}</button>
+      <button class="btn-dummy mt-10" @click="$router.push('/about')">Zur Dokumentation</button>
+
+    </div>
+    <div class="mx-auto max-w-[50rem] mt-28">
+      <ContactSection></ContactSection>
+</div>
   </div>
 </template>
 <style scoped>
@@ -35,7 +54,7 @@ p {
 h1 {
   margin-bottom: 2rem;
   margin-top: 4rem;
-  @apply text-gray-600 ;
+  @apply text-gray-600;
 }
 
 #header-viecpro {

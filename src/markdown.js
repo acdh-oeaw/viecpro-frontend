@@ -285,4 +285,7 @@ const Partners = marked.parse(`# Kooperationspartner
 * das ÖAW GO.Digital 3.0 Projekt [*The Court of Sigismund of Tyrol. A prosopographical portal (SiCProD)*](https://www.uibk.ac.at/geschichte-ethnologie/institut/mitarbeiterinnen/projekt/debertol-markus/sicprod/sigmund-of-tyrol-s-court-prosopographical-database.html), Leitung: Markus Debertol und Nadja Krajicek (Universität Innsbruck), Laufzeit: 10/2022–09/2024 | Kooperation ab 10.2022`);
 
 
+const test = marked.parse(`zum VieCPro-Team ist stets herzlich willkommen. **Die Datenbank befindet sich im Aufbau**. Wir freuen uns über Ihre sachdienlichen Hinweise und Ergänzungsvorschläge. Falls Sie eine Idee für Anschlussprojekte haben oder an einer Kooperation interessiert sind, dann schreiben Sie uns an: [viecpro(at)oeaw.ac.at](mailto:viecpro(at)oeaw.ac.at).`)
+
+console.log("KOPIEREN: ", test)
 export { Daten, Team, Technical, Materials, Partners, Project};
