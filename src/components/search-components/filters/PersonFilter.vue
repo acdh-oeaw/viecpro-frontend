@@ -1,6 +1,8 @@
 <template>
   <h2 class="mb-4 text-base">{{ $t("words.filter results") }}:</h2>
 
+<div class="text-sm">
+
   <h4 class="mt-4 mb-2">nach Nachname</h4>
   <ais-refinement-list
     attribute="name"
@@ -21,6 +23,8 @@
     style="text-align: left; min-width: 300px"
     class="pl-6"
   />
+</div>
+
 </template>
 <script setup lang="ts"></script>
 
