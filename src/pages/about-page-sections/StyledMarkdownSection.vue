@@ -40,6 +40,19 @@ onMounted(() => {
   @apply text-red-600 font-regular tracking-wider text-black;
 }
 
+
+.x:deep(h2){
+  @apply text-xl mt-8 mb-4;
+}
+
+.x:deep(h4){
+  @apply font-regular pt-4 pb-2;
+}
+
+
+.x:deep(h3){
+  @apply font-regular pt-4 pb-2;
+}
 /* .x:deep(li > p) {
   @apply text-red-300;
 } */

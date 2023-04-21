@@ -6,7 +6,7 @@ const props = defineProps(['headers', 'items', 'tB']);
 
 </script>
 <template>
-  <div>
+  <div class="flex-col">
     <table>
       <tr>
         <th v-for="header in headers" :key="header" class="text-start capitalize pr-8 border-b-2">
@@ -78,12 +78,15 @@ const props = defineProps(['headers', 'items', 'tB']);
         </td>
       </tr>
     </table>
+    <div class="w-full h-fit flex justify-center my-10">
+      <div class="flex justify-content-between"><ais-pagination /></div>
+</div>
+
   </div>
-  <div class="flex justify-content-between"><ais-pagination /></div>
 </template>
 <style>
 .ais-Pagination-list {
-  @apply rounded-lg px-4 py-2 flex self-center;
+  @apply rounded-lg flex;
 }
 .ais-Pagination-item {
   /* @apply bg-gray-100 px-3 mx-2 text-gray-600 rounded hover:bg-primary-100 hover:text-white; */
