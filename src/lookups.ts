@@ -1,7 +1,5 @@
-import PersonMeta from '@/components/entity-components/entity-meta/PersonMeta.vue';
-import PlaceMeta from './components/entity-components/entity-meta/PlaceMeta.vue';
+
 import PersonFilter from './components/search-components/filters/PersonFilter.vue';
-import InstitutionMeta from '@/components/entity-components/entity-meta/InstitutionMeta.vue';
 import GenericRelationsFilters from '@/components/search-components/filters/GenericRelationsFilters.vue';
 import GenericEntityFilters from './components/search-components/filters/GenericEntityFilters.vue';
 import ReferenceFilter from '@/components/search-components/filters/ReferenceFilter.vue';
@@ -17,30 +15,7 @@ const personRelationLookup = [
   'Verwandtschaftliche Beziehung',
   'Kirchl. Amtsbeziehung',
   'Dynastische Beziehung',
-];
-const entityComponentLookup = {
-  person: {
-    detail: null,
-    card: null,
-
-    component: null,
-  },
-  place: {
-    component: null,
-  },
-  event: {
-    component: null,
-  },
-  work: {
-    component: null,
-  },
-  institution: {
-    component: null,
-  },
-  relation: {
-    component: null,
-  },
-};
+]
 
 const Entity = {
   components: {
@@ -63,7 +38,6 @@ const collectionsLookup = {
   Person: {
     components: {
       filter: PersonFilter,
-      meta: PersonMeta,
     },
     headers: ['first_name', 'name', 'start', 'end', 'gender'],
     searchParams: 'first_name, name',
@@ -87,7 +61,6 @@ const collectionsLookup = {
   Place: {
     components: {
       filter: GenericEntityFilters,
-      meta: PlaceMeta,
     },
     headers: ['name', 'kind', 'start', 'end', 'lat', 'long'],
     searchParams: 'name, kind, lat, long',

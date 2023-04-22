@@ -4,20 +4,16 @@ the selectedCollection // should be used in the main search page (database searc
 down version for searching / filtering the relation tables within the genericEntityDetailView.
 
 <script setup lang="ts">
-// TODO: implement all types!
-// import components
+
 import GenericResultsTable from '../components/search-components/results/GenericResultsTable.vue';
 import usePrefixedCollection from '@/composables/usePrefixedCollection';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
 import router from '../router';
 import { simple } from 'instantsearch.js/es/lib/stateMappings';
-// import utils, functions, etc.
 import { ref, watch, onBeforeMount, onMounted, shallowRef } from 'vue';
 import type { Ref } from 'vue';
 import { collectionsLookup } from '@/lookups.js';
-// import instant-search-stuff
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
-import { isSimpleIdentifier } from '@vue/compiler-core';
 import { history } from 'instantsearch.js/es/lib/routers';
 import { onBeforeRouteUpdate } from 'vue-router';
 
@@ -25,7 +21,6 @@ const loading = ref(true);
 const showComponents = ref(false);
 const props = defineProps(['collection']);
 const headers = ref([]);
-console.log(collectionsLookup);
 
 const selectedCollection: Ref<string> = ref('');
 const placeholder: Ref<string> = ref('type to search');
@@ -41,7 +36,6 @@ function scrollToTop(){
 onBeforeMount(() => {
   scrollToTop()
   selectedCollection.value = props.collection;
-  console.log('selectdCollection is', selectedCollection.value);
 
   let col = collectionsLookup[selectedCollection.value]; // TODO: needs typing
   console.log('this', col);

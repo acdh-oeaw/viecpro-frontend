@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LandingPage from '../pages/LandingPage.vue';
 import SearchPage from '../pages/SearchPage.vue';
-import EntityDetailPage from '@/pages/EntityDetailPage.vue';
-import DetailPageSource from '@/pages/DetailPageSource.vue';
+
 import DetailPageFunction from '@/pages/DetailPageFunction.vue';
 import PersonDetailPage from '@/pages/PersonDetailPage.vue';
 import InstitutionDetailPage from '@/pages/InstitutionDetailPage.vue';
