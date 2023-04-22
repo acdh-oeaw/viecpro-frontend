@@ -55,7 +55,7 @@ function updateScrollPos() {
     </div>
 
     <div
-      class="flex items-center flex-col md:flex-row md:justify-end md:flex-wrap md:items-center md:pr-20 md:space-x-4 md:h-full"
+      class="flex items-center h-fit w-full flex-wrap p-0 flex-col bg-primary-100 md:flex-row md:w-auto md:justify-end md:flex-wrap md:items-center md:pr-20 md:space-x-4 md:h-full"
     >
       <RouterLink
         to="/"
