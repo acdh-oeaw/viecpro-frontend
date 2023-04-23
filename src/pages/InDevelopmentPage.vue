@@ -2,7 +2,7 @@
 <template>
   <div class="w-full h-screen bg-primary-100 text-white pt-60">
     <div class="w-fit mx-auto">
-        <img src="/logos/logo_white.png" alt="" class="max-h-20 md:max-h-40">
+        <img src="/src/assets/logos/logo_white.png" alt="" class="max-h-20 md:max-h-40">
     </div>
     <h1 class="mx-4 md:text-2xl lg:text-4xl text-center font-regular ">
       Diese Seite befindet sich in Entwicklung | This page is undergoing development.
